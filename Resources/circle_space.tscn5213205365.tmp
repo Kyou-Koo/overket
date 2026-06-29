@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://ccmg8qwsuviq7"]
+
+[ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="1_gkxoe"]
+[ext_resource type="PlaneMesh" uid="uid://dsa2rip2s35nk" path="res://Resources/Mesh/circlespace_plane.tres" id="1_xr8yn"]
+[ext_resource type="Material" uid="uid://hbnp713onvrl" path="res://Resources/Materials/paleblue.tres" id="3_jqtle"]
+[ext_resource type="PackedScene" uid="uid://b1vqa5booim3y" path="res://Resources/TestInfiniteBox.tscn" id="4_1qua4"]
+[ext_resource type="PackedScene" uid="uid://b23ck11osr3mg" path="res://Resources/player.tscn" id="4_bkxbk"]
+[ext_resource type="PackedScene" uid="uid://h37ytfmyhgns" path="res://Resources/InteractTestObject.tscn" id="4_nb1xp"]
+[ext_resource type="PackedScene" uid="uid://dvd0ms3usdbf6" path="res://Resources/TestAutoInteractObject.tscn" id="5_u4ltx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xr8yn"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xr8yn"]
+material = ExtResource("3_jqtle")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Environment" id="Environment_bkxbk"]
+background_mode = 1
+
+[node name="CircleSpace" type="Node3D" unique_id=1018903367]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1361039545]
+transform = Transform3D(-0.274752, -0.816304, 0.508093, 0.317394, 0.421811, 0.849315, -0.907619, 0.394617, 0.143196, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.75
+directional_shadow_mode = 1
+
+[node name="CarryableObjects" type="Node3D" parent="." unique_id=1566874221]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1575538480]
+collision_layer = 2
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=518690645]
+mesh = ExtResource("1_xr8yn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1325895285]
+shape = ExtResource("1_gkxoe")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1933798532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3303075, 2.086, -5.3102684)
+collision_layer = 2
+collision_mask = 3
+mass = 0.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=831065348]
+shape = SubResource("BoxShape3D_xr8yn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1154101049]
+mesh = SubResource("BoxMesh_xr8yn")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2118578412]
+transform = Transform3D(1, 0, 0, 0, 0.39485595, 0.9187431, 0, -0.9187431, 0.39485598, 0, 11.337101, 5.3696804)
+fov = 90.0
+
+[node name="TestInfiniteBox" parent="." unique_id=1209479180 instance=ExtResource("4_1qua4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.917, 0.5, -1.613)
+should_output_objects = true
+
+[node name="InteractTestObject" parent="." unique_id=205650226 instance=ExtResource("4_nb1xp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.972, 0.5, -3.758)
+interaction_duration = 5.0
+interaction_gap = 1.0
+
+[node name="TestAutoInteractObject" parent="." unique_id=1713895400 instance=ExtResource("5_u4ltx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5130367, 1, -3.5903192)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1966671073]
+environment = SubResource("Environment_bkxbk")
+
+[node name="CharacterBody3D" parent="." unique_id=1345435719 instance=ExtResource("4_bkxbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+interaction_radius = 3.0

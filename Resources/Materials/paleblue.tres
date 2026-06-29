@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://hbnp713onvrl"]
+
+[ext_resource type="Texture2D" uid="uid://cptiy1nnykvfm" path="res://Resources/Textures/testgrid_plane.png" id="1_y5atn"]
+
+[resource]
+albedo_color = Color(0.607843, 0.729412, 0.823529, 1)
+albedo_texture = ExtResource("1_y5atn")
+backlight = Color(0.683077, 0.683077, 0.683077, 1)

@@ -1,0 +1,7 @@
+[gd_resource type="PlaneMesh" load_steps=2 format=3 uid="uid://dsa2rip2s35nk"]
+
+[ext_resource type="Material" uid="uid://hbnp713onvrl" path="res://Resources/Materials/paleblue.tres" id="1_duteg"]
+
+[resource]
+material = ExtResource("1_duteg")
+size = Vector2(32, 32)

@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b23ck11osr3mg"]
+
+[ext_resource type="Script" uid="uid://d01rlm8c07c8q" path="res://Scripts/PlayerController.gd" id="1_4flbx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jt0pw"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_jt0pw"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jt0pw"]
+radius = 2.5
+
+[node name="Player" type="CharacterBody3D" unique_id=1861599428]
+collision_layer = 2
+collision_mask = 3
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_4flbx")
+interaction_radius = 1.5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=943131327]
+mesh = SubResource("CapsuleMesh_sh265")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1388162449]
+shape = SubResource("CapsuleShape3D_4flbx")
+
+[node name="fwd" type="MeshInstance3D" parent="." unique_id=1010194177]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5732001, -1.6331189)
+mesh = SubResource("BoxMesh_jt0pw")
+
+[node name="CarryableObjectLocation" type="Marker3D" parent="." unique_id=1756448166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56818956, -0.9078553)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CarryableObjectLocation" unique_id=1791005812]
+mesh = SubResource("SphereMesh_jt0pw")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1449679214]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1684052946]
+shape = SubResource("CylinderShape3D_jt0pw")

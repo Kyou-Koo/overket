@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://h37ytfmyhgns"]
+
+[ext_resource type="Script" uid="uid://cafdtgt6222mo" path="res://Scripts/interact_test_object.gd" id="1_4t2w0"]
+[ext_resource type="Texture2D" uid="uid://c8hsbsrpfj8ei" path="res://Resources/Images/progress_circle_bg.png" id="2_dtfao"]
+[ext_resource type="Texture2D" uid="uid://1nsy5msabid" path="res://Resources/Images/progress_circle_fill.png" id="3_3b02r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ped2f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4t2w0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dtfao"]
+viewport_path = NodePath("SubViewport")
+
+[node name="InteractTestObject" type="StaticBody3D" unique_id=538817423]
+collision_mask = 3
+script = ExtResource("1_4t2w0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=45790141]
+shape = SubResource("BoxShape3D_ped2f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2111292717]
+mesh = SubResource("BoxMesh_4t2w0")
+skeleton = NodePath("")
+
+[node name="OutputSpot" type="Marker3D" parent="." unique_id=2122134040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1703345906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3248802, 0)
+pixel_size = 0.002
+texture = SubResource("ViewportTexture_dtfao")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=370725400]
+transparent_bg = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="SubViewport" unique_id=683641538]
+offset_right = 512.0
+offset_bottom = 512.0
+fill_mode = 4
+texture_under = ExtResource("2_dtfao")
+texture_progress = ExtResource("3_3b02r")

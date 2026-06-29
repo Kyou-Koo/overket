@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://dsqf2t4hesdg"]
+
+[ext_resource type="FontFile" uid="uid://dleynbqmjf2mp" path="res://Resources/Fonts/Charifont.otf" id="1_ra3fm"]
+
+[resource]
+Button/font_sizes/font_size = 48
+Button/fonts/font = ExtResource("1_ra3fm")
+Label/font_sizes/font_size = 48
+Label/fonts/font = ExtResource("1_ra3fm")

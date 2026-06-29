@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b1vqa5booim3y"]
+
+[ext_resource type="Script" uid="uid://btxjrwk6yhjtc" path="res://Scripts/ItemBox.gd" id="1_fx30d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_566v8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fx30d"]
+albedo_color = Color(0.6745098, 0.5176471, 0.29803923, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_30a4y"]
+material = SubResource("StandardMaterial3D_fx30d")
+
+[node name="TestInfiniteBox" type="StaticBody3D" unique_id=459736917]
+script = ExtResource("1_fx30d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=151712300]
+shape = SubResource("BoxShape3D_566v8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1985835636]
+mesh = SubResource("BoxMesh_30a4y")
+skeleton = NodePath("")

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dslqy8kytvskk"]
+
+[ext_resource type="Script" uid="uid://dmnqmxs0fui4y" path="res://Scripts/controller_test.gd" id="1_2v3vs"]
+
+[node name="ControllerTest" type="Node2D" unique_id=553440513]
+script = ExtResource("1_2v3vs")
+
+[node name="Label" type="Label" parent="." unique_id=1986241372]
+custom_minimum_size = Vector2(1280, 720)
+offset_left = 18.0
+offset_top = 236.0
+offset_right = 148.0
+offset_bottom = 303.0
+theme_override_font_sizes/font_size = 48
+text = ":0"
+autowrap_mode = 2

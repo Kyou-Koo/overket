@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccmg8qwsuviq7"]
+
+[ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="1_gkxoe"]
+[ext_resource type="PlaneMesh" uid="uid://dsa2rip2s35nk" path="res://Resources/Mesh/circlespace_plane.tres" id="1_xr8yn"]
+[ext_resource type="Material" uid="uid://hbnp713onvrl" path="res://Resources/Materials/paleblue.tres" id="3_jqtle"]
+[ext_resource type="PackedScene" uid="uid://b23ck11osr3mg" path="res://Resources/player.tscn" id="4_bkxbk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xr8yn"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xr8yn"]
+material = ExtResource("3_jqtle")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Environment" id="Environment_bkxbk"]
+
+[node name="CircleSpace" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.274752, -0.816304, 0.508093, 0.317394, 0.421811, 0.849315, -0.907619, 0.394617, 0.143196, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.75
+directional_shadow_mode = 1
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = ExtResource("1_xr8yn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = ExtResource("1_gkxoe")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3303075, 2.086, -5.3102684)
+mass = 0.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_xr8yn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_xr8yn")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99129844, 0.13163373, 0, -0.13163373, 0.99129844, 0, 1.5398273, 3.3431444)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bkxbk")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("4_bkxbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -1,0 +1,392 @@
+[gd_scene format=3 uid="uid://cg02noh76085i"]
+
+[ext_resource type="Texture2D" uid="uid://co81muymjsypj" path="res://Resources/Textures/screen.png" id="1_akghb"]
+[ext_resource type="Script" uid="uid://b8s2p5al53kun" path="res://Scripts/options.gd" id="1_p31tl"]
+[ext_resource type="Texture2D" uid="uid://ch0rgi1pbglrs" path="res://Resources/Images/_TMP/speaker.png" id="2_dm6m3"]
+[ext_resource type="FontFile" uid="uid://dleynbqmjf2mp" path="res://Resources/Fonts/Charifont.otf" id="3_hvvoh"]
+[ext_resource type="Script" uid="uid://br6ie4glt6u4t" path="res://Scripts/StateToggleButton.gd" id="3_u4ilv"]
+[ext_resource type="Texture2D" uid="uid://b8hw88expcoi5" path="res://Resources/Images/_TMP/sound-off.png" id="4_hvvoh"]
+[ext_resource type="Texture2D" uid="uid://c5d8hg81pdsq6" path="res://Resources/Images/_TMP/speaker-off.png" id="5_s0ic5"]
+[ext_resource type="Texture2D" uid="uid://dlflgn6a1o861" path="res://Resources/Images/_TMP/sound-on.png" id="6_hung2"]
+[ext_resource type="Texture2D" uid="uid://ysnugq4qv02u" path="res://icon.svg" id="8_lo6rv"]
+[ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/overket_theme.tres" id="9_lo6rv"]
+[ext_resource type="Script" uid="uid://cgmv3r2pvwr23" path="res://Scripts/ToggleButton.gd" id="10_qkt42"]
+[ext_resource type="Script" uid="uid://bfec40usae0va" path="res://Scripts/options_control_button.gd" id="12_kri3o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_akghb"]
+font = ExtResource("3_hvvoh")
+font_size = 48
+shadow_size = 3
+shadow_color = Color(0.08235294, 0.08235294, 0.08235294, 0.59607846)
+
+[node name="Options" type="Control" unique_id=848114495]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_p31tl")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=854493654]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("1_akghb")
+patch_margin_left = 244
+patch_margin_top = 227
+patch_margin_right = 165
+patch_margin_bottom = 186
+
+[node name="__UNUSED" type="Label" parent="NinePatchRect" unique_id=657874664]
+visible = false
+layout_mode = 0
+offset_left = 260.0
+offset_top = 94.0
+offset_right = 306.0
+offset_bottom = 143.0
+text = "SE"
+label_settings = SubResource("LabelSettings_akghb")
+vertical_alignment = 1
+
+[node name="StateToggleButton" type="BaseButton" parent="NinePatchRect/__UNUSED" unique_id=689086429]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 2
+auto_translate_mode = 0
+editor_description = ""
+visible = false
+modulate = Color(1, 1, 1, 1)
+self_modulate = Color(1, 1, 1, 1)
+show_behind_parent = false
+top_level = false
+clip_children = 0
+light_mask = 1
+visibility_layer = 1
+z_index = 0
+z_as_relative = true
+y_sort_enabled = false
+texture_filter = 0
+texture_repeat = 0
+material = null
+use_parent_material = false
+clip_contents = false
+custom_minimum_size = Vector2(0, 0)
+layout_direction = 0
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 155.0
+offset_top = -48.0
+offset_right = 667.0
+offset_bottom = 464.0
+grow_horizontal = 1
+grow_vertical = 1
+rotation = 0.0
+scale = Vector2(1, 1)
+pivot_offset = Vector2(0, 0)
+pivot_offset_ratio = Vector2(0, 0)
+size_flags_horizontal = 1
+size_flags_vertical = 1
+size_flags_stretch_ratio = 1.0
+localize_numeral_system = true
+tooltip_text = ""
+tooltip_auto_translate_mode = 0
+focus_neighbor_left = NodePath("")
+focus_neighbor_top = NodePath("")
+focus_neighbor_right = NodePath("")
+focus_neighbor_bottom = NodePath("")
+focus_next = NodePath("")
+focus_previous = NodePath("")
+focus_mode = 2
+focus_behavior_recursive = 0
+mouse_filter = 0
+mouse_behavior_recursive = 0
+mouse_force_pass_scroll_events = true
+mouse_default_cursor_shape = 0
+accessibility_name = ""
+accessibility_description = ""
+accessibility_live = 0
+accessibility_controls_nodes = Array[NodePath]([])
+accessibility_described_by_nodes = Array[NodePath]([])
+accessibility_labeled_by_nodes = Array[NodePath]([])
+accessibility_flow_to_nodes = Array[NodePath]([])
+theme = null
+theme_type_variation = &""
+disabled = false
+toggle_mode = false
+button_pressed = false
+action_mode = 1
+button_mask = 1
+keep_pressed_outside = false
+button_group = null
+shortcut = null
+shortcut_feedback = true
+shortcut_in_tooltip = true
+script = ExtResource("3_u4ilv")
+ignore_texture_sizes = Array[bool]([true, true])
+t_transforms_scale = Array[NodePath]([])
+textures_normal = Array[Texture2D]([ExtResource("4_hvvoh")])
+textures_pressed = Array[Texture2D]([ExtResource("6_hung2")])
+textures_hover = Array[Texture2D]([ExtResource("5_s0ic5")])
+textures_disabled = Array[Texture2D]([ExtResource("2_dm6m3")])
+textures_focused = Array[Texture2D]([ExtResource("8_lo6rv")])
+metadata/_custom_type_script = "uid://br6ie4glt6u4t"
+
+[node name="Music Control" type="Control" parent="NinePatchRect" unique_id=1525424705 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "button_flow_handler", "button", "slider")]
+anchors_preset = 0
+offset_left = 252.0
+offset_top = 70.0
+offset_right = 292.0
+offset_bottom = 110.0
+focus_neighbor_bottom = NodePath("../SE Control")
+script = ExtResource("10_qkt42")
+texture_node_on = NodePath("On")
+texture_node_off = NodePath("Off")
+button_flow_handler = NodePath("../..")
+button = NodePath("Button Music")
+slider = NodePath("HSlider")
+
+[node name="Button Music" type="Button" parent="NinePatchRect/Music Control" unique_id=904538637]
+custom_minimum_size = Vector2(178, 64)
+layout_mode = 0
+offset_left = -114.0
+offset_bottom = 64.0
+focus_neighbor_bottom = NodePath("../../SE Control/Button SE")
+theme = ExtResource("9_lo6rv")
+toggle_mode = true
+text = "Music"
+flat = true
+alignment = 0
+icon_alignment = 1
+
+[node name="On" type="TextureRect" parent="NinePatchRect/Music Control" unique_id=1708575297]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("6_hung2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Off" type="TextureRect" parent="NinePatchRect/Music Control" unique_id=1704038712]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("4_hvvoh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSlider" type="HSlider" parent="NinePatchRect/Music Control" unique_id=1788355208]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 40.0
+max_value = 10.0
+value = 5.0
+rounded = true
+tick_count = 3
+ticks_position = 3
+
+[node name="SE Control" type="Control" parent="NinePatchRect" unique_id=1461149983 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "button_flow_handler", "button", "slider")]
+anchors_preset = 0
+offset_left = 252.0
+offset_top = 140.0
+offset_right = 292.0
+offset_bottom = 180.0
+focus_neighbor_top = NodePath("../Music Control")
+focus_neighbor_bottom = NodePath("../Box")
+script = ExtResource("10_qkt42")
+texture_node_on = NodePath("On")
+texture_node_off = NodePath("Off")
+button_flow_handler = NodePath("../..")
+button = NodePath("Button SE")
+slider = NodePath("HSlider")
+
+[node name="Button SE" type="Button" parent="NinePatchRect/SE Control" unique_id=358414385]
+custom_minimum_size = Vector2(118, 64)
+layout_mode = 0
+offset_left = -54.0
+offset_bottom = 64.0
+focus_neighbor_top = NodePath("../../Music Control/Button Music")
+focus_neighbor_bottom = NodePath("../../Box")
+theme = ExtResource("9_lo6rv")
+toggle_mode = true
+text = "SE"
+flat = true
+alignment = 0
+icon_alignment = 1
+
+[node name="On" type="TextureRect" parent="NinePatchRect/SE Control" unique_id=1478525752]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("2_dm6m3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Off" type="TextureRect" parent="NinePatchRect/SE Control" unique_id=1646077048]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("5_s0ic5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSlider" type="HSlider" parent="NinePatchRect/SE Control" unique_id=608393987]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 40.0
+max_value = 10.0
+value = 5.0
+rounded = true
+tick_count = 3
+ticks_position = 3
+
+[node name="Box" type="HBoxContainer" parent="NinePatchRect" unique_id=2127232948]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 244.0
+offset_right = 1146.0
+offset_bottom = 244.0
+focus_mode = 2
+alignment = 1
+
+[node name="Controls P1" type="Control" parent="NinePatchRect/Box" unique_id=523476402]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P1" unique_id=1677873352]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 40.0
+offset_bottom = 65.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P1/Label" unique_id=1459516097]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+text = "P1"
+
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P1" unique_id=1644205677]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 138.0
+offset_bottom = 137.0
+use_top_left = true
+
+[node name="ButtonP1" type="Button" parent="NinePatchRect/Box/Controls P1/Button" unique_id=1688740378]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../Controls P4/Button/ButtonP4")
+focus_neighbor_top = NodePath("../../../../SE Control/Button SE")
+focus_neighbor_right = NodePath("../../../Controls P2/Button/ButtonP2")
+focus_next = NodePath("../../../Controls P2/Button/ButtonP2")
+focus_previous = NodePath("../../../../SE Control/Button SE")
+theme = ExtResource("9_lo6rv")
+text = "Controls"
+script = ExtResource("12_kri3o")
+
+[node name="Controls P2" type="Control" parent="NinePatchRect/Box" unique_id=374112891]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P2" unique_id=1238224159]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 40.0
+offset_bottom = 65.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P2/Label" unique_id=378392522]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+text = "P2"
+
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P2" unique_id=716324861]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 138.0
+offset_bottom = 137.0
+use_top_left = true
+
+[node name="ButtonP2" type="Button" parent="NinePatchRect/Box/Controls P2/Button" unique_id=781041758]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../Controls P1/Button/ButtonP1")
+focus_neighbor_top = NodePath("../../../../SE Control/Button SE")
+focus_neighbor_right = NodePath("../../../Controls P3/Button/ButtonP3")
+focus_next = NodePath("../../../Controls P3/Button/ButtonP3")
+focus_previous = NodePath("../../../Controls P1/Button/ButtonP1")
+theme = ExtResource("9_lo6rv")
+text = "Controls"
+script = ExtResource("12_kri3o")
+
+[node name="Controls P3" type="Control" parent="NinePatchRect/Box" unique_id=1118803718]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P3" unique_id=1167520887]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 40.0
+offset_bottom = 65.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P3/Label" unique_id=345609984]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+text = "P3"
+
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P3" unique_id=26097466]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 138.0
+offset_bottom = 137.0
+use_top_left = true
+
+[node name="ButtonP3" type="Button" parent="NinePatchRect/Box/Controls P3/Button" unique_id=1028498796]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../Controls P2/Button/ButtonP2")
+focus_neighbor_top = NodePath("../../../../SE Control/Button SE")
+focus_neighbor_right = NodePath("../../../Controls P4/Button/ButtonP4")
+focus_next = NodePath("../../../Controls P4/Button/ButtonP4")
+focus_previous = NodePath("../../../Controls P2/Button/ButtonP2")
+theme = ExtResource("9_lo6rv")
+text = "Controls"
+script = ExtResource("12_kri3o")
+
+[node name="Controls P4" type="Control" parent="NinePatchRect/Box" unique_id=336109109]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P4" unique_id=139595079]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 40.0
+offset_bottom = 65.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P4/Label" unique_id=1148813652]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+text = "P4"
+
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P4" unique_id=1972127312]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 138.0
+offset_bottom = 137.0
+use_top_left = true
+
+[node name="ButtonP4" type="Button" parent="NinePatchRect/Box/Controls P4/Button" unique_id=1236758911]
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../Controls P3/Button/ButtonP3")
+focus_neighbor_top = NodePath("../../../../SE Control/Button SE")
+focus_neighbor_right = NodePath("../../../Controls P1/Button/ButtonP1")
+focus_previous = NodePath("../../../Controls P3/Button/ButtonP3")
+theme = ExtResource("9_lo6rv")
+text = "Controls"
+script = ExtResource("12_kri3o")

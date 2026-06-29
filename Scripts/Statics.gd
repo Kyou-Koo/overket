@@ -1,0 +1,69 @@
+class_name Statics
+
+enum ENUM_DEBUG_PRN_PROC {
+    NEVER   = 0,
+    CYCLE   = 1,
+    ALWAYS  = 2,
+};
+static var cycle : int = 3;
+static var last_printed_cycle : int = 0;
+
+static var DEBUG_MODE : bool = true;
+static var DEBUG_PRINT_WARN : bool = true;
+static var DEBUG_PRINT_PROCESS : ENUM_DEBUG_PRN_PROC = ENUM_DEBUG_PRN_PROC.NEVER;
+
+# TODO: assign intial value in game configuration
+static var ok_id_incr : int = 0;
+static var error_log_array : Array[String];
+
+static func create_ok_id(n3d : Node3D) -> String:
+    var has_ok_id : bool = check_for_okid(n3d);
+    if (!has_ok_id):
+        debug_log("{0} does not have a ok_id".format([n3d.name]));
+        return ""
+    # TODO: real function for creating the id
+    var new_ok_id : String = "{0}-{1}".format([ok_id_incr, n3d.name]);
+    ok_id_incr += 1;
+    return new_ok_id;
+    
+static func check_for_okid(n3d : Node3D) -> bool:
+    var n3d_props : Array[Dictionary] = n3d.get_property_list();
+    for prop : Dictionary in n3d_props:
+        if (prop["name"] == "ok_id"):
+            return true;
+    return false;
+    
+static func raise_warning(msg : String) -> void:
+    # TODO: log somewhere
+    if (DEBUG_MODE and DEBUG_PRINT_WARN):
+        push_warning(msg)
+    var error_msg : String = "{0} | {1}".format([
+        Time.get_datetime_string_from_system(true, false),
+        msg
+        ])
+    error_log_array.push_front(error_msg);
+    
+static func create_error_log_file() -> void:
+    # TODO: probably write to file every x seconds?
+    pass
+
+static func debug_log(msg : String) -> void:
+    if (DEBUG_MODE):
+        print(msg);
+
+static func debug_prolog(msg : String) -> void:
+    if (DEBUG_PRINT_PROCESS == ENUM_DEBUG_PRN_PROC.ALWAYS):
+        print(msg)
+    elif (DEBUG_PRINT_PROCESS == ENUM_DEBUG_PRN_PROC.CYCLE):
+        var curr_cycle : int = Time.get_ticks_msec() / 1000;
+        if (curr_cycle % cycle == 0 and curr_cycle != last_printed_cycle):
+            print(msg);
+            last_printed_cycle = curr_cycle;
+
+static func classtype(obj : Node) -> String:
+    return obj.get_script();
+    
+static func a_classtype(obj : Node) -> String:
+    while obj.get_script() == null and obj.get_parent():
+        obj = obj.get_parent();
+    return obj.get_script().get_global_name();

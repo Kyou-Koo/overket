@@ -5,30 +5,34 @@ class_name ToggleButton extends Control
 @export var texture_node_off : TextureRect;
 @export var texture_node_on_hover : TextureRect;
 @export var texture_node_off_hover : TextureRect;
-# TODO: state textures for hover?
 @export var button_flow_handler : Options;
 @export var button : Button;
 @export var slider : HSlider;
 var prev_slider_val : float;
 var is_curr_focused : bool = false;
+var is_curr_hovered : bool = false;
 
 func toggle_on(on : bool) -> void:
     texture_node_on.visible = on;
     texture_node_off.visible = !on;
+    if (is_curr_hovered):
+        texture_node_on_hover.visible = on;
+        texture_node_off_hover.visible = !on;
 
-func _process(delta: float) -> void:
-    # TODO: controller handling
-    if (button.is_hovered() or is_curr_focused):
-        if (Input.is_anything_pressed()):
-            if (slider != null):
-                var new_val : float = slider.value;
-                if (Input.is_action_pressed(&"right")):
-                    new_val = minf(slider.min_value, new_val - 1.0);
-                elif (Input.is_action_pressed(&"left")):
-                    new_val -= maxf(new_val + 1.0, slider.max_value);
-                slider.value = new_val;
-            if (Input.is_action_just_pressed(&"ui_accept")):
-                button.button_pressed = !button.button_pressed;
+func _input(ev: InputEvent) -> void:
+    if (slider != null and (button.is_hovered() or is_curr_focused)):
+        var new_val : float = slider.value;
+        if (ev.is_action_pressed(&"ui_left", false, true)):
+            new_val = maxf(slider.min_value, new_val - 1.0);
+            Statics.debug_log("is left, new val {0}".format([new_val]))
+        elif (ev.is_action_pressed(&"ui_right", false, true)):
+            new_val = minf(new_val + 1.0, slider.max_value);
+            Statics.debug_log("is right, new val {0}".format([new_val]))
+        else:
+            return;
+        slider.value = new_val;
+        get_viewport().set_input_as_handled();
+    
     
 func _on_focus_entered() -> void:
     is_curr_focused = true;
@@ -38,12 +42,14 @@ func _on_focus_exited() -> void:
     is_curr_focused = false;
     
 func _on_mouse_entered() -> void:
+    is_curr_hovered = true;
     if (texture_node_on_hover != null and texture_node_on.visible):
         texture_node_on_hover.visible = true;
     elif (texture_node_off_hover != null and texture_node_off.visible):
         texture_node_off_hover.visible = true;
 
 func _on_mouse_exited() -> void:
+    is_curr_hovered = false;
     if (texture_node_on_hover != null and texture_node_on.visible):
         texture_node_on_hover.visible = false;
     elif (texture_node_off_hover != null and texture_node_off.visible):
@@ -100,6 +106,7 @@ func _ready() -> void:
         slider.focus_mode = Control.FOCUS_NONE;
         slider.value_changed.connect(_on_slider_value_changed);
     
+    button.toggle_mode = true; # for safety
     button.button_pressed = true;
     button.toggled.connect(_on_toggled);
     button.focus_entered.connect(_on_focus_entered);

@@ -1,9 +1,12 @@
 [gd_resource type="Theme" format=3 uid="uid://dsqf2t4hesdg"]
 
-[ext_resource type="FontFile" uid="uid://dleynbqmjf2mp" path="res://Resources/Fonts/Charifont.otf" id="1_ra3fm"]
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="1_ra3fm"]
 
 [resource]
-Button/font_sizes/font_size = 48
+Button/constants/line_spacing = -10
+Button/font_sizes/font_size = 40
 Button/fonts/font = ExtResource("1_ra3fm")
-Label/font_sizes/font_size = 48
+HBoxContainer/constants/separation = 0
+Label/constants/line_spacing = -5
+Label/font_sizes/font_size = 40
 Label/fonts/font = ExtResource("1_ra3fm")

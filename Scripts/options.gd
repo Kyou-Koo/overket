@@ -46,58 +46,21 @@ func display_player_control(key : String) -> void:
     for b : Button in keybind_box_nodes:
         b.find_child(icon_active).visible = true;
         b.find_child(icon_unact).visible = false;
-    # display icons
-    
+        # display icons
+        if (b.name == "Forward"):
+            pass;
+        elif (b.name == "Back"):
+            pass
+        elif (b.name == "Left"):
+            pass
+        elif (b.name == "Right"):
+            pass
+        elif (b.name == "Interact"):
+            pass
+        elif (b.name == "PickDrop"):
+            pass
     
     keybind_box.visible = true;
-    
-func input_text_string_to_short_txt(input : String, is_kb : bool) -> String:
-    if (is_kb):
-    # TODO: localize
-        match input:
-            "Right Mouse Button":
-                return "RMB";
-            "Left Mouse Button":
-                return "LMB";
-            "Shift":
-                return "Sft";
-            "Enter":
-                return "↵";
-            "Backspace":
-                return "BS";
-            "Delete":
-                return "Del";
-            "QuoteLeft":
-                return "`";
-            "Escape":
-                return "Esc";
-            "Minus":
-                return "-";
-            "Equal":
-                return "=";
-            "BracketLeft":
-                return "[";
-            "BracketRight":
-                return "]";
-            "BackSlash":
-                return "\\";
-            "CapsLock":
-                return "Cap";
-            "Semicolon":
-                return ";";
-            "Apostrophe":
-                return "'";
-            "Slash":
-                return "/";
-            "Period":
-                return ".";
-            "Comma":
-                return ",";
-            _:
-                return input;
-    else:
-        return "";
-        pass;
 
 func _on_player_controls_box_focused() -> void:
     Statics.debug_log("box focused on");
@@ -113,15 +76,17 @@ func _input(ev: InputEvent) -> void:
     ev.get_class() == "InputEventMouseButton"):
         is_gamepad_last_used = false;
     else:
+        if (ev.get_class() == "InputEventJoypadMotion" and absf(ev.axis_value) < 0.2):
+            return;
         is_gamepad_last_used = true;
         
+    # TODO: delete laters
     #if (ev.get_class() != "InputEventJoypadMotion"):
-    
-    
-    
-    
-    
-    
+        #print(ev.as_text());
+        #print(ev.to_string());
+    if (ev.is_pressed()):
+        print(InputStatics.input_text_string_to_short_txt(ev, is_gamepad_last_used)) # pass as text to mapping
+        
 
 func _ready() -> void:
     #KeyCon.create_keymap();

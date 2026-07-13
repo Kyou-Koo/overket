@@ -31,12 +31,31 @@ static var init_keymap : Dictionary[String, Dictionary] = {
 static var active_keymap : Dictionary[String, Dictionary];
 
 static func dict_entry_from_input_event(es : Array[InputEvent]) -> Dictionary:
-    var new_dict : Dictionary;
+    var new_dict : Dictionary[String, Dictionary];
+    # physicalkey for key, axis + axis value for stick, btn index for button
+    # { "device": device, "pkeycode": physical_keycode }
+    # { "device": device, "axis": axis, "av": axis_vaue }
+    # { "device": device, "button": button_index }
     for e : InputEvent in es:
         if (e is InputEventKey):
-            new_dict["key"] = e;
-        else:
-            new_dict["con"] = e;
+            new_dict["key"] = {
+                "iam": "keyboard",
+                "device": e.device,
+                "pkeycode": e.physical_keycode,
+            }
+        elif (e is InputEventJoypadButton):
+            new_dict["con"] = {
+                "iam": "button",
+                "device": e.device,
+                "button": e.button_index
+            }
+        elif (e is InputEventJoypadMotion):
+            new_dict["con"] = {
+                "iam": "axis",
+                "device": e.device,
+                "axis": e.axis,
+                "av": e.axis_value,
+            }
     return new_dict;
 
 static func create_keymap() -> void:
@@ -53,9 +72,10 @@ static func create_keymap() -> void:
         else:
             init_keymap["general"][a] = dict_entry_from_input_event(InputMap.action_get_events(a));
             
-    Statics.debug_log(str(init_keymap));
+    #Statics.debug_log(str(init_keymap));
     active_keymap = init_keymap.duplicate(true);
     
+# player requiered to be p1/p2/p3/p4
 static func update_keymap(player: String, control: ACTTYPE, new_key : InputEvent) -> void:
     var con_str : String = "";
     match control:
@@ -74,19 +94,24 @@ static func update_keymap(player: String, control: ACTTYPE, new_key : InputEvent
         ACTTYPE.JUMP:
             con_str = "jump";
     
+    var input_dict : Dictionary = dict_entry_from_input_event([new_key])
+    var pair_input : InputEvent = null;
     if (new_key is InputEventKey):
-        active_keymap[player][con_str]["key"] = new_key;
+        active_keymap[player][con_str]["key"] = input_dict;
+        pair_input = InputStatics.create_input_event_from_dict(active_keymap[player][con_str]["con"]);
     else:
-        active_keymap[player][con_str]["con"] = new_key;
+        active_keymap[player][con_str]["con"] = input_dict;
+        if (player == "p1" or player == "p2"):
+            pair_input = InputStatics.create_input_event_from_dict(active_keymap[player][con_str]["key"]);
     
-    update_player_inputmap(active_keymap[player], player);
+    var input_arr : Array[InputEvent] = [new_key];
+    if (pair_input != null): input_arr.append(pair_input);
+    update_player_inputmap(input_arr, player+con_str);
         
-static func update_player_inputmap(player : Dictionary, pstring : String) -> void:
-    for input : String in player:
-        var action_name : String = pstring + input;
+static func update_player_inputmap(new_inputs : Array[InputEvent], action_name : String) -> void:
+    for ni : InputEvent in new_inputs:
         InputMap.action_erase_events(action_name);
-        InputMap.action_add_event(action_name, player[input]["key"]);
-        InputMap.action_add_event(action_name, player[input]["con"]);
+        InputMap.action_add_event(action_name, ni)
 
 class IndividualMap:
     var action_mapping : Dictionary[String, Dictionary] = {

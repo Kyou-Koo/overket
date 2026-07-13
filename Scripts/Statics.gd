@@ -59,6 +59,13 @@ static func debug_prolog(msg : String) -> void:
         if (curr_cycle % cycle == 0 and curr_cycle != last_printed_cycle):
             print(msg);
             last_printed_cycle = curr_cycle;
+            
+# DANGER: this is so hacky maybe this should all be C# to utilize generic typing
+static func get_parent_of_type(child : Object, parent_class : Variant) -> Object:
+    var parent : Object = child.get_parent();
+    while (parent.get_script() != parent_class):
+        parent = parent.get_parent();
+    return parent;
 
 static func classtype(obj : Node) -> String:
     return obj.get_script();

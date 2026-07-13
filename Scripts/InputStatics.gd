@@ -15,7 +15,9 @@ static func regex_match_nin(in_str : String) -> bool:
     return false;
 
 static func _kb_txt_short(input: String) -> String:
-    # TODO: localize
+    # TODO: localize?? (is RMB/etc normal in japanese?)
+    if (input.contains("Physical")):
+        input = input.left(-11);
     match input:
         "Right Mouse Button":
             return "RMB";
@@ -66,6 +68,28 @@ static func _kb_txt_short(input: String) -> String:
         _:
             return input;
     
+static func create_input_event_from_dict(dict : Dictionary) -> InputEvent:
+    match dict["iam"]:
+        "keyboard":
+            var input_event : InputEventKey = InputEventKey.new();
+            input_event.device = dict["device"];
+            input_event.physical_keycode = dict["pkeycode"];
+            return input_event;
+        "button":
+            var input_event : InputEventJoypadButton = InputEventJoypadButton.new();
+            input_event = (input_event as InputEventJoypadButton);
+            input_event.button_index = dict["button"];
+            return input_event;
+        "axis":
+            var input_event : InputEventJoypadMotion = InputEventJoypadMotion.new();
+            input_event = (input_event as InputEventJoypadMotion);
+            input_event.axis = dict["axis"];
+            input_event.axis_value = dict["av"];
+            return input_event;
+        _:
+            return null;
+
+# TODO: create input txt to short using dictionary as input
 static func input_text_string_to_short_txt(ev : InputEvent, is_pad : bool) -> String:
     var input : String = ev.as_text();
     if (!is_pad): return _kb_txt_short(input);

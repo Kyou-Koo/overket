@@ -8,10 +8,12 @@ class_name ToggleButton extends Control
 @export var button_flow_handler : Options;
 @export var button : Button;
 @export var slider : HSlider;
+@export var focus_background : Control;
 var prev_slider_val : float;
 var is_curr_focused : bool = false;
 var is_curr_hovered : bool = false;
 
+# I think this could theoretically be a texture button (shrugs) (lmao)
 func toggle_on(on : bool) -> void:
     texture_node_on.visible = on;
     texture_node_off.visible = !on;
@@ -35,27 +37,45 @@ func _input(ev: InputEvent) -> void:
         slider.value = new_val;
         get_viewport().set_input_as_handled();
     
-    
 func _on_focus_entered() -> void:
     is_curr_focused = true;
+    focus_background.visible = true;
     button_flow_handler.public_set_curr_focus(button);
 
 func _on_focus_exited() -> void:
     is_curr_focused = false;
-    
-func _on_mouse_entered() -> void:
+    focus_background.visible = false;
+
+func _on_button_hover() -> void:
     is_curr_hovered = true;
     if (texture_node_on_hover != null and texture_node_on.visible):
         texture_node_on_hover.visible = true;
     elif (texture_node_off_hover != null and texture_node_off.visible):
         texture_node_off_hover.visible = true;
 
-func _on_mouse_exited() -> void:
+func _on_button_unhover() -> void:
     is_curr_hovered = false;
     if (texture_node_on_hover != null and texture_node_on.visible):
         texture_node_on_hover.visible = false;
     elif (texture_node_off_hover != null and texture_node_off.visible):
         texture_node_off_hover.visible = false;
+
+func _on_mouse_entered() -> void:
+    focus_background.visible = true;
+    button_flow_handler.public_set_curr_hover(self);
+
+func _on_mouse_exited() -> void:
+    # if (!is_curr_focused):
+    focus_background.visible = false;
+    button_flow_handler.public_set_unhover(self);
+
+func _on_new_hover(c : Control) -> void:
+    if (c != self):
+        focus_background.visible = false;
+
+func _on_no_hover(c : Control) -> void:
+    if (c == button):
+        focus_background.visible = true;
 
 func _on_slider_value_changed(new_val : float) -> void:
     # TODO: consider not updating so often?
@@ -88,10 +108,13 @@ func _ready() -> void:
             button = c as Button;
         elif (c is HSlider and slider == null):
             slider = c as HSlider;
-            
+        elif (c is NinePatchRect or c is TextureRect):
+            focus_background = c;
+
     assert(texture_node_on != null, "TextureRect must exist for button on state");
     assert(texture_node_off != null, "TextureRect must exist for button off state");
     assert(button != null, "Button must exist");
+    assert(focus_background != null, "Focus background required");
     
     if (button_flow_handler == null):
         var parent : Control = self.get_parent();
@@ -110,8 +133,16 @@ func _ready() -> void:
     
     button.toggle_mode = true; # for safety
     button.button_pressed = true;
+    button.text = ""; # wipe label to utilize the label
     button.toggled.connect(_on_toggled);
     button.focus_entered.connect(_on_focus_entered);
     button.focus_exited.connect(_on_focus_exited);
-    button.mouse_entered.connect(_on_mouse_entered);
-    button.mouse_exited.connect(_on_mouse_exited);
+    button.mouse_entered.connect(_on_button_hover);
+    button.mouse_exited.connect(_on_button_unhover);
+
+    self.mouse_entered.connect(_on_mouse_entered);
+    self.mouse_exited.connect(_on_mouse_exited);
+    button_flow_handler.hover_removed.connect(_on_no_hover);
+    button_flow_handler.hover_new.connect(_on_new_hover);
+
+    focus_background.visible = false;

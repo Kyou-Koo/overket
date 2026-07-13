@@ -20,6 +20,8 @@ func _ready() -> void:
         while (not parent is Options):
             parent = parent.get_parent();
         button_flow_handler = parent;
+
+    assert(button_id_str != "", "ID string for {0} must be set".format([self.name]));
     
     self.focus_entered.connect(_on_focus_entered);
     self.focus_exited.connect(_on_focus_exited);

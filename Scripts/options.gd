@@ -1,19 +1,27 @@
 class_name Options extends Control
 
+@export_group("Controls")
 @export var player1 : Control;
 @export var player2 : Control;
 @export var player3 : Control;
 @export var player4 : Control;
+@export var keybind_holder : Control;
 @export var keybind_box : Control;
 var keybind_box_nodes : Array[Button];
 
 var player_controls_all : Control;
 var curr_focused_control : Control;
 var last_focused_player_control : Control;
+var curr_hovered_control : Control;
+## In ms
+const hover_delay_ms : int = 500;
+var time_since_last_hovered : int = -1;
 var activated_button : Button;
 var is_gamepad_last_used : bool = false;
 
-# TODO: implement control switching
+signal hover_new(new_hover : Control);
+signal hover_removed(focused_control : Control);
+
 func public_set_activated_button(b : Button) -> void:
     match b:
         player1:
@@ -30,37 +38,71 @@ func public_set_activated_button(b : Button) -> void:
 func public_set_curr_focus(c : Control) -> void:
     curr_focused_control = c;
     Statics.debug_log("curr focused: {0}".format([c.name]));
+
+func public_set_curr_hover(c : Control) -> void:
+    curr_hovered_control = c;
+    hover_new.emit(c);
+
+func public_set_unhover(c : Control) -> void:
+    if (c == curr_hovered_control):
+        time_since_last_hovered = Time.get_ticks_msec();
+        curr_hovered_control = null;
+    await get_tree().create_timer(hover_delay_ms / 1000.0).timeout;
+    if (curr_hovered_control == null):
+        hover_removed.emit(curr_focused_control);
     
 func public_set_last_focused(c : Control) -> void:
     if (c.name.begins_with("ButtonP")):
         last_focused_player_control = c;
+        
+func input_event_from_dict_wrapper(pkey : String, key : String, act_string : String) -> InputEvent:
+    if (not KeyCon.active_keymap.has(pkey)):
+        print("running keymap generation")
+        KeyCon.create_keymap();
+    return InputStatics.create_input_event_from_dict(KeyCon.active_keymap[pkey][key][act_string]);
 
-func display_player_control(key : String) -> void:
+func display_player_control(pkey : String) -> void:
     var icon_active : String = "KeyboardIcon";
     var icon_unact : String = "ControllerIcon";
-    var font_size : int = 24;
-    if (is_gamepad_last_used):
+    var active_string : String = "key";
+    # need to overrride specifically for p3 and p4
+    var use_gamepad : bool = is_gamepad_last_used;
+    if (is_gamepad_last_used or (pkey == "p3" or pkey == "p4")):
         icon_active = "ControllerIcon";
         icon_unact = "KeyboardIcon";
-        font_size = 32;
+        active_string = "con";
+        use_gamepad = true;
     for b : Button in keybind_box_nodes:
         b.find_child(icon_active).visible = true;
         b.find_child(icon_unact).visible = false;
         # display icons
-        if (b.name == "Forward"):
-            pass;
-        elif (b.name == "Back"):
-            pass
-        elif (b.name == "Left"):
-            pass
-        elif (b.name == "Right"):
-            pass
-        elif (b.name == "Interact"):
-            pass
-        elif (b.name == "PickDrop"):
-            pass
+        var new_input_event : InputEvent;
+        var label : Label = b.find_child("Label");
+        #label.add_theme_font_size_override(active_string, font_size);
+        match b.name:
+            "Forward":
+                new_input_event = input_event_from_dict_wrapper(pkey, "fwd", active_string);
+                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
+            "Back":
+                new_input_event = input_event_from_dict_wrapper(pkey, "back", active_string);
+                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
+            "Left":
+                new_input_event = input_event_from_dict_wrapper(pkey, "left", active_string);
+                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
+            "Right":
+                new_input_event = input_event_from_dict_wrapper(pkey, "right", active_string);
+                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
+            "Jump":
+                new_input_event = input_event_from_dict_wrapper(pkey, "jump", active_string);
+                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
+            "Interact":
+                new_input_event = input_event_from_dict_wrapper(pkey, "interact", active_string);
+                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
+            "PickDrop":
+                new_input_event = input_event_from_dict_wrapper(pkey, "pick_drop", active_string);
+                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);;
     
-    keybind_box.visible = true;
+    keybind_holder.visible = true;
 
 func _on_player_controls_box_focused() -> void:
     Statics.debug_log("box focused on");
@@ -89,7 +131,9 @@ func _input(ev: InputEvent) -> void:
         
 
 func _ready() -> void:
+    # TESTING---------------------
     #KeyCon.create_keymap();
+    print(str(SaveDataMgr.load_savedata()))
     
     # test remapping:
     #var new_eventkey : InputEventKey = InputEventKey.new();
@@ -98,13 +142,16 @@ func _ready() -> void:
     #Statics.debug_log(str(KeyCon.init_keymap));
     #Statics.debug_log("below is modded keymap ----");
     #Statics.debug_log(str(InputMap.action_get_events("p1fwd")));
+    # ---------------------
     
     $"NinePatchRect/Music Control/Button Music".grab_focus.call_deferred();
     player_controls_all = $NinePatchRect/Box;
     player_controls_all.focus_entered.connect(_on_player_controls_box_focused);
 
+    assert(keybind_holder != null, "keybind holder must be assigned");
     assert(keybind_box != null, "keybind box must be assigned");
 
+    keybind_holder.visible = false;
     for c : Control in keybind_box.get_children():
         if (c is Button):
             keybind_box_nodes.append(c);

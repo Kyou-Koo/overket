@@ -1,8 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://dsqf2t4hesdg"]
 
-[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="1_ra3fm"]
-[ext_resource type="Texture2D" uid="uid://cgw0u85rvhvmb" path="res://Resources/Textures/ui_heart_32px.png" id="2_omhdd"]
-[ext_resource type="Texture2D" uid="uid://bv8ky6t46m44y" path="res://Resources/Textures/ui_heart_cross_32px_v2.png" id="3_7g52r"]
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="1_11lvq"]
+[ext_resource type="StyleBox" uid="uid://cclan6bldtlt8" path="res://Resources/Themes/focused_button.tres" id="2_ry40f"]
+[ext_resource type="Texture2D" uid="uid://cgw0u85rvhvmb" path="res://Resources/Textures/ui_heart_32px.png" id="3_t5x57"]
+[ext_resource type="Texture2D" uid="uid://bv8ky6t46m44y" path="res://Resources/Textures/ui_heart_cross_32px_v2.png" id="4_w2pl6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0nkhx"]
 bg_color = Color(0.092719994, 0.08860438, 0.17048734, 1)
@@ -10,22 +11,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gl83i"]
-draw_center = false
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.3137255, 0.30588236, 0.49803922, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-expand_margin_left = 6.0
-expand_margin_top = 6.0
-expand_margin_right = 6.0
-expand_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76n4g"]
 bg_color = Color(0.5716021, 0.5686483, 0.7780281, 1)
@@ -68,21 +53,37 @@ corner_radius_bottom_left = 4
 expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtr05"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yg2uy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tcqqs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_11lvq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6egra"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rfvw3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ry40f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t5x57"]
+
 [resource]
 Button/colors/font_color = Color(0.8875766, 0.88923544, 0.95187694, 1)
 Button/colors/font_disabled_color = Color(0.19215687, 0.1882353, 0.32156864, 0.8627451)
 Button/constants/line_spacing = -10
 Button/font_sizes/font_size = 40
-Button/fonts/font = ExtResource("1_ra3fm")
+Button/fonts/font = ExtResource("1_11lvq")
 Button/styles/disabled = SubResource("StyleBoxFlat_0nkhx")
-Button/styles/focus = SubResource("StyleBoxFlat_gl83i")
+Button/styles/focus = ExtResource("2_ry40f")
 Button/styles/hover = SubResource("StyleBoxFlat_76n4g")
 Button/styles/normal = SubResource("StyleBoxFlat_ra3fm")
 CheckButton/colors/button_checked_color = Color(1, 1, 1, 0)
 CheckButton/colors/button_unchecked_color = Color(1, 0.29411766, 1, 0)
 CheckButton/colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 CheckButton/font_sizes/font_size = 40
-CheckButton/fonts/font = ExtResource("1_ra3fm")
+CheckButton/fonts/font = ExtResource("1_11lvq")
 CheckButton/icons/checked = null
 CheckButton/icons/checked_disabled = null
 CheckButton/icons/checked_disabled_mirrored = null
@@ -103,15 +104,30 @@ FlatButton/colors/font_hover_pressed_color = Color(0.3137255, 0.30588236, 0.4980
 FlatButton/colors/font_pressed_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 FlatButton/constants/line_spacing = -10
 FlatButton/font_sizes/font_size = 40
-FlatButton/fonts/font = ExtResource("1_ra3fm")
+FlatButton/fonts/font = ExtResource("1_11lvq")
 FlatButton/styles/focus = SubResource("StyleBoxEmpty_7g52r")
 HBoxContainer/constants/separation = 0
-HSlider/icons/grabber = ExtResource("2_omhdd")
-HSlider/icons/grabber_disabled = ExtResource("3_7g52r")
-HSlider/icons/grabber_highlight = ExtResource("2_omhdd")
+HSlider/icons/grabber = ExtResource("3_t5x57")
+HSlider/icons/grabber_disabled = ExtResource("4_w2pl6")
+HSlider/icons/grabber_highlight = ExtResource("3_t5x57")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_omhdd")
 HSlider/styles/slider = SubResource("StyleBoxFlat_7g52r")
 Label/colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 Label/constants/line_spacing = -5
 Label/font_sizes/font_size = 40
-Label/fonts/font = ExtResource("1_ra3fm")
+Label/fonts/font = ExtResource("1_11lvq")
+LanguageButton/base_type = &"Button"
+LanguageButton/colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+LanguageButton/colors/font_focus_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+LanguageButton/colors/font_hover_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+LanguageButton/colors/font_hover_pressed_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+LanguageButton/colors/font_pressed_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+LanguageButton/font_sizes/font_size = 40
+LanguageButton/styles/disabled = SubResource("StyleBoxEmpty_vtr05")
+LanguageButton/styles/disabled_mirrored = SubResource("StyleBoxEmpty_yg2uy")
+LanguageButton/styles/focus = SubResource("StyleBoxEmpty_tcqqs")
+LanguageButton/styles/hover = SubResource("StyleBoxEmpty_11lvq")
+LanguageButton/styles/normal = SubResource("StyleBoxEmpty_6egra")
+LanguageButton/styles/normal_mirrored = SubResource("StyleBoxEmpty_rfvw3")
+LanguageButton/styles/pressed = SubResource("StyleBoxEmpty_ry40f")
+LanguageButton/styles/pressed_mirrored = SubResource("StyleBoxEmpty_t5x57")

@@ -1,0 +1,7 @@
+[gd_resource type="BoxMesh" format=3 uid="uid://dgb5c8lu5gf52"]
+
+[ext_resource type="Material" uid="uid://6qwphoj7akoh" path="res://Resources/Materials/dark_blue.tres" id="1_nye5e"]
+
+[resource]
+material = ExtResource("1_nye5e")
+size = Vector3(10, 10, 10)

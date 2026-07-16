@@ -36,7 +36,7 @@ var level : Node;
 @export var options_cam_rot : Vector3;
 var options_scene : PackedScene;
 var options : Options;
-@export var transition_time : float = 1.0;
+@export var transition_time : float = 0.75;
 
 var active_menu : MENU;
 
@@ -45,9 +45,9 @@ signal transition_to(who : Node);
 func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transition_time) -> void:
     active_menu = new_menu;
     var tween : Tween = get_tree().create_tween();
-    tween.tween_property(main_camera, "rotation_degrees", to, rate)
     tween.set_trans(Tween.TRANS_CUBIC);
     tween.set_ease(Tween.EASE_IN_OUT);
+    tween.tween_property(main_camera, "rotation_degrees", to, rate)
     var next_menu : Node;
     match new_menu:
         MENU.MAIN:
@@ -90,7 +90,6 @@ func _input(ev: InputEvent) -> void:
         MENU.OPTIONS:
             options_node_parent.push_input(ev);
 
-
 func _init() -> void:
     pass;
     
@@ -113,3 +112,5 @@ func _ready() -> void:
     instantiate_menus();
 
     active_menu = MENU.MAIN;
+
+    #TESTINGTESTINGETESTING

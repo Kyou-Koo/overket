@@ -557,6 +557,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../../Controls P4/Button/ButtonP4")
 focus_neighbor_top = NodePath("../../../../HBoxContainer/Controls P1/Button/ButtonP1")
 focus_neighbor_right = NodePath("../../../Controls P4/Button/ButtonP4")
+focus_neighbor_bottom = NodePath("../../../../../Confirm")
 focus_next = NodePath("../../../Controls P4/Button/ButtonP4")
 focus_previous = NodePath("../../../../HBoxContainer/Controls P2/Button/ButtonP2")
 theme = ExtResource("9_lo6rv")
@@ -594,6 +595,8 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../../Controls P3/Button/ButtonP3")
 focus_neighbor_top = NodePath("../../../../HBoxContainer/Controls P2/Button/ButtonP2")
 focus_neighbor_right = NodePath("../../../Controls P3/Button/ButtonP3")
+focus_neighbor_bottom = NodePath("../../../../../Confirm")
+focus_next = NodePath("../../../../../Confirm")
 focus_previous = NodePath("../../../Controls P3/Button/ButtonP3")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONTROLS"
@@ -608,6 +611,11 @@ offset_left = 718.0
 offset_top = 560.0
 offset_right = 968.0
 offset_bottom = 624.0
+focus_neighbor_left = NodePath("../Back")
+focus_neighbor_top = NodePath("../Box")
+focus_neighbor_right = NodePath("../Back")
+focus_next = NodePath("../Back")
+focus_previous = NodePath("../Box/HBoxContainer2/Controls P4/Button/ButtonP4")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONFIRM"
 text_overrun_behavior = 1
@@ -619,11 +627,17 @@ offset_left = 452.0
 offset_top = 560.0
 offset_right = 702.0
 offset_bottom = 624.0
+focus_neighbor_left = NodePath("../Confirm")
+focus_neighbor_top = NodePath("../Box")
+focus_neighbor_right = NodePath("../Confirm")
+focus_next = NodePath("../Language Control")
+focus_previous = NodePath("../Confirm")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_RETURN"
 text_overrun_behavior = 1
 
 [node name="KeybindingRect" type="NinePatchRect" parent="NinePatchRect" unique_id=1700991199]
+visible = false
 z_index = 10
 custom_minimum_size = Vector2(600, 648)
 layout_mode = 0
@@ -663,8 +677,9 @@ text = "Keyboard"
 [node name="ForwardBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=1067337116]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="Forward" type="Button" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=873349685 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon")]
+[node name="Forward" type="Button" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=873349685 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../PickDropBox/PickDrop")
@@ -678,24 +693,29 @@ text = "OPTIONS_FORWARD"
 text_overrun_behavior = 1
 script = ExtResource("22_p3uhi")
 keybind_menu = NodePath("../..")
-keyboard_icon = NodePath("../KeyboardIcon")
-controller_button_icon = NodePath("../ControllerButtonIcon")
+keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
+controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+label = NodePath("../CenterContainer/Label")
 
-[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=1324547168]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=983014360]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox/CenterContainer" unique_id=1324547168]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=880970532]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox/CenterContainer" unique_id=880970532]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=190467466]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox/CenterContainer" unique_id=190467466]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
@@ -708,6 +728,7 @@ vertical_alignment = 1
 [node name="BackBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=124241974]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Back" type="Button" parent="NinePatchRect/KeybindingRect/Rows/BackBox" unique_id=1495218644]
 custom_minimum_size = Vector2(200, 64)
@@ -722,45 +743,38 @@ theme_override_font_sizes/font_size = 32
 text = "OPTIONS_BACK"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/BackBox/Back" unique_id=1292162866]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/BackBox" unique_id=447450744]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/BackBox/CenterContainer" unique_id=1477447961]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/BackBox/Back" unique_id=1641775360]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/BackBox/CenterContainer" unique_id=241470017]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/BackBox/Back" unique_id=1984718237]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/BackBox/CenterContainer" unique_id=1140643160]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
-text = "A"
+text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LeftBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=341416145]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Left" type="Button" parent="NinePatchRect/KeybindingRect/Rows/LeftBox" unique_id=1501836030]
 custom_minimum_size = Vector2(200, 64)
@@ -775,45 +789,38 @@ theme_override_font_sizes/font_size = 32
 text = "OPTIONS_LEFT"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/Left" unique_id=1795298403]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/LeftBox" unique_id=2037083826]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/CenterContainer" unique_id=1435104207]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/Left" unique_id=1302240189]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/CenterContainer" unique_id=1005867324]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/Left" unique_id=841560188]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/CenterContainer" unique_id=1194345797]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
-text = "A"
+text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="RightBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=1838409432]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Right" type="Button" parent="NinePatchRect/KeybindingRect/Rows/RightBox" unique_id=347022059]
 custom_minimum_size = Vector2(200, 64)
@@ -828,45 +835,38 @@ theme_override_font_sizes/font_size = 32
 text = "OPTIONS_RIGHT"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/RightBox/Right" unique_id=524273626]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/RightBox" unique_id=900237004]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/RightBox/CenterContainer" unique_id=18762038]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/RightBox/Right" unique_id=521110102]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/RightBox/CenterContainer" unique_id=1746727787]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/RightBox/Right" unique_id=1136897830]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/RightBox/CenterContainer" unique_id=1687024915]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
-text = "A"
+text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="JumpBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=108863677]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Jump" type="Button" parent="NinePatchRect/KeybindingRect/Rows/JumpBox" unique_id=1082871737]
 custom_minimum_size = Vector2(200, 64)
@@ -881,35 +881,27 @@ theme_override_font_sizes/font_size = 32
 text = "OPTIONS_JUMP"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/Jump" unique_id=163544945]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/JumpBox" unique_id=1325973393]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/CenterContainer" unique_id=1389075398]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/Jump" unique_id=1339582715]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/CenterContainer" unique_id=727499875]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/Jump" unique_id=1339508159]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/CenterContainer" unique_id=1818574035]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
@@ -920,6 +912,7 @@ vertical_alignment = 1
 [node name="InteractBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=1260115395]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Interact" type="Button" parent="NinePatchRect/KeybindingRect/Rows/InteractBox" unique_id=2116895651]
 custom_minimum_size = Vector2(200, 64)
@@ -934,45 +927,38 @@ theme_override_font_sizes/font_size = 32
 text = "OPTIONS_INTERACT"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/Interact" unique_id=1124173178]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/InteractBox" unique_id=815589986]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/CenterContainer" unique_id=1418022767]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/Interact" unique_id=561170926]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/CenterContainer" unique_id=1792173505]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/Interact" unique_id=235235726]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/CenterContainer" unique_id=368328108]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
-text = "A"
+text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PickDropBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=186467995]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="PickDrop" type="Button" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox" unique_id=1859637643]
 custom_minimum_size = Vector2(200, 64)
@@ -987,39 +973,31 @@ theme_override_font_sizes/font_size = 32
 text = "OPTIONS_PICKDROP"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/PickDrop" unique_id=794431154]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox" unique_id=566199996]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/CenterContainer" unique_id=351441048]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/PickDrop" unique_id=1745291383]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/CenterContainer" unique_id=287633437]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/PickDrop" unique_id=1037704722]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/CenterContainer" unique_id=1139194664]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
-text = "A"
+text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1034,12 +1012,13 @@ focus_previous = NodePath("../BindMode")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONFIRM"
 
-[node name="Control" type="Control" parent="NinePatchRect/KeybindingRect" unique_id=177602923]
+[node name="WaitingContainer" type="Control" parent="NinePatchRect/KeybindingRect" unique_id=177602923]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BackgroundDim" type="NinePatchRect" parent="NinePatchRect/KeybindingRect/Control" unique_id=1419168224]
+[node name="BackgroundDim" type="NinePatchRect" parent="NinePatchRect/KeybindingRect/WaitingContainer" unique_id=1419168224]
 modulate = Color(0.20871013, 0.20871016, 0.20871013, 0.5568628)
 custom_minimum_size = Vector2(1000, 650)
 layout_mode = 0
@@ -1052,7 +1031,7 @@ patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
 
-[node name="WaitingForInput" type="NinePatchRect" parent="NinePatchRect/KeybindingRect/Control" unique_id=1256419066]
+[node name="WaitingForInput" type="NinePatchRect" parent="NinePatchRect/KeybindingRect/WaitingContainer" unique_id=1256419066]
 custom_minimum_size = Vector2(400, 250)
 layout_mode = 0
 offset_left = 100.0
@@ -1065,7 +1044,7 @@ patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
 
-[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput" unique_id=1917905850]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput" unique_id=1917905850]
 layout_mode = 0
 offset_left = 200.0
 offset_top = 100.0
@@ -1073,13 +1052,13 @@ offset_right = 200.0
 offset_bottom = 100.0
 use_top_left = true
 
-[node name="WaitingText" type="Label" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput/CenterContainer" unique_id=542755688]
+[node name="WaitingText" type="Label" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput/CenterContainer" unique_id=542755688]
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_KEYBIND_WAIT"
 horizontal_alignment = 1
 
-[node name="CenterContainer2" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput" unique_id=1051152915]
+[node name="CenterContainer2" type="CenterContainer" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput" unique_id=1051152915]
 layout_mode = 0
 offset_left = 200.0
 offset_top = 190.0
@@ -1087,7 +1066,7 @@ offset_right = 200.0
 offset_bottom = 190.0
 use_top_left = true
 
-[node name="CancelText" type="Label" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput/CenterContainer2" unique_id=1393541227]
+[node name="CancelText" type="Label" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput/CenterContainer2" unique_id=1393541227]
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 28

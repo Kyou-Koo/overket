@@ -2,8 +2,8 @@
 
 [ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="1_11lvq"]
 [ext_resource type="StyleBox" uid="uid://cclan6bldtlt8" path="res://Resources/Themes/focused_button.tres" id="2_ry40f"]
-[ext_resource type="Texture2D" uid="uid://cgw0u85rvhvmb" path="res://Resources/Textures/ui_heart_32px.png" id="3_t5x57"]
-[ext_resource type="Texture2D" uid="uid://bv8ky6t46m44y" path="res://Resources/Textures/ui_heart_cross_32px_v2.png" id="4_w2pl6"]
+[ext_resource type="Texture2D" uid="uid://cgw0u85rvhvmb" path="res://Resources/Images/ui_heart_32px.png" id="3_t5x57"]
+[ext_resource type="Texture2D" uid="uid://bv8ky6t46m44y" path="res://Resources/Images/ui_heart_cross_32px_v2.png" id="4_w2pl6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0nkhx"]
 bg_color = Color(0.092719994, 0.08860438, 0.17048734, 1)

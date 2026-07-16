@@ -7,6 +7,8 @@ class_name Options extends Control
 @export var player4 : Control;
 @export var keybind_holder : Control;
 @export var keybind_box : Control;
+@export var save_button : Button;
+@export var back_button : Button;
 var keybind_box_nodes : Array[Button];
 
 var player_controls_all : Control;
@@ -19,100 +21,71 @@ var time_since_last_hovered : int = -1;
 var activated_button : Button;
 var is_gamepad_last_used : bool = false;
 
-signal hover_new(new_hover : Control);
-signal hover_removed(focused_control : Control);
+var curr_settings : Dictionary = SaveDataMgr.blank.duplicate(true);
+var curr_keybinds : Dictionary;
+var is_active : bool = false;
+
+signal load_player_control(player : String);
+
+func public_update_curr_settings() -> void:
+    pass;
 
 func public_set_activated_button(b : Button) -> void:
     match b:
         player1:
-            display_player_control("p1");
+            load_player_control.emit("p1");
         player2:
-            display_player_control("p2");
+            load_player_control.emit("p2");
         player3:
-            display_player_control("p3");
+            load_player_control.emit("p3");
         player4:
-            display_player_control("p4");
+            load_player_control.emit("p4");
         _:
             Statics.raise_warning("Non-keybind button activated this function.")
+    keybind_holder.visible = true;
     
 func public_set_curr_focus(c : Control) -> void:
     curr_focused_control = c;
     Statics.debug_log("curr focused: {0}".format([c.name]));
-
-func public_set_curr_hover(c : Control) -> void:
-    curr_hovered_control = c;
-    hover_new.emit(c);
-
-func public_set_unhover(c : Control) -> void:
-    if (c == curr_hovered_control):
-        time_since_last_hovered = Time.get_ticks_msec();
-        curr_hovered_control = null;
-    await get_tree().create_timer(hover_delay_ms / 1000.0).timeout;
-    if (curr_hovered_control == null):
-        hover_removed.emit(curr_focused_control);
     
+# only for determing where in the p1/p2/p3/p4 config box to determine where
+# to navigate when pressing down from SFX
 func public_set_last_focused(c : Control) -> void:
     if (c.name.begins_with("ButtonP")):
         last_focused_player_control = c;
-        
-func input_event_from_dict_wrapper(pkey : String, key : String, act_string : String) -> InputEvent:
-    if (not KeyCon.active_keymap.has(pkey)):
-        print("running keymap generation")
-        KeyCon.create_keymap();
-    return InputStatics.create_input_event_from_dict(KeyCon.active_keymap[pkey][key][act_string]);
-
-func display_player_control(pkey : String) -> void:
-    var icon_active : String = "KeyboardIcon";
-    var icon_unact : String = "ControllerIcon";
-    var active_string : String = "key";
-    # need to overrride specifically for p3 and p4
-    var use_gamepad : bool = is_gamepad_last_used;
-    if (is_gamepad_last_used or (pkey == "p3" or pkey == "p4")):
-        icon_active = "ControllerIcon";
-        icon_unact = "KeyboardIcon";
-        active_string = "con";
-        use_gamepad = true;
-    for b : Button in keybind_box_nodes:
-        b.find_child(icon_active).visible = true;
-        b.find_child(icon_unact).visible = false;
-        # display icons
-        var new_input_event : InputEvent;
-        var label : Label = b.find_child("Label");
-        #label.add_theme_font_size_override(active_string, font_size);
-        match b.name:
-            "Forward":
-                new_input_event = input_event_from_dict_wrapper(pkey, "fwd", active_string);
-                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
-            "Back":
-                new_input_event = input_event_from_dict_wrapper(pkey, "back", active_string);
-                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
-            "Left":
-                new_input_event = input_event_from_dict_wrapper(pkey, "left", active_string);
-                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
-            "Right":
-                new_input_event = input_event_from_dict_wrapper(pkey, "right", active_string);
-                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
-            "Jump":
-                new_input_event = input_event_from_dict_wrapper(pkey, "jump", active_string);
-                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
-            "Interact":
-                new_input_event = input_event_from_dict_wrapper(pkey, "interact", active_string);
-                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);
-            "PickDrop":
-                new_input_event = input_event_from_dict_wrapper(pkey, "pick_drop", active_string);
-                label.text = InputStatics.input_text_string_to_short_txt(new_input_event, use_gamepad);;
-    
-    keybind_holder.visible = true;
 
 func _on_player_controls_box_focused() -> void:
+    if (!is_active):
+        return;
     Statics.debug_log("box focused on");
     if (last_focused_player_control != null):
         curr_focused_control = last_focused_player_control;
     else:
-        curr_focused_control = $"NinePatchRect/Box/Controls P1/Button/ButtonP1"
+        curr_focused_control = $"NinePatchRect/Box/HBoxContainer/Controls P1/Button/ButtonP1";
     curr_focused_control.grab_focus();
 
+func _on_save_pressed() -> void:
+    if (!is_active):
+        return;
+    GameManager._instance.savedata = SaveDataMgr.update_savedata(curr_settings, GameManager._instance.savedata);
+
+func _on_back_pressed() -> void:
+    if (!is_active):
+        return;
+    GameManager._instance.public_rotate_camera(
+        GameManager._instance.main_cam_origin_rot,
+        GameManager.MENU.MAIN);
+
+func _on_menu_transition(who : Node) -> void:
+    if (who == self):
+        is_active = true;
+        get_node("NinePatchRect/Language Control/{0}".format([GameManager._instance.savedata["lang"].capitalize()])).grab_focus.call_deferred();
+    else:
+        is_active = false;
+
 func _input(ev: InputEvent) -> void:
+    if (!is_active):
+        return;
     if (Input.get_connected_joypads().size() == 0 or 
     ev.get_class() == "InputEventKey" or
     ev.get_class() == "InputEventMouseButton"):
@@ -133,7 +106,7 @@ func _input(ev: InputEvent) -> void:
 func _ready() -> void:
     # TESTING---------------------
     #KeyCon.create_keymap();
-    print(str(SaveDataMgr.load_savedata()))
+    #print(str(SaveDataMgr.load_savedata()))
     
     # test remapping:
     #var new_eventkey : InputEventKey = InputEventKey.new();
@@ -143,15 +116,24 @@ func _ready() -> void:
     #Statics.debug_log("below is modded keymap ----");
     #Statics.debug_log(str(InputMap.action_get_events("p1fwd")));
     # ---------------------
-    
-    $"NinePatchRect/Music Control/Button Music".grab_focus.call_deferred();
+    var lang_str : String = OS.get_locale_language();
+    if (GameManager._instance != null):
+        GameManager._instance.set_lang_from_save();
+        lang_str = GameManager._instance.savedata["lang"];
+        GameManager._instance.transition_to.connect(_on_menu_transition);
+    Statics.debug_log("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()]))
+    get_node("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()])).grab_focus.call_deferred();
     player_controls_all = $NinePatchRect/Box;
     player_controls_all.focus_entered.connect(_on_player_controls_box_focused);
 
     assert(keybind_holder != null, "keybind holder must be assigned");
     assert(keybind_box != null, "keybind box must be assigned");
-
     keybind_holder.visible = false;
     for c : Control in keybind_box.get_children():
         if (c is Button):
             keybind_box_nodes.append(c);
+
+    assert(save_button != null, "save must be assigned");
+    assert(back_button != null, "back button must be assigned");
+    save_button.pressed.connect(_on_save_pressed);
+    back_button.pressed.connect(_on_back_pressed);

@@ -1,8 +1,11 @@
 extends Button
 
+@export var keybind_menu : Control;
 @export var action_type : KeyCon.ACTTYPE;
-var label : Label;
-var player_str : String;
+@export var keyboard_icon : TextureRect;
+@export var controller_button_icon : TextureRect;
+@export var controller_stick_icon : TextureRect;
+@export var label : Label;
 var waiting_for_input : bool = false;
 var new_input : InputEvent;
 var active : bool = false;
@@ -12,8 +15,8 @@ var active : bool = false;
 func _input(ev: InputEvent) -> void:
     if (!active):
         return;
-    # reject going up
-    if (ev.is_action(&"ui_up") and !waiting_for_input):
+    # reject going left/right
+    if ((ev.is_action(&"ui_left") or ev.is_action(&"ui_right")) and !waiting_for_input):
         get_viewport().set_input_as_handled();
     # specific key to cancel
     if (ev.is_action(&"start")):
@@ -23,13 +26,14 @@ func _input(ev: InputEvent) -> void:
         return;
     get_viewport().set_input_as_handled();
     new_input = ev;
-    KeyCon.update_keymap(player_str, action_type, new_input);
+    KeyCon.update_keymap(keybind_menu.active_player, action_type, new_input);
     # TODO: update control
     var input_dict : Dictionary = KeyCon.dict_entry_from_input_event([new_input]);
     
 
 func _on_pressed() -> void:
     waiting_for_input = true;
+    # pop up window?
 
 func _on_visibility_changed() -> void:
     active = is_visible_in_tree();
@@ -39,4 +43,3 @@ func _on_visibility_changed() -> void:
 func _ready() -> void:
     self.pressed.connect(_on_pressed);
     self.visibility_changed.connect(_on_visibility_changed);
-    label = self.find_child("Label");

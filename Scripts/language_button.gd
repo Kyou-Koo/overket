@@ -20,28 +20,37 @@ func position_underline() -> void:
     texture_underline.position = Vector2(text_width * ((1 - underline_width)/2), texture_underline.position.y);
 
 func _on_focus_entered() -> void:
+    if (!parent_control.button_flow_handler.is_active):
+        return;
     texture_underline.visible = true;
+    parent_control.focus_background.visible = true;
 
 func _on_focus_exited() -> void:
+    if (!parent_control.button_flow_handler.is_active):
+        return;
     texture_underline.visible = false;
 
 func _on_mouse_entered() -> void:
-    # TODO: just handle this using a new hover texture jfc
-    Statics.debug_log("i am hovered {0}".format([self.name]));
+    if (!parent_control.button_flow_handler.is_active):
+        return;
+    # Statics.debug_log("i am hovered {0}".format([self.name]));
     texture_underline.visible = true;
 
 func _on_mouse_exited() -> void:
-    # self.theme.set_constant("outline_size", "nt", 0);
-    # self.theme.set_color("text_outline", "nt", Color(0, 0, 0, 0));
+    if (!parent_control.button_flow_handler.is_active):
+        return;
     texture_underline.visible = false;
 
 func _on_toggle(is_active : bool) -> void:
+    if (!parent_control.button_flow_handler.is_active):
+        return;
     texture_select_left.visible = is_active;
     texture_select_right.visible = is_active;
     if (is_active): parent_control.public_set_active_button(self);
 
 func _on_child_set_active(b : Button) -> void:
-    Statics.debug_log("b {0} is me? {1}".format([b.name, self.name]))
+    if (!parent_control.button_flow_handler.is_active):
+        return;
     texture_select_left.visible = (b == self);
     texture_select_right.visible = (b == self);
 

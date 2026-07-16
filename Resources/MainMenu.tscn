@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dfv11h2mr4l2d"]
+
+[ext_resource type="Script" uid="uid://cpgnq7pik1ncq" path="res://Scripts/main_menu.gd" id="1_8bi5e"]
+[ext_resource type="Texture2D" uid="uid://c4rn52pv0job7" path="res://Resources/Textures/ui_9slice.png" id="1_8cb37"]
+[ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="2_jn3mg"]
+
+[node name="MainMenu" type="Control" unique_id=1583970412 node_paths=PackedStringArray("play_button", "options_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8bi5e")
+play_button = NodePath("NinePatchRect/CenterContainer/VBoxContainer/Play")
+options_button = NodePath("NinePatchRect/CenterContainer/VBoxContainer/Options")
+quit_button = NodePath("NinePatchRect/CenterContainer/VBoxContainer/Quit")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=705686268]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 500.0
+texture = ExtResource("1_8cb37")
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect" unique_id=872297921]
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 500.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/CenterContainer" unique_id=89501533]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Play" type="Button" parent="NinePatchRect/CenterContainer/VBoxContainer" unique_id=1874444392]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+theme = ExtResource("2_jn3mg")
+theme_override_font_sizes/font_size = 52
+text = "MENU_PLAY"
+
+[node name="Options" type="Button" parent="NinePatchRect/CenterContainer/VBoxContainer" unique_id=1649306576]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+theme = ExtResource("2_jn3mg")
+theme_override_font_sizes/font_size = 52
+text = "MENU_OPTIONS"
+
+[node name="Quit" type="Button" parent="NinePatchRect/CenterContainer/VBoxContainer" unique_id=1859479863]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+theme = ExtResource("2_jn3mg")
+theme_override_font_sizes/font_size = 52
+text = "MENU_QUIT"

@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://crw8mjt0wa5gr" path="res://Scripts/language_toggle.gd" id="3_tcrhv"]
 [ext_resource type="Texture2D" uid="uid://cdcq7qmb6jdho" path="res://Resources/Textures/bg_lilac_focused_9slice.png" id="4_plljn"]
 [ext_resource type="Script" uid="uid://umq0s1clp5m8" path="res://Scripts/language_button.gd" id="6_2h1mx"]
-[ext_resource type="Texture2D" uid="uid://cv4be57br2the" path="res://Resources/Textures/right_select.png" id="8_k130s"]
-[ext_resource type="Texture2D" uid="uid://b3nlri3giykq4" path="res://Resources/Textures/left_select_v2.png" id="8_p3uhi"]
+[ext_resource type="Texture2D" uid="uid://cv4be57br2the" path="res://Resources/Images/right_select.png" id="8_k130s"]
+[ext_resource type="Texture2D" uid="uid://b3nlri3giykq4" path="res://Resources/Images/left_select_v2.png" id="8_p3uhi"]
 [ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="9_lo6rv"]
 [ext_resource type="Script" uid="uid://cgmv3r2pvwr23" path="res://Scripts/ToggleButton.gd" id="10_qkt42"]
 [ext_resource type="Texture2D" uid="uid://b7p01a3egiyo5" path="res://Resources/Images/music_on_glow.png" id="12_2h1mx"]
@@ -19,40 +19,60 @@
 [ext_resource type="Texture2D" uid="uid://bpnkfbf2utntj" path="res://Resources/Images/sfx_on.png" id="17_kfj6r"]
 [ext_resource type="Texture2D" uid="uid://bkvk3xf4mck7h" path="res://Resources/Images/sfx_off_glow.png" id="18_qy7re"]
 [ext_resource type="Texture2D" uid="uid://du8f50g40jf84" path="res://Resources/Images/sfx_off.png" id="19_gfl8s"]
-[ext_resource type="Texture2D" uid="uid://cxmtoankag85d" path="res://Resources/Textures/keybind_bg.png" id="21_kfj6r"]
+[ext_resource type="Script" uid="uid://bgd2lfcjaphym" path="res://Scripts/keybind_menu.gd" id="20_plljn"]
 [ext_resource type="Script" uid="uid://cqnlyhnkxatq7" path="res://Scripts/reassign_button.gd" id="22_p3uhi"]
 [ext_resource type="Texture2D" uid="uid://1ebl8e1yfbni" path="res://Resources/Images/button_shape.png" id="23_p3uhi"]
 [ext_resource type="Texture2D" uid="uid://vr8jvhhferha" path="res://Resources/Images/key_shape.png" id="24_kfj6r"]
 
-[node name="Options" type="Control" unique_id=848114495 node_paths=PackedStringArray("player1", "player2", "player3", "player4", "keybind_holder", "keybind_box")]
+[node name="Options" type="Control" unique_id=848114495 node_paths=PackedStringArray("player1", "player2", "player3", "player4", "keybind_holder", "keybind_box", "save_button", "back_button")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_p31tl")
-player1 = NodePath("NinePatchRect/Box/Controls P1/Button/ButtonP1")
-player2 = NodePath("NinePatchRect/Box/Controls P2/Button/ButtonP2")
-player3 = NodePath("NinePatchRect/Box/Controls P3/Button/ButtonP3")
-player4 = NodePath("NinePatchRect/Box/Controls P4/Button/ButtonP4")
+player1 = NodePath("NinePatchRect/Box/HBoxContainer/Controls P1/Button/ButtonP1")
+player2 = NodePath("NinePatchRect/Box/HBoxContainer/Controls P2/Button/ButtonP2")
+player3 = NodePath("NinePatchRect/Box/HBoxContainer2/Controls P3/Button/ButtonP3")
+player4 = NodePath("NinePatchRect/Box/HBoxContainer2/Controls P4/Button/ButtonP4")
 keybind_holder = NodePath("NinePatchRect/KeybindingRect")
-keybind_box = NodePath("NinePatchRect/KeybindingRect/Keybindings")
+keybind_box = NodePath("NinePatchRect/KeybindingRect/Rows")
+save_button = NodePath("NinePatchRect/Confirm")
+back_button = NodePath("NinePatchRect/Back")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=854493654]
-custom_minimum_size = Vector2(1280, 720)
+custom_minimum_size = Vector2(1000, 650)
 layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
+offset_right = 1000.0
+offset_bottom = 650.0
 texture = ExtResource("2_p3uhi")
-patch_margin_left = 336
-patch_margin_top = 337
-patch_margin_right = 340
-patch_margin_bottom = 345
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect" unique_id=819344728]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 48.0
+offset_right = 768.0
+offset_bottom = 130.0
+use_top_left = true
+
+[node name="Label" type="Label" parent="NinePatchRect/CenterContainer" unique_id=1643918968]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+theme_override_colors/font_outline_color = Color(0.9764706, 0.972549, 0.9490196, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 72
+text = "MENU_OPTIONS"
 
 [node name="Language Control" type="Control" parent="NinePatchRect" unique_id=1316662613 node_paths=PackedStringArray("button_flow_handler", "ja_button", "en_button", "focus_background")]
 custom_minimum_size = Vector2(800, 64)
 anchors_preset = 0
-offset_left = 240.0
-offset_top = 70.0
-offset_right = 1040.0
-offset_bottom = 134.0
+offset_left = 100.0
+offset_top = 92.0
+offset_right = 900.0
+offset_bottom = 156.0
+focus_neighbor_bottom = NodePath("../music")
+focus_mode = 2
 script = ExtResource("3_tcrhv")
 button_flow_handler = NodePath("../..")
 ja_button = NodePath("Ja")
@@ -82,6 +102,10 @@ offset_left = 310.0
 offset_top = 8.0
 offset_right = 424.0
 offset_bottom = 60.0
+focus_neighbor_left = NodePath("../En")
+focus_neighbor_right = NodePath("../En")
+focus_neighbor_bottom = NodePath("../../music/Button Music")
+focus_next = NodePath("../En")
 theme = ExtResource("9_lo6rv")
 theme_type_variation = &"LanguageButton"
 toggle_mode = true
@@ -138,6 +162,11 @@ offset_left = 570.0
 offset_top = 8.0
 offset_right = 720.0
 offset_bottom = 60.0
+focus_neighbor_left = NodePath("../Ja")
+focus_neighbor_right = NodePath("../Ja")
+focus_neighbor_bottom = NodePath("../../music/Button Music")
+focus_next = NodePath("../../music/Button Music")
+focus_previous = NodePath("../Ja")
 theme = ExtResource("9_lo6rv")
 theme_type_variation = &"LanguageButton"
 text = "English"
@@ -180,16 +209,18 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("8_k130s")
 expand_mode = 3
 
-[node name="Music Control" type="Control" parent="NinePatchRect" unique_id=717301927 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "texture_node_on_hover", "texture_node_off_hover", "button_flow_handler", "button", "slider")]
+[node name="music" type="Control" parent="NinePatchRect" unique_id=717301927 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "texture_node_on_hover", "texture_node_off_hover", "button_flow_handler", "button", "slider")]
 clip_contents = true
 custom_minimum_size = Vector2(800, 64)
 anchors_preset = 0
-offset_left = 240.0
-offset_top = 140.0
-offset_right = 1040.0
-offset_bottom = 204.0
-focus_neighbor_bottom = NodePath("../SFX Control")
-focus_next = NodePath("../SFX Control")
+offset_left = 100.0
+offset_top = 162.0
+offset_right = 900.0
+offset_bottom = 226.0
+focus_neighbor_top = NodePath("../Language Control")
+focus_neighbor_bottom = NodePath("../sound")
+focus_next = NodePath("../sound")
+focus_previous = NodePath("../Language Control")
 script = ExtResource("10_qkt42")
 texture_node_on = NodePath("On")
 texture_node_off = NodePath("Off")
@@ -199,7 +230,7 @@ button_flow_handler = NodePath("../..")
 button = NodePath("Button Music")
 slider = NodePath("HSlider")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/Music Control" unique_id=1636324921]
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/music" unique_id=1636324921]
 custom_minimum_size = Vector2(800, 64)
 layout_mode = 0
 offset_right = 800.0
@@ -208,7 +239,7 @@ texture = ExtResource("4_plljn")
 patch_margin_left = 200
 patch_margin_right = 200
 
-[node name="OnHover" type="TextureRect" parent="NinePatchRect/Music Control" unique_id=868436305]
+[node name="OnHover" type="TextureRect" parent="NinePatchRect/music" unique_id=868436305]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -218,7 +249,7 @@ texture = ExtResource("12_2h1mx")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="On" type="TextureRect" parent="NinePatchRect/Music Control" unique_id=1708575297]
+[node name="On" type="TextureRect" parent="NinePatchRect/music" unique_id=1708575297]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -228,7 +259,7 @@ texture = ExtResource("13_ggsw5")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="OffHover" type="TextureRect" parent="NinePatchRect/Music Control" unique_id=74206880]
+[node name="OffHover" type="TextureRect" parent="NinePatchRect/music" unique_id=74206880]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -238,7 +269,7 @@ texture = ExtResource("14_k130s")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Off" type="TextureRect" parent="NinePatchRect/Music Control" unique_id=1704038712]
+[node name="Off" type="TextureRect" parent="NinePatchRect/music" unique_id=1704038712]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -248,7 +279,7 @@ texture = ExtResource("15_plljn")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HSlider" type="HSlider" parent="NinePatchRect/Music Control" unique_id=1788355208]
+[node name="HSlider" type="HSlider" parent="NinePatchRect/music" unique_id=1788355208]
 custom_minimum_size = Vector2(500, 32)
 layout_mode = 0
 offset_left = 300.0
@@ -262,7 +293,7 @@ rounded = true
 tick_count = 3
 ticks_position = 3
 
-[node name="Label" type="Label" parent="NinePatchRect/Music Control" unique_id=537939666]
+[node name="Label" type="Label" parent="NinePatchRect/music" unique_id=537939666]
 layout_mode = 0
 offset_top = 6.0
 offset_right = 63.0
@@ -272,13 +303,16 @@ theme_override_colors/font_outline_color = Color(0.9764706, 0.972549, 0.9490196,
 theme_override_constants/outline_size = 4
 text = "OPTIONS_MUSIC"
 
-[node name="Button Music" type="Button" parent="NinePatchRect/Music Control" unique_id=904538637]
+[node name="Button Music" type="Button" parent="NinePatchRect/music" unique_id=904538637]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
 offset_right = 294.0
 offset_bottom = 64.0
-focus_neighbor_bottom = NodePath("../../SFX Control/Button SE")
+focus_neighbor_top = NodePath("../../Language Control")
+focus_neighbor_bottom = NodePath("../../sound/Button SE")
+focus_next = NodePath("../../sound/Button SE")
+focus_previous = NodePath("../../Language Control")
 theme = ExtResource("9_lo6rv")
 theme_type_variation = &"FlatButton"
 toggle_mode = true
@@ -288,15 +322,15 @@ alignment = 0
 text_overrun_behavior = 1
 icon_alignment = 1
 
-[node name="SFX Control" type="Control" parent="NinePatchRect" unique_id=1461149983 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "texture_node_on_hover", "texture_node_off_hover", "button_flow_handler", "button", "slider")]
+[node name="sound" type="Control" parent="NinePatchRect" unique_id=1461149983 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "texture_node_on_hover", "texture_node_off_hover", "button_flow_handler", "button", "slider")]
 clip_contents = true
 custom_minimum_size = Vector2(800, 64)
 anchors_preset = 0
-offset_left = 240.0
-offset_top = 210.0
-offset_right = 1040.0
-offset_bottom = 274.0
-focus_neighbor_top = NodePath("../Music Control")
+offset_left = 100.0
+offset_top = 232.0
+offset_right = 900.0
+offset_bottom = 296.0
+focus_neighbor_top = NodePath("../music")
 focus_neighbor_bottom = NodePath("../Box")
 script = ExtResource("10_qkt42")
 texture_node_on = NodePath("On")
@@ -307,7 +341,7 @@ button_flow_handler = NodePath("../..")
 button = NodePath("Button SE")
 slider = NodePath("HSlider")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/SFX Control" unique_id=1804634005]
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/sound" unique_id=1804634005]
 custom_minimum_size = Vector2(800, 64)
 layout_mode = 0
 offset_right = 800.0
@@ -316,7 +350,7 @@ texture = ExtResource("4_plljn")
 patch_margin_left = 200
 patch_margin_right = 200
 
-[node name="OnHover" type="TextureRect" parent="NinePatchRect/SFX Control" unique_id=718622454]
+[node name="OnHover" type="TextureRect" parent="NinePatchRect/sound" unique_id=718622454]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -326,7 +360,7 @@ texture = ExtResource("16_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="On" type="TextureRect" parent="NinePatchRect/SFX Control" unique_id=1478525752]
+[node name="On" type="TextureRect" parent="NinePatchRect/sound" unique_id=1478525752]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -336,7 +370,7 @@ texture = ExtResource("17_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="OffHover" type="TextureRect" parent="NinePatchRect/SFX Control" unique_id=1516391811]
+[node name="OffHover" type="TextureRect" parent="NinePatchRect/sound" unique_id=1516391811]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -346,7 +380,7 @@ texture = ExtResource("18_qy7re")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Off" type="TextureRect" parent="NinePatchRect/SFX Control" unique_id=1646077048]
+[node name="Off" type="TextureRect" parent="NinePatchRect/sound" unique_id=1646077048]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
@@ -356,7 +390,7 @@ texture = ExtResource("19_gfl8s")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HSlider" type="HSlider" parent="NinePatchRect/SFX Control" unique_id=608393987]
+[node name="HSlider" type="HSlider" parent="NinePatchRect/sound" unique_id=608393987]
 custom_minimum_size = Vector2(500, 32)
 layout_mode = 0
 offset_left = 300.0
@@ -370,7 +404,7 @@ rounded = true
 tick_count = 3
 ticks_position = 3
 
-[node name="Label" type="Label" parent="NinePatchRect/SFX Control" unique_id=908572678]
+[node name="Label" type="Label" parent="NinePatchRect/sound" unique_id=908572678]
 layout_mode = 0
 offset_top = 6.0
 offset_right = 63.0
@@ -380,13 +414,13 @@ theme_override_colors/font_outline_color = Color(0.9764706, 0.972549, 0.9490196,
 theme_override_constants/outline_size = 4
 text = "OPTIONS_SFX"
 
-[node name="Button SE" type="Button" parent="NinePatchRect/SFX Control" unique_id=358414385]
+[node name="Button SE" type="Button" parent="NinePatchRect/sound" unique_id=358414385]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 230.0
 offset_right = 294.0
 offset_bottom = 64.0
-focus_neighbor_top = NodePath("../../Music Control/Button Music")
+focus_neighbor_top = NodePath("../../music/Button Music")
 focus_neighbor_bottom = NodePath("../../Box")
 theme = ExtResource("9_lo6rv")
 theme_type_variation = &"FlatButton"
@@ -397,82 +431,91 @@ alignment = 0
 text_overrun_behavior = 1
 icon_alignment = 1
 
-[node name="Box" type="HBoxContainer" parent="NinePatchRect" unique_id=2127232948]
+[node name="Box" type="VBoxContainer" parent="NinePatchRect" unique_id=662456341]
+custom_minimum_size = Vector2(700, 260)
 layout_mode = 0
-offset_left = 280.0
-offset_top = 320.0
-offset_right = 1252.0
-offset_bottom = 320.0
+offset_left = 325.0
+offset_top = 296.0
+offset_right = 1025.0
+offset_bottom = 556.0
 focus_mode = 2
+theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Controls P1" type="Control" parent="NinePatchRect/Box" unique_id=523476402]
-custom_minimum_size = Vector2(240, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/Box" unique_id=1647242106]
+custom_minimum_size = Vector2(700, 130)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Controls P1" type="Control" parent="NinePatchRect/Box/HBoxContainer" unique_id=523476402]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P1" unique_id=1677873352]
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer/Controls P1" unique_id=1677873352]
 layout_mode = 0
 offset_top = 25.0
 offset_right = 40.0
 offset_bottom = 65.0
 use_top_left = true
 
-[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P1/Label" unique_id=1459516097]
+[node name="Label" type="Label" parent="NinePatchRect/Box/HBoxContainer/Controls P1/Label" unique_id=1459516097]
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
 text = "P1"
 
-[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P1" unique_id=1644205677]
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer/Controls P1" unique_id=1644205677]
 layout_mode = 0
 offset_top = 80.0
 offset_right = 138.0
 offset_bottom = 137.0
 use_top_left = true
 
-[node name="ButtonP1" type="Button" parent="NinePatchRect/Box/Controls P1/Button" unique_id=1688740378]
-custom_minimum_size = Vector2(190, 55)
+[node name="ButtonP1" type="Button" parent="NinePatchRect/Box/HBoxContainer/Controls P1/Button" unique_id=1688740378]
+custom_minimum_size = Vector2(250, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../Controls P4/Button/ButtonP4")
-focus_neighbor_top = NodePath("../../../../SFX Control/Button SE")
+focus_neighbor_left = NodePath("../../../Controls P2/Button/ButtonP2")
+focus_neighbor_top = NodePath("../../../../../sound/Button SE")
 focus_neighbor_right = NodePath("../../../Controls P2/Button/ButtonP2")
+focus_neighbor_bottom = NodePath("../../../../HBoxContainer2/Controls P3/Button/ButtonP3")
 focus_next = NodePath("../../../Controls P2/Button/ButtonP2")
-focus_previous = NodePath("../../../../SFX Control/Button SE")
+focus_previous = NodePath("../../../../../sound/Button SE")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONTROLS"
 text_overrun_behavior = 1
 script = ExtResource("12_kri3o")
 button_id_str = "p1"
 
-[node name="Controls P2" type="Control" parent="NinePatchRect/Box" unique_id=374112891]
-custom_minimum_size = Vector2(240, 0)
+[node name="Controls P2" type="Control" parent="NinePatchRect/Box/HBoxContainer" unique_id=374112891]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P2" unique_id=1238224159]
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer/Controls P2" unique_id=1238224159]
 layout_mode = 0
 offset_top = 25.0
 offset_right = 40.0
 offset_bottom = 65.0
 use_top_left = true
 
-[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P2/Label" unique_id=378392522]
+[node name="Label" type="Label" parent="NinePatchRect/Box/HBoxContainer/Controls P2/Label" unique_id=378392522]
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
 text = "P2"
 
-[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P2" unique_id=716324861]
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer/Controls P2" unique_id=716324861]
 layout_mode = 0
 offset_top = 80.0
 offset_right = 138.0
 offset_bottom = 137.0
 use_top_left = true
 
-[node name="ButtonP2" type="Button" parent="NinePatchRect/Box/Controls P2/Button" unique_id=781041758]
-custom_minimum_size = Vector2(190, 55)
+[node name="ButtonP2" type="Button" parent="NinePatchRect/Box/HBoxContainer/Controls P2/Button" unique_id=781041758]
+custom_minimum_size = Vector2(250, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../../Controls P1/Button/ButtonP1")
-focus_neighbor_top = NodePath("../../../../SFX Control/Button SE")
-focus_neighbor_right = NodePath("../../../Controls P3/Button/ButtonP3")
-focus_next = NodePath("../../../Controls P3/Button/ButtonP3")
+focus_neighbor_top = NodePath("../../../../../sound/Button SE")
+focus_neighbor_right = NodePath("../../../Controls P1/Button/ButtonP1")
+focus_neighbor_bottom = NodePath("../../../../HBoxContainer2/Controls P4/Button/ButtonP4")
+focus_next = NodePath("../../../../HBoxContainer2/Controls P3/Button/ButtonP3")
 focus_previous = NodePath("../../../Controls P1/Button/ButtonP1")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONTROLS"
@@ -480,72 +523,77 @@ text_overrun_behavior = 1
 script = ExtResource("12_kri3o")
 button_id_str = "p2"
 
-[node name="Controls P3" type="Control" parent="NinePatchRect/Box" unique_id=1118803718]
-custom_minimum_size = Vector2(240, 0)
+[node name="HBoxContainer2" type="HBoxContainer" parent="NinePatchRect/Box" unique_id=1443775656]
+custom_minimum_size = Vector2(700, 130)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Controls P3" type="Control" parent="NinePatchRect/Box/HBoxContainer2" unique_id=1118803718]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P3" unique_id=1167520887]
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer2/Controls P3" unique_id=1167520887]
 layout_mode = 0
 offset_top = 25.0
 offset_right = 40.0
 offset_bottom = 65.0
 use_top_left = true
 
-[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P3/Label" unique_id=345609984]
+[node name="Label" type="Label" parent="NinePatchRect/Box/HBoxContainer2/Controls P3/Label" unique_id=345609984]
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
 text = "P3"
 
-[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P3" unique_id=26097466]
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer2/Controls P3" unique_id=26097466]
 layout_mode = 0
 offset_top = 80.0
 offset_right = 138.0
 offset_bottom = 137.0
 use_top_left = true
 
-[node name="ButtonP3" type="Button" parent="NinePatchRect/Box/Controls P3/Button" unique_id=1028498796]
-custom_minimum_size = Vector2(190, 55)
+[node name="ButtonP3" type="Button" parent="NinePatchRect/Box/HBoxContainer2/Controls P3/Button" unique_id=1028498796]
+custom_minimum_size = Vector2(250, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../Controls P2/Button/ButtonP2")
-focus_neighbor_top = NodePath("../../../../SFX Control/Button SE")
+focus_neighbor_left = NodePath("../../../Controls P4/Button/ButtonP4")
+focus_neighbor_top = NodePath("../../../../HBoxContainer/Controls P1/Button/ButtonP1")
 focus_neighbor_right = NodePath("../../../Controls P4/Button/ButtonP4")
 focus_next = NodePath("../../../Controls P4/Button/ButtonP4")
-focus_previous = NodePath("../../../Controls P2/Button/ButtonP2")
+focus_previous = NodePath("../../../../HBoxContainer/Controls P2/Button/ButtonP2")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONTROLS"
 text_overrun_behavior = 1
 script = ExtResource("12_kri3o")
 button_id_str = "p3"
 
-[node name="Controls P4" type="Control" parent="NinePatchRect/Box" unique_id=336109109]
-custom_minimum_size = Vector2(240, 0)
+[node name="Controls P4" type="Control" parent="NinePatchRect/Box/HBoxContainer2" unique_id=336109109]
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
-[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/Controls P4" unique_id=139595079]
+[node name="Label" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer2/Controls P4" unique_id=139595079]
 layout_mode = 0
 offset_top = 25.0
 offset_right = 40.0
 offset_bottom = 65.0
 use_top_left = true
 
-[node name="Label" type="Label" parent="NinePatchRect/Box/Controls P4/Label" unique_id=1148813652]
+[node name="Label" type="Label" parent="NinePatchRect/Box/HBoxContainer2/Controls P4/Label" unique_id=1148813652]
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
 text = "P4"
 
-[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/Controls P4" unique_id=1972127312]
+[node name="Button" type="CenterContainer" parent="NinePatchRect/Box/HBoxContainer2/Controls P4" unique_id=1972127312]
 layout_mode = 0
 offset_top = 80.0
 offset_right = 138.0
 offset_bottom = 137.0
 use_top_left = true
 
-[node name="ButtonP4" type="Button" parent="NinePatchRect/Box/Controls P4/Button" unique_id=1236758911]
-custom_minimum_size = Vector2(190, 55)
+[node name="ButtonP4" type="Button" parent="NinePatchRect/Box/HBoxContainer2/Controls P4/Button" unique_id=1236758911]
+custom_minimum_size = Vector2(250, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../../Controls P3/Button/ButtonP3")
-focus_neighbor_top = NodePath("../../../../SFX Control/Button SE")
-focus_neighbor_right = NodePath("../../../Controls P1/Button/ButtonP1")
+focus_neighbor_top = NodePath("../../../../HBoxContainer/Controls P2/Button/ButtonP2")
+focus_neighbor_right = NodePath("../../../Controls P3/Button/ButtonP3")
 focus_previous = NodePath("../../../Controls P3/Button/ButtonP3")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONTROLS"
@@ -553,65 +601,103 @@ text_overrun_behavior = 1
 script = ExtResource("12_kri3o")
 button_id_str = "p4"
 
-[node name="KeybindingRect" type="TextureRect" parent="NinePatchRect" unique_id=1393000495]
-z_index = 10
+[node name="Confirm" type="Button" parent="NinePatchRect" unique_id=350746157]
+custom_minimum_size = Vector2(250, 64)
 layout_mode = 0
-offset_left = 45.0
-offset_top = 450.0
-offset_right = 1235.0
-offset_bottom = 615.0
-texture = ExtResource("21_kfj6r")
-
-[node name="Keybindings" type="HBoxContainer" parent="NinePatchRect/KeybindingRect" unique_id=801715764]
-custom_minimum_size = Vector2(1190, 80)
-layout_mode = 0
-offset_right = 1190.0
-offset_bottom = 80.0
+offset_left = 718.0
+offset_top = 560.0
+offset_right = 968.0
+offset_bottom = 624.0
 theme = ExtResource("9_lo6rv")
+text = "OPTIONS_CONFIRM"
+text_overrun_behavior = 1
 
-[node name="Forward" type="Button" parent="NinePatchRect/KeybindingRect/Keybindings" unique_id=873349685]
-custom_minimum_size = Vector2(170, 0)
+[node name="Back" type="Button" parent="NinePatchRect" unique_id=161206687]
+custom_minimum_size = Vector2(250, 64)
+layout_mode = 0
+offset_left = 452.0
+offset_top = 560.0
+offset_right = 702.0
+offset_bottom = 624.0
+theme = ExtResource("9_lo6rv")
+text = "OPTIONS_RETURN"
+text_overrun_behavior = 1
+
+[node name="KeybindingRect" type="NinePatchRect" parent="NinePatchRect" unique_id=1700991199]
+z_index = 10
+custom_minimum_size = Vector2(600, 648)
+layout_mode = 0
+offset_left = 200.0
+offset_right = 800.0
+offset_bottom = 648.0
+texture = ExtResource("2_p3uhi")
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="Rows" type="VBoxContainer" parent="NinePatchRect/KeybindingRect" unique_id=1460149287 node_paths=PackedStringArray("control_type", "save_controls", "options")]
+custom_minimum_size = Vector2(550, 598)
+layout_mode = 0
+offset_left = 25.0
+offset_top = 20.0
+offset_right = 575.0
+offset_bottom = 628.0
+theme = ExtResource("9_lo6rv")
+script = ExtResource("20_plljn")
+control_type = NodePath("BindMode")
+save_controls = NodePath("Confirm")
+options = NodePath("../../..")
+
+[node name="BindMode" type="Button" parent="NinePatchRect/KeybindingRect/Rows" unique_id=508975777]
+custom_minimum_size = Vector2(220, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../PickDrop")
-focus_neighbor_right = NodePath("../Back")
+focus_neighbor_left = NodePath("../Confirm")
+focus_neighbor_top = NodePath("../RightBox/Right")
+focus_neighbor_right = NodePath("../Confirm")
+focus_next = NodePath("../Confirm")
+focus_previous = NodePath("../PickDropBox/PickDrop")
+theme = ExtResource("9_lo6rv")
+text = "Keyboard"
+
+[node name="ForwardBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=1067337116]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Forward" type="Button" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=873349685 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon")]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../PickDropBox/PickDrop")
+focus_neighbor_right = NodePath("../../BackBox/Back")
 focus_neighbor_bottom = NodePath("../../BindMode")
-focus_next = NodePath("../Back")
+focus_next = NodePath("../../BackBox/Back")
 focus_previous = NodePath("../../Confirm")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_FORWARD"
 text_overrun_behavior = 1
 script = ExtResource("22_p3uhi")
+keybind_menu = NodePath("../..")
+keyboard_icon = NodePath("../KeyboardIcon")
+controller_button_icon = NodePath("../ControllerButtonIcon")
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Forward" unique_id=1324547168]
+[node name="ControllerButtonIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=1324547168]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Forward" unique_id=880970532]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=880970532]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Keybindings/Forward" unique_id=190467466]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=190467466]
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 0
-offset_left = 53.0
-offset_top = 85.0
-offset_right = 117.0
-offset_bottom = 149.0
+layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
@@ -619,20 +705,24 @@ text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Button" parent="NinePatchRect/KeybindingRect/Keybindings" unique_id=1495218644]
-custom_minimum_size = Vector2(170, 0)
+[node name="BackBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=124241974]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Forward")
-focus_neighbor_right = NodePath("../Left")
+
+[node name="Back" type="Button" parent="NinePatchRect/KeybindingRect/Rows/BackBox" unique_id=1495218644]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../ForwardBox/Forward")
+focus_neighbor_right = NodePath("../../LeftBox/Left")
 focus_neighbor_bottom = NodePath("../../BindMode")
-focus_next = NodePath("../Left")
-focus_previous = NodePath("../Forward")
+focus_next = NodePath("../../LeftBox/Left")
+focus_previous = NodePath("../../ForwardBox/Forward")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_BACK"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Back" unique_id=1292162866]
+[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/BackBox/Back" unique_id=1292162866]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -643,7 +733,7 @@ texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Back" unique_id=1641775360]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/BackBox/Back" unique_id=1641775360]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -654,7 +744,7 @@ texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Keybindings/Back" unique_id=1984718237]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/BackBox/Back" unique_id=1984718237]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -668,20 +758,24 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Left" type="Button" parent="NinePatchRect/KeybindingRect/Keybindings" unique_id=1501836030]
-custom_minimum_size = Vector2(170, 0)
+[node name="LeftBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=341416145]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Back")
-focus_neighbor_right = NodePath("../Right")
+
+[node name="Left" type="Button" parent="NinePatchRect/KeybindingRect/Rows/LeftBox" unique_id=1501836030]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../BackBox/Back")
+focus_neighbor_right = NodePath("../../RightBox/Right")
 focus_neighbor_bottom = NodePath("../../BindMode")
-focus_next = NodePath("../Right")
-focus_previous = NodePath("../Back")
+focus_next = NodePath("../../RightBox/Right")
+focus_previous = NodePath("../../BackBox/Back")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_LEFT"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Left" unique_id=1795298403]
+[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/Left" unique_id=1795298403]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -692,7 +786,7 @@ texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Left" unique_id=1302240189]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/Left" unique_id=1302240189]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -703,7 +797,7 @@ texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Keybindings/Left" unique_id=841560188]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/Left" unique_id=841560188]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -717,20 +811,24 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Right" type="Button" parent="NinePatchRect/KeybindingRect/Keybindings" unique_id=347022059]
-custom_minimum_size = Vector2(170, 0)
+[node name="RightBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=1838409432]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Left")
-focus_neighbor_right = NodePath("../Jump")
+
+[node name="Right" type="Button" parent="NinePatchRect/KeybindingRect/Rows/RightBox" unique_id=347022059]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../LeftBox/Left")
+focus_neighbor_right = NodePath("../../JumpBox/Jump")
 focus_neighbor_bottom = NodePath("../../BindMode")
-focus_next = NodePath("../Jump")
-focus_previous = NodePath("../Left")
+focus_next = NodePath("../../JumpBox/Jump")
+focus_previous = NodePath("../../LeftBox/Left")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_RIGHT"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Right" unique_id=524273626]
+[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/RightBox/Right" unique_id=524273626]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -741,7 +839,7 @@ texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Right" unique_id=521110102]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/RightBox/Right" unique_id=521110102]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -752,7 +850,7 @@ texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Keybindings/Right" unique_id=1136897830]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/RightBox/Right" unique_id=1136897830]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -766,20 +864,24 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Jump" type="Button" parent="NinePatchRect/KeybindingRect/Keybindings" unique_id=1082871737]
-custom_minimum_size = Vector2(170, 0)
+[node name="JumpBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=108863677]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Right")
-focus_neighbor_right = NodePath("../Interact")
+
+[node name="Jump" type="Button" parent="NinePatchRect/KeybindingRect/Rows/JumpBox" unique_id=1082871737]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../RightBox/Right")
+focus_neighbor_right = NodePath("../../InteractBox/Interact")
 focus_neighbor_bottom = NodePath("../../BindMode")
-focus_next = NodePath("../Interact")
-focus_previous = NodePath("../Right")
+focus_next = NodePath("../../InteractBox/Interact")
+focus_previous = NodePath("../../RightBox/Right")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_JUMP"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Jump" unique_id=163544945]
+[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/Jump" unique_id=163544945]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -790,7 +892,7 @@ texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Jump" unique_id=1339582715]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/Jump" unique_id=1339582715]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -801,7 +903,7 @@ texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Keybindings/Jump" unique_id=1339508159]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/Jump" unique_id=1339508159]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -815,20 +917,24 @@ text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Interact" type="Button" parent="NinePatchRect/KeybindingRect/Keybindings" unique_id=2116895651]
-custom_minimum_size = Vector2(170, 0)
+[node name="InteractBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=1260115395]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Jump")
-focus_neighbor_right = NodePath("../PickDrop")
+
+[node name="Interact" type="Button" parent="NinePatchRect/KeybindingRect/Rows/InteractBox" unique_id=2116895651]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../JumpBox/Jump")
+focus_neighbor_right = NodePath("../../PickDropBox/PickDrop")
 focus_neighbor_bottom = NodePath("../../BindMode")
-focus_next = NodePath("../PickDrop")
-focus_previous = NodePath("../Jump")
+focus_next = NodePath("../../PickDropBox/PickDrop")
+focus_previous = NodePath("../../JumpBox/Jump")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_INTERACT"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Interact" unique_id=1124173178]
+[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/Interact" unique_id=1124173178]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -839,7 +945,7 @@ texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/Interact" unique_id=561170926]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/Interact" unique_id=561170926]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -850,7 +956,7 @@ texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Keybindings/Interact" unique_id=235235726]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/Interact" unique_id=235235726]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -864,20 +970,24 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PickDrop" type="Button" parent="NinePatchRect/KeybindingRect/Keybindings" unique_id=1859637643]
-custom_minimum_size = Vector2(170, 0)
+[node name="PickDropBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=186467995]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Interact")
-focus_neighbor_right = NodePath("../Forward")
+
+[node name="PickDrop" type="Button" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox" unique_id=1859637643]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../InteractBox/Interact")
+focus_neighbor_right = NodePath("../../ForwardBox/Forward")
 focus_neighbor_bottom = NodePath("../../BindMode")
 focus_next = NodePath("../../BindMode")
-focus_previous = NodePath("../Interact")
+focus_previous = NodePath("../../InteractBox/Interact")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_PICKDROP"
 text_overrun_behavior = 1
 
-[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/PickDrop" unique_id=794431154]
+[node name="ControllerIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/PickDrop" unique_id=794431154]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -888,7 +998,7 @@ texture = ExtResource("23_p3uhi")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Keybindings/PickDrop" unique_id=1745291383]
+[node name="KeyboardIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/PickDrop" unique_id=1745291383]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -899,7 +1009,7 @@ texture = ExtResource("24_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Keybindings/PickDrop" unique_id=1037704722]
+[node name="Label" type="Label" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/PickDrop" unique_id=1037704722]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 53.0
@@ -913,33 +1023,73 @@ text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BindMode" type="Button" parent="NinePatchRect/KeybindingRect" unique_id=508975777]
-custom_minimum_size = Vector2(220, 60)
-layout_mode = 0
-offset_left = 485.0
-offset_top = 180.0
-offset_right = 705.0
-offset_bottom = 240.0
-focus_neighbor_left = NodePath("../Confirm")
-focus_neighbor_top = NodePath("../Keybindings/Right")
-focus_neighbor_right = NodePath("../Confirm")
-focus_next = NodePath("../Confirm")
-focus_previous = NodePath("../Keybindings/PickDrop")
-theme = ExtResource("9_lo6rv")
-text = "Keyboard"
-
-[node name="Confirm" type="Button" parent="NinePatchRect/KeybindingRect" unique_id=964886877]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 0
-offset_left = 990.0
-offset_top = 180.0
-offset_right = 1190.0
-offset_bottom = 240.0
+[node name="Confirm" type="Button" parent="NinePatchRect/KeybindingRect/Rows" unique_id=964886877]
+custom_minimum_size = Vector2(220, 64)
+layout_mode = 2
 focus_neighbor_left = NodePath("../BindMode")
-focus_neighbor_top = NodePath("../Keybindings/PickDrop")
+focus_neighbor_top = NodePath("../PickDropBox/PickDrop")
 focus_neighbor_right = NodePath("../BindMode")
-focus_next = NodePath("../Keybindings/Forward")
+focus_next = NodePath("../ForwardBox/Forward")
 focus_previous = NodePath("../BindMode")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONFIRM"
-text_overrun_behavior = 1
+
+[node name="Control" type="Control" parent="NinePatchRect/KeybindingRect" unique_id=177602923]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BackgroundDim" type="NinePatchRect" parent="NinePatchRect/KeybindingRect/Control" unique_id=1419168224]
+modulate = Color(0.20871013, 0.20871016, 0.20871013, 0.5568628)
+custom_minimum_size = Vector2(1000, 650)
+layout_mode = 0
+offset_left = -200.0
+offset_right = 800.0
+offset_bottom = 650.0
+texture = ExtResource("2_p3uhi")
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="WaitingForInput" type="NinePatchRect" parent="NinePatchRect/KeybindingRect/Control" unique_id=1256419066]
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 500.0
+offset_bottom = 350.0
+texture = ExtResource("2_p3uhi")
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput" unique_id=1917905850]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 100.0
+offset_right = 200.0
+offset_bottom = 100.0
+use_top_left = true
+
+[node name="WaitingText" type="Label" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput/CenterContainer" unique_id=542755688]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+text = "OPTIONS_KEYBIND_WAIT"
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput" unique_id=1051152915]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 190.0
+offset_right = 200.0
+offset_bottom = 190.0
+use_top_left = true
+
+[node name="CancelText" type="Label" parent="NinePatchRect/KeybindingRect/Control/WaitingForInput/CenterContainer2" unique_id=1393541227]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+theme_override_font_sizes/font_size = 28
+text = "OPTIONS_KEYBIND_CANCEL"
+horizontal_alignment = 1

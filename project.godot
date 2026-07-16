@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="OverKet"
-run/main_scene="uid://cg02noh76085i"
+run/main_scene="uid://d0rkdo3elfnke"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

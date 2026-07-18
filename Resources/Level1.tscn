@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://d3qk0p0iwfc1r"]
+
+[ext_resource type="PackedScene" uid="uid://dg1k6fy67qp1c" path="res://Resources/Table.tscn" id="1_mhw25"]
+[ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="1_vpm4h"]
+[ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="2_mhw25"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_05fnj"]
+size = Vector2(2000, 2000)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eg3i3"]
+frequency = 0.0177
+fractal_gain = 0.825
+fractal_weighted_strength = 0.62
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pqqbi"]
+noise = SubResource("FastNoiseLite_eg3i3")
+seamless = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_deq6y"]
+sky_top_color = Color(0.5617979, 0.70334965, 0.8838592, 1)
+sky_curve = 0.11367877
+sky_cover = SubResource("NoiseTexture2D_pqqbi")
+sky_cover_modulate = Color(0.65776736, 0.82781184, 0.97294277, 1)
+ground_bottom_color = Color(0.59340787, 0.64120543, 0.5506587, 1)
+
+[sub_resource type="Sky" id="Sky_66bfg"]
+sky_material = SubResource("ProceduralSkyMaterial_deq6y")
+
+[sub_resource type="Environment" id="Environment_pnl7u"]
+background_mode = 2
+sky = SubResource("Sky_66bfg")
+ambient_light_source = 3
+ambient_light_color = Color(0.80075866, 0.72406346, 0.68819916, 1)
+ambient_light_sky_contribution = 0.76
+
+[node name="Level1" type="Node3D" unique_id=2115189687]
+
+[node name="Surfaces" type="Node3D" parent="." unique_id=614195467]
+
+[node name="Tables" type="Node3D" parent="Surfaces" unique_id=1174863814]
+
+[node name="Table" parent="Surfaces/Tables" unique_id=1595576306 instance=ExtResource("1_mhw25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Table2" parent="Surfaces/Tables" unique_id=1815160089 instance=ExtResource("1_mhw25")]
+
+[node name="Table3" parent="Surfaces/Tables" unique_id=1204452018 instance=ExtResource("1_mhw25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Table4" parent="Surfaces/Tables" unique_id=1429708090 instance=ExtResource("1_mhw25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="Table5" parent="Surfaces/Tables" unique_id=2020071537 instance=ExtResource("1_mhw25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="table6" parent="Surfaces/Tables" unique_id=1765291703 instance=ExtResource("1_vpm4h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, 3)
+
+[node name="table7" parent="Surfaces/Tables" unique_id=1633268232 instance=ExtResource("1_vpm4h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, 3)
+
+[node name="table8" parent="Surfaces/Tables" unique_id=1495754331 instance=ExtResource("1_vpm4h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 0, 3)
+
+[node name="table9" parent="Surfaces/Tables" unique_id=2124037999 instance=ExtResource("1_vpm4h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 0, 3)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1031245975]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2002475029]
+shape = ExtResource("2_mhw25")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1967508662]
+mesh = SubResource("PlaneMesh_05fnj")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=262275453]
+transform = Transform3D(1, 0, 0, 0, 0.7862129, 0.6179557, 0, -0.6179557, 0.7862129, 0, 8.91551, 9.725802)
+projection = 1
+current = true
+size = 10.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=747801119]
+environment = SubResource("Environment_pnl7u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=820524573]
+transform = Transform3D(0.89847255, 0.16469806, -0.40696672, -1.6164087e-08, 0.9269682, 0.37514067, 0.43902984, -0.33705366, 0.8328553, 2.0461335, 4.229743, -2.039589)
+light_energy = 0.097
+light_indirect_energy = 0.226
+light_volumetric_fog_energy = 0.226
+shadow_enabled = true

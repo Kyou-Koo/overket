@@ -20,7 +20,7 @@ static var connected_devices : PackedInt64Array = [
     InputEvent.DEVICE_ID_EMULATION,
 ]
 
-static var init_keymap : Dictionary[String, Dictionary] = {
+static var init_keymap : Dictionary = {
     "p1": {},
     "p2": {},
     "p3": {},
@@ -28,10 +28,10 @@ static var init_keymap : Dictionary[String, Dictionary] = {
     "general": {},
 }
 
-static var active_keymap : Dictionary[String, Dictionary];
+static var active_keymap : Dictionary;
 
 static func dict_entry_from_input_event(es : Array[InputEvent]) -> Dictionary:
-    var new_dict : Dictionary[String, Dictionary];
+    var new_dict : Dictionary;
     # physicalkey for key, axis + axis value for stick, btn index for button
     # { "device": device, "pkeycode": physical_keycode }
     # { "device": device, "axis": axis, "av": axis_vaue }

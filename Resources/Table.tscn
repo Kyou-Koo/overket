@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dg1k6fy67qp1c"]
 
 [ext_resource type="Script" uid="uid://buw6pmpymrj7h" path="res://Scripts/Table.gd" id="1_o2e0q"]
+[ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="2_4057c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o2e0q"]
 
@@ -14,11 +15,16 @@ material = SubResource("StandardMaterial3D_4057c")
 script = ExtResource("1_o2e0q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1193051190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_o2e0q")
 
+[node name="table" parent="." unique_id=183128433 instance=ExtResource("2_4057c")]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2003917341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 mesh = SubResource("BoxMesh_qsjep")
 skeleton = NodePath("")
 
 [node name="PlacementSpot" type="Marker3D" parent="." unique_id=249017955]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

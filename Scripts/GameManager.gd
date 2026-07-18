@@ -37,8 +37,12 @@ var level : Node;
 var options_scene : PackedScene;
 var options : Options;
 @export var transition_time : float = 0.75;
+@export var sprite : Sprite3D;
 
 var active_menu : MENU;
+var sprite_tween : Tween;
+var sprite_init_pos : Vector3;
+var sprite_init_rot : Vector3;
 
 signal transition_to(who : Node);
 
@@ -81,9 +85,46 @@ func instantiate_menus() -> void:
         main_menu.options_menu = options;
         main_menu_node_parent.add_child(main_menu);
 
+func sprite_actions() -> void:
+    var rand_int : int = randi_range(0, 5);
+    #Statics.debug_log("sprite action firing {0}".format([rand_int]));
+    if (sprite_tween and sprite_tween.is_running()):
+        return;
+    match rand_int:
+        # bounce
+        0:
+            sprite_tween = get_tree().create_tween();
+            sprite_tween.set_ease(Tween.EASE_OUT);
+            sprite_tween.set_trans(Tween.TRANS_QUAD);
+            sprite_tween.tween_property(sprite, "position", sprite_init_pos + Vector3.UP * randf_range(0.2, 0.5), 0.2);
+            sprite_tween.set_trans(Tween.TRANS_BOUNCE);
+            sprite_tween.tween_property(sprite, "position", sprite_init_pos, 0.5);
+        # wiggle Y axis
+        1:
+            sprite_tween = get_tree().create_tween();
+            sprite_tween.set_ease(Tween.EASE_OUT);
+            sprite_tween.set_trans(Tween.TRANS_BOUNCE);
+            var new_rot : Vector3 = Vector3(0.0, randf_range(-30, 30), 0.0);
+            sprite_tween.tween_property(sprite, "rotation_degrees", sprite_init_rot + new_rot, 0.2);
+            sprite_tween.set_trans(Tween.TRANS_BOUNCE);
+            sprite_tween.tween_property(sprite, "rotation_degrees", sprite_init_rot, 0.5);
+        # wiggle Z axis
+        2:
+            sprite_tween = get_tree().create_tween();
+            sprite_tween.set_ease(Tween.EASE_OUT);
+            sprite_tween.set_trans(Tween.TRANS_BOUNCE);
+            var new_rot : Vector3 = Vector3(0.0, 0.0, randf_range(-30, 30));
+            sprite_tween.tween_property(sprite, "rotation_degrees", sprite_init_rot + new_rot, 0.2);
+            sprite_tween.set_trans(Tween.TRANS_BOUNCE);
+            sprite_tween.tween_property(sprite, "rotation_degrees", sprite_init_rot, 0.5);
+        _:
+            pass;
+
 func _input(ev: InputEvent) -> void:
     match active_menu:
         MENU.MAIN:
+            if (ev.is_pressed()):
+                sprite_actions();
             main_menu_node_parent.push_input(ev);
         MENU.LEVEL:
             level_node_parent.push_input(ev);
@@ -112,5 +153,8 @@ func _ready() -> void:
     instantiate_menus();
 
     active_menu = MENU.MAIN;
+    if (sprite != null):
+        sprite_init_pos = sprite.position;
+        sprite_init_rot = sprite.rotation_degrees;
 
     #TESTINGTESTINGETESTING

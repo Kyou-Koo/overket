@@ -19,6 +19,10 @@ func position_underline() -> void:
     texture_underline.size = Vector2(text_width * underline_width, texture_underline.size.y);
     texture_underline.position = Vector2(text_width * ((1 - underline_width)/2), texture_underline.position.y);
 
+func display_selected_icons(should_display : bool) -> void:
+    texture_select_left.visible = should_display;
+    texture_select_right.visible = should_display;
+
 func _on_focus_entered() -> void:
     if (!parent_control.button_flow_handler.is_active):
         return;
@@ -49,10 +53,10 @@ func _on_toggle(is_active : bool) -> void:
     if (is_active): parent_control.public_set_active_button(self);
 
 func _on_child_set_active(b : Button) -> void:
-    if (!parent_control.button_flow_handler.is_active):
-        return;
-    texture_select_left.visible = (b == self);
-    texture_select_right.visible = (b == self);
+    # if (!parent_control.button_flow_handler.is_active):
+    #     return;
+    display_selected_icons(b == self);
+    display_selected_icons(b == self);
 
 func _ready() -> void:
     if (parent_control == null):

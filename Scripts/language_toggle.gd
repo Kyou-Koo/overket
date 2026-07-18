@@ -14,7 +14,7 @@ func public_set_active_button(b : Button) -> void:
     child_set_active.emit(b);
     # TODO: should this be handled by the game manager????
     TranslationServer.set_locale(b.name.to_lower());
-    button_flow_handler.curr_settings = SaveDataMgr.update_savefield(
+    GameManager._instance.savedata = SaveDataMgr.update_savefield(
         b.name.to_lower(), 
         SaveDataMgr.FIELD.LANGUAGE, 
         GameManager._instance.savedata);

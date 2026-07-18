@@ -7,7 +7,6 @@ class_name Options extends Control
 @export var player4 : Control;
 @export var keybind_holder : Control;
 @export var keybind_box : Control;
-@export var save_button : Button;
 @export var back_button : Button;
 var keybind_box_nodes : Array[Button];
 
@@ -21,14 +20,10 @@ var time_since_last_hovered : int = -1;
 var activated_button : Button;
 var is_gamepad_last_used : bool = false;
 
-var curr_settings : Dictionary = SaveDataMgr.blank.duplicate(true);
 var curr_keybinds : Dictionary;
 var is_active : bool = false;
 
 signal load_player_control(player : String);
-
-func public_update_curr_settings() -> void:
-    pass;
 
 func public_set_activated_button(b : Button) -> void:
     match b:
@@ -64,14 +59,11 @@ func _on_player_controls_box_focused() -> void:
         curr_focused_control = $"NinePatchRect/Box/HBoxContainer/Controls P1/Button/ButtonP1";
     curr_focused_control.grab_focus();
 
-func _on_save_pressed() -> void:
-    if (!is_active):
-        return;
-    GameManager._instance.savedata = SaveDataMgr.update_savedata(curr_settings, GameManager._instance.savedata);
-
 func _on_back_pressed() -> void:
     if (!is_active):
         return;
+    # TODO: maybe warn user settings are being reset if pressed
+    # OR: get rid of save, just save on back and only check for user conf with rebinding
     GameManager._instance.public_rotate_camera(
         GameManager._instance.main_cam_origin_rot,
         GameManager.MENU.MAIN);
@@ -94,6 +86,9 @@ func _input(ev: InputEvent) -> void:
         if (ev.get_class() == "InputEventJoypadMotion" and absf(ev.axis_value) < 0.2):
             return;
         is_gamepad_last_used = true;
+
+    if (ev.is_action(&"ui_cancel")):
+        back_button.grab_focus.call_deferred();
         
     # TODO: delete laters
     #if (ev.get_class() != "InputEventJoypadMotion"):
@@ -118,10 +113,13 @@ func _ready() -> void:
     # ---------------------
     var lang_str : String = OS.get_locale_language();
     if (GameManager._instance != null):
-        GameManager._instance.set_lang_from_save();
-        lang_str = GameManager._instance.savedata["lang"];
+        if (GameManager._instance.savedata["lang"] != ""):
+            GameManager._instance.set_lang_from_save();
+            lang_str = GameManager._instance.savedata["lang"];
+        else:
+            GameManager._instance.savedata["lang"] = lang_str;
         GameManager._instance.transition_to.connect(_on_menu_transition);
-    Statics.debug_log("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()]))
+    Statics.debug_log("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()]));
     get_node("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()])).grab_focus.call_deferred();
     player_controls_all = $NinePatchRect/Box;
     player_controls_all.focus_entered.connect(_on_player_controls_box_focused);
@@ -133,7 +131,5 @@ func _ready() -> void:
         if (c is Button):
             keybind_box_nodes.append(c);
 
-    assert(save_button != null, "save must be assigned");
     assert(back_button != null, "back button must be assigned");
-    save_button.pressed.connect(_on_save_pressed);
     back_button.pressed.connect(_on_back_pressed);

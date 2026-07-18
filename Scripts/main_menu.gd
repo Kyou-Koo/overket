@@ -11,6 +11,7 @@ var is_active : bool = true;
 func _on_menu_transition(who : Node) -> void:
     if (who == self):
         is_active = true;
+        play_button.grab_focus.call_deferred();
     else:
         is_active = false;
 

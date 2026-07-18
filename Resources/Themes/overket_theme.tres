@@ -106,7 +106,6 @@ FlatButton/constants/line_spacing = -10
 FlatButton/font_sizes/font_size = 40
 FlatButton/fonts/font = ExtResource("1_11lvq")
 FlatButton/styles/focus = SubResource("StyleBoxEmpty_7g52r")
-HBoxContainer/constants/separation = 0
 HSlider/icons/grabber = ExtResource("3_t5x57")
 HSlider/icons/grabber_disabled = ExtResource("4_w2pl6")
 HSlider/icons/grabber_highlight = ExtResource("3_t5x57")

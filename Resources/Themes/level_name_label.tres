@@ -1,0 +1,11 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://okleyoqjf5tp"]
+
+[ext_resource type="FontFile" uid="uid://bki5bbed866qt" path="res://Resources/Fonts/HMP-SThicker.otf" id="1_pxr65"]
+
+[resource]
+font = ExtResource("1_pxr65")
+font_size = 32
+outline_size = 4
+shadow_size = 4
+shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
+shadow_offset = Vector2(3, 3)

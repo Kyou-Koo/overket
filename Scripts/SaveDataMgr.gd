@@ -6,7 +6,7 @@ const keybind_defaults : String = "user://keybind_default.dat"
 const pwd : String = "whyyesthisisAP4$$W0rdfortheGaMeWhYArEYoUR3aD1nG!!!"
 
 # defaults
-const SAVE_VERSION : int = 6;
+const SAVE_VERSION : int = 8;
 const LANG : String = "ja";
 const MUSIC_VOLUME : int = 5;
 const SFX_VOLUME : int = 5;
@@ -24,12 +24,12 @@ enum FIELD {
 }
 
 static var blank : Dictionary = {
-    "version": -1,
-    "lang": "none",
+    "version": SAVE_VERSION,
+    "lang": "",
     "music": -1,
     "sound": -1,
     "highscore": [],
-    "last_open_date": "none",
+    "last_open_date": Time.get_datetime_string_from_system(true, false),
 }
 
 static func update_savefield(new_data : Variant, field : FIELD, curr_data : Dictionary) -> Dictionary:
@@ -80,7 +80,7 @@ static func write_savedata(data : Variant, path : String, type : SAVEDATA) -> vo
             out_file = FileAccess.open(path, FileAccess.WRITE);
         SAVEDATA.Save:
             out_file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, pwd);
-    data["version"] = SAVE_VERSION; # HACK just shove this in here at all times
+            #data["version"] = SAVE_VERSION; # HACK just shove this in here at all times
     var out_jstr : String = JSON.stringify(data);
     Statics.debug_log("outgoing save: {0}".format([out_jstr]));
     var succ: bool = out_file.store_line(out_jstr);
@@ -118,7 +118,9 @@ static func load_keymap() -> void:
         var keybind_content : String = keybind_file.get_as_text();
         var keybind_json : JSON = JSON.new();
         var validity : Error = keybind_json.parse(keybind_content);
-        if (validity == OK and keybind_json.data["version"] == SAVE_VERSION):
+        # DANGER: we are not version checking keybinds its fine
+        # I should probably remove the super-strict version checking for keybind data format
+        if (validity == OK): #  and keybind_json.data["version"] == SAVE_VERSION
             KeyCon.active_keymap = keybind_json.data;
             return;
         else:

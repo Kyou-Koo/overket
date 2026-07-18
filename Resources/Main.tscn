@@ -11,6 +11,9 @@
 [ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="7_lgx5e"]
 [ext_resource type="Material" uid="uid://bhlr37us84qy0" path="res://Resources/Materials/red.tres" id="7_m8n5y"]
 [ext_resource type="Material" uid="uid://6qwphoj7akoh" path="res://Resources/Materials/dark_blue.tres" id="9_fekrv"]
+[ext_resource type="PackedScene" uid="uid://cjkpvrswlrv2r" path="res://Resources/Mesh/printer.glb" id="10_fekrv"]
+[ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="12_t7kqs"]
+[ext_resource type="PackedScene" uid="uid://bo4ctckxet7uu" path="res://Resources/Mesh/laptop.glb" id="13_m8n5y"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ofkph"]
 material = ExtResource("5_scaty")
@@ -69,28 +72,28 @@ frequency = 0.0177
 fractal_gain = 0.825
 fractal_weighted_strength = 0.62
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pqqbi"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fekrv"]
 noise = SubResource("FastNoiseLite_paki0")
 seamless = true
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1xgcs"]
 sky_top_color = Color(0.5617979, 0.70334965, 0.8838592, 1)
 sky_curve = 0.11367877
-sky_cover = SubResource("NoiseTexture2D_pqqbi")
+sky_cover = SubResource("NoiseTexture2D_fekrv")
 sky_cover_modulate = Color(0.65776736, 0.82781184, 0.97294277, 1)
 ground_bottom_color = Color(0.59340787, 0.64120543, 0.5506587, 1)
 
-[sub_resource type="Sky" id="Sky_66bfg"]
+[sub_resource type="Sky" id="Sky_ofkph"]
 sky_material = SubResource("ProceduralSkyMaterial_1xgcs")
 
 [sub_resource type="Environment" id="Environment_mstn6"]
 background_mode = 2
-sky = SubResource("Sky_66bfg")
+sky = SubResource("Sky_ofkph")
 ambient_light_source = 3
 ambient_light_color = Color(0.80075866, 0.72406346, 0.68819916, 1)
 ambient_light_sky_contribution = 0.76
 
-[node name="Main" type="Node3D" unique_id=951669777 node_paths=PackedStringArray("main_menu_node_parent", "main_camera", "level_node_parent", "options_node_parent")]
+[node name="Main" type="Node3D" unique_id=951669777 node_paths=PackedStringArray("main_menu_node_parent", "main_camera", "level_node_parent", "options_node_parent", "sprite")]
 script = ExtResource("1_1xgcs")
 main_menu_scene_path = "res://Resources/MainMenu.tscn"
 main_menu_node_parent = NodePath("MM/Main Menu/SubViewport")
@@ -101,6 +104,7 @@ options_scene_path = "res://Resources/Options.tscn"
 options_node_parent = NodePath("Options/SubViewport")
 options_cam_pos = Vector3(0, 2.5, 0)
 options_cam_rot = Vector3(0, -130, 0)
+sprite = NodePath("MM/Renna")
 
 [node name="KeyConStatics" type="Node3D" parent="." unique_id=1797945235]
 
@@ -158,6 +162,9 @@ mesh = SubResource("BoxMesh_iafxj")
 transform = Transform3D(0.8957118, 0, 0.44463518, 0, 1, 0, -0.44463518, 0, 0.8957118, 31.955273, 2.5, -6.0841413)
 mesh = SubResource("BoxMesh_hl0am")
 
+[node name="printer" parent="CUBES" unique_id=1958129218 instance=ExtResource("10_fekrv")]
+transform = Transform3D(-1.4091694, 0, -1.4192399, 0, 2, 0, 1.4192399, 0, -1.4091694, 2.0564947, 0, -13.568723)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=11185580]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=274992953]
@@ -182,7 +189,7 @@ current = true
 
 [node name="MM" type="Node3D" parent="." unique_id=1173588068]
 
-[node name="Sprite3D" type="Sprite3D" parent="MM" unique_id=1705068177]
+[node name="Renna" type="Sprite3D" parent="MM" unique_id=1705068177]
 transform = Transform3D(0.18722296, 0, -0.07033893, 0, 0.2, 0, 0.07033893, 0, 0.18722296, 3.419, 2.55, -4.63)
 alpha_cut = 2
 texture = ExtResource("5_mstn6")
@@ -229,3 +236,9 @@ light_energy = 0.097
 light_indirect_energy = 0.226
 light_volumetric_fog_energy = 0.226
 shadow_enabled = true
+
+[node name="table" parent="." unique_id=183128433 instance=ExtResource("12_t7kqs")]
+transform = Transform3D(1.7887615, 0, 0.8946129, 0, 2, 0, -0.8946129, 0, 1.7887615, 5.4608507, 0, -11.032719)
+
+[node name="laptop" parent="table" unique_id=919714571 instance=ExtResource("13_m8n5y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014070749, 1.0183694, 0.013730168)

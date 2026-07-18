@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://1ebl8e1yfbni" path="res://Resources/Images/button_shape.png" id="23_p3uhi"]
 [ext_resource type="Texture2D" uid="uid://vr8jvhhferha" path="res://Resources/Images/key_shape.png" id="24_kfj6r"]
 
-[node name="Options" type="Control" unique_id=848114495 node_paths=PackedStringArray("player1", "player2", "player3", "player4", "keybind_holder", "keybind_box", "save_button", "back_button")]
+[node name="Options" type="Control" unique_id=848114495 node_paths=PackedStringArray("player1", "player2", "player3", "player4", "keybind_holder", "keybind_box", "back_button")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_p31tl")
@@ -34,7 +34,6 @@ player3 = NodePath("NinePatchRect/Box/HBoxContainer2/Controls P3/Button/ButtonP3
 player4 = NodePath("NinePatchRect/Box/HBoxContainer2/Controls P4/Button/ButtonP4")
 keybind_holder = NodePath("NinePatchRect/KeybindingRect")
 keybind_box = NodePath("NinePatchRect/KeybindingRect/Rows")
-save_button = NodePath("NinePatchRect/Confirm")
 back_button = NodePath("NinePatchRect/Back")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=854493654]
@@ -557,7 +556,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../../Controls P4/Button/ButtonP4")
 focus_neighbor_top = NodePath("../../../../HBoxContainer/Controls P1/Button/ButtonP1")
 focus_neighbor_right = NodePath("../../../Controls P4/Button/ButtonP4")
-focus_neighbor_bottom = NodePath("../../../../../Confirm")
+focus_neighbor_bottom = NodePath("../../../../../Back")
 focus_next = NodePath("../../../Controls P4/Button/ButtonP4")
 focus_previous = NodePath("../../../../HBoxContainer/Controls P2/Button/ButtonP2")
 theme = ExtResource("9_lo6rv")
@@ -595,8 +594,8 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../../Controls P3/Button/ButtonP3")
 focus_neighbor_top = NodePath("../../../../HBoxContainer/Controls P2/Button/ButtonP2")
 focus_neighbor_right = NodePath("../../../Controls P3/Button/ButtonP3")
-focus_neighbor_bottom = NodePath("../../../../../Confirm")
-focus_next = NodePath("../../../../../Confirm")
+focus_neighbor_bottom = NodePath("../../../../../Back")
+focus_next = NodePath("../../../../../Back")
 focus_previous = NodePath("../../../Controls P3/Button/ButtonP3")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONTROLS"
@@ -604,34 +603,16 @@ text_overrun_behavior = 1
 script = ExtResource("12_kri3o")
 button_id_str = "p4"
 
-[node name="Confirm" type="Button" parent="NinePatchRect" unique_id=350746157]
+[node name="Back" type="Button" parent="NinePatchRect" unique_id=161206687]
 custom_minimum_size = Vector2(250, 64)
 layout_mode = 0
 offset_left = 718.0
 offset_top = 560.0
 offset_right = 968.0
 offset_bottom = 624.0
-focus_neighbor_left = NodePath("../Back")
 focus_neighbor_top = NodePath("../Box")
-focus_neighbor_right = NodePath("../Back")
-focus_next = NodePath("../Back")
-focus_previous = NodePath("../Box/HBoxContainer2/Controls P4/Button/ButtonP4")
-theme = ExtResource("9_lo6rv")
-text = "OPTIONS_CONFIRM"
-text_overrun_behavior = 1
-
-[node name="Back" type="Button" parent="NinePatchRect" unique_id=161206687]
-custom_minimum_size = Vector2(250, 64)
-layout_mode = 0
-offset_left = 452.0
-offset_top = 560.0
-offset_right = 702.0
-offset_bottom = 624.0
-focus_neighbor_left = NodePath("../Confirm")
-focus_neighbor_top = NodePath("../Box")
-focus_neighbor_right = NodePath("../Confirm")
 focus_next = NodePath("../Language Control")
-focus_previous = NodePath("../Confirm")
+focus_previous = NodePath("../Box/HBoxContainer2/Controls P4/Button/ButtonP4")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_RETURN"
 text_overrun_behavior = 1

@@ -85,10 +85,10 @@ func _on_slider_value_changed(new_val : float) -> void:
         field = SaveDataMgr.FIELD.MUSIC;
     elif (self.name == "sound"):
         field = SaveDataMgr.FIELD.SOUND;
-    button_flow_handler.curr_settings = SaveDataMgr.update_savefield(
+    GameManager._instance.savedata = SaveDataMgr.update_savefield(
         new_val,
         field,
-        button_flow_handler.curr_settings);
+        GameManager._instance.savedata);
 
 func _on_toggled(new_state : bool) -> void:
     if (!button_flow_handler.is_active):

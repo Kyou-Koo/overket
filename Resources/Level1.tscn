@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="1_vpm4h"]
 [ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="2_mhw25"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_05fnj"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_05fnj"]
 size = Vector2(2000, 2000)
 
@@ -33,7 +35,17 @@ ambient_light_source = 3
 ambient_light_color = Color(0.80075866, 0.72406346, 0.68819916, 1)
 ambient_light_sky_contribution = 0.76
 
+[sub_resource type="BoxMesh" id="BoxMesh_mhw25"]
+size = Vector3(4, 0.5, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05fnj"]
+transparency = 1
+albedo_color = Color(1, 0.3137255, 1, 0.3254902)
+disable_receive_shadows = true
+
 [node name="Level1" type="Node3D" unique_id=2115189687]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2006233483]
 
 [node name="Surfaces" type="Node3D" parent="." unique_id=614195467]
 
@@ -56,6 +68,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 [node name="table6" parent="Surfaces/Tables" unique_id=1765291703 instance=ExtResource("1_vpm4h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, 3)
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Surfaces/Tables/table6" unique_id=584346722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Surfaces/Tables/table6/StaticBody3D" unique_id=609350420]
+shape = SubResource("BoxShape3D_05fnj")
+
 [node name="table7" parent="Surfaces/Tables" unique_id=1633268232 instance=ExtResource("1_vpm4h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, 3)
 
@@ -65,6 +83,9 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 0
 [node name="table9" parent="Surfaces/Tables" unique_id=2124037999 instance=ExtResource("1_vpm4h")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 0, 3)
 
+[node name="table10" parent="Surfaces/Tables" unique_id=183128433 instance=ExtResource("1_vpm4h")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 0, 3)
+
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1031245975]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2002475029]
@@ -73,11 +94,21 @@ shape = ExtResource("2_mhw25")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1967508662]
 mesh = SubResource("PlaneMesh_05fnj")
 
+[node name="Goals" type="Node3D" parent="." unique_id=685087743]
+
+[node name="Goal1" type="Marker3D" parent="Goals" unique_id=475185336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.1)
+gizmo_extents = 0.5
+
+[node name="Goal2" type="Marker3D" parent="Goals" unique_id=1716906009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4.1)
+gizmo_extents = 0.5
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=262275453]
-transform = Transform3D(1, 0, 0, 0, 0.7862129, 0.6179557, 0, -0.6179557, 0.7862129, 0, 8.91551, 9.725802)
+transform = Transform3D(1, 0, 0, 0, 0.7862129, 0.6179557, 0, -0.6179557, 0.7862129, 0, 8.91551, 10.253589)
 projection = 1
 current = true
-size = 10.0
+size = 12.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=747801119]
 environment = SubResource("Environment_pnl7u")
@@ -88,3 +119,13 @@ light_energy = 0.097
 light_indirect_energy = 0.226
 light_volumetric_fog_energy = 0.226
 shadow_enabled = true
+
+[node name="SpawnArea" type="MeshInstance3D" parent="." unique_id=508129065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.645997, 0.25, 8.456382)
+mesh = SubResource("BoxMesh_mhw25")
+surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
+
+[node name="SpawnArea2" type="MeshInstance3D" parent="." unique_id=2117728766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.579398, 0.25, 8.566813)
+mesh = SubResource("BoxMesh_mhw25")
+surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")

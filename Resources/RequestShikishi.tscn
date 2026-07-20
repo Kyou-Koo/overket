@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bcmb6ok2n3tn7"]
+
+[ext_resource type="Texture2D" uid="uid://6upvo8x4tiu7" path="res://Resources/Images/shikishi.png" id="1_ctwha"]
+[ext_resource type="Script" uid="uid://bpt544ywf16xs" path="res://Scripts/RequestItem.gd" id="2_tb61v"]
+
+[node name="RequestShikishi" type="TextureRect" unique_id=773740285]
+custom_minimum_size = Vector2(128, 128)
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 64.0
+texture = ExtResource("1_ctwha")
+expand_mode = 1
+script = ExtResource("2_tb61v")
+type = 8
+y_adjust = 10.0

@@ -1,5 +1,6 @@
 class_name Options extends Control
 
+@export var in_main_menu : bool = true;
 @export_group("Controls")
 @export var player1 : Control;
 @export var player2 : Control;
@@ -62,11 +63,13 @@ func _on_player_controls_box_focused() -> void:
 func _on_back_pressed() -> void:
     if (!is_active):
         return;
-    # TODO: maybe warn user settings are being reset if pressed
-    # OR: get rid of save, just save on back and only check for user conf with rebinding
-    GameManager._instance.public_rotate_camera(
-        GameManager._instance.main_cam_origin_rot,
-        GameManager.MENU.MAIN);
+    if (in_main_menu):
+        GameManager._instance.public_rotate_camera(
+            GameManager._instance.main_cam_origin_rot,
+            GameManager.MENU.MAIN);
+    else:
+        # TODO: call some level functions
+        self.visible = false;
 
 func _on_menu_transition(who : Node) -> void:
     if (who == self):
@@ -118,7 +121,8 @@ func _ready() -> void:
             lang_str = GameManager._instance.savedata["lang"];
         else:
             GameManager._instance.savedata["lang"] = lang_str;
-        GameManager._instance.transition_to.connect(_on_menu_transition);
+        if (in_main_menu):
+            GameManager._instance.transition_to.connect(_on_menu_transition);
     Statics.debug_log("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()]));
     get_node("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()])).grab_focus.call_deferred();
     player_controls_all = $NinePatchRect/Box;

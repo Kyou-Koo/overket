@@ -96,9 +96,9 @@ func sprite_actions() -> void:
             sprite_tween = get_tree().create_tween();
             sprite_tween.set_ease(Tween.EASE_OUT);
             sprite_tween.set_trans(Tween.TRANS_QUAD);
-            sprite_tween.tween_property(sprite, "position", sprite_init_pos + Vector3.UP * randf_range(0.2, 0.5), 0.2);
+            sprite_tween.tween_property(sprite, "position:y", sprite_init_pos.y + randf_range(0.2, 0.5), 0.2);
             sprite_tween.set_trans(Tween.TRANS_BOUNCE);
-            sprite_tween.tween_property(sprite, "position", sprite_init_pos, 0.5);
+            sprite_tween.tween_property(sprite, "position:y", sprite_init_pos.y, 0.5);
         # wiggle Y axis
         1:
             sprite_tween = get_tree().create_tween();

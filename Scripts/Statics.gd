@@ -32,7 +32,21 @@ static func check_for_okid(n3d : Node3D) -> bool:
         if (prop["name"] == "ok_id"):
             return true;
     return false;
+
+# once again this would be benefitted by using C# and generic types
+static func rand_from_arr_v(a : Array[Variant]) -> Variant:
+    return a[randi_range(0, a.size() - 1)];
     
+static func rand_from_arr_o(a : Array) -> Object:
+    return a[randi_range(0, a.size() - 1)];
+    
+static func vec3_to_vec2(v : Vector3) -> Vector2:
+    return Vector2(v.x, v.z);
+    
+static func vec2_to_vec3(v : Vector2) -> Vector3:
+    return Vector3(v.x, 0.0, v.y);
+    
+#region debug, warning, error logging
 static func raise_warning(msg : String) -> void:
     # TODO: log somewhere
     if (DEBUG_MODE and DEBUG_PRINT_WARN):
@@ -59,6 +73,7 @@ static func debug_prolog(msg : String) -> void:
         if (curr_cycle % cycle == 0 and curr_cycle != last_printed_cycle):
             print(msg);
             last_printed_cycle = curr_cycle;
+#endregion
             
 # DANGER: this is so hacky maybe this should all be C# to utilize generic typing
 static func get_parent_of_type(child : Object, parent_class : Variant) -> Object:

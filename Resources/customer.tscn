@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://c8f4p31juaik1"]
+
+[ext_resource type="Script" uid="uid://hn53jhqs42u8" path="res://Scripts/Customer.gd" id="1_ruxh5"]
+[ext_resource type="Texture2D" uid="uid://c25ph8jfjmb7h" path="res://Resources/Images/CharacterSprites/3.png" id="2_po804"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ruxh5"]
+radius = 0.25
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_po804"]
+height = 1.0
+radius = 3.0
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_po804"]
+vertex_color_use_as_albedo = true
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_po804"]
+resource_local_to_scene = true
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_60kmx"]
+vertex_color_use_as_albedo = true
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_60kmx"]
+resource_local_to_scene = true
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_p8r5w"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_fmkgi"]
+resource_local_to_scene = true
+
+[node name="Customer" type="AnimatableBody3D" unique_id=697441714 node_paths=PackedStringArray("goal_mesh_holder", "adj_mesh_holder", "comb_mesh_holder", "sprite_character_holder", "sprites_character", "sprite_request_holder", "sprites_requests", "self_collider", "navigation_boundary", "behind_me")]
+script = ExtResource("1_ruxh5")
+DEBUG_mode = null
+goal_mesh_holder = NodePath("GOAL")
+adj_mesh_holder = NodePath("AVOID")
+adj_line_color = Color(0, 1, 0, 1)
+comb_mesh_holder = NodePath("COMBINED")
+sprite_character_holder = NodePath("sprites(0_08scale)")
+sprites_character = [NodePath("sprites(0_08scale)/Sprite3D")]
+sprite_request_holder = NodePath("requests")
+sprites_requests = [NodePath("requests/Sprite3D")]
+self_collider = NodePath("CollisionShape3D")
+navigation_boundary = NodePath("CollisionAvoidance")
+exit = null
+movement_variance_max = null
+behind_me = NodePath("Saikoubi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=424938268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ruxh5")
+
+[node name="sprites(0_08scale)" type="Node3D" parent="." unique_id=1157954773]
+
+[node name="Sprite3D" type="Sprite3D" parent="sprites(0_08scale)" unique_id=1317893060]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 1.05, 0)
+texture = ExtResource("2_po804")
+
+[node name="CollisionAvoidance" type="Area3D" parent="." unique_id=772415823]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionAvoidance" unique_id=1485875841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_po804")
+debug_color = Color(0.36603513, 0.5970067, 0.39961985, 0.89411765)
+
+[node name="requests" type="Node3D" parent="." unique_id=1500733063]
+
+[node name="Sprite3D" type="Sprite3D" parent="requests" unique_id=1714849378]
+visible = false
+
+[node name="GOAL" type="MeshInstance3D" parent="." unique_id=216428448]
+material_override = SubResource("ORMMaterial3D_po804")
+mesh = SubResource("ImmediateMesh_po804")
+
+[node name="AVOID" type="MeshInstance3D" parent="." unique_id=1472402178]
+material_override = SubResource("ORMMaterial3D_60kmx")
+mesh = SubResource("ImmediateMesh_60kmx")
+
+[node name="COMBINED" type="MeshInstance3D" parent="." unique_id=997096774]
+material_override = SubResource("ORMMaterial3D_p8r5w")
+mesh = SubResource("ImmediateMesh_fmkgi")
+
+[node name="Saikoubi" type="Marker3D" parent="." unique_id=1188488041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04988405, 0, 0.48231077)

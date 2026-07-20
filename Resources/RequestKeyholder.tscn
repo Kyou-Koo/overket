@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c5m2bmibut2qn"]
+
+[ext_resource type="Texture2D" uid="uid://bv8ky6t46m44y" path="res://Resources/Images/ui_heart_cross_32px_v2.png" id="1_0xly1"]
+[ext_resource type="Script" uid="uid://bpt544ywf16xs" path="res://Scripts/RequestItem.gd" id="2_x7spo"]
+
+[node name="RequestKeyholder" type="TextureRect" unique_id=773740285]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_0xly1")
+expand_mode = 5
+script = ExtResource("2_x7spo")
+type = 64

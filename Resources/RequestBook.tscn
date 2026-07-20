@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ec5x5rtlus4h"]
+
+[ext_resource type="Texture2D" uid="uid://cduamtu56lyj2" path="res://Resources/Images/book.png" id="1_ths4g"]
+[ext_resource type="Script" uid="uid://bpt544ywf16xs" path="res://Scripts/RequestItem.gd" id="1_yp543"]
+
+[node name="RequestBook" type="TextureRect" unique_id=773740285]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_ths4g")
+expand_mode = 1
+script = ExtResource("1_yp543")
+type = 4

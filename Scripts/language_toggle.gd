@@ -12,7 +12,6 @@ signal child_set_active(b : Button);
 func public_set_active_button(b : Button) -> void:
     active_button = b;
     child_set_active.emit(b);
-    # TODO: should this be handled by the game manager????
     TranslationServer.set_locale(b.name.to_lower());
     GameManager._instance.savedata = SaveDataMgr.update_savefield(
         b.name.to_lower(), 

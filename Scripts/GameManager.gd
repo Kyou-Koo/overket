@@ -39,6 +39,10 @@ var options : Options;
 @export var transition_time : float = 0.75;
 @export var sprite : Sprite3D;
 
+# TODO: how are we assigning this
+# suggestion: press Start to join   
+var num_players : int;
+
 var active_menu : MENU;
 var sprite_tween : Tween;
 var sprite_init_pos : Vector3;

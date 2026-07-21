@@ -44,6 +44,9 @@ transparency = 1
 albedo_color = Color(1, 0.3137255, 1, 0.3254902)
 disable_receive_shadows = true
 
+[sub_resource type="BoxMesh" id="BoxMesh_05fnj"]
+size = Vector3(20, 0.5, 8)
+
 [node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("spawn_points", "goal_markers", "customer_parent")]
 script = ExtResource("1_05fnj")
 spawn_points = [NodePath("SpawnArea"), NodePath("SpawnArea2")]
@@ -134,6 +137,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 [node name="SpawnArea2" type="MeshInstance3D" parent="." unique_id=2117728766]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.579398, 0.25, 8.566813)
 mesh = SubResource("BoxMesh_mhw25")
+surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
+
+[node name="Exit" type="MeshInstance3D" parent="." unique_id=1834858419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3149109, 0.25, 15.809456)
+mesh = SubResource("BoxMesh_05fnj")
 surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 
 [node name="Customers" type="Node3D" parent="." unique_id=632336761]

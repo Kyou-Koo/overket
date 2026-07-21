@@ -2,12 +2,18 @@ class_name Level extends Node3D
 
 @export_category("Level Objects")
 @export var spawn_points : Array[MeshInstance3D];
+@export var exit_area : MeshInstance3D;
 @export var goal_markers : Array[Marker3D];
 var goals : Array[Vector3];
+@export var player_scene_path : String;
+var player_packed : PackedScene;
+var players : Array[PlayerController];
 @export var customer_scene_path : String;
 var customer_packed : PackedScene;
 var customers : Array[Customer];
 @export var customer_parent : Node3D;
+# TODO: not a table but based on a table;
+@export var delivery_points : Array[Table];
 @export_category("UI")
 @export var ui_parent : Control;
 @export var options_path : String;
@@ -22,12 +28,39 @@ var request_panels : Array # TODO: array of request types
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
 
+# TODO: 
+# player spawning
+# test code lmao
+
 func _on_customer_reached_goal(cus : Customer) -> void:
     if (customers.size() > 0):
         for c : Customer in customers:
             if (c != cus):
                 c.goal = cus.behind_me.position;
     requests.append(cus.request);
+
+func _on_customer_reached_exit(cus : Customer) -> void:
+    var i : int = customers.find(cus);
+    if (i != -1):
+        customers.remove_at(i);
+    cus.queue_free();
+
+func check_customer_request_match() -> void:
+    for dp in delivery_points:
+        if (true): # if dp.customer.request matches dp.placed_item
+            # dp.customer.request_recieved = true;
+            if (randf() > 0.5):
+                # reassign exit
+                var new_exit : Vector3 = get_point_in_mesh(exit_area);
+                # dp.customer.exit = new_exit
+            break;
+
+func get_point_in_mesh(mi : MeshInstance3D) -> Vector3:
+    var mesh_size_half : Vector3 = (mi.mesh as BoxMesh).size / 2.0;
+    var max_bound : Vector2 = Statics.vec3_to_vec2(mi.global_position) + Statics.vec3_to_vec2(mesh_size_half);
+    var min_bound : Vector2 = Statics.vec3_to_vec2(mi.global_position) - Statics.vec3_to_vec2(mesh_size_half);
+    return Vector3(randf_range(min_bound.x, max_bound.x), 0.0, 
+        randf_range(min_bound.y, max_bound.y));
 
 func spawn_customer() -> void:
     var spawn_mesh : MeshInstance3D = (Statics.rand_from_arr_o(spawn_points) as MeshInstance3D);
@@ -40,16 +73,19 @@ func spawn_customer() -> void:
         randf_range(min_bound.y, max_bound.y));
     var target_goal : Vector3 = Statics.rand_from_arr_v(goals);
     var exit_goal : Vector3 = (Statics.rand_from_arr_o(remaining_spawns) as MeshInstance3D).global_position;
+    
+    var new_customer : Customer = customer_packed.instantiate();
     # calc chance of being passerby
     if (randf() < passerby_chance):
         target_goal = exit_goal;
-    
-    var new_customer : Customer = customer_packed.instantiate();
+        new_customer.is_passerby = true;
     new_customer.global_position = spawn_pos;
     new_customer.goal = target_goal;
     new_customer.exit = exit_goal;
     new_customer.level_parent = self;
     new_customer.goal_reached.connect(_on_customer_reached_goal);
+    new_customer.exit_reached.connect(_on_customer_reached_exit);
+    new_customer.initiate();
     
     customer_parent.add_child(new_customer);
     
@@ -60,5 +96,6 @@ func _process(delta: float) -> void:
     
 func _ready() -> void:
     assert(customer_parent != null, "customer parent must be assigned");
+    player_packed = load(player_scene_path);
     customer_packed = load(customer_scene_path);
     options_packed = load(options_path);

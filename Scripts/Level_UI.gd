@@ -53,6 +53,8 @@ func add_request(what : int) -> void:
 
 func remove_request(r : Request) -> void:
     var order : int = request_scns.find(r);
+    if (order == -1):
+        return;
     var rm_x : float = request_scns[order].position.x;
     request_scns.remove_at(order);
     if (r.remaining_time > 0.0):
@@ -67,12 +69,6 @@ func remove_request(r : Request) -> void:
             update_money(parent_3dlevel.money);
     r.queue_free();
     # move everything older to left
-    #if (order > 0):
-        #for i : int in range(order-1, -1, -1):
-            #Statics.debug_log("removed {3} of {4} moving {0}[{1}] from {2}".format([
-                #request_scns[i].name, i, request_scns[i].position.x, order, request_scns.size()
-            #]));
-            #(request_scns[i] as Request).update_pos_by_amount(-request_gap_x);
     if (order > 0):
         x_move_in_queue = true;
         for i : int in range(order-1, -1, -1):

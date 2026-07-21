@@ -38,14 +38,18 @@ var active_sprite : Sprite3D;
 var self_coll_radius : float;
 @export var navigation_boundary : Area3D;
         
-var level_parent : Node3D;
+var level3d_parent : Node3D;
 @onready var ok_id : String = Statics.create_ok_id(self);
 var initialized : bool = false;
 @export var goal : Vector3;
 @export var exit : Vector3;
 var at_goal : bool = false;
+var at_exit : bool = false;
+var is_passerby : bool = false;
 var previous_dir : Vector2 = Vector2.ZERO;
-var request : CarryableObjectBase;
+var request : int;
+var request_received : bool = false;
+var request_sent : bool = false;
 var nearby_characters : Dictionary[String, AnimatableBody3D];
 @export_range(0.0, 2.0) var movement_variance_max : float = 0.5;
 @onready var movement_variance : float = randf_range(0.0, movement_variance_max);
@@ -54,14 +58,15 @@ var nearby_characters : Dictionary[String, AnimatableBody3D];
 @export var behind_me : Marker3D;
 
 signal goal_reached(customer : Customer);
+signal exit_reached(customer : Customer);
 
 func apply_tint() -> void:
     if (!active_sprite):
         return;
     active_sprite.modulate = sprite_tint;
     
-func reached_goal() -> bool:
-    return self.global_position.distance_to(goal) < 0.1;
+func reached_goal(g : Vector3) -> bool:
+    return self.global_position.distance_to(g) < 0.1;
 
 #region debug
 func draw_debug_lines(m : ImmediateMesh, end_v3 : Vector3) -> void:
@@ -91,7 +96,7 @@ func start_debug_lines(a : Vector3, b : Vector3, c: Vector3) -> void:
             draw_debug_lines(comb_dir_mesh, c);
 #endregion
     
-func navigate() -> Vector3:
+func navigate(objective : Vector3) -> Vector3:
     if (DEBUG_mode):
         if (!DEBUG_can_move):
             move_speed = 0.0;
@@ -100,7 +105,7 @@ func navigate() -> Vector3:
     if (!initialized and !DEBUG_mode):
         return Vector3.ZERO;
     # desire path
-    var goal_direction : Vector3 = calc_direction_to_goal();
+    var goal_direction : Vector3 = calc_direction_to_goal(objective);
     if (previous_dir == Vector2.ZERO):
         previous_dir = Statics.vec3_to_vec2(goal_direction);
     # adjust based on nearby others
@@ -161,8 +166,8 @@ func navigate() -> Vector3:
         start_debug_lines(goal_direction, direction_adjust, Statics.vec2_to_vec3(slerped))
     return Statics.vec2_to_vec3(slerped);
     
-func calc_direction_to_goal() -> Vector3:
-    var goal_vector : Vector3 = self.global_position.direction_to(goal);
+func calc_direction_to_goal(objective : Vector3) -> Vector3:
+    var goal_vector : Vector3 = self.global_position.direction_to(objective);
     var turn_angle : float = Statics.vec3_to_vec2(goal_vector).angle();
     turn_angle += randf_range(-PI/4.0, PI/4.0) * movement_variance;
     var out_vector : Vector3 = Statics.vec2_to_vec3(Vector2.from_angle(turn_angle));
@@ -171,7 +176,8 @@ func calc_direction_to_goal() -> Vector3:
     return out_vector;
     
 func assign_request() -> void:
-    var request : int = Statics.rand_from_arr_v(CarryableObjects.customer_requests);
+    request = Statics.rand_from_arr_v(CarryableObjects.customer_requests);
+    var request_arr : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(request);
     # TODO: select sprite based on request
     
 func _on_body_entered(body : Node3D) -> void:
@@ -185,13 +191,34 @@ func _on_body_exited(body : Node3D) -> void:
         nearby_characters.erase(body.ok_id);
     
 func _physics_process(delta: float) -> void:
-    if (!reached_goal()):
-        move_and_collide(navigate() * delta * move_speed);
+    if (!reached_goal(goal) and !at_goal and !is_passerby):
+        move_and_collide(navigate(goal) * delta * move_speed);
+        at_goal = true;
+    if (at_goal):
+        var at_front : bool = false;
+        for g : Vector3 in level3d_parent.goals:
+            if (g.is_equal_approx(goal)):
+                # TODO: display request popup
+                at_front = true;
+                break;
+            else:
+                # reset to continue moving fwd in line
+                # TODO: maybe do this smarter by checking when it's possible to move up
+                at_goal = false;
+        if (!request_sent and at_front):
+            request_sent = true;
+            goal_reached.emit(self);
+    if ((request_sent and request_received) or is_passerby):
+        if (!reached_goal(exit)):
+            move_and_collide(navigate(exit) * delta * move_speed);
+        else:
+            exit_reached.emit(self);
         
 func initiate() -> void:
     initialized = true;
     assign_request();
     sprite_tint = Color(randf(), randf(), randf());
+    behind_me.global_position = self.global_position + Vector3(randf_range(-0.5, 0.5), 0.0, 0.5);
 
 func _ready() -> void:
     if (sprite_character_holder and sprites_character.size() == 0):

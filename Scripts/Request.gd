@@ -11,6 +11,7 @@ class_name Request extends NinePatchRect
     Vector2(0.0, 0.0), Vector2(130.0, 0.0),
     Vector2(0.0, 130.0), Vector2(130.0, 130.0)
 ]
+var full_request : int;
 var request_items : Array[RequestItem];
 var tint : Color = Color.WHITE;
 var parent_level : LevelUI;
@@ -30,9 +31,11 @@ var window_height : float = 1080.0;
 @onready var initialized_time : int = Time.get_ticks_msec();
 
 signal anim_x_done();
+signal failed();
 
-func position_request_items(full_request : int) -> void:
-    var request_list : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(full_request);
+func position_request_items(incoming_request : int) -> void:
+    full_request = incoming_request;
+    var request_list : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(incoming_request);
     worth = CarryableObjects.calc_value(request_list);
     Statics.debug_log("{0} is worth {1}".format([self.name, worth]));
     # display desired items
@@ -83,8 +86,13 @@ func calc_percentage(time_left : float) -> float:
     
 func _process(delta: float) -> void:
     pct_remain = calc_percentage(remaining_time);
-    if ((remaining_time < 0.0 and !killed) or (completed and !killed)):
+    if (remaining_time < 0.0 and !killed):
         animate_out();
+        # TODO: call sfx manager for fail sfx
+        killed = true;
+    if (completed and !killed):
+        animate_out();
+        # TODO: call sfx manager for complete sfx
         killed = true;
     elif (Time.get_ticks_msec() - initialized_time)/1000.0 > animate_duration:
         remaining_time -= delta;

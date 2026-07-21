@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bpt544ywf16xs" path="res://Scripts/RequestItem.gd" id="2_x7spo"]
 
 [node name="RequestKeyholder" type="TextureRect" unique_id=773740285]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(96, 96)
 offset_right = 64.0
 offset_bottom = 64.0
 texture = ExtResource("1_0xly1")

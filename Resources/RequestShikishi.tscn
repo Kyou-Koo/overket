@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bpt544ywf16xs" path="res://Scripts/RequestItem.gd" id="2_tb61v"]
 
 [node name="RequestShikishi" type="TextureRect" unique_id=773740285]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(96, 96)
 offset_top = 4.0
 offset_right = 60.0
 offset_bottom = 64.0

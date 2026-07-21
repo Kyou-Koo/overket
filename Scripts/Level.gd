@@ -11,6 +11,10 @@ var customers : Array[Customer];
 @export_category("UI")
 @export var ui_parent : Control;
 @export var options_path : String;
+## in seconds
+@export var level_duration : int = 300;
+@onready var level_remain_time : float = level_duration as float;
+var money : int;
 var options_packed : PackedScene;
 var options_scene : Options;
 var requests : Array[CarryableObjectBase]; 
@@ -48,6 +52,11 @@ func spawn_customer() -> void:
     new_customer.goal_reached.connect(_on_customer_reached_goal);
     
     customer_parent.add_child(new_customer);
+    
+func _process(delta: float) -> void:
+    # update timer
+    level_remain_time -= delta;
+    if (level_remain_time < 0.0): level_remain_time = 0.0;
     
 func _ready() -> void:
     assert(customer_parent != null, "customer parent must be assigned");

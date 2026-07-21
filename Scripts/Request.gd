@@ -1,17 +1,26 @@
 class_name Request extends NinePatchRect
 
 @export var countdown_timer : TextureProgressBar;
+@export var color_good : Color = Color(0.2, 0.8 , 0.3);
+@export var color_warn : Color = Color(0.8, 0.8, 0.2);
+@export var color_danger : Color = Color(0.8, 0.2, 0.3);
 @export var request_item_holder : Control;
-@export var request_item_spacing : float = 120.0;
+@export var request_item_grid : Array[Vector2] = [
+    Vector2(0.0, 0.0), Vector2(130.0, 0.0),
+    Vector2(0.0, 130.0), Vector2(130.0, 130.0)
+]
 var request_items : Array[RequestItem];
 var tint : Color = Color.WHITE;
 var parent_level : LevelUI; # TODO: levelUI
 var tween_position : Tween;
-var tween_opacity : Tween;
+var tween_x : Tween;
+var killed : bool = false;
+var completed : bool = false;
+var worth : int;
 # in seconds
-var start_duration : float = 10.0;
+@export var start_duration : float = 10.0;
 @onready var remaining_time : float = start_duration;
-var animate_duration : float = 1.0;
+var animate_duration : float = 0.5;
 var window_width : float = 1920.0;
 var window_height : float = 1080.0;
 # this bum is in ms
@@ -19,40 +28,79 @@ var window_height : float = 1080.0;
 
 func position_request_items(full_request : int) -> void:
     var request_list : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(full_request);
+    worth = CarryableObjects.calc_value(request_list);
+    Statics.debug_log("{0} is worth {1}".format([self.name, worth]));
     # display desired items
-    var start_x : float = 0.0;
+    # 1 2
+    # 3 4
+    var idx : int = 0;
     for r : CarryableObjects.CarryObjEnum in request_list:
         for ri : RequestItem in request_items:
             if (ri.type == r):
-                ri.position = Vector2(start_x, ri.y_adjust);
+                ri.position = request_item_grid[idx];
                 ri.visible = true;
-                start_x += request_item_spacing;
+                idx += 1;
                 
 func animate_in() -> void:
     tween_position = get_tree().create_tween();
     tween_position.set_ease(Tween.EASE_OUT);
     tween_position.set_trans(Tween.TRANS_BACK);
-    tween_position.tween_property(self, "position:x", window_width - self.size.x, animate_duration);
+    tween_position.tween_property(self, "position:y", -self.size.y + 50.0, animate_duration);
     
 func animate_out() -> void:
-    pass
-
-func update_pos(new_y : float) -> void:
+    if (tween_position): tween_position.kill();
     tween_position = get_tree().create_tween();
-    tween_position.set_ease(Tween.EASE_OUT);
-    tween_position.set_trans(Tween.TRANS_CUBIC);
-    tween_position.tween_property(self, "position:y", new_y, animate_duration/2.0);
+    tween_position.set_ease(Tween.EASE_IN);
+    tween_position.set_trans(Tween.TRANS_BACK);
+    tween_position.tween_property(self, "position:y", 0.0, animate_duration);
+    tween_position.tween_callback(parent_level.remove_request.bind(self));
 
+func animate_x_to(amount_x : float) -> void:
+    if (tween_x): 
+        tween_x.kill();
+    tween_x = get_tree().create_tween();
+    tween_x.set_ease(Tween.EASE_OUT);
+    tween_x.set_trans(Tween.TRANS_CUBIC);
+    tween_x.tween_property(self, "position:x", amount_x, animate_duration/2.0);
+
+func update_pos_by_amount(amount_x : float) -> void:
+    if (tween_x): 
+        tween_x.kill();
+    tween_x = get_tree().create_tween();
+    tween_x.set_ease(Tween.EASE_OUT);
+    tween_x.set_trans(Tween.TRANS_CUBIC);
+    tween_x.tween_property(self, "position:x", self.position.x + amount_x, animate_duration/2.0);
+
+func calc_percentage(time_left : float) -> float:
+    return (time_left / start_duration);
+    
 func _process(delta: float) -> void:
-    if (remaining_time < 0.0):
+    var pct_remain : float = calc_percentage(remaining_time);
+    if ((remaining_time < 0.0 and !killed) or (completed and !killed)):
         animate_out();
-        parent_level.remove_request(self);
-    if (Time.get_ticks_msec() - initialized_time)/1000.0 > animate_duration:
+        killed = true;
+    elif (Time.get_ticks_msec() - initialized_time)/1000.0 > animate_duration:
         remaining_time -= delta;
+        pct_remain = calc_percentage(remaining_time);
+        countdown_timer.value = (pct_remain * 78.0) + 22.0;
+        Statics.debug_prolog("time left {0}".format([pct_remain]));
+    if (pct_remain > 0.66):
+        countdown_timer.tint_progress = color_good;
+        countdown_timer.tint_under = color_good * 0.5;
+    elif (pct_remain > 0.33):
+        countdown_timer.tint_progress = color_warn;
+        countdown_timer.tint_under = color_warn * 0.5;
+    else:
+        countdown_timer.tint_progress = color_danger
+        countdown_timer.tint_under = color_danger * 0.5;
+    countdown_timer.tint_under.a = 1.0;
+    
 
 func _ready() -> void:
-    self.modulate.a = 0.0;
-    self.position = Vector2(window_width, parent_level.request_y);
+    countdown_timer.value = countdown_timer.max_value;
+    countdown_timer.tint_progress = color_good;
+    countdown_timer.tint_under = color_good * 0.5;
+    countdown_timer.tint_under.a = 1.0;
     for c in request_item_holder.get_children():
         if (c is RequestItem):
             request_items.append(c);

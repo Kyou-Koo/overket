@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cthfjlfpa3jet"]
 
 [ext_resource type="Script" uid="uid://dndhp2wmhhslk" path="res://Scripts/Level_UI.gd" id="1_dg1wr"]
-[ext_resource type="PackedScene" uid="uid://in2aruidhpgv" path="res://Resources/Request.tscn" id="2_b6esi"]
 [ext_resource type="Texture2D" uid="uid://toexw74xrv6v" path="res://Resources/Images/timer_bubble.png" id="2_bpy0r"]
 [ext_resource type="Texture2D" uid="uid://d3aoubx1bxtn" path="res://Resources/Images/timer_bubble_invert.png" id="3_b6esi"]
+[ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="3_eytvj"]
 
-[node name="LevelUi" type="Control" unique_id=792234887]
+[node name="LevelUi" type="Control" unique_id=792234887 node_paths=PackedStringArray("request_holder", "timer_holder", "money_holder")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,40 +13,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dg1wr")
+debug_mode = true
 request_scn_path = "res://Resources/Request.tscn"
+request_holder = NodePath("Requests_x16")
+timer_holder = NodePath("TimeRemaining")
+money_holder = NodePath("Money")
 
-[node name="Requests_-32" type="Control" parent="." unique_id=2126034667]
+[node name="Requests_x16" type="Control" parent="." unique_id=2126034667]
 anchors_preset = 0
-offset_left = 1920.0
-offset_top = 164.0
-offset_right = 1920.0
-offset_bottom = 164.0
-
-[node name="Request" parent="Requests_-32" unique_id=28261208 instance=ExtResource("2_b6esi")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -240.0
-offset_right = 0.0
-offset_bottom = 144.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="Request2" parent="Requests_-32" unique_id=735414559 instance=ExtResource("2_b6esi")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -247.0
-offset_top = 219.0
-offset_right = 9.0
-offset_bottom = 411.0
-grow_horizontal = 1
-grow_vertical = 1
+offset_top = 1080.0
+offset_bottom = 1080.0
 
 [node name="TimeRemaining" type="NinePatchRect" parent="." unique_id=796345856]
-custom_minimum_size = Vector2(0, 192)
+custom_minimum_size = Vector2(600, 192)
 layout_mode = 0
 offset_top = 16.0
 offset_right = 322.0
@@ -54,6 +33,15 @@ offset_bottom = 144.0
 texture = ExtResource("2_bpy0r")
 patch_margin_left = 10
 patch_margin_right = 99
+
+[node name="Label" type="Label" parent="TimeRemaining" unique_id=47477416]
+layout_mode = 0
+offset_top = 15.0
+offset_right = 321.0
+offset_bottom = 178.0
+theme = ExtResource("3_eytvj")
+theme_override_font_sizes/font_size = 128
+text = "05:00"
 
 [node name="Money" type="NinePatchRect" parent="." unique_id=501092316]
 custom_minimum_size = Vector2(400, 192)
@@ -66,3 +54,8 @@ scale = Vector2(-1, 1)
 texture = ExtResource("3_b6esi")
 patch_margin_left = 10
 patch_margin_right = 97
+
+[node name="Label" type="Label" parent="Money" unique_id=1030188007]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

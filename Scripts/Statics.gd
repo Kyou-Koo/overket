@@ -32,6 +32,11 @@ static func check_for_okid(n3d : Node3D) -> bool:
         if (prop["name"] == "ok_id"):
             return true;
     return false;
+    
+static func time_sec_to_minsec(total_sec : int) -> String:
+    var secs : int = total_sec % 60;
+    var mins : int = (total_sec - secs) / 60;
+    return "{0}:{1}".format({0:"%02d" % mins, 1:"%02d" % secs});
 
 # once again this would be benefitted by using C# and generic types
 static func rand_from_arr_v(a : Array[Variant]) -> Variant:

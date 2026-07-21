@@ -3,7 +3,14 @@
 [ext_resource type="Script" uid="uid://dndhp2wmhhslk" path="res://Scripts/Level_UI.gd" id="1_dg1wr"]
 [ext_resource type="Texture2D" uid="uid://toexw74xrv6v" path="res://Resources/Images/timer_bubble.png" id="2_bpy0r"]
 [ext_resource type="Texture2D" uid="uid://d3aoubx1bxtn" path="res://Resources/Images/timer_bubble_invert.png" id="3_b6esi"]
-[ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="3_eytvj"]
+[ext_resource type="LabelSettings" uid="uid://c8aplvumw3dbf" path="res://Resources/Themes/level_ui_label.tres" id="3_eytvj"]
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="5_eytvj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_frxll"]
+line_spacing = -5.0
+font = ExtResource("5_eytvj")
+font_size = 128
+font_color = Color(0.9764706, 0.972549, 0.9490196, 1)
 
 [node name="LevelUi" type="Control" unique_id=792234887 node_paths=PackedStringArray("request_holder", "timer_holder", "money_holder")]
 layout_mode = 3
@@ -36,12 +43,12 @@ patch_margin_right = 99
 
 [node name="Label" type="Label" parent="TimeRemaining" unique_id=47477416]
 layout_mode = 0
+offset_left = 16.0
 offset_top = 15.0
-offset_right = 321.0
+offset_right = 431.0
 offset_bottom = 178.0
-theme = ExtResource("3_eytvj")
-theme_override_font_sizes/font_size = 128
 text = "05:00"
+label_settings = ExtResource("3_eytvj")
 
 [node name="Money" type="NinePatchRect" parent="." unique_id=501092316]
 custom_minimum_size = Vector2(400, 192)
@@ -56,6 +63,14 @@ patch_margin_left = 10
 patch_margin_right = 97
 
 [node name="Label" type="Label" parent="Money" unique_id=1030188007]
+custom_minimum_size = Vector2(1200, 163)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 1216.0
+offset_top = 16.0
+offset_right = 2416.0
+offset_bottom = 179.0
+scale = Vector2(-1, 1)
+text = "￥123123123123"
+label_settings = SubResource("LabelSettings_frxll")
+horizontal_alignment = 2
+vertical_alignment = 1

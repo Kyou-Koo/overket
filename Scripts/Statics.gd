@@ -5,12 +5,12 @@ enum ENUM_DEBUG_PRN_PROC {
     CYCLE   = 1,
     ALWAYS  = 2,
 };
-static var cycle : int = 3;
+static var cycle : int = 1000;
 static var last_printed_cycle : int = 0;
 
 static var DEBUG_MODE : bool = true;
 static var DEBUG_PRINT_WARN : bool = true;
-static var DEBUG_PRINT_PROCESS : ENUM_DEBUG_PRN_PROC = ENUM_DEBUG_PRN_PROC.NEVER;
+static var DEBUG_PRINT_PROCESS : ENUM_DEBUG_PRN_PROC = ENUM_DEBUG_PRN_PROC.CYCLE;
 
 # TODO: assign intial value in game configuration
 static var ok_id_incr : int = 0;
@@ -74,8 +74,8 @@ static func debug_prolog(msg : String) -> void:
     if (DEBUG_PRINT_PROCESS == ENUM_DEBUG_PRN_PROC.ALWAYS):
         print(msg)
     elif (DEBUG_PRINT_PROCESS == ENUM_DEBUG_PRN_PROC.CYCLE):
-        var curr_cycle : int = Time.get_ticks_msec() / 1000;
-        if (curr_cycle % cycle == 0 and curr_cycle != last_printed_cycle):
+        var curr_cycle : int = Time.get_ticks_msec();
+        if (curr_cycle % cycle < 10 and curr_cycle != last_printed_cycle):
             print(msg);
             last_printed_cycle = curr_cycle;
 #endregion

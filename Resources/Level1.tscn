@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://d3qk0p0iwfc1r"]
 
+[ext_resource type="Script" uid="uid://bbp42cuvxwnay" path="res://Scripts/Level.gd" id="1_05fnj"]
 [ext_resource type="PackedScene" uid="uid://dg1k6fy67qp1c" path="res://Resources/Table.tscn" id="1_mhw25"]
 [ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="1_vpm4h"]
 [ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="2_mhw25"]
@@ -43,7 +44,12 @@ transparency = 1
 albedo_color = Color(1, 0.3137255, 1, 0.3254902)
 disable_receive_shadows = true
 
-[node name="Level1" type="Node3D" unique_id=2115189687]
+[node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("spawn_points", "goal_markers", "customer_parent")]
+script = ExtResource("1_05fnj")
+spawn_points = [NodePath("SpawnArea"), NodePath("SpawnArea2")]
+goal_markers = [NodePath("Goals/Goal1"), NodePath("Goals/Goal2")]
+customer_scene_path = "res://Resources/customer.tscn"
+customer_parent = NodePath("Customers")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2006233483]
 
@@ -129,3 +135,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.579398, 0.25, 8.566813)
 mesh = SubResource("BoxMesh_mhw25")
 surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
+
+[node name="Customers" type="Node3D" parent="." unique_id=632336761]

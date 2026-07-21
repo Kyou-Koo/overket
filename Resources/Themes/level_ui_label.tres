@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://c8aplvumw3dbf"]
+
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="1_kp7hn"]
+
+[resource]
+line_spacing = -5.0
+font = ExtResource("1_kp7hn")
+font_size = 128
+font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)

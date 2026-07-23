@@ -15,7 +15,6 @@ static func regex_match_nin(in_str : String) -> bool:
     return false;
 
 static func _kb_txt_short(input: String) -> String:
-    # TODO: localize?? (is RMB/etc normal in japanese?)
     if (input.contains("Physical")):
         input = input.left(-11);
     match input:

@@ -73,7 +73,7 @@ func _ready() -> void:
     texture_select_right.position = Vector2(self.size.x + horizonal_offset, vertical_icon_alignment);
     texture_select_right.visible = false;
     assert(texture_hover != null, "{0} must have hover texture".format([self.name]));
-    #TODO: position texture
+    #TODO: position texture -- i think this is deprecated
 
     texture_hover.visible = false;
 

@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cthfjlfpa3jet" path="res://Resources/LevelUI.tscn" id="2_pnl7u"]
 [ext_resource type="PackedScene" uid="uid://bsftdc2513i7d" path="res://Resources/1m_cube.tscn" id="5_e5ymc"]
 [ext_resource type="PackedScene" uid="uid://b23ck11osr3mg" path="res://Resources/player.tscn" id="5_eg3i3"]
+[ext_resource type="PackedScene" uid="uid://dircnlmhkpbh4" path="res://Resources/GarbageCan.tscn" id="5_kw3qw"]
 [ext_resource type="PackedScene" uid="uid://cgxygugksk0k4" path="res://Resources/DeliveryPoint.tscn" id="6_m76yx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kw3qw"]
@@ -62,13 +63,13 @@ disable_receive_shadows = true
 [sub_resource type="BoxMesh" id="BoxMesh_05fnj"]
 size = Vector3(20, 0.5, 8)
 
-[node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("spawn_points", "exit_area", "goal_markers", "customer_parent", "ui_parent", "countdown_timer")]
+[node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("spawn_points", "exit_area", "customer_parent", "delivery_points", "ui_parent", "countdown_timer")]
 script = ExtResource("1_05fnj")
 spawn_points = [NodePath("SpawnArea"), NodePath("SpawnArea2")]
 exit_area = NodePath("Exit")
-goal_markers = [NodePath("Goals/Goal1"), NodePath("Goals/Goal2")]
 customer_scene_path = "res://Resources/customer.tscn"
 customer_parent = NodePath("Customers")
+delivery_points = [NodePath("Surfaces/Tables/DeliveryPoint"), NodePath("Surfaces/Tables/DeliveryPoint2")]
 ui_parent = NodePath("CanvasLayer/Control")
 countdown_timer = NodePath("CanvasLayer/Control/CenterContainer/Label")
 countdown_length = 1.0
@@ -141,6 +142,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
 
 [node name="Tables" type="Node3D" parent="Surfaces" unique_id=1174863814]
 
+[node name="GarbageCan" parent="Surfaces/Tables" unique_id=689229448 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("5_kw3qw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+scene_obj_holder = NodePath("../../../CarryableObjects")
+
 [node name="Table" parent="Surfaces/Tables" unique_id=1595576306 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("1_mhw25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
@@ -177,11 +182,13 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 
 [node name="Table15" parent="Surfaces/Tables" unique_id=532709665 instance=ExtResource("1_mhw25")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, 3)
 
-[node name="DeliveryPoint" parent="Surfaces/Tables" unique_id=1224867300 instance=ExtResource("6_m76yx")]
+[node name="DeliveryPoint" parent="Surfaces/Tables" unique_id=1224867300 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("6_m76yx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
+scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="DeliveryPoint2" parent="Surfaces/Tables" unique_id=316648140 instance=ExtResource("6_m76yx")]
+[node name="DeliveryPoint2" parent="Surfaces/Tables" unique_id=316648140 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("6_m76yx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
+scene_obj_holder = NodePath("../../../CarryableObjects")
 
 [node name="Table16" parent="Surfaces/Tables" unique_id=1665861496 instance=ExtResource("1_mhw25")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0, 3)
@@ -198,14 +205,15 @@ shape = ExtResource("2_mhw25")
 mesh = SubResource("PlaneMesh_05fnj")
 
 [node name="Goals" type="Node3D" parent="." unique_id=685087743]
-visible = false
 
 [node name="Goal1" type="Marker3D" parent="Goals" unique_id=475185336]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.2942195)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.294)
+visible = false
 gizmo_extents = 0.5
 
 [node name="Goal2" type="Marker3D" parent="Goals" unique_id=1716906009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4.2942195)
+visible = false
 gizmo_extents = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=262275453]

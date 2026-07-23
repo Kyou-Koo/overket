@@ -34,7 +34,7 @@ var active_sprite : Sprite3D;
     set(value):
         sprite_tint = value;
         apply_tint(active_sprite);
-@export_range(0.0, 10.0) var move_speed : float = 7.0;
+@export_range(0.0, INF) var move_speed : float = 10.0;
 @export var self_collider : CollisionShape3D;
 var self_coll_radius : float;
 @export var navigation_boundary : Area3D;
@@ -57,7 +57,6 @@ var mid_bounce : bool = false;
 @export_range(0.0, 2.0) var movement_variance_max : float = 0.5;
 @onready var movement_variance : float = randf_range(0.0, movement_variance_max);
 @onready var desired_dist : float = randf_range(1.0, 3.0);
-# TODO: randomly place this
 @export var behind_me : Marker3D;
 
 signal goal_reached(customer : Customer);
@@ -69,7 +68,7 @@ func apply_tint(s : Sprite3D) -> void:
     s.modulate = sprite_tint;
     
 func reached_goal(g : Vector3) -> bool:
-    return self.global_position.distance_to(g) < 0.1;
+    return self.global_position.distance_to(g) < 0.15;
 
 #region debug
 func draw_debug_lines(m : ImmediateMesh, end_v3 : Vector3) -> void:
@@ -100,11 +99,11 @@ func start_debug_lines(a : Vector3, b : Vector3, c: Vector3) -> void:
 #endregion
     
 func navigate(objective : Vector3) -> Vector3:
-    if (DEBUG_mode):
-        if (!DEBUG_can_move):
-            move_speed = 0.0;
-        else:
-            move_speed = 0.5;
+    #if (DEBUG_mode):
+        #if (!DEBUG_can_move):
+            #move_speed = 0.0;
+        #else:
+            #move_speed = 0.5;
     if (!initialized and !DEBUG_mode):
         return Vector3.ZERO;
     bounce_animation();
@@ -165,6 +164,9 @@ func navigate(objective : Vector3) -> Vector3:
         slerped = previous_dir.slerp(slerped, 0.2);
     #Statics.debug_prolog("{0} desire: {1} adjust: {2} result {3}".format([
         #self.name, goal_direction, direction_adjust, slerped]))
+    # please go away from wall thanks
+    if (self.global_position.z > level3d_parent.customer_z_line):
+        slerped = slerped.slerp(Vector2.DOWN, randf_range(0.5, 0.75));
     if (DEBUG_mode):
         start_debug_lines(goal_direction, direction_adjust, Statics.vec2_to_vec3(slerped))
     return Statics.vec2_to_vec3(slerped);
@@ -246,7 +248,7 @@ func _physics_process(delta: float) -> void:
 func initiate() -> void:
     initialized = true;
     assign_request();
-    sprite_tint = Color(randf(), randf(), randf());
+    sprite_tint = Color(randf_range(0.5, 1.0), randf_range(0.7, 1.0), randf_range(0.5, 1.0));
     behind_me.global_position = self.global_position + Vector3(randf_range(-1.0, 1.0), 0.0, 0.75);
 
 func _ready() -> void:

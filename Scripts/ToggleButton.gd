@@ -80,15 +80,10 @@ func _on_slider_value_changed(new_val : float) -> void:
     else:
         toggle_on(true);
     
-    var field : SaveDataMgr.FIELD;
     if (self.name == "music"):
-        field = SaveDataMgr.FIELD.MUSIC;
+        SaveDataMgr.set_music(new_val as int);
     elif (self.name == "sound"):
-        field = SaveDataMgr.FIELD.SOUND;
-    GameManager._instance.savedata = SaveDataMgr.update_savefield(
-        new_val,
-        field,
-        GameManager._instance.savedata);
+        SaveDataMgr.set_sound(new_val as int);
 
 func _on_toggled(new_state : bool) -> void:
     if (!button_flow_handler.is_active):
@@ -105,6 +100,7 @@ func _on_toggled(new_state : bool) -> void:
 
 func _ready() -> void:
     # safety catches
+    if (GameManager._instance.sdm == null): SaveDataMgr.create_sdm();
     var children : Array[Node] = self.get_children();
     for c in children:
         if (c is TextureRect):
@@ -132,7 +128,10 @@ func _ready() -> void:
     
     # update from save:
     var settings_value : int;
-    settings_value = GameManager._instance.savedata[self.name];
+    if (self.name == "music"):
+        settings_value = SaveDataMgr.get_music();
+    elif (self.name == "sound"):
+        settings_value = SaveDataMgr.get_sound();
     texture_node_on.visible = (settings_value != 0);
     texture_node_off.visible = (settings_value == 0);
     if (texture_node_on_hover != null): texture_node_on_hover.visible = false;

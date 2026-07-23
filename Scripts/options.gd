@@ -74,7 +74,8 @@ func _on_back_pressed() -> void:
 func _on_menu_transition(who : Node) -> void:
     if (who == self):
         is_active = true;
-        get_node("NinePatchRect/Language Control/{0}".format([GameManager._instance.savedata["lang"].capitalize()])).grab_focus.call_deferred();
+        if (GameManager._instance.sdm == null): SaveDataMgr.create_sdm();
+        get_node("NinePatchRect/Language Control/{0}".format([SaveDataMgr.get_lang().capitalize()])).grab_focus.call_deferred();
     else:
         is_active = false;
 
@@ -116,11 +117,11 @@ func _ready() -> void:
     # ---------------------
     var lang_str : String = OS.get_locale_language();
     if (GameManager._instance != null):
-        if (GameManager._instance.savedata["lang"] != ""):
+        if (SaveDataMgr.get_lang() != ""):
             GameManager._instance.set_lang_from_save();
-            lang_str = GameManager._instance.savedata["lang"];
+            lang_str = SaveDataMgr.get_lang();
         else:
-            GameManager._instance.savedata["lang"] = lang_str;
+            SaveDataMgr.set_lang(lang_str);
         if (in_main_menu):
             GameManager._instance.transition_to.connect(_on_menu_transition);
     Statics.debug_log("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()]));

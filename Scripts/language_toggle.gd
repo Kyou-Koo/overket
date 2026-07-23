@@ -13,10 +13,7 @@ func public_set_active_button(b : Button) -> void:
     active_button = b;
     child_set_active.emit(b);
     TranslationServer.set_locale(b.name.to_lower());
-    GameManager._instance.savedata = SaveDataMgr.update_savefield(
-        b.name.to_lower(), 
-        SaveDataMgr.FIELD.LANGUAGE, 
-        GameManager._instance.savedata);
+    SaveDataMgr.set_lang(b.name.to_lower());
 
 func _on_focus_entered() -> void:
     if (!button_flow_handler.is_active):
@@ -52,7 +49,7 @@ func _ready() -> void:
     var lang_str : String;
     if (GameManager._instance != null):
         GameManager._instance.set_lang_from_save();
-        lang_str = GameManager._instance.savedata["lang"];
+        lang_str = SaveDataMgr.get_lang();
     var radio_group : ButtonGroup = ButtonGroup.new();
     radio_group.allow_unpress = false;
     ja_button.toggle_mode = true;

@@ -8,7 +8,7 @@ var ok_id : StringName = "";
 
 func public_take_object() -> CarryableObjectBase:
     # TODO: stacking??
-    # TODO: handle taking a bag specifically
+    # TODO: handle taking a bag specifically -- a bag is 1 item with complex id
     var num_items_on_top : int = objs_on_top.size();
     if (num_items_on_top > 0):
         Statics.debug_log("tabletop: {0}".format([objs_on_top.size()]));
@@ -16,7 +16,7 @@ func public_take_object() -> CarryableObjectBase:
         Statics.debug_log("tabletop aftr: {0}".format([objs_on_top.size()]));
         return table_obj;
     else:
-        return null;
+        return;
 
 func public_place_object(obj : CarryableObjectBase) -> bool:
     Statics.debug_log("atmpt place {0}".format([obj.name]))

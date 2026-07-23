@@ -3,8 +3,9 @@ extends Control
 @export var play_button : Button;
 @export var options_button : Button;
 @export var quit_button : Button;
-@export var level_select : Node; #TODO: write
-@export var options_menu : Options;
+# TODO: i dont think these are actually used
+var level_select : LevelSelect;
+var options_menu : Options;
 # should probably tri
 var is_active : bool = true;
 
@@ -18,7 +19,9 @@ func _on_menu_transition(who : Node) -> void:
 func _on_play_pressed() -> void:
     # move to level select
     if (is_active):
-        pass
+        GameManager._instance.public_rotate_camera(
+            GameManager._instance.level_cam_rot,
+            GameManager.MENU.LEVEL);
     
 func _on_opt_pressed() -> void:
     # move to opt menu

@@ -3,7 +3,6 @@ class_name Level extends Node3D
 @export_category("Level Objects")
 @export var spawn_points : Array[MeshInstance3D];
 @export var exit_area : MeshInstance3D;
-@export var goal_markers : Array[Marker3D];
 var goals : Array[Vector3];
 @export var player_scene_path : String;
 var player_packed : PackedScene;
@@ -12,8 +11,8 @@ var players : Array[PlayerController];
 var customer_packed : PackedScene;
 var customers : Array[Customer];
 @export var customer_parent : Node3D;
-# TODO: not a table but based on a table;
-@export var delivery_points : Array[Table];
+var customer_count : int = 0;
+@export var delivery_points : Array[DeliveryPoint];
 @export_category("UI")
 @export var ui_parent : Control;
 @export var options_path : String;
@@ -23,13 +22,14 @@ var customers : Array[Customer];
 @onready var level_remain_time : float = level_duration as float;
 @export var countdown_timer : Label;
 @export_category("Level Config")
+@export var customer_z_line : float = 4.1;
+@export var customer_max : int = 20;
 @export var countdown_length : float = 5.0;
 var countdown_finished : bool = false;
 var money : int;
 var options_packed : PackedScene;
 var options_scene : Options;
 var requests : Array[CarryableObjectBase]; 
-var request_panels : Array # TODO: array of request types
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
 @export_range(0, 10.0) var customer_spawn_gap : float = 4.0;
@@ -41,9 +41,7 @@ var next_spawn_gap : float = 0.5;
 # player spawning
 # test code lmao
 # gameover + score screen
-# how often to spawn customer
 # customer limit?
-# delay start
 signal reassign_saikoubi(customer : Customer);
 
 func _on_customer_reached_goal(cus : Customer) -> void:
@@ -53,23 +51,21 @@ func _on_customer_reached_goal(cus : Customer) -> void:
                 c.goal = cus.behind_me.position;
     Statics.debug_log("customer {0} reached w/ {1} request".format([cus.name, cus.request]));
     requests.append(cus.request);
+    # TODO: send requests up to UI
     reassign_saikoubi.emit(cus);
 
 func _on_customer_reached_exit(cus : Customer) -> void:
     var i : int = customers.find(cus);
     if (i != -1):
         customers.remove_at(i);
+        customer_count -= 1;
     cus.queue_free();
 
-func check_customer_request_match() -> void:
-    for dp in delivery_points:
-        if (true): # if dp.customer.request matches dp.placed_item
-            # dp.customer.request_recieved = true;
-            if (randf() > 0.5):
-                # reassign exit
-                var new_exit : Vector3 = get_point_in_mesh(exit_area);
-                # dp.customer.exit = new_exit
-            break;
+func _on_dp_request_matched(dp : DeliveryPoint) -> void:
+    dp.customer.request_received = true;
+    if (randf() > 0.5):
+        # reassign exit
+        dp.customer.exit = get_point_in_mesh(exit_area);
 
 func get_point_in_mesh(mi : MeshInstance3D) -> Vector3:
     var mesh_size_half : Vector3 = (mi.mesh as BoxMesh).size / 2.0;
@@ -79,6 +75,7 @@ func get_point_in_mesh(mi : MeshInstance3D) -> Vector3:
         randf_range(min_bound.y, max_bound.y));
 
 func spawn_customer() -> void:
+    if (customer_count >= customer_max): return;
     var spawn_mesh : MeshInstance3D = (Statics.rand_from_arr_o(spawn_points) as MeshInstance3D);
     var remaining_spawns : Array[MeshInstance3D] = spawn_points.duplicate();
     remaining_spawns.erase(spawn_mesh);
@@ -103,7 +100,7 @@ func spawn_customer() -> void:
     new_customer.goal_reached.connect(_on_customer_reached_goal);
     new_customer.exit_reached.connect(_on_customer_reached_exit);
     new_customer.initiate();
-    
+    customer_count += 1;
     customer_parent.add_child(new_customer);
 
 func _input(event: InputEvent) -> void:
@@ -143,5 +140,6 @@ func _ready() -> void:
     player_packed = load(player_scene_path);
     customer_packed = load(customer_scene_path);
     options_packed = load(options_path);
-    for gm : Marker3D in goal_markers:
-        goals.append(gm.global_position);
+    for dp : DeliveryPoint in delivery_points:
+        goals.append(dp.goal.global_position);
+        dp.request_matched.connect(_on_dp_request_matched);

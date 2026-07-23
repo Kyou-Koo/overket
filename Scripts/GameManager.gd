@@ -6,7 +6,7 @@ static var _instance : GameManager = null;
         #_instance = GameManager.new();
     #return _instance;
 
-var savedata : Dictionary;
+var sdm : SaveDataMgr;
 
 enum MENU {
     MAIN,
@@ -21,14 +21,14 @@ enum MENU {
 @export var main_cam_origin_pos : Vector3;
 @export var main_cam_origin_rot : Vector3;
 var main_menu_scene : PackedScene;
-var main_menu : Node;
+var main_menu : Control;
 @export_group("Level", "level")
 @export var level_scene_path : String;
 @export var level_node_parent : SubViewport;
 @export var level_cam_pos : Vector3;
 @export var level_cam_rot : Vector3;
 var level_scene : PackedScene;
-var level : Node;
+var level : LevelSelect;
 @export_group("Options", "options")
 @export var options_scene_path : String;
 @export var options_node_parent : SubViewport;
@@ -56,7 +56,7 @@ func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transiti
     tween.set_trans(Tween.TRANS_CUBIC);
     tween.set_ease(Tween.EASE_IN_OUT);
     tween.tween_property(main_camera, "rotation_degrees", to, rate)
-    var next_menu : Node;
+    var next_menu : Control;
     match new_menu:
         MENU.MAIN:
             next_menu = main_menu;
@@ -67,11 +67,11 @@ func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transiti
     transition_to.emit(next_menu);
 
 func set_lang_from_save() -> void:
-    TranslationServer.set_locale(_instance.savedata["lang"])
+    TranslationServer.set_locale(SaveDataMgr.get_lang());
 
 func _notification(what: int) -> void:
     if (what == NOTIFICATION_WM_CLOSE_REQUEST):
-        SaveDataMgr.write_savedata(_instance.savedata, SaveDataMgr.savedata_filepath, SaveDataMgr.SAVEDATA.Save)
+        SaveDataMgr.write_savedata(sdm.savedata, SaveDataMgr.savedata_filepath, SaveDataMgr.SAVEDATA.Save)
 
 func instantiate_menus() -> void:
     if (level_scene_path != ""):
@@ -136,13 +136,13 @@ func _input(ev: InputEvent) -> void:
             options_node_parent.push_input(ev);
 
 func _init() -> void:
-    pass;
+    sdm = SaveDataMgr.create_sdm();
     
 func _ready() -> void:
     _instance = self;
     # check for existing saved keymap
     SaveDataMgr.load_keymap();
-    _instance.savedata = SaveDataMgr.load_savedata();
+    SaveDataMgr.load_savedata();
     set_lang_from_save();
 
     if (main_camera == null):

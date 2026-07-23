@@ -25,8 +25,6 @@ var request_x_poses : Array[float];
 var timer_text : Label;
 var money_text : Label;
 
-signal timer_zero();
-
 # request order (display max 5 requests at once);
 # 5 4 3 2 1
 # think about queueing requests up in a separate array

@@ -1,12 +1,20 @@
 class_name SaveDataMgr
 
+static var _instance : SaveDataMgr;
+static func create_sdm() -> SaveDataMgr:
+    if _instance == null:
+        _instance = SaveDataMgr.new();
+    return _instance;
+
+var savedata : Dictionary;
+
 const keybind_filepath : String = "user://keybind.save_json"
 const savedata_filepath : String = "user://save.dat"
 const keybind_defaults : String = "user://keybind_default.dat"
 const pwd : String = "whyyesthisisAP4$$W0rdfortheGaMeWhYArEYoUR3aD1nG!!!"
 
 # defaults
-const SAVE_VERSION : int = 8;
+const SAVE_VERSION : int = 9;
 const LANG : String = "ja";
 const MUSIC_VOLUME : int = 5;
 const SFX_VOLUME : int = 5;
@@ -32,6 +40,25 @@ static var blank : Dictionary = {
     "last_open_date": Time.get_datetime_string_from_system(true, false),
 }
 
+static func get_lang() -> String:
+    return _instance.savedata["lang"];
+
+static func set_lang(lang : String) -> void:
+    _instance.savedata["lang"] = lang;
+
+static func get_music() -> int:
+    return _instance.savedata["music"];
+
+static func set_music(v : int) -> void:
+    _instance.savedata["music"] = v;
+
+static func get_sound() -> int:
+    return _instance.savedata["sound"];
+
+static func set_sound(v : int) -> void:
+    _instance.savedata["sound"] = v;
+
+# TODO: probably depreciated (minus hiscore)
 static func update_savefield(new_data : Variant, field : FIELD, curr_data : Dictionary) -> Dictionary:
     var new_data_dict : Dictionary;
     # TODO: maybe typecheck new data
@@ -91,7 +118,7 @@ static func write_savedata(data : Variant, path : String, type : SAVEDATA) -> vo
             ]));
     out_file.close();
     
-static func load_savedata() -> Dictionary:
+static func load_savedata() -> void:
     if (FileAccess.file_exists(savedata_filepath)):
         var savefile : FileAccess = FileAccess.open_encrypted_with_pass(
             savedata_filepath, 
@@ -105,12 +132,13 @@ static func load_savedata() -> Dictionary:
         var validity : Error = savefile_json.parse(savefile_content);
         if (validity == OK and savefile_json.data["version"] == SAVE_VERSION):
             Statics.debug_log("accessed save: {0}".format([savefile_json.data]))
-            return savefile_json.data;
+            _instance.savedata = savefile_json.data;
+            return;
     # savedata does not exist/version mismatch
     var new_savedata : Dictionary = create_new_savedata();
     write_savedata(new_savedata, savedata_filepath, SAVEDATA.Save);
     Statics.debug_log("creating new save: {0}".format([new_savedata]))
-    return new_savedata;
+    _instance.savedata = new_savedata;
 
 static func load_keymap() -> void:
     if (FileAccess.file_exists(keybind_filepath)):

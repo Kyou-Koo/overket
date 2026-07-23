@@ -5,11 +5,12 @@ func public_interact_object(delta : float = 0.0) -> void:
     pass;
 
 # TODO: handle how player can take a stack if they are able
+# no, do this later later
 func public_take_object(p : PlayerController) -> CarryableObjectBase:
     connected_body = p;
     if (!check_output_can_be_created(output_obj_examples[0])):
         # TODO: warn/error message for debug
-        return null;
+        return;
     var output_instance : CarryableObjectBase = create_output_object();
     return output_instance;
     

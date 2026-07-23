@@ -5,7 +5,6 @@
 [ext_resource type="BoxMesh" uid="uid://dgb5c8lu5gf52" path="res://Resources/Mesh/cube10m.tres" id="3_m7k6n"]
 [ext_resource type="BoxMesh" uid="uid://bwi4vnsw7m0cg" path="res://Resources/Mesh/cube15m.tres" id="4_054na"]
 [ext_resource type="BoxMesh" uid="uid://bftcxgff1it0i" path="res://Resources/Mesh/cube5m.tres" id="4_xcc3k"]
-[ext_resource type="Texture2D" uid="uid://c25ph8jfjmb7h" path="res://Resources/Images/CharacterSprites/3.png" id="5_mstn6"]
 [ext_resource type="Material" uid="uid://ddrr4rneggspf" path="res://Resources/Materials/purple.tres" id="5_scaty"]
 [ext_resource type="Material" uid="uid://dg8vhoy06eie" path="res://Resources/Materials/green.tres" id="5_t7kqs"]
 [ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="7_lgx5e"]
@@ -18,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b1svy6q5h3k4n" path="res://Resources/Mesh/bag.glb" id="11_hl0am"]
 [ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="12_t7kqs"]
 [ext_resource type="PackedScene" uid="uid://bo4ctckxet7uu" path="res://Resources/Mesh/laptop.glb" id="13_m8n5y"]
+[ext_resource type="Texture2D" uid="uid://dq420fh5rjl3o" path="res://Resources/Images/CharacterSprites/big_renna.png" id="18_hl0am"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ofkph"]
 material = ExtResource("5_scaty")
@@ -63,13 +63,13 @@ size = Vector3(5, 5, 5)
 size = Vector2(2000, 2000)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1xgcs"]
-viewport_path = NodePath("MM/Main Menu/SubViewport")
+viewport_path = NodePath("MM/Main Menu/MMSubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_66bfg"]
-viewport_path = NodePath("LevelSelect/SubViewport")
+viewport_path = NodePath("LevelSelect/LSSubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mstn6"]
-viewport_path = NodePath("Options/SubViewport")
+viewport_path = NodePath("Options/OSubViewport")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_paki0"]
 frequency = 0.0177
@@ -100,12 +100,15 @@ ambient_light_sky_contribution = 0.76
 [node name="Main" type="Node3D" unique_id=951669777 node_paths=PackedStringArray("main_menu_node_parent", "main_camera", "level_node_parent", "options_node_parent", "sprite")]
 script = ExtResource("1_1xgcs")
 main_menu_scene_path = "res://Resources/MainMenu.tscn"
-main_menu_node_parent = NodePath("MM/Main Menu/SubViewport")
+main_menu_node_parent = NodePath("MM/Main Menu/MMSubViewport")
 main_camera = NodePath("Camera3D")
 main_cam_origin_pos = Vector3(0, 2.5, 0)
-level_node_parent = NodePath("LevelSelect/SubViewport")
+level_scene_path = "res://Resources/LevelSelect.tscn"
+level_node_parent = NodePath("LevelSelect/LSSubViewport")
+level_cam_pos = Vector3(0, 2.5, 0)
+level_cam_rot = Vector3(8.3, 105, 0)
 options_scene_path = "res://Resources/Options.tscn"
-options_node_parent = NodePath("Options/SubViewport")
+options_node_parent = NodePath("Options/OSubViewport")
 options_cam_pos = Vector3(0, 2.5, 0)
 options_cam_rot = Vector3(0, -130, 0)
 sprite = NodePath("MM/Renna")
@@ -203,49 +206,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 [node name="OptionsCam" type="Marker3D" parent="CameraMarks" unique_id=801141680]
 transform = Transform3D(-0.64278764, 0, -0.76604444, 0, 1, 0, 0.76604444, 0, -0.64278764, 0, 2.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1418291471]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 2.5, 0)
-current = true
+[node name="LevelSelCam" type="Marker3D" parent="CameraMarks" unique_id=1507188224]
+transform = Transform3D(-0.060403883, 0.14381678, 0.98775905, -1.4034237e-09, 0.989566, -0.1440799, -0.9981741, -0.008702984, -0.059773628, 0, 2.5, 0)
 
-[node name="LevelSelCam" type="Marker3D" parent="Camera3D" unique_id=1507188224]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1418291471]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 2.5, 0)
+current = true
 
 [node name="MM" type="Node3D" parent="." unique_id=1173588068]
 
 [node name="Renna" type="Sprite3D" parent="MM" unique_id=1705068177]
 transform = Transform3D(0.18722296, 0, -0.07033893, 0, 0.2, 0, 0.07033893, 0, 0.18722296, 3.419, 2.55, -4.63)
 alpha_cut = 2
-texture = ExtResource("5_mstn6")
+texture = ExtResource("18_hl0am")
 
 [node name="Main Menu" type="Sprite3D" parent="MM" unique_id=1647256920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5553985, 2.5, -6)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_1xgcs")
 
-[node name="SubViewport" type="SubViewport" parent="MM/Main Menu" unique_id=482492860]
+[node name="MMSubViewport" type="SubViewport" parent="MM/Main Menu" unique_id=482492860]
 transparent_bg = true
 size = Vector2i(400, 500)
 
 [node name="LevelSelect" type="Sprite3D" parent="." unique_id=1170803876]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -5)
+transform = Transform3D(-0.2331568, 0, 0.9724392, 0, 1, 0, -0.9724392, 0, -0.2331568, -8.596153, 3.583045, 3.9328203)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_66bfg")
 
-[node name="SubViewport" type="SubViewport" parent="LevelSelect" unique_id=609414639]
+[node name="LSSubViewport" type="SubViewport" parent="LevelSelect" unique_id=609414639]
 transparent_bg = true
-size = Vector2i(400, 500)
-
-[node name="TMPTMPTMP" type="Control" parent="LevelSelect/SubViewport" unique_id=334525628]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+size = Vector2i(1280, 720)
 
 [node name="Options" type="Sprite3D" parent="." unique_id=438719251]
 transform = Transform3D(-0.64278764, 0, -0.76604444, 0, 1, 0, 0.76604444, 0, -0.64278764, 4.542, 3.25, 3.812)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_mstn6")
 
-[node name="SubViewport" type="SubViewport" parent="Options" unique_id=442280413]
+[node name="OSubViewport" type="SubViewport" parent="Options" unique_id=442280413]
 transparent_bg = true
 size = Vector2i(1000, 650)
 

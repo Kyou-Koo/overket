@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c6eocxew471l5"]
 
+[ext_resource type="Script" uid="uid://b1ycehuxejw6s" path="res://Scripts/LevelSelect.gd" id="1_6fb1f"]
 [ext_resource type="Texture2D" uid="uid://c4rn52pv0job7" path="res://Resources/Textures/ui_9slice.png" id="1_fec7f"]
 [ext_resource type="Texture2D" uid="uid://cf7pplb8yh2nd" path="res://Resources/Images/_TMP/16x9.png" id="2_tu0hw"]
 [ext_resource type="LabelSettings" uid="uid://okleyoqjf5tp" path="res://Resources/Themes/level_name_label.tres" id="3_u88yb"]
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6fb1f")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=226317169]
 custom_minimum_size = Vector2(1280, 720)

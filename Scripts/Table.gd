@@ -2,7 +2,7 @@ class_name Table extends StaticBody3D
 
 var objs_on_top : Array[CarryableObjectBase];
 var obj_top_global_position : Vector3;
-var scene_obj_holder : Node3D;
+@export var scene_obj_holder : Node3D;
 
 var ok_id : StringName = "";
 
@@ -34,18 +34,19 @@ func public_place_object(obj : CarryableObjectBase) -> bool:
         Statics.debug_log("suc place {0} : size {1}".format([obj.name, objs_on_top.size()]));
         return true;
     # TODO: handle multiple items
-    elif (objs_on_top[0].item_type == obj.item_type):
-        if (objs_on_top[0].can_stack and objs_on_top[0].max_stack < num_items_on_top):
-            objs_on_top.append(obj);
-            if (obj.get_parent() != scene_obj_holder):
-                obj.get_parent().remove_child(obj);
-                scene_obj_holder.add_child(obj);
-            # TODO: check height calculation
-            var new_height : float = (obj.obj_height/2.0) + (obj.obj_height * objs_on_top.size());
-            obj.global_position = obj_top_global_position + Vector3(0, new_height, 0);
-            obj.orientate_self();
-            obj.linear_velocity = Vector3.ZERO;
-            obj.angular_velocity= Vector3.ZERO;
+    # TODO: for now just ignore this and disallow stacking
+    # elif (objs_on_top[0].item_type == obj.item_type):
+    #     if (objs_on_top[0].can_stack and objs_on_top[0].max_stack < num_items_on_top):
+    #         objs_on_top.append(obj);
+    #         if (obj.get_parent() != scene_obj_holder):
+    #             obj.get_parent().remove_child(obj);
+    #             scene_obj_holder.add_child(obj);
+    #         # TODO: check height calculation
+    #         var new_height : float = (obj.obj_height/2.0) + (obj.obj_height * objs_on_top.size());
+    #         obj.global_position = obj_top_global_position + Vector3(0, new_height, 0);
+    #         obj.orientate_self();
+    #         obj.linear_velocity = Vector3.ZERO;
+    #         obj.angular_velocity= Vector3.ZERO;
             
     var failure_state : String;
     if (num_items_on_top > 0 and !obj.can_stack):
@@ -63,4 +64,5 @@ func _ready() -> void:
     for c : Node in children:
         if c is Marker3D and c.name.contains("Placement"):
             obj_top_global_position = c.global_position;
-    scene_obj_holder = self.get_owner().find_child("CarryableObjects") as Node3D;
+    # TODO: recalculate
+    # scene_obj_holder = self.get_owner().find_child("CarryableObjects") as Node3D;

@@ -2,11 +2,13 @@
 
 @export var obj_name : String;
 @export var can_stack : bool;
-@export var max_stack : int;
+@export var max_stack : int = 1;
 @export var carry_orientation : Vector3;
 @export var item_type : CarryableObjects.CarryObjEnum;
+@onready var item_id : int = item_type as int;
 @export var obj_height : float;
 var interaction_area : Area3D;
+# used to reject interactions for carried/on table state
 var is_being_carried : bool = false;
 
 var ok_id : StringName = "";

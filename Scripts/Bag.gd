@@ -3,6 +3,7 @@ class_name Bag extends CarryableObjectBase
 @export var interaction_duration : float;
 @export var interaction_gap : float;
 @export var consumed_objects : Array[CarryableObjects.CarryObjEnum];
+@export var consumed_object_objs : Array[CarryableObjectBase];
 @export var output_bags_str : Array[String];
 var is_on_table : bool = false;
 
@@ -23,17 +24,23 @@ func public_insert_object(obj : CarryableObjects.CarryObjEnum) -> bool:
         return false;
     if (current_objects.size() >= MAX_OBJECTS):
         return false;
+    # already in bag
+    if (obj & b_curr_serialized):
+        return false;
     # serialize, add to objects
     if (obj in consumed_objects):
         b_objects_serialized = CarryableObjects.join_carried_objects([
             b_objects_serialized as CarryableObjects.CarryObjEnum, obj]);
         current_objects.append(obj);
+        item_id = b_objects_serialized;
+        place_output_object();
         return true;
     else:
         return false;
 
 func public_interact_object(delta : float = 0.0) -> void:
-    if (is_on_table):
+    # can player interact if its on a table? or force ground usage?
+    if (!is_on_table):
         return;
     # only able to interact if player has object
     if (connected_body.carried_object == null):
@@ -41,14 +48,16 @@ func public_interact_object(delta : float = 0.0) -> void:
     update_panel(delta);
     
 func place_output_object() -> void:
-    # swap current model with model with bag that exists
-    # do we have 11 bag models...? or...
-    # dont swap if matches same
+    # TODO: i dont think this if is necessary
     if b_objects_serialized == b_curr_serialized:
         return;
     # Bag TSCN should have all 5 objects in, toggle on/off as necessary
-    var b_deserialized_objs : Array[CarryableObjects.CarryObjEnum];
-    b_deserialized_objs = CarryableObjects.deserialize_objects(b_objects_serialized);
+    for c_obj : CarryableObjectBase in current_objects:
+        for consu_obj : CarryableObjectBase in consumed_object_objs:
+            if (c_obj.item_type == consu_obj.item_type):
+                consu_obj.visible = true;
+    b_curr_serialized = b_objects_serialized;
+
     
 func update_panel(delta : float) -> void:
     pass;

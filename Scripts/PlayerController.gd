@@ -1,10 +1,11 @@
 class_name PlayerController extends CharacterBody3D
 
+@export var player_prefix : String;
 # TODO: put in general scene controller
 @onready var gravity : float = -ProjectSettings.get_setting("physics/3d/default_gravity");
 @export var speed : float = 10.0;
 @export var interaction_radius : float;
-@export var playerId : String;
+@export var ok_id : String;
 @export var throw_scale : float = 5.0;
 @export var throw_vertical : float = 1.0;
 
@@ -110,8 +111,8 @@ func handle_movement() -> DirRot:
     if (!Input.is_anything_pressed()):
         return new_dirrot;
     var direction : Vector3 = Vector3.ZERO;
-    direction.z = Input.get_axis(&"fwd", &"back");
-    direction.x = Input.get_axis(&"left", &"right");
+    direction.z = Input.get_axis( player_prefix + "fwd", player_prefix + "back");
+    direction.x = Input.get_axis(player_prefix + "left", player_prefix + "right");
     new_dirrot.direction = direction;
     
     # rotate character
@@ -119,10 +120,10 @@ func handle_movement() -> DirRot:
         new_fwd = Vector2(-direction.x, direction.z);
     if (new_fwd != curr_fwd):
         new_dirrot.rotation = Vector3(0.0, curr_fwd.angle_to(new_fwd), 0.0);
-        Statics.debug_prolog("angle: {0} to new fwd: {1}".format([rad_to_deg(new_dirrot.rotation.y), new_fwd]));
+        #Statics.debug_prolog("angle: {0} to new fwd: {1}".format([rad_to_deg(new_dirrot.rotation.y), new_fwd]));
     
     new_dirrot.normalize();
-    Statics.debug_prolog("----- dirrot: {0}".format([new_dirrot.to_string()]))
+    #Statics.debug_prolog("----- dirrot: {0}".format([new_dirrot.to_string()]))
     return new_dirrot;
     
 func test_pushing(delta : float) -> void:
@@ -138,7 +139,7 @@ func check_closest_body() -> Node3D:
         return null;
     var shortest_dist : float = INF;
     var curr_shortest : StringName = "";
-    Statics.debug_prolog(str(interactable_objects.keys()));
+    #Statics.debug_prolog(str(interactable_objects.keys()));
     for io : StringName in interactable_objects.keys():
         if (interactable_objects[io] == carried_object):
             # does not should not include carried object
@@ -195,6 +196,7 @@ func _physics_process(delta : float) -> void:
     # TODO: player state processing
     var motion_direction : DirRot = handle_movement();
     self.set_velocity(motion_direction.direction * speed);
+    # TODO: why is this here lmao
     self.velocity.y += gravity * delta;
     if (new_fwd != curr_fwd and motion_direction.rotation.y != 0.0):
         self.rotate_y(motion_direction.rotation.y);
@@ -204,12 +206,12 @@ func _physics_process(delta : float) -> void:
     # regular checks TODO: should this be only on interact instead?
     closest_body = check_closest_body();
     # interaction
-    if (Input.is_action_pressed(&"interact") and
+    if (Input.is_action_pressed(player_prefix + "interact") and
     (curr_state == PSTATE.NEUTRAL or curr_state == PSTATE.INTERACT)):
         curr_state = PSTATE.INTERACT;
         object_interact(delta);
         curr_state = PSTATE.NEUTRAL;
-    if (Input.is_action_just_pressed(&"pick_drop") and curr_state == PSTATE.NEUTRAL):
+    if (Input.is_action_just_pressed(player_prefix + "pick_drop") and curr_state == PSTATE.NEUTRAL):
         if (carried_object == null):
             curr_state = PSTATE.PICKUP;
             object_pick();
@@ -219,7 +221,16 @@ func _physics_process(delta : float) -> void:
             object_drop();
             curr_state = PSTATE.NEUTRAL;
             
-func _ready() -> void:    
+func _input(event: InputEvent) -> void:
+    pass
+    #if (event.is_pressed()):
+        #Statics.debug_log(event.as_text());
+            
+func _ready() -> void:
+    self.ok_id = Statics.create_ok_id(self);
+    assert(player_prefix in ["p1", "p2", "p3", "p4"], "invalid prefix {0} for {1}".format([
+        self.name, player_prefix
+    ]));
     self.apply_floor_snap();
     var children : Array[Node] = self.get_children();
     for c in children:

@@ -33,12 +33,12 @@ var active_sprite : Sprite3D;
     set(value):
         sprite_tint = value;
         apply_tint();
-@export_range(0.0, 4.0) var move_speed : float = 1.0;
+@export_range(0.0, 10.0) var move_speed : float = 4.0;
 @export var self_collider : CollisionShape3D;
 var self_coll_radius : float;
 @export var navigation_boundary : Area3D;
         
-var level3d_parent : Node3D;
+var level3d_parent : Level;
 @onready var ok_id : String = Statics.create_ok_id(self);
 var initialized : bool = false;
 @export var goal : Vector3;
@@ -51,6 +51,8 @@ var request : int;
 var request_received : bool = false;
 var request_sent : bool = false;
 var nearby_characters : Dictionary[String, AnimatableBody3D];
+var bounce_tween : Tween;
+var mid_bounce : bool = false;
 @export_range(0.0, 2.0) var movement_variance_max : float = 0.5;
 @onready var movement_variance : float = randf_range(0.0, movement_variance_max);
 @onready var desired_dist : float = randf_range(1.0, 3.0);
@@ -104,13 +106,14 @@ func navigate(objective : Vector3) -> Vector3:
             move_speed = 0.5;
     if (!initialized and !DEBUG_mode):
         return Vector3.ZERO;
+    bounce_animation();
     # desire path
     var goal_direction : Vector3 = calc_direction_to_goal(objective);
     if (previous_dir == Vector2.ZERO):
         previous_dir = Statics.vec3_to_vec2(goal_direction);
     # adjust based on nearby others
     var direction_adjust : Vector3 = Vector3.ZERO;
-    Statics.debug_prolog("nearby {0}".format([str(nearby_characters)]));
+    #Statics.debug_prolog("nearby {0}".format([str(nearby_characters)]));
     var other_pos_average : Vector3 = Vector3.ZERO;
     for key in nearby_characters:
         var other_pos : Vector3 = nearby_characters[key].position;
@@ -159,9 +162,8 @@ func navigate(objective : Vector3) -> Vector3:
     # prevent waffling
     if (abs(previous_dir.angle_to(slerped)) > PI/2.0):
         slerped = previous_dir.slerp(slerped, 0.2);
-    Statics.debug_prolog("{0} desire: {1} adjust: {2} result {3}".format([
-        self.name, goal_direction, direction_adjust, slerped
-    ]))
+    #Statics.debug_prolog("{0} desire: {1} adjust: {2} result {3}".format([
+        #self.name, goal_direction, direction_adjust, slerped]))
     if (DEBUG_mode):
         start_debug_lines(goal_direction, direction_adjust, Statics.vec2_to_vec3(slerped))
     return Statics.vec2_to_vec3(slerped);
@@ -171,11 +173,28 @@ func calc_direction_to_goal(objective : Vector3) -> Vector3:
     var turn_angle : float = Statics.vec3_to_vec2(goal_vector).angle();
     turn_angle += randf_range(-PI/4.0, PI/4.0) * movement_variance;
     var out_vector : Vector3 = Statics.vec2_to_vec3(Vector2.from_angle(turn_angle));
-    Statics.debug_prolog("{0} init dir: {1}, adjusted dir: {2}".format([
-        self.name, goal_vector, out_vector]));
+    #Statics.debug_prolog("{0} init dir: {1}, adjusted dir: {2}".format([
+        #self.name, goal_vector, out_vector]));
     return out_vector;
     
+func bounce_animation() -> void:
+    if (mid_bounce):  return;
+    mid_bounce = true;
+    bounce_tween = get_tree().create_tween().set_parallel();
+    bounce_tween.set_ease(Tween.EASE_OUT);
+    bounce_tween.set_trans(Tween.TRANS_QUAD);
+    bounce_tween.tween_property(active_sprite, "position:y", 0.35, 0.25);
+    bounce_tween.chain().set_ease(Tween.EASE_IN);
+    bounce_tween.chain().set_trans(Tween.TRANS_QUAD);
+    bounce_tween.chain().tween_property(active_sprite, "position:y", 0.0, 0.25);
+    bounce_tween.chain().tween_callback(_on_bounce_done);
+    
+var _on_bounce_done : Callable = func() -> void:
+    mid_bounce = false;
+    #Statics.debug_log("finished bounce {0}".format([self.name]))
+    
 func assign_request() -> void:
+    if (!initialized): return;
     request = Statics.rand_from_arr_v(CarryableObjects.customer_requests);
     var request_arr : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(request);
     # TODO: select sprite based on request
@@ -193,7 +212,8 @@ func _on_body_exited(body : Node3D) -> void:
 func _physics_process(delta: float) -> void:
     if (!reached_goal(goal) and !at_goal and !is_passerby):
         move_and_collide(navigate(goal) * delta * move_speed);
-        at_goal = true;
+        at_goal = reached_goal(goal);
+    if (DEBUG_mode): return;
     if (at_goal):
         var at_front : bool = false;
         for g : Vector3 in level3d_parent.goals:
@@ -218,7 +238,7 @@ func initiate() -> void:
     initialized = true;
     assign_request();
     sprite_tint = Color(randf(), randf(), randf());
-    behind_me.global_position = self.global_position + Vector3(randf_range(-0.5, 0.5), 0.0, 0.5);
+    behind_me.global_position = self.global_position + Vector3(randf_range(-1.0, 1.0), 0.0, 0.75);
 
 func _ready() -> void:
     if (sprite_character_holder and sprites_character.size() == 0):
@@ -239,12 +259,12 @@ func _ready() -> void:
     self_coll_radius = (self_collider.shape as CapsuleShape3D).radius;
     navigation_boundary.body_entered.connect(_on_body_entered);
     navigation_boundary.body_exited.connect(_on_body_exited);
-    Statics.debug_log("i {0} want to be {1} distance from people".format([self.name, desired_dist]));
+    #Statics.debug_log("i {0} want to be {1} distance from people".format([self.name, desired_dist]));
 
     goal_dir_mesh = goal_mesh_holder.mesh;
     adj_dir_mesh = adj_mesh_holder.mesh;
     comb_dir_mesh = comb_mesh_holder.mesh;
-    if (!DEBUG_mode):
+    if (false):
         goal_mesh_holder.visible = false;
         adj_mesh_holder.visible = false;
         comb_mesh_holder.visible = false;

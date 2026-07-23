@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bsftdc2513i7d"]
+
+[ext_resource type="Script" uid="uid://0nroh3yaehi4" path="res://Scripts/one_meter_cube.gd" id="1_1l6ul"]
+[ext_resource type="Material" uid="uid://6qwphoj7akoh" path="res://Resources/Materials/dark_blue.tres" id="2_oremq"]
+[ext_resource type="Material" uid="uid://dg8vhoy06eie" path="res://Resources/Materials/green.tres" id="3_3s40w"]
+[ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="4_sbooe"]
+[ext_resource type="Material" uid="uid://ddrr4rneggspf" path="res://Resources/Materials/purple.tres" id="5_u2vr2"]
+[ext_resource type="Material" uid="uid://bhlr37us84qy0" path="res://Resources/Materials/red.tres" id="6_ahoey"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_op7av"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_75is7"]
+
+[node name="1mCube" type="Node3D" unique_id=941216042]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=316535084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=636957136]
+shape = SubResource("BoxShape3D_op7av")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1006029999]
+mesh = SubResource("BoxMesh_75is7")
+script = ExtResource("1_1l6ul")
+materials = Array[StandardMaterial3D]([ExtResource("2_oremq"), ExtResource("3_3s40w"), ExtResource("4_sbooe"), ExtResource("5_u2vr2"), ExtResource("6_ahoey")])

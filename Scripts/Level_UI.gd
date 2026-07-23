@@ -25,6 +25,8 @@ var request_x_poses : Array[float];
 var timer_text : Label;
 var money_text : Label;
 
+signal timer_zero();
+
 # request order (display max 5 requests at once);
 # 5 4 3 2 1
 # think about queueing requests up in a separate array
@@ -88,10 +90,11 @@ func _process(delta: float) -> void:
         add_request(request_queue.pop_front())
     # safety
     if (request_scns.size() == 0 and request_queue.size() == 0):
-        Statics.debug_prolog("!!!!!! serving {0} of {1}".format([request_scns.size(), request_queue.size()]))
+        #Statics.debug_prolog("!!!!!! serving {0} of {1}".format([request_scns.size(), request_queue.size()]))
         x_move_in_queue = false;
     else:
-        Statics.debug_prolog("?? serving {0} of {1}".format([request_scns.size(), request_queue.size()]))
+        pass
+        #Statics.debug_prolog("?? serving {0} of {1}".format([request_scns.size(), request_queue.size()]))
     # update timer
     if (debug_mode):
         debug_time_f -= delta;
@@ -115,12 +118,13 @@ func _input(event: InputEvent) -> void:
 
 func _ready() -> void:
     # DEBUG:
-    get_window().content_scale_factor = 0.67;
-    get_window().position = Vector2i(100, 100);
-    get_viewport().get_window().content_scale_size = Vector2i(1280,720);
-    get_viewport().get_window().size = Vector2i(1280, 720);
+    if (debug_mode):
+        get_window().content_scale_factor = 0.67;
+        get_window().position = Vector2i(100, 100);
+        get_viewport().get_window().content_scale_size = Vector2i(1280,720);
+        get_viewport().get_window().size = Vector2i(1280, 720);
     # safety:
-    debug_mode = Statics.DEBUG_MODE;
+    #debug_mode = Statics.DEBUG_MODE;
     for i : int in range(request_scns_max):
         request_x_poses.push_front(i * request_gap_x);
     request_scn_pack = load(request_scn_path);

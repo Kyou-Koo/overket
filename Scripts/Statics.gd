@@ -13,6 +13,7 @@ static var DEBUG_PRINT_WARN : bool = true;
 static var DEBUG_PRINT_PROCESS : ENUM_DEBUG_PRN_PROC = ENUM_DEBUG_PRN_PROC.CYCLE;
 
 # TODO: assign intial value in game configuration
+# TODO: think about giving this to every object
 static var ok_id_incr : int = 0;
 static var error_log_array : Array[String];
 

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cgxygugksk0k4"]
+
+[ext_resource type="Script" uid="uid://c3kls72hqwlk3" path="res://Scripts/DeliveryPoint.gd" id="1_ptqhm"]
+[ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="2_fkt3s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o2e0q"]
+
+[node name="Table" type="StaticBody3D" unique_id=1595576306]
+collision_mask = 7
+script = ExtResource("1_ptqhm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1193051190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_o2e0q")
+
+[node name="table" parent="." unique_id=183128433 instance=ExtResource("2_fkt3s")]
+
+[node name="PlacementSpot" type="Marker3D" parent="." unique_id=249017955]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

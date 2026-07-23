@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cgxygugksk0k4"]
 
 [ext_resource type="Script" uid="uid://c3kls72hqwlk3" path="res://Scripts/DeliveryPoint.gd" id="1_ptqhm"]
-[ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="2_fkt3s"]
+[ext_resource type="PackedScene" uid="uid://drk1epbpcoyn3" path="res://Resources/Mesh/delivery_point.glb" id="2_ptqhm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o2e0q"]
 
-[node name="Table" type="StaticBody3D" unique_id=1595576306]
+[node name="DeliveryPoint" type="StaticBody3D" unique_id=1595576306]
 collision_mask = 7
 script = ExtResource("1_ptqhm")
 
@@ -13,7 +13,11 @@ script = ExtResource("1_ptqhm")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_o2e0q")
 
-[node name="table" parent="." unique_id=183128433 instance=ExtResource("2_fkt3s")]
-
 [node name="PlacementSpot" type="Marker3D" parent="." unique_id=249017955]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Goal" type="Marker3D" parent="." unique_id=1700161392]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
+gizmo_extents = 0.5
+
+[node name="delivery_point" parent="." unique_id=363803166 instance=ExtResource("2_ptqhm")]

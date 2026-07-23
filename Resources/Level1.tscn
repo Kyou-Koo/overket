@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bbp42cuvxwnay" path="res://Scripts/Level.gd" id="1_05fnj"]
 [ext_resource type="PackedScene" uid="uid://dg1k6fy67qp1c" path="res://Resources/Table.tscn" id="1_mhw25"]
-[ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="1_vpm4h"]
 [ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="2_m76yx"]
 [ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="2_mhw25"]
 [ext_resource type="PackedScene" uid="uid://cthfjlfpa3jet" path="res://Resources/LevelUI.tscn" id="2_pnl7u"]
 [ext_resource type="PackedScene" uid="uid://bsftdc2513i7d" path="res://Resources/1m_cube.tscn" id="5_e5ymc"]
 [ext_resource type="PackedScene" uid="uid://b23ck11osr3mg" path="res://Resources/player.tscn" id="5_eg3i3"]
+[ext_resource type="PackedScene" uid="uid://cgxygugksk0k4" path="res://Resources/DeliveryPoint.tscn" id="6_m76yx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kw3qw"]
 line_spacing = -5.0
@@ -17,10 +17,10 @@ font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 outline_size = 64
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eg3i3"]
-size = Vector3(50, 1, 0.5)
+size = Vector3(50, 3, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_eg3i3"]
-size = Vector3(50, 1, 0.5)
+size = Vector3(50, 3, 0.5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_05fnj"]
 size = Vector2(2000, 2000)
@@ -104,7 +104,7 @@ parent_3dlevel = NodePath("../../..")
 [node name="Boundary Walls" type="Node3D" parent="Surfaces" unique_id=1676663032]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Surfaces/Boundary Walls" unique_id=1378164860]
-transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 3.514)
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 3.6)
 collision_layer = 4
 collision_mask = 0
 
@@ -177,10 +177,10 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 
 [node name="Table15" parent="Surfaces/Tables" unique_id=532709665 instance=ExtResource("1_mhw25")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -7, 0, 3)
 
-[node name="table7" parent="Surfaces/Tables" unique_id=1633268232 instance=ExtResource("1_vpm4h")]
+[node name="DeliveryPoint" parent="Surfaces/Tables" unique_id=1224867300 instance=ExtResource("6_m76yx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 3)
 
-[node name="table9" parent="Surfaces/Tables" unique_id=2124037999 instance=ExtResource("1_vpm4h")]
+[node name="DeliveryPoint2" parent="Surfaces/Tables" unique_id=316648140 instance=ExtResource("6_m76yx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
 
 [node name="Table16" parent="Surfaces/Tables" unique_id=1665861496 instance=ExtResource("1_mhw25")]
@@ -198,13 +198,14 @@ shape = ExtResource("2_mhw25")
 mesh = SubResource("PlaneMesh_05fnj")
 
 [node name="Goals" type="Node3D" parent="." unique_id=685087743]
+visible = false
 
 [node name="Goal1" type="Marker3D" parent="Goals" unique_id=475185336]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4.2942195)
 gizmo_extents = 0.5
 
 [node name="Goal2" type="Marker3D" parent="Goals" unique_id=1716906009]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4.2942195)
 gizmo_extents = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=262275453]

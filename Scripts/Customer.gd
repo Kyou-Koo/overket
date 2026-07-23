@@ -28,12 +28,13 @@ var comb_dir_mesh : ImmediateMesh;
 @export var sprites_character : Array[Sprite3D];
 @export var sprite_request_holder : Node3D;
 @export var sprites_requests : Array[Sprite3D];
+@export var sprite_request_bg : Sprite3D;
 var active_sprite : Sprite3D;
 @export var sprite_tint : Color = Color(1.0, 1.0, 1.0):
     set(value):
         sprite_tint = value;
-        apply_tint();
-@export_range(0.0, 10.0) var move_speed : float = 4.0;
+        apply_tint(active_sprite);
+@export_range(0.0, 10.0) var move_speed : float = 7.0;
 @export var self_collider : CollisionShape3D;
 var self_coll_radius : float;
 @export var navigation_boundary : Area3D;
@@ -62,10 +63,10 @@ var mid_bounce : bool = false;
 signal goal_reached(customer : Customer);
 signal exit_reached(customer : Customer);
 
-func apply_tint() -> void:
-    if (!active_sprite):
+func apply_tint(s : Sprite3D) -> void:
+    if (!s):
         return;
-    active_sprite.modulate = sprite_tint;
+    s.modulate = sprite_tint;
     
 func reached_goal(g : Vector3) -> bool:
     return self.global_position.distance_to(g) < 0.1;
@@ -198,6 +199,14 @@ func assign_request() -> void:
     request = Statics.rand_from_arr_v(CarryableObjects.customer_requests);
     var request_arr : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(request);
     # TODO: select sprite based on request
+
+func display_request() -> void:
+    active_sprite.visible = false;
+    var idx : int = randi_range(0, sprites_character.size() - 1);
+    sprites_character[idx].visible = true;
+    active_sprite = sprites_character[idx];
+
+    sprite_request_bg.visible = true;
     
 func _on_body_entered(body : Node3D) -> void:
     if (body == self):
@@ -218,7 +227,7 @@ func _physics_process(delta: float) -> void:
         var at_front : bool = false;
         for g : Vector3 in level3d_parent.goals:
             if (g.is_equal_approx(goal)):
-                # TODO: display request popup
+                display_request();
                 at_front = true;
                 break;
             else:
@@ -241,15 +250,18 @@ func initiate() -> void:
     behind_me.global_position = self.global_position + Vector3(randf_range(-1.0, 1.0), 0.0, 0.75);
 
 func _ready() -> void:
-    if (sprite_character_holder and sprites_character.size() == 0):
+    if (sprite_character_holder):
         for c : Node in sprite_character_holder.get_children():
             if (c is Sprite3D):
                 sprites_character.append(c);
+                apply_tint(c);
                 c.visible = false;
     if (sprites_character.size() > 0):
-        sprites_character[0].visible = true;
-        active_sprite = sprites_character[0];
+        var idx : int = randi_range(0, sprites_character.size() - 1);
+        sprites_character[idx].visible = true;
+        active_sprite = sprites_character[idx];
     
+    sprite_request_bg.visible = false;
     if (sprite_request_holder and sprites_requests.size() == 0):
         for c : Node in sprite_request_holder.get_children():
             if (c is Sprite3D):

@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://hn53jhqs42u8" path="res://Scripts/Customer.gd" id="1_ruxh5"]
 [ext_resource type="Texture2D" uid="uid://c25ph8jfjmb7h" path="res://Resources/Images/CharacterSprites/3.png" id="2_po804"]
 [ext_resource type="Texture2D" uid="uid://cce5abep572uf" path="res://Resources/Images/request_bubble.png" id="3_60kmx"]
+[ext_resource type="Texture2D" uid="uid://b4uypti17fyqd" path="res://Resources/Images/CharacterSprites/4.png" id="3_p8r5w"]
+[ext_resource type="Texture2D" uid="uid://djd2so5rdd7gy" path="res://Resources/Images/CharacterSprites/1.png" id="4_yerly"]
+[ext_resource type="Texture2D" uid="uid://bq8f67nuw1o8n" path="res://Resources/Images/CharacterSprites/2.png" id="5_88xym"]
+[ext_resource type="Texture2D" uid="uid://bmbjn0xu4i75j" path="res://Resources/Images/CharacterSprites/6.png" id="6_aynqn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ruxh5"]
 radius = 0.25
@@ -31,7 +35,7 @@ vertex_color_use_as_albedo = true
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_fmkgi"]
 resource_local_to_scene = true
 
-[node name="Customer" type="AnimatableBody3D" unique_id=697441714 node_paths=PackedStringArray("goal_mesh_holder", "adj_mesh_holder", "comb_mesh_holder", "sprite_character_holder", "sprites_character", "sprite_request_holder", "sprites_requests", "self_collider", "navigation_boundary", "behind_me")]
+[node name="Customer" type="AnimatableBody3D" unique_id=697441714 node_paths=PackedStringArray("goal_mesh_holder", "adj_mesh_holder", "comb_mesh_holder", "sprite_character_holder", "sprite_request_holder", "sprites_requests", "sprite_request_bg", "self_collider", "navigation_boundary", "behind_me")]
 collision_layer = 2
 axis_lock_linear_y = true
 axis_lock_angular_x = true
@@ -43,10 +47,10 @@ goal_mesh_holder = NodePath("GOAL")
 adj_mesh_holder = NodePath("AVOID")
 adj_line_color = Color(0, 1, 0, 1)
 comb_mesh_holder = NodePath("COMBINED")
-sprite_character_holder = NodePath("sprites(0_08scale)")
-sprites_character = [NodePath("sprites(0_08scale)/Sprite3D")]
-sprite_request_holder = NodePath("requests")
-sprites_requests = [NodePath("requests/Sprite3D")]
+sprite_character_holder = NodePath("sprites")
+sprite_request_holder = NodePath("requests/icons")
+sprites_requests = [NodePath("requests/background")]
+sprite_request_bg = NodePath("requests/background")
 move_speed = 1.0
 self_collider = NodePath("CollisionShape3D")
 navigation_boundary = NodePath("CollisionAvoidance")
@@ -56,14 +60,31 @@ behind_me = NodePath("Saikoubi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ruxh5")
 
-[node name="sprites(0_08scale)" type="Node3D" parent="." unique_id=1157954773]
+[node name="sprites" type="Node3D" parent="." unique_id=1157954773]
 transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 1.05, -0.54432684)
 
-[node name="Sprite3D" type="Sprite3D" parent="sprites(0_08scale)" unique_id=1317893060]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+[node name="03" type="Sprite3D" parent="sprites" unique_id=1317893060]
 texture = ExtResource("2_po804")
 
+[node name="04" type="Sprite3D" parent="sprites" unique_id=439200921]
+transform = Transform3D(1, 0, 0, 0, 1, 2.9802319e-08, 0, -2.9802319e-08, 1, 0, 0, 0)
+texture = ExtResource("3_p8r5w")
+
+[node name="01" type="Sprite3D" parent="sprites" unique_id=1602558052]
+transform = Transform3D(1, 0, 0, 0, 1, 2.9802319e-08, 0, -2.9802319e-08, 1, 0, 0, 0)
+texture = ExtResource("4_yerly")
+
+[node name="02" type="Sprite3D" parent="sprites" unique_id=953495676]
+transform = Transform3D(1, 0, 0, 0, 1, 2.9802319e-08, 0, -2.9802319e-08, 1, 0, 0, 0)
+texture = ExtResource("5_88xym")
+
+[node name="06" type="Sprite3D" parent="sprites" unique_id=1490114307]
+transform = Transform3D(1, 0, 0, 0, 1, 2.9802319e-08, 0, -2.9802319e-08, 1, 0, 0, 0)
+texture = ExtResource("6_aynqn")
+
 [node name="CollisionAvoidance" type="Area3D" parent="." unique_id=772415823]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionAvoidance" unique_id=1485875841]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -71,11 +92,13 @@ shape = SubResource("CylinderShape3D_po804")
 debug_color = Color(0.36603513, 0.5970067, 0.39961985, 0.89411765)
 
 [node name="requests" type="Node3D" parent="." unique_id=1500733063]
-transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 0, -0.62586343)
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 2.4431024, -1.8121502)
 
-[node name="Sprite3D" type="Sprite3D" parent="requests" unique_id=1714849378]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 2.6209087, 0.632082)
+[node name="background" type="Sprite3D" parent="requests" unique_id=1714849378]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 texture = ExtResource("3_60kmx")
+
+[node name="icons" type="Node3D" parent="requests" unique_id=757394550]
 
 [node name="GOAL" type="MeshInstance3D" parent="." unique_id=216428448]
 visible = false

@@ -6,8 +6,6 @@ static var _instance : GameManager = null;
         #_instance = GameManager.new();
     #return _instance;
 
-var sdm : SaveDataMgr;
-
 enum MENU {
     MAIN,
     LEVEL,
@@ -71,7 +69,7 @@ func set_lang_from_save() -> void:
 
 func _notification(what: int) -> void:
     if (what == NOTIFICATION_WM_CLOSE_REQUEST):
-        SaveDataMgr.write_savedata(sdm.savedata, SaveDataMgr.savedata_filepath, SaveDataMgr.SAVEDATA.Save)
+        SaveDataMgr.write_savedata(SaveDataMgr._instance.savedata, SaveDataMgr.savedata_filepath, SaveDataMgr.SAVEDATA.Save)
 
 func instantiate_menus() -> void:
     if (level_scene_path != ""):
@@ -136,7 +134,8 @@ func _input(ev: InputEvent) -> void:
             options_node_parent.push_input(ev);
 
 func _init() -> void:
-    sdm = SaveDataMgr.create_sdm();
+    SaveDataMgr.create_sdm();
+    AudioManager.ins().addNodeToTree(get_tree());
     
 func _ready() -> void:
     _instance = self;

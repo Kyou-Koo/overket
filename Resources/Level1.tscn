@@ -53,7 +53,7 @@ ambient_light_color = Color(0.80075866, 0.72406346, 0.68819916, 1)
 ambient_light_sky_contribution = 0.76
 
 [sub_resource type="BoxMesh" id="BoxMesh_mhw25"]
-size = Vector3(4, 0.5, 6)
+size = Vector3(2, 0.5, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05fnj"]
 transparency = 1
@@ -61,9 +61,9 @@ albedo_color = Color(1, 0.3137255, 1, 0.3254902)
 disable_receive_shadows = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_05fnj"]
-size = Vector3(20, 0.5, 8)
+size = Vector3(15, 0.5, 2)
 
-[node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("spawn_points", "exit_area", "customer_parent", "delivery_points", "ui_parent", "countdown_timer")]
+[node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("spawn_points", "exit_area", "customer_parent", "delivery_points", "ui_parent", "level_ui", "countdown_timer")]
 script = ExtResource("1_05fnj")
 spawn_points = [NodePath("SpawnArea"), NodePath("SpawnArea2")]
 exit_area = NodePath("Exit")
@@ -71,8 +71,10 @@ customer_scene_path = "res://Resources/customer.tscn"
 customer_parent = NodePath("Customers")
 delivery_points = [NodePath("Surfaces/Tables/DeliveryPoint"), NodePath("Surfaces/Tables/DeliveryPoint2")]
 ui_parent = NodePath("CanvasLayer/Control")
+level_ui = NodePath("CanvasLayer/Control/LevelUi")
 countdown_timer = NodePath("CanvasLayer/Control/CenterContainer/Label")
 countdown_length = 1.0
+passerby_chance = 0.1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2006233483]
 
@@ -216,8 +218,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 4.2942195)
 visible = false
 gizmo_extents = 0.5
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=262275453]
+[node name="CamPos" type="Marker3D" parent="." unique_id=1069026430]
 transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, 0, 7.4427137, 3.7317286)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=262275453]
+transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, 0, 7.4427137, 4.342519)
 current = true
 size = 12.0
 
@@ -232,17 +237,17 @@ light_volumetric_fog_energy = 0.226
 shadow_enabled = true
 
 [node name="SpawnArea" type="MeshInstance3D" parent="." unique_id=508129065]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.25, 7.110215)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.25, 5.0408144)
 mesh = SubResource("BoxMesh_mhw25")
 surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 
 [node name="SpawnArea2" type="MeshInstance3D" parent="." unique_id=762993544]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0.25, 6.829732)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0.25, 5.041)
 mesh = SubResource("BoxMesh_mhw25")
 surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 
 [node name="Exit" type="MeshInstance3D" parent="." unique_id=1834858419]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3149109, 0.25, 11.6533375)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3149109, 0.25, 7.6602716)
 mesh = SubResource("BoxMesh_05fnj")
 surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 

@@ -3,7 +3,7 @@ class_name Level extends Node3D
 @export_category("Level Objects")
 @export var spawn_points : Array[MeshInstance3D];
 @export var exit_area : MeshInstance3D;
-var goals : Array[Vector3];
+var goals : Dictionary[String, Vector3];
 @export var player_scene_path : String;
 var player_packed : PackedScene;
 var players : Array[PlayerController];
@@ -13,8 +13,10 @@ var customers : Array[Customer];
 @export var customer_parent : Node3D;
 var customer_count : int = 0;
 @export var delivery_points : Array[DeliveryPoint];
+var dp_line : Dictionary[StringName, Array];
 @export_category("UI")
 @export var ui_parent : Control;
+@export var level_ui : LevelUI;
 @export var options_path : String;
 @export var game_over : Control;
 ## in seconds
@@ -22,14 +24,14 @@ var customer_count : int = 0;
 @onready var level_remain_time : float = level_duration as float;
 @export var countdown_timer : Label;
 @export_category("Level Config")
-@export var customer_z_line : float = 4.1;
+@export var customer_z_line : float = 4.05;
 @export var customer_max : int = 20;
 @export var countdown_length : float = 5.0;
 var countdown_finished : bool = false;
 var money : int;
 var options_packed : PackedScene;
 var options_scene : Options;
-var requests : Array[CarryableObjectBase]; 
+var requests : Array[Request]; 
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
 @export_range(0, 10.0) var customer_spawn_gap : float = 4.0;
@@ -42,17 +44,48 @@ var next_spawn_gap : float = 0.5;
 # test code lmao
 # gameover + score screen
 # customer limit?
-signal reassign_saikoubi(customer : Customer);
+signal reassign_saikoubi(customer : Customer, prev_goal : Vector3);
+
+# TODO: consider reassigning to customer linked list class
+func _on_customer_leaving(cus : Customer) -> void:
+    # to move next in line to front
+    var move_up : Vector3;
+    for dp : DeliveryPoint in delivery_points:
+        if (dp.ok_id == cus.goal_ok_id):
+            move_up = dp.goal_pos;
+            break;
+    # move line up
+    Statics.debug_log(str(dp_line));
+    if (dp_line[cus.goal_ok_id].size() > 0):
+        for c : Customer in dp_line[cus.goal_ok_id]:
+            if (c == cus): continue;
+            c.goal = move_up;
+            c.at_goal = false;
+            move_up = c.behind_me.global_position;
+
 
 func _on_customer_reached_goal(cus : Customer) -> void:
-    if (customers.size() > 0):
-        for c : Customer in customers:
-            if (c != cus):
-                c.goal = cus.behind_me.position;
-    Statics.debug_log("customer {0} reached w/ {1} request".format([cus.name, cus.request]));
-    requests.append(cus.request);
-    # TODO: send requests up to UI
-    reassign_saikoubi.emit(cus);
+    # for debugging
+    var matched_dp : DeliveryPoint;
+    for dp : DeliveryPoint in delivery_points:
+        if (dp.ok_id == cus.goal_ok_id and cus.goal.is_equal_approx(dp.goal_pos)):
+            dp.customer = cus;
+            matched_dp = dp;
+            break;
+    Statics.debug_log("customer {0} reached {2} w/ {1} request".format([cus.name, 
+        cus.request, matched_dp.ok_id]));
+    var created_request : Request = level_ui.add_request(cus.request, cus);
+    if (created_request != null):
+        requests.append(created_request);
+        created_request.failed.connect(_on_request_failed);
+    reassign_saikoubi.emit(cus, cus.goal);
+    # TODO: consider depreciating reassign_saikoubi
+    for c : Customer in customers:
+        if (c == cus): continue;
+        if (c.goal_ok_id == cus.goal_ok_id):
+            c.goal = c.behind_me.global_position;
+            if (dp_line[matched_dp.ok_id].find(c) == -1):
+                dp_line[matched_dp.ok_id].append(c);
 
 func _on_customer_reached_exit(cus : Customer) -> void:
     var i : int = customers.find(cus);
@@ -61,8 +94,21 @@ func _on_customer_reached_exit(cus : Customer) -> void:
         customer_count -= 1;
     cus.queue_free();
 
+func _on_request_failed(cus : Customer) -> void:
+    var outgoing_request : Request;
+    for r : Request in requests:
+        if (r.from_who == cus):
+            outgoing_request = r;
+            break;
+    requests.erase(outgoing_request);
+    cus.request_failed = true;
+
 func _on_dp_request_matched(dp : DeliveryPoint) -> void:
     dp.customer.request_received = true;
+    for r : Request in requests:
+        if (r.from_who == dp.customer):
+            r.completed = true;
+            break;
     if (randf() > 0.5):
         # reassign exit
         dp.customer.exit = get_point_in_mesh(exit_area);
@@ -84,7 +130,8 @@ func spawn_customer() -> void:
     var min_bound : Vector2 = Statics.vec3_to_vec2(spawn_mesh.global_position) - Statics.vec3_to_vec2(mesh_size_half);
     var spawn_pos : Vector3 = Vector3(randf_range(min_bound.x, max_bound.x), 0.0,
         randf_range(min_bound.y, max_bound.y));
-    var target_goal : Vector3 = Statics.rand_from_arr_v(goals);
+    var goal_ok_id : StringName = Statics.rand_from_arr_v(goals.keys());
+    var target_goal : Vector3 = goals[goal_ok_id];
     var exit_goal : Vector3 = (Statics.rand_from_arr_o(remaining_spawns) as MeshInstance3D).global_position;
     
     var new_customer : Customer = customer_packed.instantiate();
@@ -95,10 +142,12 @@ func spawn_customer() -> void:
         new_customer.is_passerby = true;
     new_customer.global_position = spawn_pos;
     new_customer.goal = target_goal;
+    new_customer.goal_ok_id = goal_ok_id;
     new_customer.exit = exit_goal;
     new_customer.level3d_parent = self;
     new_customer.goal_reached.connect(_on_customer_reached_goal);
     new_customer.exit_reached.connect(_on_customer_reached_exit);
+    new_customer.leaving_goal.connect(_on_customer_leaving);
     new_customer.initiate();
     customer_count += 1;
     customer_parent.add_child(new_customer);
@@ -141,5 +190,5 @@ func _ready() -> void:
     customer_packed = load(customer_scene_path);
     options_packed = load(options_path);
     for dp : DeliveryPoint in delivery_points:
-        goals.append(dp.goal.global_position);
+        goals[dp.ok_id] = dp.goal.global_position;
         dp.request_matched.connect(_on_dp_request_matched);

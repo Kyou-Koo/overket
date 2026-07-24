@@ -12,7 +12,7 @@ var request_scns_max : int = 6;
 var request_x_start : float = 0.0;
 # stores requests that need to be inserted
 # !! please pop them off
-var request_queue : Array[int];
+var request_queue : Array[Array];
 @export var queue_delay_ms : int = 250;
 var queue_last_used_ms : int = 0;
 # TODO: move to level itself?
@@ -28,12 +28,12 @@ var money_text : Label;
 # request order (display max 5 requests at once);
 # 5 4 3 2 1
 # think about queueing requests up in a separate array
-func add_request(what : int) -> void:
+func add_request(what : int, who : Customer) -> Request:
     Statics.debug_log("num requests up: {0}".format([request_scns.size()]));
     if (x_move_in_queue or request_scns.size() >= request_scns_max):
         Statics.debug_log("queueing because busy: {0}".format([x_move_in_queue]));
-        request_queue.append(what);
-        return;
+        request_queue.append([what, who]);
+        return null;
     var new_request : Request = request_scn_pack.instantiate();
     # bump elders right
     var c_size : int = request_scns.size();
@@ -47,9 +47,11 @@ func add_request(what : int) -> void:
     request_holder.add_child(new_request);
     new_request.position = Vector2(request_x_start, 200.0);
     new_request.position_request_items(what);
+    new_request.from_who = who;
     new_request.parent_level = self;
     new_request.anim_x_done.connect(_on_anim_x_done);
     new_request.animate_in();
+    return new_request;
 
 func remove_request(r : Request) -> void:
     var order : int = request_scns.find(r);
@@ -75,17 +77,21 @@ func remove_request(r : Request) -> void:
             var my_x : float = request_scns[i].position.x;
             (request_scns[i] as Request).animate_x_to(rm_x);
             rm_x = my_x;
+
+func complete_request(r : int, c : Customer) -> void:
+    pass
             
 func update_money(m : int) -> void:
     if (money_text): money_text.text = "￥{0}".format([m]);
     money_holder.size = Vector2(money_text.size.x + (money_holder.size.y / 2), money_holder.size.y);
-    
+
 func _on_anim_x_done() -> void:
     x_move_in_queue = false;
             
 func _process(delta: float) -> void:
     if (!x_move_in_queue and request_queue.size() > 0 and request_scns.size() < request_scns_max):
-        add_request(request_queue.pop_front())
+        var queue_item : Array = request_queue.pop_front();
+        add_request(queue_item[0], queue_item[1]);
     # safety
     if (request_scns.size() == 0 and request_queue.size() == 0):
         #Statics.debug_prolog("!!!!!! serving {0} of {1}".format([request_scns.size(), request_queue.size()]))
@@ -108,7 +114,9 @@ func _input(event: InputEvent) -> void:
     if (event is InputEventKey and event.is_pressed()):
         if (event.keycode == KEY_Z):
             var r : int = Statics.rand_from_arr_v(CarryableObjects.customer_requests)
-            add_request(r);
+            var c : Customer = Customer.new();
+            c.ok_id = Statics.create_ok_id(c);
+            add_request(r, c);
         if (event.keycode == KEY_X):
             if (request_scns.size() > 0):
                 var remove_req : Request = request_scns[randi_range(0, request_scns.size()-1)];

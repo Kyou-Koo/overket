@@ -1,6 +1,7 @@
 class_name DeliveryPoint extends Table
 
 @export var goal : Marker3D;
+var goal_pos : Vector3;
 
 var customer : Customer;
 var top_matches_request : bool = false;
@@ -26,3 +27,7 @@ func check_top_matches_request(top : CarryableObjectBase) -> void:
                 # \_(シ)_/
                 obj.queue_free();
             objs_on_top.clear();
+
+func _ready() -> void:
+    super._ready();
+    goal_pos = goal.global_position;

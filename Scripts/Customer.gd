@@ -43,6 +43,7 @@ var level3d_parent : Level;
 @onready var ok_id : String = Statics.create_ok_id(self);
 var initialized : bool = false;
 @export var goal : Vector3;
+var goal_ok_id : StringName;
 @export var exit : Vector3;
 var at_goal : bool = false;
 var at_exit : bool = false;
@@ -51,6 +52,7 @@ var previous_dir : Vector2 = Vector2.ZERO;
 var request : int;
 var request_received : bool = false;
 var request_sent : bool = false;
+var request_failed : bool = false;
 var nearby_characters : Dictionary[String, AnimatableBody3D];
 var bounce_tween : Tween;
 var mid_bounce : bool = false;
@@ -61,6 +63,7 @@ var mid_bounce : bool = false;
 
 signal goal_reached(customer : Customer);
 signal exit_reached(customer : Customer);
+signal leaving_goal(customer : Customer);
 
 func apply_tint(s : Sprite3D) -> void:
     if (!s):
@@ -165,9 +168,9 @@ func navigate(objective : Vector3) -> Vector3:
     #Statics.debug_prolog("{0} desire: {1} adjust: {2} result {3}".format([
         #self.name, goal_direction, direction_adjust, slerped]))
     # please go away from wall thanks
-    if (self.global_position.z > level3d_parent.customer_z_line):
-        slerped = slerped.slerp(Vector2.DOWN, randf_range(0.5, 0.75));
-    if (DEBUG_mode):
+    if (self.global_position.z < level3d_parent.customer_z_line):
+        slerped = slerped.slerp(Vector2.DOWN, randf_range(0.1, 0.5));
+    if (true): # TODO: change
         start_debug_lines(goal_direction, direction_adjust, Statics.vec2_to_vec3(slerped))
     return Statics.vec2_to_vec3(slerped);
     
@@ -209,6 +212,11 @@ func display_request() -> void:
     active_sprite = sprites_character[idx];
 
     sprite_request_bg.visible = true;
+
+func hide_request_bubble() -> void:
+    sprite_request_bg.visible = false;
+    for sr_icons : Sprite3D in sprites_requests:
+        sr_icons.visible = false;
     
 func _on_body_entered(body : Node3D) -> void:
     if (body == self):
@@ -219,17 +227,24 @@ func _on_body_entered(body : Node3D) -> void:
 func _on_body_exited(body : Node3D) -> void:
     if (body is AnimatableBody3D and Statics.check_for_okid(body)):
         nearby_characters.erase(body.ok_id);
+
+func _on_reassign_saikoubi(c : Customer, old_goal : Vector3) -> void:
+    if (c == self or goal_ok_id != c.goal_ok_id):
+        # customers not aiming for same goal should ignore this call
+        return;
+    Statics.debug_log("my {2} goal reassigned from {0} to {1}".format([
+        c.name, c.behind_me.global_position, self.name]));
+    goal = c.behind_me.global_position;
     
 func _physics_process(delta: float) -> void:
-    if (!reached_goal(goal) and !at_goal and !is_passerby):
+    if (!at_goal and !is_passerby):
         move_and_collide(navigate(goal) * delta * move_speed);
         at_goal = reached_goal(goal);
     if (DEBUG_mode): return;
     if (at_goal):
         var at_front : bool = false;
-        for g : Vector3 in level3d_parent.goals:
-            if (g.is_equal_approx(goal)):
-                display_request();
+        for key : StringName in level3d_parent.goals:
+            if (level3d_parent.goals[key].is_equal_approx(goal)):
                 at_front = true;
                 break;
             else:
@@ -238,8 +253,12 @@ func _physics_process(delta: float) -> void:
                 at_goal = false;
         if (!request_sent and at_front):
             request_sent = true;
+            display_request();
             goal_reached.emit(self);
-    if ((request_sent and request_received) or is_passerby):
+    if ((request_sent and request_received) or is_passerby or request_failed):
+        sprite_request_bg.visible = false;
+        if (!is_passerby):
+            leaving_goal.emit(self);
         if (!reached_goal(exit)):
             move_and_collide(navigate(exit) * delta * move_speed);
         else:
@@ -273,6 +292,7 @@ func _ready() -> void:
     self_coll_radius = (self_collider.shape as CapsuleShape3D).radius;
     navigation_boundary.body_entered.connect(_on_body_entered);
     navigation_boundary.body_exited.connect(_on_body_exited);
+    level3d_parent.reassign_saikoubi.connect(_on_reassign_saikoubi);
     #Statics.debug_log("i {0} want to be {1} distance from people".format([self.name, desired_dist]));
 
     goal_dir_mesh = goal_mesh_holder.mesh;

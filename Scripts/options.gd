@@ -74,7 +74,7 @@ func _on_back_pressed() -> void:
 func _on_menu_transition(who : Node) -> void:
     if (who == self):
         is_active = true;
-        if (GameManager._instance.sdm == null): SaveDataMgr.create_sdm();
+        SaveDataMgr.create_sdm();
         get_node("NinePatchRect/Language Control/{0}".format([SaveDataMgr.get_lang().capitalize()])).grab_focus.call_deferred();
     else:
         is_active = false;

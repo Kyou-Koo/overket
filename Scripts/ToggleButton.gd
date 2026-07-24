@@ -100,7 +100,7 @@ func _on_toggled(new_state : bool) -> void:
 
 func _ready() -> void:
     # safety catches
-    if (GameManager._instance.sdm == null): SaveDataMgr.create_sdm();
+    SaveDataMgr.create_sdm();
     var children : Array[Node] = self.get_children();
     for c in children:
         if (c is TextureRect):

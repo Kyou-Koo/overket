@@ -13,6 +13,7 @@ class_name Request extends NinePatchRect
 ]
 var full_request : int;
 var request_items : Array[RequestItem];
+var from_who : Customer;
 var tint : Color = Color.WHITE;
 var parent_level : LevelUI;
 var tween_position : Tween;
@@ -22,7 +23,7 @@ var completed : bool = false;
 var worth : int;
 var pct_remain : float;
 # in seconds
-@export var start_duration : float = 10.0;
+@export var start_duration : float = 20.0;
 @onready var remaining_time : float = start_duration;
 var animate_duration : float = 0.5;
 var window_width : float = 1920.0;
@@ -31,7 +32,7 @@ var window_height : float = 1080.0;
 @onready var initialized_time : int = Time.get_ticks_msec();
 
 signal anim_x_done();
-signal failed();
+signal failed(customer : Customer);
 
 func position_request_items(incoming_request : int) -> void:
     full_request = incoming_request;
@@ -87,6 +88,7 @@ func calc_percentage(time_left : float) -> float:
 func _process(delta: float) -> void:
     pct_remain = calc_percentage(remaining_time);
     if (remaining_time < 0.0 and !killed):
+        failed.emit(from_who);
         animate_out();
         # TODO: call sfx manager for fail sfx
         killed = true;
@@ -98,7 +100,7 @@ func _process(delta: float) -> void:
         remaining_time -= delta;
         pct_remain = calc_percentage(remaining_time);
         countdown_timer.value = (pct_remain * 78.0) + 22.0;
-        Statics.debug_prolog("time left {0}".format([pct_remain]));
+        # Statics.debug_prolog("time left {0}".format([pct_remain]));
     if (pct_remain > bound_good):
         countdown_timer.tint_progress = color_good;
         countdown_timer.tint_under = color_good * 0.5;

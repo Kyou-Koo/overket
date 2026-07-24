@@ -80,6 +80,8 @@ func _on_customer_reached_goal(cus : Customer) -> void:
         created_request.failed.connect(_on_request_failed);
     reassign_saikoubi.emit(cus, cus.goal);
     # TODO: consider depreciating reassign_saikoubi
+    # TODO: this should apply to all new customers
+    # TODO: customer reaching goal should move the actual level goals
     for c : Customer in customers:
         if (c == cus): continue;
         if (c.goal_ok_id == cus.goal_ok_id):
@@ -140,17 +142,18 @@ func spawn_customer() -> void:
         Statics.debug_log("passerby generated");
         target_goal = exit_goal;
         new_customer.is_passerby = true;
-    new_customer.global_position = spawn_pos;
     new_customer.goal = target_goal;
     new_customer.goal_ok_id = goal_ok_id;
     new_customer.exit = exit_goal;
     new_customer.level3d_parent = self;
+    customer_parent.add_child(new_customer);
+    new_customer.global_position = spawn_pos;
     new_customer.goal_reached.connect(_on_customer_reached_goal);
     new_customer.exit_reached.connect(_on_customer_reached_exit);
     new_customer.leaving_goal.connect(_on_customer_leaving);
-    new_customer.initiate();
     customer_count += 1;
-    customer_parent.add_child(new_customer);
+    customers.append(new_customer);
+    new_customer.initiate();
 
 func _input(event: InputEvent) -> void:
     if (event.is_action_pressed(&"start")):

@@ -113,6 +113,7 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surfaces/Boundary Walls/StaticBody3D" unique_id=145578852]
 shape = SubResource("BoxShape3D_eg3i3")
+disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surfaces/Boundary Walls/StaticBody3D" unique_id=656756423]
 visible = false

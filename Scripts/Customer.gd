@@ -1,4 +1,4 @@
-@tool
+#@tool
 class_name Customer extends AnimatableBody3D
 
 #region debugvars
@@ -34,7 +34,7 @@ var active_sprite : Sprite3D;
     set(value):
         sprite_tint = value;
         apply_tint(active_sprite);
-@export_range(0.0, INF) var move_speed : float = 10.0;
+@export_range(0.0, 20.0) var move_speed : float = 5.0;
 @export var self_collider : CollisionShape3D;
 var self_coll_radius : float;
 @export var navigation_boundary : Area3D;
@@ -56,7 +56,7 @@ var request_failed : bool = false;
 var nearby_characters : Dictionary[String, AnimatableBody3D];
 var bounce_tween : Tween;
 var mid_bounce : bool = false;
-@export_range(0.0, 2.0) var movement_variance_max : float = 0.5;
+@export_range(0.0, 2.0) var movement_variance_max : float = 0.2;
 @onready var movement_variance : float = randf_range(0.0, movement_variance_max);
 @onready var desired_dist : float = randf_range(1.0, 3.0);
 @export var behind_me : Marker3D;
@@ -170,8 +170,8 @@ func navigate(objective : Vector3) -> Vector3:
     # please go away from wall thanks
     if (self.global_position.z < level3d_parent.customer_z_line):
         slerped = slerped.slerp(Vector2.DOWN, randf_range(0.1, 0.5));
-    if (true): # TODO: change
-        start_debug_lines(goal_direction, direction_adjust, Statics.vec2_to_vec3(slerped))
+    # if (true): # TODO: change
+    #     start_debug_lines(goal_direction, direction_adjust, Statics.vec2_to_vec3(slerped))
     return Statics.vec2_to_vec3(slerped);
     
 func calc_direction_to_goal(objective : Vector3) -> Vector3:
@@ -250,7 +250,8 @@ func _physics_process(delta: float) -> void:
             else:
                 # reset to continue moving fwd in line
                 # TODO: maybe do this smarter by checking when it's possible to move up
-                at_goal = false;
+                # at_goal = false;
+                pass
         if (!request_sent and at_front):
             request_sent = true;
             display_request();

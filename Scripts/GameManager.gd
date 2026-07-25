@@ -40,6 +40,9 @@ var options : Options;
 # TODO: how are we assigning this
 # suggestion: press Start to join   
 var num_players : int;
+var active_players : Dictionary = {
+    
+}
 
 var active_menu : MENU;
 var sprite_tween : Tween;

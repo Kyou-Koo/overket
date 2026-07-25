@@ -1,4 +1,4 @@
-extends Button
+class_name RebindButton extends Button
 
 @export var keybind_menu : Control;
 @export var action_type : KeyCon.ACTTYPE;
@@ -10,7 +10,7 @@ var waiting_for_input : bool = false;
 var new_input : InputEvent;
 var active : bool = false;
 
-# TODO: change visual when waiting for keybind
+signal waiting_for_rebind(button_name : String);
 
 func _input(ev: InputEvent) -> void:
     if (!active):
@@ -33,6 +33,7 @@ func _input(ev: InputEvent) -> void:
 
 func _on_pressed() -> void:
     waiting_for_input = true;
+    waiting_for_rebind.emit(self.name);
     # pop up window?
 
 func _on_visibility_changed() -> void:

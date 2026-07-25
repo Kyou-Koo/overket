@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://cqnlyhnkxatq7" path="res://Scripts/reassign_button.gd" id="22_p3uhi"]
 [ext_resource type="Texture2D" uid="uid://1ebl8e1yfbni" path="res://Resources/Images/button_shape.png" id="23_p3uhi"]
 [ext_resource type="Texture2D" uid="uid://vr8jvhhferha" path="res://Resources/Images/key_shape.png" id="24_kfj6r"]
+[ext_resource type="Script" uid="uid://bbhok8bk3ye37" path="res://Scripts/waiting_for_input.gd" id="24_p3uhi"]
 
 [node name="Options" type="Control" unique_id=848114495 node_paths=PackedStringArray("player1", "player2", "player3", "player4", "keybind_holder", "keybind_box", "back_button")]
 layout_mode = 3
@@ -617,8 +618,7 @@ theme = ExtResource("9_lo6rv")
 text = "OPTIONS_RETURN"
 text_overrun_behavior = 1
 
-[node name="KeybindingRect" type="NinePatchRect" parent="NinePatchRect" unique_id=1700991199]
-visible = false
+[node name="KeybindingRect" type="NinePatchRect" parent="NinePatchRect" unique_id=1700991199 node_paths=PackedStringArray("control_type", "save_controls", "waiting_for_input_container", "options")]
 z_index = 10
 custom_minimum_size = Vector2(600, 648)
 layout_mode = 0
@@ -630,8 +630,13 @@ patch_margin_left = 50
 patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
+script = ExtResource("20_plljn")
+control_type = NodePath("Rows/BindBox/CenterContainer/BindMode")
+save_controls = NodePath("Rows/Confirm")
+waiting_for_input_container = NodePath("WaitingContainer")
+options = NodePath("../..")
 
-[node name="Rows" type="VBoxContainer" parent="NinePatchRect/KeybindingRect" unique_id=1460149287 node_paths=PackedStringArray("control_type", "save_controls", "options")]
+[node name="Rows" type="VBoxContainer" parent="NinePatchRect/KeybindingRect" unique_id=1460149287]
 custom_minimum_size = Vector2(550, 598)
 layout_mode = 0
 offset_left = 25.0
@@ -639,19 +644,31 @@ offset_top = 20.0
 offset_right = 575.0
 offset_bottom = 628.0
 theme = ExtResource("9_lo6rv")
-script = ExtResource("20_plljn")
-control_type = NodePath("BindMode")
-save_controls = NodePath("Confirm")
-options = NodePath("../../..")
 
-[node name="BindMode" type="Button" parent="NinePatchRect/KeybindingRect/Rows" unique_id=508975777]
+[node name="BindBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=820242983]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="PlayerLabel" type="Label" parent="NinePatchRect/KeybindingRect/Rows/BindBox" unique_id=1940015567]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+text = "P1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/BindBox" unique_id=43718528]
+custom_minimum_size = Vector2(350, 64)
+layout_mode = 2
+
+[node name="BindMode" type="Button" parent="NinePatchRect/KeybindingRect/Rows/BindBox/CenterContainer" unique_id=508975777]
 custom_minimum_size = Vector2(220, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../Confirm")
-focus_neighbor_top = NodePath("../RightBox/Right")
-focus_neighbor_right = NodePath("../Confirm")
-focus_next = NodePath("../Confirm")
-focus_previous = NodePath("../PickDropBox/PickDrop")
+focus_neighbor_left = NodePath("../../../Confirm")
+focus_neighbor_top = NodePath("../../../RightBox/Right")
+focus_neighbor_right = NodePath("../../../Confirm")
+focus_next = NodePath("../../../Confirm")
+focus_previous = NodePath("../../../PickDropBox/PickDrop")
 theme = ExtResource("9_lo6rv")
 text = "Keyboard"
 
@@ -665,7 +682,7 @@ custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../PickDropBox/PickDrop")
 focus_neighbor_right = NodePath("../../BackBox/Back")
-focus_neighbor_bottom = NodePath("../../BindMode")
+focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
 focus_next = NodePath("../../BackBox/Back")
 focus_previous = NodePath("../../Confirm")
 theme = ExtResource("9_lo6rv")
@@ -716,7 +733,7 @@ custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../ForwardBox/Forward")
 focus_neighbor_right = NodePath("../../LeftBox/Left")
-focus_neighbor_bottom = NodePath("../../BindMode")
+focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
 focus_next = NodePath("../../LeftBox/Left")
 focus_previous = NodePath("../../ForwardBox/Forward")
 theme = ExtResource("9_lo6rv")
@@ -762,7 +779,7 @@ custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../BackBox/Back")
 focus_neighbor_right = NodePath("../../RightBox/Right")
-focus_neighbor_bottom = NodePath("../../BindMode")
+focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
 focus_next = NodePath("../../RightBox/Right")
 focus_previous = NodePath("../../BackBox/Back")
 theme = ExtResource("9_lo6rv")
@@ -808,7 +825,7 @@ custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../LeftBox/Left")
 focus_neighbor_right = NodePath("../../JumpBox/Jump")
-focus_neighbor_bottom = NodePath("../../BindMode")
+focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
 focus_next = NodePath("../../JumpBox/Jump")
 focus_previous = NodePath("../../LeftBox/Left")
 theme = ExtResource("9_lo6rv")
@@ -854,7 +871,7 @@ custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../RightBox/Right")
 focus_neighbor_right = NodePath("../../InteractBox/Interact")
-focus_neighbor_bottom = NodePath("../../BindMode")
+focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
 focus_next = NodePath("../../InteractBox/Interact")
 focus_previous = NodePath("../../RightBox/Right")
 theme = ExtResource("9_lo6rv")
@@ -900,7 +917,7 @@ custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../JumpBox/Jump")
 focus_neighbor_right = NodePath("../../PickDropBox/PickDrop")
-focus_neighbor_bottom = NodePath("../../BindMode")
+focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
 focus_next = NodePath("../../PickDropBox/PickDrop")
 focus_previous = NodePath("../../JumpBox/Jump")
 theme = ExtResource("9_lo6rv")
@@ -946,8 +963,8 @@ custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_neighbor_left = NodePath("../../InteractBox/Interact")
 focus_neighbor_right = NodePath("../../ForwardBox/Forward")
-focus_neighbor_bottom = NodePath("../../BindMode")
-focus_next = NodePath("../../BindMode")
+focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_next = NodePath("../../BindBox/CenterContainer/BindMode")
 focus_previous = NodePath("../../InteractBox/Interact")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
@@ -985,11 +1002,11 @@ vertical_alignment = 1
 [node name="Confirm" type="Button" parent="NinePatchRect/KeybindingRect/Rows" unique_id=964886877]
 custom_minimum_size = Vector2(220, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../BindMode")
+focus_neighbor_left = NodePath("../BindBox/CenterContainer/BindMode")
 focus_neighbor_top = NodePath("../PickDropBox/PickDrop")
-focus_neighbor_right = NodePath("../BindMode")
+focus_neighbor_right = NodePath("../BindBox/CenterContainer/BindMode")
 focus_next = NodePath("../ForwardBox/Forward")
-focus_previous = NodePath("../BindMode")
+focus_previous = NodePath("../BindBox/CenterContainer/BindMode")
 theme = ExtResource("9_lo6rv")
 text = "OPTIONS_CONFIRM"
 
@@ -1024,6 +1041,7 @@ patch_margin_left = 50
 patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
+script = ExtResource("24_p3uhi")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput" unique_id=1917905850]
 layout_mode = 0

@@ -12,12 +12,12 @@ var request_scns_max : int = 6;
 var request_x_start : float = 0.0;
 # stores requests that need to be inserted
 # !! please pop them off
-var request_queue : Array[Array];
-@export var queue_delay_ms : int = 250;
-var queue_last_used_ms : int = 0;
+var request_queue : Array[Request];
+@export var queue_delay : float = 0.25;
+var queue_last_used : float = 0;
 # TODO: move to level itself?
 var x_move_in_queue : bool = false;
-@export var request_gap_x : float = 256.0 + 8.0;
+@export var request_gap_x : float = (256.0 * 0.9) + 8.0;
 var request_x_poses : Array[float];
 @export var request_holder : Control;
 @export var timer_holder : NinePatchRect;
@@ -27,31 +27,39 @@ var money_text : Label;
 
 # request order (display max 5 requests at once);
 # 5 4 3 2 1
-# think about queueing requests up in a separate array
 func add_request(what : int, who : Customer) -> Request:
     Statics.debug_log("num requests up: {0}".format([request_scns.size()]));
+    var new_request : Request = request_scn_pack.instantiate();
+    new_request.visible = false;
+    request_holder.add_child(new_request);
+    new_request.position_request_items(what);
+    Statics.debug_log("what is request: {0}".format([what]));
+    new_request.from_who = who;
+    # queue request if too many
     if (x_move_in_queue or request_scns.size() >= request_scns_max):
         Statics.debug_log("queueing because busy: {0}".format([x_move_in_queue]));
-        request_queue.append([what, who]);
-        return null;
-    var new_request : Request = request_scn_pack.instantiate();
+        request_queue.append(new_request);
+        return new_request;
     # bump elders right
-    var c_size : int = request_scns.size();
-    if (c_size > 0):
-        x_move_in_queue = true;
-        for i : int in range(c_size):
-            request_scns[i].animate_x_to(request_x_poses[i + request_scns_max - c_size - 1]);
-        #for r : Request in request_scns:
-            #r.animate_x_to(r.position.x + request_gap_x);
+    move_ancestor_requests_right();
     request_scns.append(new_request);
-    request_holder.add_child(new_request);
-    new_request.position = Vector2(request_x_start, 200.0);
-    new_request.position_request_items(what);
-    new_request.from_who = who;
+    new_request.allow_start();
+    new_request.visible = true;
+    new_request.position = Vector2(request_x_start, 200.0 * 0.8);
     new_request.parent_level = self;
     new_request.anim_x_done.connect(_on_anim_x_done);
     new_request.animate_in();
     return new_request;
+
+func add_queued_request(r : Request) -> void:
+    move_ancestor_requests_right();
+    request_scns.append(r);
+    r.visible = true;
+    r.allow_start();
+    r.position = Vector2(request_x_start, 200.0 * 0.9);
+    r.parent_level = self;
+    r.anim_x_done.connect(_on_anim_x_done);
+    r.animate_in();
 
 func remove_request(r : Request) -> void:
     var order : int = request_scns.find(r);
@@ -78,8 +86,13 @@ func remove_request(r : Request) -> void:
             (request_scns[i] as Request).animate_x_to(rm_x);
             rm_x = my_x;
 
-func complete_request(r : int, c : Customer) -> void:
-    pass
+func move_ancestor_requests_right() -> void:
+    # bump elders right
+    var c_size : int = request_scns.size();
+    if (c_size > 0):
+        x_move_in_queue = true;
+        for i : int in range(c_size):
+            request_scns[i].animate_x_to(request_x_poses[i + request_scns_max - c_size - 1]);
             
 func update_money(m : int) -> void:
     if (money_text): money_text.text = "￥{0}".format([m]);
@@ -89,16 +102,16 @@ func _on_anim_x_done() -> void:
     x_move_in_queue = false;
             
 func _process(delta: float) -> void:
-    if (!x_move_in_queue and request_queue.size() > 0 and request_scns.size() < request_scns_max):
-        var queue_item : Array = request_queue.pop_front();
-        add_request(queue_item[0], queue_item[1]);
+    queue_last_used += delta;
+    if (!x_move_in_queue and request_queue.size() > 0 and 
+    request_scns.size() < request_scns_max and queue_last_used > queue_delay):
+        var queue_item : Request = request_queue.pop_front();
+        add_queued_request(queue_item);
+        queue_last_used = 0.0;
     # safety
     if (request_scns.size() == 0 and request_queue.size() == 0):
         #Statics.debug_prolog("!!!!!! serving {0} of {1}".format([request_scns.size(), request_queue.size()]))
         x_move_in_queue = false;
-    else:
-        pass
-        #Statics.debug_prolog("?? serving {0} of {1}".format([request_scns.size(), request_queue.size()]))
     # update timer
     if (debug_mode):
         debug_time_f -= delta;

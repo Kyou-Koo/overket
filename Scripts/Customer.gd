@@ -73,6 +73,12 @@ func apply_tint(s : Sprite3D) -> void:
 func reached_goal(g : Vector3) -> bool:
     return self.global_position.distance_to(g) < 0.15;
 
+func is_offscreen() -> bool:
+    if (abs(self.global_position.x) > level3d_parent.exit_bounds.x or 
+    abs(self.global_position.x) > level3d_parent.exit_bounds.y):
+        return true;
+    return false;
+
 #region debug
 func draw_debug_lines(m : ImmediateMesh, end_v3 : Vector3) -> void:
     m.surface_set_normal(Vector3.UP);
@@ -85,7 +91,7 @@ func draw_debug_lines(m : ImmediateMesh, end_v3 : Vector3) -> void:
     
 func start_debug_lines(a : Vector3, b : Vector3, c: Vector3) -> void:
     # # # DEBUG
-    if (DEBUG_mode):
+    if (Statics.DEBUG_MODE):
         if (goal_dir_mesh != null and adj_dir_mesh != null and comb_dir_mesh != null):
             goal_dir_mesh.clear_surfaces();
             adj_dir_mesh.clear_surfaces();
@@ -229,12 +235,13 @@ func _on_body_exited(body : Node3D) -> void:
         nearby_characters.erase(body.ok_id);
 
 func _on_reassign_saikoubi(c : Customer, old_goal : Vector3) -> void:
+    return;
     if (c == self or goal_ok_id != c.goal_ok_id):
         # customers not aiming for same goal should ignore this call
         return;
-    Statics.debug_log("my {2} goal reassigned from {0} to {1}".format([
-        c.name, c.behind_me.global_position, self.name]));
-    goal = c.behind_me.global_position;
+    # Statics.debug_log("my {2} goal reassigned from {0} to {1}".format([
+    #     c.name, c.behind_me.global_position, self.name]));
+    # goal = c.behind_me.global_position;
     
 func _physics_process(delta: float) -> void:
     if (!at_goal and !is_passerby):
@@ -242,17 +249,7 @@ func _physics_process(delta: float) -> void:
         at_goal = reached_goal(goal);
     if (DEBUG_mode): return;
     if (at_goal):
-        var at_front : bool = false;
-        for key : StringName in level3d_parent.goals:
-            if (level3d_parent.goals[key].is_equal_approx(goal)):
-                at_front = true;
-                break;
-            else:
-                # reset to continue moving fwd in line
-                # TODO: maybe do this smarter by checking when it's possible to move up
-                # at_goal = false;
-                pass
-        if (!request_sent and at_front):
+        if (!request_sent):
             request_sent = true;
             display_request();
             goal_reached.emit(self);
@@ -260,7 +257,7 @@ func _physics_process(delta: float) -> void:
         sprite_request_bg.visible = false;
         if (!is_passerby):
             leaving_goal.emit(self);
-        if (!reached_goal(exit)):
+        if (!is_offscreen()):
             move_and_collide(navigate(exit) * delta * move_speed);
         else:
             exit_reached.emit(self);
@@ -299,7 +296,7 @@ func _ready() -> void:
     goal_dir_mesh = goal_mesh_holder.mesh;
     adj_dir_mesh = adj_mesh_holder.mesh;
     comb_dir_mesh = comb_mesh_holder.mesh;
-    if (false):
+    if (!Statics.DEBUG_MODE):
         goal_mesh_holder.visible = false;
         adj_mesh_holder.visible = false;
         comb_mesh_holder.visible = false;

@@ -3,6 +3,7 @@ class_name Level extends Node3D
 @export_category("Level Objects")
 @export var spawn_points : Array[MeshInstance3D];
 @export var exit_area : MeshInstance3D;
+@export var exit_bounds : Vector2 = Vector2(5.0, 7.6);
 var goals : Dictionary[String, Vector3];
 @export var player_scene_path : String;
 var player_packed : PackedScene;
@@ -11,9 +12,7 @@ var players : Array[PlayerController];
 var customer_packed : PackedScene;
 var customers : Array[Customer];
 @export var customer_parent : Node3D;
-var customer_count : int = 0;
 @export var delivery_points : Array[DeliveryPoint];
-var dp_line : Dictionary[StringName, Array];
 @export_category("UI")
 @export var ui_parent : Control;
 @export var level_ui : LevelUI;
@@ -34,7 +33,7 @@ var options_scene : Options;
 var requests : Array[Request]; 
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
-@export_range(0, 10.0) var customer_spawn_gap : float = 4.0;
+@export_range(0, 10.0) var customer_spawn_gap : float = 1.0;
 @export_range(0, 5.0) var customer_spawn_variance : float = 1.5;
 @onready var time_to_customer : float = randf_range(0, customer_spawn_variance);
 var next_spawn_gap : float = 0.5;
@@ -48,28 +47,15 @@ signal reassign_saikoubi(customer : Customer, prev_goal : Vector3);
 
 # TODO: consider reassigning to customer linked list class
 func _on_customer_leaving(cus : Customer) -> void:
-    # to move next in line to front
-    var move_up : Vector3;
-    for dp : DeliveryPoint in delivery_points:
-        if (dp.ok_id == cus.goal_ok_id):
-            move_up = dp.goal_pos;
-            break;
-    # move line up
-    Statics.debug_log(str(dp_line));
-    if (dp_line[cus.goal_ok_id].size() > 0):
-        for c : Customer in dp_line[cus.goal_ok_id]:
-            if (c == cus): continue;
-            c.goal = move_up;
-            c.at_goal = false;
-            move_up = c.behind_me.global_position;
-
+    return;
+    # TODO: move respective goals up (using customer list)
 
 func _on_customer_reached_goal(cus : Customer) -> void:
     # for debugging
     var matched_dp : DeliveryPoint;
     for dp : DeliveryPoint in delivery_points:
-        if (dp.ok_id == cus.goal_ok_id and cus.goal.is_equal_approx(dp.goal_pos)):
-            dp.customer = cus;
+        if (dp.ok_id == cus.goal_ok_id):
+            dp.customer.append(cus);
             matched_dp = dp;
             break;
     Statics.debug_log("customer {0} reached {2} w/ {1} request".format([cus.name, 
@@ -78,22 +64,15 @@ func _on_customer_reached_goal(cus : Customer) -> void:
     if (created_request != null):
         requests.append(created_request);
         created_request.failed.connect(_on_request_failed);
-    reassign_saikoubi.emit(cus, cus.goal);
-    # TODO: consider depreciating reassign_saikoubi
+
     # TODO: this should apply to all new customers
     # TODO: customer reaching goal should move the actual level goals
-    for c : Customer in customers:
-        if (c == cus): continue;
-        if (c.goal_ok_id == cus.goal_ok_id):
-            c.goal = c.behind_me.global_position;
-            if (dp_line[matched_dp.ok_id].find(c) == -1):
-                dp_line[matched_dp.ok_id].append(c);
 
 func _on_customer_reached_exit(cus : Customer) -> void:
     var i : int = customers.find(cus);
     if (i != -1):
         customers.remove_at(i);
-        customer_count -= 1;
+        Statics.debug_log("cus {0} reached exit".format([cus.name]))
     cus.queue_free();
 
 func _on_request_failed(cus : Customer) -> void:
@@ -105,15 +84,15 @@ func _on_request_failed(cus : Customer) -> void:
     requests.erase(outgoing_request);
     cus.request_failed = true;
 
-func _on_dp_request_matched(dp : DeliveryPoint) -> void:
-    dp.customer.request_received = true;
+func _on_dp_request_matched(cus : Customer) -> void:
+    cus.request_received = true;
     for r : Request in requests:
-        if (r.from_who == dp.customer):
+        if (r.from_who == cus):
             r.completed = true;
             break;
     if (randf() > 0.5):
         # reassign exit
-        dp.customer.exit = get_point_in_mesh(exit_area);
+        cus.exit = get_point_in_mesh(exit_area);
 
 func get_point_in_mesh(mi : MeshInstance3D) -> Vector3:
     var mesh_size_half : Vector3 = (mi.mesh as BoxMesh).size / 2.0;
@@ -122,8 +101,12 @@ func get_point_in_mesh(mi : MeshInstance3D) -> Vector3:
     return Vector3(randf_range(min_bound.x, max_bound.x), 0.0, 
         randf_range(min_bound.y, max_bound.y));
 
+func modify_customer_goal(in_vec : Vector3) -> Vector3:
+    var mod : Vector3 = Vector3(randf_range(0, 0.4), 0, randf_range(0, 0.4));
+    return mod + in_vec;
+
 func spawn_customer() -> void:
-    if (customer_count >= customer_max): return;
+    if (customers.size() >= customer_max): return;
     var spawn_mesh : MeshInstance3D = (Statics.rand_from_arr_o(spawn_points) as MeshInstance3D);
     var remaining_spawns : Array[MeshInstance3D] = spawn_points.duplicate();
     remaining_spawns.erase(spawn_mesh);
@@ -142,7 +125,10 @@ func spawn_customer() -> void:
         Statics.debug_log("passerby generated");
         target_goal = exit_goal;
         new_customer.is_passerby = true;
-    new_customer.goal = target_goal;
+    else: 
+        # only have customers going to purchase show up in the customer array
+        customers.append(new_customer);
+    new_customer.goal = modify_customer_goal(target_goal);
     new_customer.goal_ok_id = goal_ok_id;
     new_customer.exit = exit_goal;
     new_customer.level3d_parent = self;
@@ -151,8 +137,6 @@ func spawn_customer() -> void:
     new_customer.goal_reached.connect(_on_customer_reached_goal);
     new_customer.exit_reached.connect(_on_customer_reached_exit);
     new_customer.leaving_goal.connect(_on_customer_leaving);
-    customer_count += 1;
-    customers.append(new_customer);
     new_customer.initiate();
 
 func _input(event: InputEvent) -> void:

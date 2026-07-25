@@ -3,10 +3,9 @@ class_name DeliveryPoint extends Table
 @export var goal : Marker3D;
 var goal_pos : Vector3;
 
-var customer : Customer;
-var top_matches_request : bool = false;
+var customers : Array[Customer];
 
-signal request_matched(delivery_point : DeliveryPoint);
+signal request_matched(customer : Customer);
 
 func public_place_object(obj : CarryableObjectBase) -> bool:
     var placed : bool  = super.public_place_object(obj);
@@ -17,10 +16,10 @@ func public_take_object() -> CarryableObjectBase:
     return;
 
 func check_top_matches_request(top : CarryableObjectBase) -> void:
-    if (!top_matches_request):
-        if (top.item_id == customer.request):
-            top_matches_request = true;
-            request_matched.emit(self);
+    for c : Customer in customers:
+        if (top.item_id == c.request):
+            request_matched.emit(c);
+            customers.erase(c);
             for obj : CarryableObjectBase in objs_on_top:
                 # theoretically if the array is accessed
                 # while this is running it could cause an error

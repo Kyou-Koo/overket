@@ -24,10 +24,13 @@ var worth : int;
 var pct_remain : float;
 # in seconds
 @export var start_duration : float = 20.0;
+var can_start : bool = false;
+var start_called_but_not_ready : bool = false;
 @onready var remaining_time : float = start_duration;
 var animate_duration : float = 0.5;
 var window_width : float = 1920.0;
 var window_height : float = 1080.0;
+var is_ready : bool = false;
 # this bum is in ms
 @onready var initialized_time : int = Time.get_ticks_msec();
 
@@ -46,6 +49,7 @@ func position_request_items(incoming_request : int) -> void:
     for r : CarryableObjects.CarryObjEnum in request_list:
         for ri : RequestItem in request_items:
             if (ri.type == r):
+                Statics.debug_log("hello a request found for {0}".format([ri.name]));
                 ri.position = request_item_grid[idx];
                 ri.visible = true;
                 idx += 1;
@@ -84,41 +88,52 @@ func update_pos_by_amount(amount_x : float) -> void:
 
 func calc_percentage(time_left : float) -> float:
     return (time_left / start_duration);
+
+func allow_start() -> void:
+    if (is_ready):
+        can_start = true;
+        start_called_but_not_ready = false;
+    else:
+        start_called_but_not_ready = true;
     
 func _process(delta: float) -> void:
-    pct_remain = calc_percentage(remaining_time);
-    if (remaining_time < 0.0 and !killed):
-        failed.emit(from_who);
-        animate_out();
-        # TODO: call sfx manager for fail sfx
-        killed = true;
-    if (completed and !killed):
-        animate_out();
-        # TODO: call sfx manager for complete sfx
-        killed = true;
-    elif (Time.get_ticks_msec() - initialized_time)/1000.0 > animate_duration:
-        remaining_time -= delta;
+    if (start_called_but_not_ready):
+        allow_start();
+    if (can_start):
         pct_remain = calc_percentage(remaining_time);
-        countdown_timer.value = (pct_remain * 78.0) + 22.0;
-        # Statics.debug_prolog("time left {0}".format([pct_remain]));
-    if (pct_remain > bound_good):
-        countdown_timer.tint_progress = color_good;
-        countdown_timer.tint_under = color_good * 0.5;
-    elif (pct_remain > bound_warn):
-        countdown_timer.tint_progress = color_warn;
-        countdown_timer.tint_under = color_warn * 0.5;
-    else:
-        countdown_timer.tint_progress = color_danger
-        countdown_timer.tint_under = color_danger * 0.5;
-    countdown_timer.tint_under.a = 1.0;
-    
+        if (remaining_time < 0.0 and !killed):
+            failed.emit(from_who);
+            animate_out();
+            # TODO: call sfx manager for fail sfx
+            killed = true;
+        if (completed and !killed):
+            animate_out();
+            # TODO: call sfx manager for complete sfx
+            killed = true;
+        elif (Time.get_ticks_msec() - initialized_time)/1000.0 > animate_duration:
+            remaining_time -= delta;
+            pct_remain = calc_percentage(remaining_time);
+            countdown_timer.value = (pct_remain * 78.0) + 22.0;
+            # Statics.debug_prolog("time left {0}".format([pct_remain]));
+        if (pct_remain > bound_good):
+            countdown_timer.tint_progress = color_good;
+            countdown_timer.tint_under = color_good * 0.5;
+        elif (pct_remain > bound_warn):
+            countdown_timer.tint_progress = color_warn;
+            countdown_timer.tint_under = color_warn * 0.5;
+        else:
+            countdown_timer.tint_progress = color_danger
+            countdown_timer.tint_under = color_danger * 0.5;
+        countdown_timer.tint_under.a = 1.0;
 
 func _ready() -> void:
+    is_ready = true;
     countdown_timer.value = countdown_timer.max_value;
     countdown_timer.tint_progress = color_good;
     countdown_timer.tint_under = color_good * 0.5;
     countdown_timer.tint_under.a = 1.0;
     for c in request_item_holder.get_children():
         if (c is RequestItem):
+            Statics.debug_log("icon found {0}".format([c.name]));
             request_items.append(c);
             c.visible = false;

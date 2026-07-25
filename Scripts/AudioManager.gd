@@ -54,8 +54,8 @@ func configure_audio_buses() -> void:
     if !sdm:
         return
         
-    var bgmSetting : int = sdm.get_bgm_vol()
-    var sfxSetting : int = sdm.get_sfx_vol()
+    var bgmSetting : int = sdm.get_music()
+    var sfxSetting : int = sdm.get_sound()
     var bgmDb : int = -5 + -2 * (10-bgmSetting)
     var sfxDb : int = -5 + -2 * (10-sfxSetting)
     if bgmSetting == 0:

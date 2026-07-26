@@ -45,7 +45,7 @@ func add_request(what : int, who : Customer) -> Request:
     request_scns.append(new_request);
     new_request.allow_start();
     new_request.visible = true;
-    new_request.position = Vector2(request_x_start, 200.0 * 0.8);
+    new_request.position = Vector2(request_x_start, 200.0);
     new_request.parent_level = self;
     new_request.anim_x_done.connect(_on_anim_x_done);
     new_request.animate_in();
@@ -56,7 +56,7 @@ func add_queued_request(r : Request) -> void:
     request_scns.append(r);
     r.visible = true;
     r.allow_start();
-    r.position = Vector2(request_x_start, 200.0 * 0.9);
+    r.position = Vector2(request_x_start, 200.0);
     r.parent_level = self;
     r.anim_x_done.connect(_on_anim_x_done);
     r.animate_in();

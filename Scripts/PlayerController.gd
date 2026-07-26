@@ -210,6 +210,9 @@ func set_up_sprite_arrays(container : Node3D, array : Array) -> void:
 func pick_face_head(face : int, head : int) -> void:
     sprite_heads[head].visible = true;
     sprite_to_faces[face].visible = true;
+    Statics.debug_log("should show heads");
+    for h in sprite_heads:
+        Statics.debug_log(str(h.visible));
     
 func disable_faces() -> void:
     for f : Sprite3D in sprite_to_faces:
@@ -232,10 +235,15 @@ func _on_body_exit(body: Node3D) -> void:
         return;
     #Statics.debug_log("exit bodyp {0} is: {1}".format([body.name, Statics.a_classtype(body)]))
     var confirm : bool = remove_from_interact_list(body);
+    
+func _process(delta: float) -> void:
+    # TODO: hacky idk
+    sprite_container.global_rotation = Vector3(-PI/4, 0, 0);
 
 func _physics_process(delta : float) -> void:
     var motion_direction : DirRot = handle_movement();
     self.set_velocity(motion_direction.direction * speed);
+    # this is all sprite animation stuff-------------------------
     if (is_zero_approx(motion_direction.length())):
         disable_faces();
         sprite_to_faces[rand_face].visible = true;
@@ -247,17 +255,15 @@ func _physics_process(delta : float) -> void:
     else:
         if (motion_direction.direction.x == 0):
             disable_faces();
-            sprite_to_faces[rand_face].visible = true;
             if (motion_direction.direction.z < 0.0):
                 sprite_animation_leg.play(S_FROM);
-                sprite_animation_body.position = Vector3(0, 0, 0.01);
                 if (carried_object == null):
                     sprite_animation_body.play(S_FROM);
                 else:
                     sprite_animation_body.play(S_FROM + S_HOLD);
             else:
                 sprite_animation_leg.play(S_TO);
-                sprite_animation_body.position = Vector3(0, 0, -0.01);
+                sprite_to_faces[rand_face].visible = true;
                 if (carried_object == null):
                     sprite_animation_body.play(S_TO);
                 else:
@@ -278,6 +284,7 @@ func _physics_process(delta : float) -> void:
                 sprite_animation_body.play(S_LEFT);
             else:
                 sprite_animation_body.play(S_LEFT + S_HOLD);
+    # ------------------------------- sprite animation end
     # TODO: why is this here lmao
     self.velocity.y += gravity * delta;
     if (new_fwd != curr_fwd and motion_direction.rotation.y != 0.0):

@@ -258,4 +258,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 
 [node name="Player" parent="Players" unique_id=1861599428 instance=ExtResource("5_eg3i3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8331795, 0, 0.32270038)
+skip_instancing = true
 player_prefix = "p1"

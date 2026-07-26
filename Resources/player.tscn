@@ -60,12 +60,14 @@ shape = SubResource("CapsuleShape3D_4flbx")
 
 [node name="fwd" type="MeshInstance3D" parent="." unique_id=1010194177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.633)
+visible = false
 mesh = SubResource("BoxMesh_jt0pw")
 
 [node name="CarryableObjectLocation" type="Marker3D" parent="." unique_id=1756448166]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -0.908)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CarryableObjectLocation" unique_id=1791005812]
+visible = false
 mesh = SubResource("SphereMesh_jt0pw")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1449679214]
@@ -81,7 +83,6 @@ shape = SubResource("CylinderShape3D_jt0pw")
 transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 1.3, 0)
 
 [node name="LegAnimation" type="AnimatedSprite3D" parent="SpriteContainer/Sprites" unique_id=1777846753]
-billboard = 1
 sprite_frames = ExtResource("2_0lowt")
 animation = &"left"
 
@@ -89,97 +90,83 @@ animation = &"left"
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 
 [node name="BodyAnimation" type="AnimatedSprite3D" parent="SpriteContainer/Sprites/BodyContainer" unique_id=1549866217]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.001)
 billboard = 1
 sprite_frames = ExtResource("3_5ru4v")
 animation = &"left"
 
 [node name="Heads" type="Node3D" parent="SpriteContainer/Sprites" unique_id=1484612677]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.002)
 
 [node name="Head1" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=912203516]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("18_m6rpx")
 
 [node name="Head2" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=1477868328]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("19_gnwss")
 
 [node name="Head3" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=768677296]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("20_tugge")
 
 [node name="Head4" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=1172635503]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("21_3r5sn")
 
 [node name="Faces" type="Node3D" parent="SpriteContainer/Sprites" unique_id=1300934049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.003)
 
 [node name="ToFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=943397562]
 
 [node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=422340919]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
 billboard = 1
 texture = ExtResource("22_lv6ny")
 
 [node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=2109496439]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
 billboard = 1
 texture = ExtResource("23_qveom")
 
 [node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=623497584]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
 billboard = 1
 texture = ExtResource("24_geu30")
 
 [node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=1190557857]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
 billboard = 1
 texture = ExtResource("25_punyc")
 
 [node name="RightFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=2012484777]
 
 [node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=132501778]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("12_ufrdb")
 
 [node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=1681120348]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("13_lftb7")
 
 [node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=31460537]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("14_0lowt")
 
 [node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=754461933]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("15_uvim0")
 
 [node name="LeftFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=1149622048]
 
 [node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=644064086]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("16_2lq7j")
 
 [node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=1475033719]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("17_cubc6")
 
 [node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=608195440]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("18_gnwss")
 
 [node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=1338149383]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
 billboard = 1
 texture = ExtResource("19_tugge")

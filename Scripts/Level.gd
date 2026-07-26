@@ -55,7 +55,7 @@ func _on_customer_reached_goal(cus : Customer) -> void:
     var matched_dp : DeliveryPoint;
     for dp : DeliveryPoint in delivery_points:
         if (dp.ok_id == cus.goal_ok_id):
-            dp.customer.append(cus);
+            dp.customers.append(cus);
             matched_dp = dp;
             break;
     Statics.debug_log("customer {0} reached {2} w/ {1} request".format([cus.name, 

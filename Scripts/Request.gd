@@ -49,7 +49,6 @@ func position_request_items(incoming_request : int) -> void:
     for r : CarryableObjects.CarryObjEnum in request_list:
         for ri : RequestItem in request_items:
             if (ri.type == r):
-                Statics.debug_log("hello a request found for {0}".format([ri.name]));
                 ri.position = request_item_grid[idx];
                 ri.visible = true;
                 idx += 1;
@@ -58,7 +57,7 @@ func animate_in() -> void:
     tween_position = get_tree().create_tween();
     tween_position.set_ease(Tween.EASE_OUT);
     tween_position.set_trans(Tween.TRANS_BACK);
-    tween_position.tween_property(self, "position:y", -self.size.y + 50.0, animate_duration);
+    tween_position.tween_property(self, "position:y", -self.size.y + 80.0, animate_duration);
     
 func animate_out() -> void:
     if (tween_position): tween_position.kill();
@@ -134,6 +133,5 @@ func _ready() -> void:
     countdown_timer.tint_under.a = 1.0;
     for c in request_item_holder.get_children():
         if (c is RequestItem):
-            Statics.debug_log("icon found {0}".format([c.name]));
             request_items.append(c);
             c.visible = false;

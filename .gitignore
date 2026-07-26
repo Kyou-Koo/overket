@@ -2,5 +2,7 @@
 .godot/
 /android/
 
-.ps1
-.ogg
+*.ps1
+*.ogg
+*.ogg.import
+*.tmp

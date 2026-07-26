@@ -221,7 +221,7 @@ p4jump={
 [internationalization]
 
 locale/translation_remaps={}
-locale/translations=PackedStringArray("res://testfile.en.translation", "res://testfile.ja.translation")
+locale/translations=PackedStringArray("res://overket_tl.en.translation", "res://overket_tl.ja.translation")
 locale/include_text_server_data=true
 locale/test="en"
 locale/fallback="ja"

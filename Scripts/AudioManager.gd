@@ -1,4 +1,4 @@
-class_name AudioManager extends Control
+class_name AudioManager extends Node
 
 var bgmPlayer : AudioStreamPlayer;
 
@@ -21,8 +21,8 @@ static func ins() -> AudioManager:
     
 func addNodeToTree(tree : SceneTree) -> void:
     # TODO: causes errors when you relaunch the room
-    if self.get_parent_control() == null:
-        tree.root.add_child(self)
+    if self.get_parent() == null:
+        tree.root.add_child.call_deferred(self);
 
 func makeNewBgmPlayer(key : String) -> AudioStreamPlayer:
     if allBgmPlayers.get(key):
@@ -54,8 +54,8 @@ func configure_audio_buses() -> void:
     if !sdm:
         return
         
-    var bgmSetting : int = sdm.get_music()
-    var sfxSetting : int = sdm.get_sound()
+    var bgmSetting : int = SaveDataMgr.get_music()
+    var sfxSetting : int = SaveDataMgr.get_sound()
     var bgmDb : int = -5 + -2 * (10-bgmSetting)
     var sfxDb : int = -5 + -2 * (10-sfxSetting)
     if bgmSetting == 0:

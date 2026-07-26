@@ -138,10 +138,10 @@ func _input(ev: InputEvent) -> void:
 
 func _init() -> void:
     SaveDataMgr.create_sdm();
-    AudioManager.ins().addNodeToTree(get_tree());
     
 func _ready() -> void:
     _instance = self;
+    AudioManager.ins().addNodeToTree(get_tree());
     # check for existing saved keymap
     SaveDataMgr.load_keymap();
     SaveDataMgr.load_savedata();

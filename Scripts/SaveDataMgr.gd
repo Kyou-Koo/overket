@@ -4,17 +4,18 @@ static var _instance : SaveDataMgr;
 static func create_sdm() -> SaveDataMgr:
     if _instance == null:
         _instance = SaveDataMgr.new();
+        load_savedata();
     return _instance;
 
 var savedata : Dictionary;
 
-const keybind_filepath : String = "user://keybind.save_json"
+const keybind_filepath : String = "user://keybind_save.json"
 const savedata_filepath : String = "user://save.dat"
 const keybind_defaults : String = "user://keybind_default.dat"
 const pwd : String = "whyyesthisisAP4$$W0rdfortheGaMeWhYArEYoUR3aD1nG!!!"
 
 # defaults
-const SAVE_VERSION : int = 9;
+const SAVE_VERSION : int = 10;
 const LANG : String = "ja";
 const MUSIC_VOLUME : int = 5;
 const SFX_VOLUME : int = 5;
@@ -96,12 +97,13 @@ static func create_new_savedata() -> Dictionary:
     }
 
 static func write_savedata(data : Variant, path : String, type : SAVEDATA) -> void:
+    Statics.debug_log("writing savedata to {0}".format([path]));
     if (not path.begins_with("user://")):
         Statics.raise_warning("Attempting to output to an invalid path: {0}".format([path]));
         return;
     
     var out_file : FileAccess;
-    Statics.debug_log("outgoing data {0}".format([str(data)]));
+    #Statics.debug_log("outgoing data {0}".format([str(data)]));
     match type:
         SAVEDATA.Keybind:
             out_file = FileAccess.open(path, FileAccess.WRITE);
@@ -109,7 +111,7 @@ static func write_savedata(data : Variant, path : String, type : SAVEDATA) -> vo
             out_file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE, pwd);
             #data["version"] = SAVE_VERSION; # HACK just shove this in here at all times
     var out_jstr : String = JSON.stringify(data);
-    Statics.debug_log("outgoing save: {0}".format([out_jstr]));
+    #Statics.debug_log("outgoing save: {0}".format([out_jstr]));
     var succ: bool = out_file.store_line(out_jstr);
     if (!succ): 
         Statics.raise_warning("Failed to store to file {0} | {1}".format([

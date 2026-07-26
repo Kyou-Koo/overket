@@ -64,6 +64,8 @@ static func _kb_txt_short(input: String) -> String:
             return "←";
         "Right":
             return "→";
+        "Space":
+            return "Spc";
         _:
             return input;
     
@@ -98,7 +100,7 @@ static func input_text_string_to_short_txt(ev : InputEvent, is_pad : bool) -> St
     # match buttons
     if (ev is InputEventJoypadButton and ev.button_index == JoyButton.JOY_BUTTON_A):
         if (is_ps):
-            return "✖"
+            return "×"
         elif (is_nin):
             return "B"
         else:
@@ -152,18 +154,18 @@ static func input_text_string_to_short_txt(ev : InputEvent, is_pad : bool) -> St
     # match triggers/stick motion
     # left stick
     elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_LEFT_Y and ev.axis_value > 0.1):
-        return "L↑"
-    elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_LEFT_Y and ev.axis_value < -0.1):
         return "L↓"
+    elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_LEFT_Y and ev.axis_value < -0.1):
+        return "L↑"
     elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_LEFT_X and ev.axis_value > 0.1):
         return "L→"
     elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_LEFT_X and ev.axis_value < -0.1):
         return "L←"
     # right stick
     elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_RIGHT_Y and ev.axis_value > 0.1):
-        return "R↑"
-    elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_RIGHT_Y and ev.axis_value < -0.1):
         return "R↓"
+    elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_RIGHT_Y and ev.axis_value < -0.1):
+        return "R↑"
     elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_RIGHT_X and ev.axis_value > 0.1):
         return "R→"
     elif (ev is InputEventJoypadMotion and ev.axis == JoyAxis.JOY_AXIS_RIGHT_X and ev.axis_value < -0.1):

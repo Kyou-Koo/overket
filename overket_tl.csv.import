@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cbewbthhiuvqy"
+
+[deps]
+
+files=["res://overket_tl.en.translation", "res://overket_tl.ja.translation"]
+
+source_file="res://overket_tl.csv"
+dest_files=["res://overket_tl.en.translation", "res://overket_tl.ja.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

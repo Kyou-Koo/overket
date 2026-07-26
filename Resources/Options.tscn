@@ -21,11 +21,12 @@
 [ext_resource type="Texture2D" uid="uid://du8f50g40jf84" path="res://Resources/Images/sfx_off.png" id="19_gfl8s"]
 [ext_resource type="Script" uid="uid://bgd2lfcjaphym" path="res://Scripts/keybind_menu.gd" id="20_plljn"]
 [ext_resource type="Script" uid="uid://cqnlyhnkxatq7" path="res://Scripts/reassign_button.gd" id="22_p3uhi"]
+[ext_resource type="Texture2D" uid="uid://dvgh0imcqerrn" path="res://Resources/Images/control_stick.png" id="23_kfj6r"]
 [ext_resource type="Texture2D" uid="uid://1ebl8e1yfbni" path="res://Resources/Images/button_shape.png" id="23_p3uhi"]
 [ext_resource type="Texture2D" uid="uid://vr8jvhhferha" path="res://Resources/Images/key_shape.png" id="24_kfj6r"]
 [ext_resource type="Script" uid="uid://bbhok8bk3ye37" path="res://Scripts/waiting_for_input.gd" id="24_p3uhi"]
 
-[node name="Options" type="Control" unique_id=848114495 node_paths=PackedStringArray("player1", "player2", "player3", "player4", "keybind_holder", "keybind_box", "back_button")]
+[node name="Options" type="Control" unique_id=848114495 node_paths=PackedStringArray("player1", "player2", "player3", "player4", "keybind_holder", "back_button")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_p31tl")
@@ -34,7 +35,6 @@ player2 = NodePath("NinePatchRect/Box/HBoxContainer/Controls P2/Button/ButtonP2"
 player3 = NodePath("NinePatchRect/Box/HBoxContainer2/Controls P3/Button/ButtonP3")
 player4 = NodePath("NinePatchRect/Box/HBoxContainer2/Controls P4/Button/ButtonP4")
 keybind_holder = NodePath("NinePatchRect/KeybindingRect")
-keybind_box = NodePath("NinePatchRect/KeybindingRect/Rows")
 back_button = NodePath("NinePatchRect/Back")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=854493654]
@@ -618,7 +618,7 @@ theme = ExtResource("9_lo6rv")
 text = "OPTIONS_RETURN"
 text_overrun_behavior = 1
 
-[node name="KeybindingRect" type="NinePatchRect" parent="NinePatchRect" unique_id=1700991199 node_paths=PackedStringArray("control_type", "save_controls", "waiting_for_input_container", "options")]
+[node name="KeybindingRect" type="NinePatchRect" parent="NinePatchRect" unique_id=1700991199 node_paths=PackedStringArray("control_type", "player_label", "save_controls", "waiting_for_input_container", "options")]
 z_index = 10
 custom_minimum_size = Vector2(600, 648)
 layout_mode = 0
@@ -631,8 +631,9 @@ patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
 script = ExtResource("20_plljn")
-control_type = NodePath("Rows/BindBox/CenterContainer/BindMode")
-save_controls = NodePath("Rows/Confirm")
+control_type = NodePath("Rows/BindRow/CenterContainer/BindMode")
+player_label = NodePath("Rows/BindRow/PlayerLabel")
+save_controls = NodePath("Rows/Save_Cancel/Back")
 waiting_for_input_container = NodePath("WaitingContainer")
 options = NodePath("../..")
 
@@ -645,11 +646,11 @@ offset_right = 575.0
 offset_bottom = 628.0
 theme = ExtResource("9_lo6rv")
 
-[node name="BindBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=820242983]
+[node name="BindRow" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=820242983]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
-[node name="PlayerLabel" type="Label" parent="NinePatchRect/KeybindingRect/Rows/BindBox" unique_id=1940015567]
+[node name="PlayerLabel" type="Label" parent="NinePatchRect/KeybindingRect/Rows/BindRow" unique_id=1940015567]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 theme = ExtResource("9_lo6rv")
@@ -657,19 +658,18 @@ text = "P1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/BindBox" unique_id=43718528]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/BindRow" unique_id=43718528]
 custom_minimum_size = Vector2(350, 64)
 layout_mode = 2
 
-[node name="BindMode" type="Button" parent="NinePatchRect/KeybindingRect/Rows/BindBox/CenterContainer" unique_id=508975777]
+[node name="BindMode" type="Label" parent="NinePatchRect/KeybindingRect/Rows/BindRow/CenterContainer" unique_id=160296704]
 custom_minimum_size = Vector2(220, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../../Confirm")
-focus_neighbor_top = NodePath("../../../RightBox/Right")
-focus_neighbor_right = NodePath("../../../Confirm")
-focus_next = NodePath("../../../Confirm")
-focus_previous = NodePath("../../../PickDropBox/PickDrop")
+focus_neighbor_top = NodePath("../../../Save_Cancel/Back")
+focus_neighbor_bottom = NodePath("../../../ForwardBox/Forward")
+focus_next = NodePath("../../../ForwardBox/Forward")
 theme = ExtResource("9_lo6rv")
+theme_override_font_sizes/font_size = 44
 text = "Keyboard"
 
 [node name="ForwardBox" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=1067337116]
@@ -677,22 +677,22 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Forward" type="Button" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=873349685 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "label")]
+[node name="Forward" type="Button" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=873349685 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "controller_stick_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../PickDropBox/PickDrop")
-focus_neighbor_right = NodePath("../../BackBox/Back")
-focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../BindRow/CenterContainer/BindMode")
+focus_neighbor_bottom = NodePath("../../BackBox/Back")
 focus_next = NodePath("../../BackBox/Back")
-focus_previous = NodePath("../../Confirm")
+focus_previous = NodePath("../../BindRow/CenterContainer/BindMode")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_FORWARD"
 text_overrun_behavior = 1
 script = ExtResource("22_p3uhi")
-keybind_menu = NodePath("../..")
+keybind_menu = NodePath("../../..")
 keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
 controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+controller_stick_icon = NodePath("../CenterContainer/ControllerStickIcon")
 label = NodePath("../CenterContainer/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox" unique_id=983014360]
@@ -703,6 +703,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerStickIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/ForwardBox/CenterContainer" unique_id=707679374]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("23_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
@@ -728,18 +735,24 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Back" type="Button" parent="NinePatchRect/KeybindingRect/Rows/BackBox" unique_id=1495218644]
+[node name="Back" type="Button" parent="NinePatchRect/KeybindingRect/Rows/BackBox" unique_id=1495218644 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "controller_stick_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../ForwardBox/Forward")
-focus_neighbor_right = NodePath("../../LeftBox/Left")
-focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../ForwardBox/Forward")
+focus_neighbor_bottom = NodePath("../../LeftBox/Left")
 focus_next = NodePath("../../LeftBox/Left")
 focus_previous = NodePath("../../ForwardBox/Forward")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_BACK"
 text_overrun_behavior = 1
+script = ExtResource("22_p3uhi")
+keybind_menu = NodePath("../../..")
+action_type = 1
+keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
+controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+controller_stick_icon = NodePath("../CenterContainer/ControllerStickIcon")
+label = NodePath("../CenterContainer/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/BackBox" unique_id=447450744]
 custom_minimum_size = Vector2(350, 0)
@@ -749,6 +762,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerStickIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/BackBox/CenterContainer" unique_id=1742823682]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("23_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
@@ -765,7 +785,7 @@ layout_mode = 2
 theme = ExtResource("9_lo6rv")
 theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 theme_override_font_sizes/font_size = 24
-text = "Aaa"
+text = "L↑"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -774,18 +794,24 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Left" type="Button" parent="NinePatchRect/KeybindingRect/Rows/LeftBox" unique_id=1501836030]
+[node name="Left" type="Button" parent="NinePatchRect/KeybindingRect/Rows/LeftBox" unique_id=1501836030 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "controller_stick_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../BackBox/Back")
-focus_neighbor_right = NodePath("../../RightBox/Right")
-focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../BackBox/Back")
+focus_neighbor_bottom = NodePath("../../RightBox/Right")
 focus_next = NodePath("../../RightBox/Right")
 focus_previous = NodePath("../../BackBox/Back")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_LEFT"
 text_overrun_behavior = 1
+script = ExtResource("22_p3uhi")
+keybind_menu = NodePath("../../..")
+action_type = 2
+keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
+controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+controller_stick_icon = NodePath("../CenterContainer/ControllerStickIcon")
+label = NodePath("../CenterContainer/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/LeftBox" unique_id=2037083826]
 custom_minimum_size = Vector2(350, 0)
@@ -795,6 +821,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerStickIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/LeftBox/CenterContainer" unique_id=1361235344]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("23_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
@@ -820,18 +853,24 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Right" type="Button" parent="NinePatchRect/KeybindingRect/Rows/RightBox" unique_id=347022059]
+[node name="Right" type="Button" parent="NinePatchRect/KeybindingRect/Rows/RightBox" unique_id=347022059 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "controller_stick_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../LeftBox/Left")
-focus_neighbor_right = NodePath("../../JumpBox/Jump")
-focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../LeftBox/Left")
+focus_neighbor_bottom = NodePath("../../JumpBox/Jump")
 focus_next = NodePath("../../JumpBox/Jump")
 focus_previous = NodePath("../../LeftBox/Left")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_RIGHT"
 text_overrun_behavior = 1
+script = ExtResource("22_p3uhi")
+keybind_menu = NodePath("../../..")
+action_type = 3
+keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
+controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+controller_stick_icon = NodePath("../CenterContainer/ControllerStickIcon")
+label = NodePath("../CenterContainer/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/RightBox" unique_id=900237004]
 custom_minimum_size = Vector2(350, 0)
@@ -841,6 +880,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerStickIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/RightBox/CenterContainer" unique_id=171048386]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("23_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
@@ -866,18 +912,24 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Jump" type="Button" parent="NinePatchRect/KeybindingRect/Rows/JumpBox" unique_id=1082871737]
+[node name="Jump" type="Button" parent="NinePatchRect/KeybindingRect/Rows/JumpBox" unique_id=1082871737 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "controller_stick_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../RightBox/Right")
-focus_neighbor_right = NodePath("../../InteractBox/Interact")
-focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../RightBox/Right")
+focus_neighbor_bottom = NodePath("../../InteractBox/Interact")
 focus_next = NodePath("../../InteractBox/Interact")
 focus_previous = NodePath("../../RightBox/Right")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_JUMP"
 text_overrun_behavior = 1
+script = ExtResource("22_p3uhi")
+keybind_menu = NodePath("../../..")
+action_type = 6
+keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
+controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+controller_stick_icon = NodePath("../CenterContainer/ControllerStickIcon")
+label = NodePath("../CenterContainer/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/JumpBox" unique_id=1325973393]
 custom_minimum_size = Vector2(350, 0)
@@ -887,6 +939,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerStickIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/JumpBox/CenterContainer" unique_id=1511646438]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("23_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
@@ -912,18 +971,24 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Interact" type="Button" parent="NinePatchRect/KeybindingRect/Rows/InteractBox" unique_id=2116895651]
+[node name="Interact" type="Button" parent="NinePatchRect/KeybindingRect/Rows/InteractBox" unique_id=2116895651 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "controller_stick_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../JumpBox/Jump")
-focus_neighbor_right = NodePath("../../PickDropBox/PickDrop")
-focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../JumpBox/Jump")
+focus_neighbor_bottom = NodePath("../../PickDropBox/PickDrop")
 focus_next = NodePath("../../PickDropBox/PickDrop")
 focus_previous = NodePath("../../JumpBox/Jump")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_INTERACT"
 text_overrun_behavior = 1
+script = ExtResource("22_p3uhi")
+keybind_menu = NodePath("../../..")
+action_type = 4
+keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
+controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+controller_stick_icon = NodePath("../CenterContainer/ControllerStickIcon")
+label = NodePath("../CenterContainer/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/InteractBox" unique_id=815589986]
 custom_minimum_size = Vector2(350, 0)
@@ -933,6 +998,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerStickIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/InteractBox/CenterContainer" unique_id=1718173156]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("23_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
@@ -958,18 +1030,23 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PickDrop" type="Button" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox" unique_id=1859637643]
+[node name="PickDrop" type="Button" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox" unique_id=1859637643 node_paths=PackedStringArray("keybind_menu", "keyboard_icon", "controller_button_icon", "controller_stick_icon", "label")]
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../../InteractBox/Interact")
-focus_neighbor_right = NodePath("../../ForwardBox/Forward")
-focus_neighbor_bottom = NodePath("../../BindBox/CenterContainer/BindMode")
-focus_next = NodePath("../../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../InteractBox/Interact")
+focus_neighbor_bottom = NodePath("../../Save_Cancel/Back")
+focus_next = NodePath("../../Save_Cancel/Back")
 focus_previous = NodePath("../../InteractBox/Interact")
 theme = ExtResource("9_lo6rv")
 theme_override_font_sizes/font_size = 32
 text = "OPTIONS_PICKDROP"
 text_overrun_behavior = 1
+script = ExtResource("22_p3uhi")
+keybind_menu = NodePath("../../..")
+keyboard_icon = NodePath("../CenterContainer/KeyboardIcon")
+controller_button_icon = NodePath("../CenterContainer/ControllerButtonIcon")
+controller_stick_icon = NodePath("../CenterContainer/ControllerStickIcon")
+label = NodePath("../CenterContainer/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox" unique_id=566199996]
 custom_minimum_size = Vector2(350, 0)
@@ -979,6 +1056,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("23_p3uhi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControllerStickIcon" type="TextureRect" parent="NinePatchRect/KeybindingRect/Rows/PickDropBox/CenterContainer" unique_id=1122275392]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("23_kfj6r")
 expand_mode = 1
 stretch_mode = 5
 
@@ -999,22 +1083,28 @@ text = "Aaa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Confirm" type="Button" parent="NinePatchRect/KeybindingRect/Rows" unique_id=964886877]
+[node name="Save_Cancel" type="HBoxContainer" parent="NinePatchRect/KeybindingRect/Rows" unique_id=2040402115]
+layout_mode = 2
+alignment = 1
+
+[node name="Back" type="Button" parent="NinePatchRect/KeybindingRect/Rows/Save_Cancel" unique_id=964886877]
 custom_minimum_size = Vector2(220, 64)
 layout_mode = 2
-focus_neighbor_left = NodePath("../BindBox/CenterContainer/BindMode")
-focus_neighbor_top = NodePath("../PickDropBox/PickDrop")
-focus_neighbor_right = NodePath("../BindBox/CenterContainer/BindMode")
-focus_next = NodePath("../ForwardBox/Forward")
-focus_previous = NodePath("../BindBox/CenterContainer/BindMode")
+focus_neighbor_top = NodePath("../../PickDropBox/PickDrop")
+focus_neighbor_bottom = NodePath("../../BindRow/CenterContainer/BindMode")
 theme = ExtResource("9_lo6rv")
-text = "OPTIONS_CONFIRM"
+text = "OPTIONS_RETURN"
+text_overrun_behavior = 1
 
-[node name="WaitingContainer" type="Control" parent="NinePatchRect/KeybindingRect" unique_id=177602923]
+[node name="WaitingContainer" type="Control" parent="NinePatchRect/KeybindingRect" unique_id=177602923 node_paths=PackedStringArray("line_one", "line_two", "line_three")]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("24_p3uhi")
+line_one = NodePath("WaitingForInput/CenterContainer3/AssignText")
+line_two = NodePath("WaitingForInput/CenterContainer/WaitingText")
+line_three = NodePath("WaitingForInput/CenterContainer2/CancelText")
 
 [node name="BackgroundDim" type="NinePatchRect" parent="NinePatchRect/KeybindingRect/WaitingContainer" unique_id=1419168224]
 modulate = Color(0.20871013, 0.20871016, 0.20871013, 0.5568628)
@@ -1041,14 +1131,30 @@ patch_margin_left = 50
 patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
-script = ExtResource("24_p3uhi")
+
+[node name="CenterContainer3" type="CenterContainer" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput" unique_id=265198838]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 40.0
+offset_right = 705.0
+offset_bottom = 92.0
+use_top_left = true
+
+[node name="AssignText" type="Label" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput/CenterContainer3" unique_id=1952204846]
+layout_mode = 2
+theme = ExtResource("9_lo6rv")
+theme_override_colors/font_color = Color(0.9764706, 0.972549, 0.9490196, 1)
+theme_override_colors/font_outline_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+theme_override_constants/outline_size = 10
+text = "OPTIONS_REASSIGN"
+horizontal_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput" unique_id=1917905850]
 layout_mode = 0
 offset_left = 200.0
-offset_top = 100.0
+offset_top = 110.0
 offset_right = 200.0
-offset_bottom = 100.0
+offset_bottom = 110.0
 use_top_left = true
 
 [node name="WaitingText" type="Label" parent="NinePatchRect/KeybindingRect/WaitingContainer/WaitingForInput/CenterContainer" unique_id=542755688]

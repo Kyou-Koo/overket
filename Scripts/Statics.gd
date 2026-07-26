@@ -38,6 +38,12 @@ static func time_sec_to_minsec(total_sec : int) -> String:
     var secs : int = total_sec % 60;
     var mins : int = (total_sec - secs) / 60;
     return "{0}:{1}".format({0:"%02d" % mins, 1:"%02d" % secs});
+    
+static func recursively_set_child_focus(pc : Control, mode : Control.FocusMode) -> void:
+    for c : Control in pc.get_children():
+        c.focus_mode = mode;
+        if (c.get_child_count() > 0):
+            recursively_set_child_focus(c, mode);
 
 # once again this would be benefitted by using C# and generic types
 static func rand_from_arr_v(a : Array[Variant]) -> Variant:

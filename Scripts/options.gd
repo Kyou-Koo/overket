@@ -6,10 +6,8 @@ class_name Options extends Control
 @export var player2 : Control;
 @export var player3 : Control;
 @export var player4 : Control;
-@export var keybind_holder : Control;
-@export var keybind_box : Control;
+@export var keybind_holder : KeybindMenu;
 @export var back_button : Button;
-var keybind_box_nodes : Array[Button];
 
 var player_controls_all : Control;
 var curr_focused_control : Control;
@@ -23,10 +21,27 @@ var is_gamepad_last_used : bool = false;
 
 var curr_keybinds : Dictionary;
 var is_active : bool = false;
+var is_rebind_mode : bool = false;
 
 signal load_player_control(player : String);
 
+#func recursively_set_child_focus(pc : Control, mode : Control.FocusMode) -> void:
+    #for c : Control in pc.get_children():
+        #Statics.debug_log("{0} disabling focus".format([c.name]))
+        #c.focus_mode = mode;
+        #if (c.get_child_count() > 0):
+            #recursively_set_child_focus(c, mode);
+
 func public_set_activated_button(b : Button) -> void:
+    if (is_rebind_mode): return;
+    self.focus_mode = Control.FOCUS_NONE;
+    self.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_ENABLED;
+    Statics.recursively_set_child_focus(self, Control.FOCUS_NONE);
+    #player1.focus_mode = Control.FOCUS_NONE;
+    #player2.focus_mode = Control.FOCUS_NONE;
+    #player3.focus_mode = Control.FOCUS_NONE;
+    #player4.focus_mode = Control.FOCUS_NONE;
+    #back_button.focus_mode = Control.FOCUS_NONE;
     match b:
         player1:
             load_player_control.emit("p1");
@@ -50,15 +65,19 @@ func public_set_last_focused(c : Control) -> void:
     if (c.name.begins_with("ButtonP")):
         last_focused_player_control = c;
 
+func _on_keybind_menu_closed(km : KeybindMenu) -> void:
+    Statics.recursively_set_child_focus(self, Control.FOCUS_ALL);
+    curr_focused_control.grab_focus.call_deferred();
+
 func _on_player_controls_box_focused() -> void:
-    if (!is_active):
+    if (!is_active or is_rebind_mode):
         return;
     Statics.debug_log("box focused on");
     if (last_focused_player_control != null):
         curr_focused_control = last_focused_player_control;
     else:
         curr_focused_control = $"NinePatchRect/Box/HBoxContainer/Controls P1/Button/ButtonP1";
-    curr_focused_control.grab_focus();
+    curr_focused_control.grab_focus.call_deferred();
 
 func _on_back_pressed() -> void:
     if (!is_active):
@@ -80,7 +99,7 @@ func _on_menu_transition(who : Node) -> void:
         is_active = false;
 
 func _input(ev: InputEvent) -> void:
-    if (!is_active):
+    if (!is_active or is_rebind_mode):
         return;
     if (Input.get_connected_joypads().size() == 0 or 
     ev.get_class() == "InputEventKey" or
@@ -98,9 +117,11 @@ func _input(ev: InputEvent) -> void:
     #if (ev.get_class() != "InputEventJoypadMotion"):
         #print(ev.as_text());
         #print(ev.to_string());
-    if (ev.is_pressed()):
-        print(InputStatics.input_text_string_to_short_txt(ev, is_gamepad_last_used)) # pass as text to mapping
+    #if (ev.is_pressed()):
+        #print(InputStatics.input_text_string_to_short_txt(ev, is_gamepad_last_used)) # pass as text to mapping
         
+func _instantiate() -> void:
+    SaveDataMgr.create_new_savedata();
 
 func _ready() -> void:
     # TESTING---------------------
@@ -114,6 +135,12 @@ func _ready() -> void:
     #Statics.debug_log(str(KeyCon.init_keymap));
     #Statics.debug_log("below is modded keymap ----");
     #Statics.debug_log(str(InputMap.action_get_events("p1fwd")));
+    Statics.debug_log("option parent: {0}".format([self.get_parent()]));
+    if (self.get_parent() == get_tree().root):
+        is_active = true;
+        SaveDataMgr.create_sdm();
+        get_node("NinePatchRect/Language Control/{0}".format([SaveDataMgr.get_lang().capitalize()])).grab_focus.call_deferred();
+        # Statics.debug_log("should be focusing {0}".format([SaveDataMgr.get_lang().capitalize()]));
     # ---------------------
     var lang_str : String = OS.get_locale_language();
     if (GameManager._instance != null):
@@ -130,11 +157,8 @@ func _ready() -> void:
     player_controls_all.focus_entered.connect(_on_player_controls_box_focused);
 
     assert(keybind_holder != null, "keybind holder must be assigned");
-    assert(keybind_box != null, "keybind box must be assigned");
     keybind_holder.visible = false;
-    for c : Control in keybind_box.get_children():
-        if (c is Button):
-            keybind_box_nodes.append(c);
+    keybind_holder.keybind_menu_closed.connect(_on_keybind_menu_closed);
 
     assert(back_button != null, "back button must be assigned");
     back_button.pressed.connect(_on_back_pressed);

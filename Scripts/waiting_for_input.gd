@@ -1,12 +1,8 @@
-extends NinePatchRect
+extends Control
 
-signal input_captured(event : InputEvent);
+@export var line_one : Label;
+@export var line_two : Label;
+@export var line_three : Label;
 
-func _input(event: InputEvent) -> void:
-    if (!self.visible):
-        return;
-    if (event.is_action(&"start")):
-        self.visible = false;
-        return;
-    get_viewport().set_input_as_handled();
-    input_captured.emit(event);
+func set_bind_name(bind_name : String) -> void:
+    line_one.text = "OPTIONS_REASSIGN" + bind_name;

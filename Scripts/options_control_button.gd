@@ -12,7 +12,6 @@ func _on_focus_exited() -> void:
     
 func _on_pressed() -> void:
     button_flow_handler.public_set_activated_button(self);
-    button_flow_handler.public_set_curr_focus(button_flow_handler.keybind_box_nodes[0]);
 
 func _ready() -> void:
     if (button_flow_handler == null):

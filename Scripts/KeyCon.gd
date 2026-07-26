@@ -57,6 +57,25 @@ static func dict_entry_from_input_event(es : Array[InputEvent]) -> Dictionary:
                 "av": e.axis_value,
             }
     return new_dict;
+    
+static func control_string_from_ACTTYPE(at : ACTTYPE) -> String:
+    var con_str : String = "";
+    match at:
+        ACTTYPE.FWRD:
+            con_str = "fwd";
+        ACTTYPE.BACK:
+            con_str = "back";
+        ACTTYPE.LEFT:
+            con_str = "left";
+        ACTTYPE.RGHT:
+            con_str = "right";
+        ACTTYPE.INTR:
+            con_str = "interact";
+        ACTTYPE.PKDR:
+            con_str = "pick_drop";
+        ACTTYPE.JUMP:
+            con_str = "jump";
+    return con_str;
 
 static func create_keymap() -> void:
     var actions : Array[StringName] = InputMap.get_actions();
@@ -75,33 +94,29 @@ static func create_keymap() -> void:
     #Statics.debug_log(str(init_keymap));
     active_keymap = init_keymap.duplicate(true);
     
+static func get_keybind_for(player : String, control: ACTTYPE, input_mode : String) -> InputEvent:
+    var con_str : String = control_string_from_ACTTYPE(control);
+    var con_dict : Dictionary = active_keymap[player][con_str][input_mode];
+    return InputStatics.create_input_event_from_dict(con_dict);
+    
 # player requiered to be p1/p2/p3/p4
 static func update_keymap(player: String, control: ACTTYPE, new_key : InputEvent) -> void:
-    var con_str : String = "";
-    match control:
-        ACTTYPE.FWRD:
-            con_str = "fwd";
-        ACTTYPE.BACK:
-            con_str = "back";
-        ACTTYPE.LEFT:
-            con_str = "left";
-        ACTTYPE.RGHT:
-            con_str = "right";
-        ACTTYPE.INTR:
-            con_str = "interact";
-        ACTTYPE.PKDR:
-            con_str = "pick_drop";
-        ACTTYPE.JUMP:
-            con_str = "jump";
-    
-    var input_dict : Dictionary = dict_entry_from_input_event([new_key])
+    var con_str : String  = control_string_from_ACTTYPE(control);
+    var alt_input : InputEvent
+    if (player == "p1" or player == "p2"):
+        if (new_key is InputEventKey):
+            alt_input = InputStatics.create_input_event_from_dict(active_keymap[player][con_str]["con"]);
+        else:
+            alt_input = InputStatics.create_input_event_from_dict(active_keymap[player][con_str]["key"]);
+    var input_dict : Dictionary = dict_entry_from_input_event([new_key, alt_input])
     var pair_input : InputEvent = null;
     if (new_key is InputEventKey):
-        active_keymap[player][con_str]["key"] = input_dict;
+        active_keymap[player][con_str] = input_dict;
         pair_input = InputStatics.create_input_event_from_dict(active_keymap[player][con_str]["con"]);
     else:
-        active_keymap[player][con_str]["con"] = input_dict;
+        active_keymap[player][con_str] = input_dict;
         if (player == "p1" or player == "p2"):
+            Statics.debug_log(str(active_keymap[player][con_str]))
             pair_input = InputStatics.create_input_event_from_dict(active_keymap[player][con_str]["key"]);
     
     var input_arr : Array[InputEvent] = [new_key];

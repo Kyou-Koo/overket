@@ -18,6 +18,9 @@ func _init(dir : Vector3 = Vector3.ZERO, rot : Vector3 = Vector3.ZERO) -> void:
 
 func normalize() -> void:
     direction = direction.normalized();
+
+func length() -> float:
+    return direction.length();
     
 func _to_string() -> String:
     return "d: {0} r: {1}".format([direction, rotation]);

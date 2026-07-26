@@ -1,13 +1,37 @@
 class_name PlayerController extends CharacterBody3D
 
+@export var skip_instancing : bool = false;
 @export var player_prefix : String;
 # TODO: put in general scene controller
 @onready var gravity : float = -ProjectSettings.get_setting("physics/3d/default_gravity");
 @export var speed : float = 10.0;
+@export var jump : float = 2.0;
 @export var interaction_radius : float;
 @export var ok_id : String;
+@export_range(0, 3) var rand_head : int = 0;
+@export_range(0, 3) var rand_face : int = 0;
 @export var throw_scale : float = 5.0;
 @export var throw_vertical : float = 1.0;
+
+@export_group("Sprites", "sprite_")
+@export var sprite_container : Node3D
+@export var sprite_animation_body : AnimatedSprite3D;
+@export var sprite_animation_leg : AnimatedSprite3D;
+@export var sprite_head_container : Node3D;
+var sprite_heads : Array[Sprite3D];
+@export var sprite_to_faces_container : Node3D;
+var sprite_to_faces : Array[Sprite3D];
+@export var sprite_right_faces_container : Node3D;
+var sprite_right_faces : Array[Sprite3D];
+@export var sprite_left_faces_container : Node3D;
+var sprite_left_faces : Array[Sprite3D];
+# Sprite animations
+const S_STAND : String = "stand";
+const S_RIGHT : String = "right";
+const S_LEFT : String = "left";
+const S_TO : String = "to_cam";
+const S_FROM : String = "from_cam";
+const S_HOLD : String = "_hold";
 
 var curr_fwd : Vector2;
 var new_fwd : Vector2;
@@ -178,6 +202,23 @@ func remove_from_interact_list(obj : Node3D) -> bool:
         return true;
     return false;
 
+func set_up_sprite_arrays(container : Node3D, array : Array) -> void:
+    for s3d : Sprite3D in container.get_children():
+        array.append(s3d);
+        s3d.visible = false;
+        
+func pick_face_head(face : int, head : int) -> void:
+    sprite_heads[head].visible = true;
+    sprite_to_faces[face].visible = true;
+    
+func disable_faces() -> void:
+    for f : Sprite3D in sprite_to_faces:
+        f.visible = false;
+    for f : Sprite3D in sprite_right_faces:
+        f.visible = false;
+    for f : Sprite3D in sprite_left_faces:
+        f.visible = false;
+
 func _on_body_enter(body : Node3D) -> void:
     # ignore non-script objects
     if (!Statics.check_for_okid(body)):
@@ -196,6 +237,32 @@ func _physics_process(delta : float) -> void:
     # TODO: player state processing
     var motion_direction : DirRot = handle_movement();
     self.set_velocity(motion_direction.direction * speed);
+    if (is_zero_approx(motion_direction.length())):
+        disable_faces();
+        sprite_to_faces[rand_face].visible = true;
+        sprite_animation_leg.play(S_STAND);
+        if (curr_state == PSTATE.NEUTRAL):
+            sprite_animation_body.play(S_STAND);
+        else:
+            sprite_animation_body.play(S_TO + S_HOLD);
+    else:
+        if (motion_direction.direction.x == 0):
+            disable_faces();
+            sprite_to_faces[rand_face].visible = true;
+            if (motion_direction.direction.z < 0.0):
+                sprite_animation_leg.play(S_FROM);
+                sprite_animation_body.position = Vector3(0, 0, 0.01);
+            else:
+                sprite_animation_leg.play(S_TO);
+                sprite_animation_body.position = Vector3(0, 0, -0.01);
+        elif (motion_direction.direction.x > 0.0):
+            disable_faces();
+            sprite_right_faces[rand_face].visible = true;
+            sprite_animation_leg.play(S_RIGHT);
+        else:
+            disable_faces();
+            sprite_left_faces[rand_face].visible = true;
+            sprite_animation_leg.play(S_LEFT);
     # TODO: why is this here lmao
     self.velocity.y += gravity * delta;
     if (new_fwd != curr_fwd and motion_direction.rotation.y != 0.0):
@@ -251,6 +318,13 @@ func _ready() -> void:
             
     scene_obj_holder = self.get_owner().find_child("CarryableObjects");
     curr_state = PSTATE.NEUTRAL;
+
+    set_up_sprite_arrays(sprite_head_container, sprite_heads);
+    set_up_sprite_arrays(sprite_to_faces_container, sprite_to_faces);
+    set_up_sprite_arrays(sprite_left_faces_container, sprite_left_faces);
+    set_up_sprite_arrays(sprite_right_faces_container, sprite_right_faces);
+    if (skip_instancing):
+        pick_face_head(rand_face, rand_head);
 
 func _init() -> void:
     curr_fwd = Vector2.UP;

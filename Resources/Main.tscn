@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://7qddkg4onoyt" path="res://Scripts/GameManager.gd" id="1_1xgcs"]
 [ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="1_paki0"]
 [ext_resource type="Script" uid="uid://dy45t2kk5ahj2" path="res://Scripts/AudioManager.gd" id="2_iafxj"]
+[ext_resource type="PackedScene" uid="uid://b23ck11osr3mg" path="res://Resources/player.tscn" id="2_rted0"]
 [ext_resource type="BoxMesh" uid="uid://dgb5c8lu5gf52" path="res://Resources/Mesh/cube10m.tres" id="3_m7k6n"]
 [ext_resource type="BoxMesh" uid="uid://bwi4vnsw7m0cg" path="res://Resources/Mesh/cube15m.tres" id="4_054na"]
 [ext_resource type="BoxMesh" uid="uid://bftcxgff1it0i" path="res://Resources/Mesh/cube5m.tres" id="4_xcc3k"]
@@ -114,6 +115,11 @@ options_cam_pos = Vector3(0, 2.5, 0)
 options_cam_rot = Vector3(0, -130, 0)
 sprite = NodePath("MM/Renna")
 
+[node name="Player" parent="." unique_id=1861599428 instance=ExtResource("2_rted0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.9332404)
+skip_instancing = true
+player_prefix = "p1"
+
 [node name="AudioManager" type="Node3D" parent="." unique_id=1797945235]
 script = ExtResource("2_iafxj")
 
@@ -178,7 +184,7 @@ transform = Transform3D(0.17027023, 0.38720682, -1.9547577, -1.8308055, 0.805078
 transform = Transform3D(-0.6324575, 0, 1.8973664, 0, 2, 0, -1.8973664, 0, -0.6324575, 2.7425773, 0, -6.122146)
 
 [node name="shikishi_data" parent="CUBES" unique_id=1729298937 instance=ExtResource("10_b50f7")]
-transform = Transform3D(0.8254991, -1.6678163, 0.73276126, 1.5074304, 1.0770963, 0.7533375, -1.0228416, 0.24135362, 1.7016294, 3.4927974, 0.63506734, -11.212402)
+transform = Transform3D(1.0807035, -1.6681036, 0.22250763, 1.5074304, 1.0770963, 0.75333744, -0.74815357, -0.23935981, 1.8392859, 3.4927974, 0.63506734, -11.212402)
 
 [node name="storage_box" parent="CUBES" unique_id=84293636 instance=ExtResource("10_ofkph")]
 transform = Transform3D(1.8598869, 0, 0.73540515, 0, 2, 0, -0.73540515, 0, 1.8598869, 4.693255, 0, -14.143621)
@@ -187,7 +193,7 @@ transform = Transform3D(1.8598869, 0, 0.73540515, 0, 2, 0, -0.73540515, 0, 1.859
 transform = Transform3D(-1.4091694, 0, -1.4192399, 0, 2, 0, 1.4192399, 0, -1.4091694, 2.0564947, 0, -13.568723)
 
 [node name="table" parent="CUBES" unique_id=183128433 instance=ExtResource("12_t7kqs")]
-transform = Transform3D(1.7887615, 0, 0.8946129, 0, 2, 0, -0.8946129, 0, 1.7887615, 5.4608507, 0, -11.032719)
+transform = Transform3D(1.0477042, 0, -1.7036184, 0, 2, 0, 1.7036184, 0, 1.0477042, 5.4608507, 0, -11.032719)
 
 [node name="laptop" parent="CUBES/table" unique_id=919714571 instance=ExtResource("13_m8n5y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014070749, 1.0183694, 0.013730168)

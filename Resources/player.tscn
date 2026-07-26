@@ -1,6 +1,24 @@
 [gd_scene format=3 uid="uid://b23ck11osr3mg"]
 
 [ext_resource type="Script" uid="uid://d01rlm8c07c8q" path="res://Scripts/PlayerController.gd" id="1_4flbx"]
+[ext_resource type="SpriteFrames" uid="uid://tow7hfo8ej2w" path="res://Resources/Textures/player_legs.tres" id="2_0lowt"]
+[ext_resource type="SpriteFrames" uid="uid://d0tmrg4kw6as5" path="res://Resources/Textures/player_body.tres" id="3_5ru4v"]
+[ext_resource type="Texture2D" uid="uid://ch7ni8ttvwvwo" path="res://Resources/Images/Player/face1_right.png" id="12_ufrdb"]
+[ext_resource type="Texture2D" uid="uid://c6kym4pt1itxx" path="res://Resources/Images/Player/face2_right.png" id="13_lftb7"]
+[ext_resource type="Texture2D" uid="uid://dcc2jt28p25uf" path="res://Resources/Images/Player/face3_right.png" id="14_0lowt"]
+[ext_resource type="Texture2D" uid="uid://bl8pnbfeime6r" path="res://Resources/Images/Player/face4_right.png" id="15_uvim0"]
+[ext_resource type="Texture2D" uid="uid://d03jluuxocpcb" path="res://Resources/Images/Player/face1_left.png" id="16_2lq7j"]
+[ext_resource type="Texture2D" uid="uid://b76vwddb5urs2" path="res://Resources/Images/Player/face2_left.png" id="17_cubc6"]
+[ext_resource type="Texture2D" uid="uid://c6h2a3v2vnwb8" path="res://Resources/Images/Player/face3_left.png" id="18_gnwss"]
+[ext_resource type="Texture2D" uid="uid://qcu0p7x4ecti" path="res://Resources/Images/Player/head1.png" id="18_m6rpx"]
+[ext_resource type="Texture2D" uid="uid://b3hpr23f1oc5p" path="res://Resources/Images/Player/head2.png" id="19_gnwss"]
+[ext_resource type="Texture2D" uid="uid://dlxpbg8m347nr" path="res://Resources/Images/Player/face4_left.png" id="19_tugge"]
+[ext_resource type="Texture2D" uid="uid://cuk7t8w1ukvgi" path="res://Resources/Images/Player/head3.png" id="20_tugge"]
+[ext_resource type="Texture2D" uid="uid://cp18qo0sngpi2" path="res://Resources/Images/Player/head4.png" id="21_3r5sn"]
+[ext_resource type="Texture2D" uid="uid://2almr2d5ayd0" path="res://Resources/Images/Player/face1.png" id="22_lv6ny"]
+[ext_resource type="Texture2D" uid="uid://bmh27l2f0jm2a" path="res://Resources/Images/Player/face2.png" id="23_qveom"]
+[ext_resource type="Texture2D" uid="uid://nu757bsm86x2" path="res://Resources/Images/Player/face3.png" id="24_geu30"]
+[ext_resource type="Texture2D" uid="uid://bi0urt828gymn" path="res://Resources/Images/Player/face4.png" id="25_punyc"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 
@@ -16,16 +34,24 @@ height = 0.2
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_jt0pw"]
 radius = 2.5
 
-[node name="Player" type="CharacterBody3D" unique_id=1861599428]
+[node name="Player" type="CharacterBody3D" unique_id=1861599428 node_paths=PackedStringArray("sprite_container", "sprite_animation_body", "sprite_animation_leg", "sprite_head_container", "sprite_to_faces_container", "sprite_right_faces_container", "sprite_left_faces_container")]
 collision_layer = 2
 collision_mask = 7
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_4flbx")
 interaction_radius = 1.5
+sprite_container = NodePath("SpriteContainer")
+sprite_animation_body = NodePath("SpriteContainer/Sprites/BodyContainer/BodyAnimation")
+sprite_animation_leg = NodePath("SpriteContainer/Sprites/LegAnimation")
+sprite_head_container = NodePath("SpriteContainer/Sprites/Heads")
+sprite_to_faces_container = NodePath("SpriteContainer/Sprites/Faces/ToFaces")
+sprite_right_faces_container = NodePath("SpriteContainer/Sprites/Faces/RightFaces")
+sprite_left_faces_container = NodePath("SpriteContainer/Sprites/Faces/LeftFaces")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=943131327]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_sh265")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1388162449]
@@ -48,3 +74,112 @@ collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1684052946]
 shape = SubResource("CylinderShape3D_jt0pw")
+
+[node name="SpriteContainer" type="Node3D" parent="." unique_id=1967254597]
+
+[node name="Sprites" type="Node3D" parent="SpriteContainer" unique_id=2074778810]
+transform = Transform3D(0.55, 0, 0, 0, 0.55, 0, 0, 0, 0.55, 0, 1.3, 0)
+
+[node name="LegAnimation" type="AnimatedSprite3D" parent="SpriteContainer/Sprites" unique_id=1777846753]
+billboard = 1
+sprite_frames = ExtResource("2_0lowt")
+animation = &"left"
+
+[node name="BodyContainer" type="Node3D" parent="SpriteContainer/Sprites" unique_id=2053924651]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="BodyAnimation" type="AnimatedSprite3D" parent="SpriteContainer/Sprites/BodyContainer" unique_id=1549866217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01)
+billboard = 1
+sprite_frames = ExtResource("3_5ru4v")
+animation = &"left"
+
+[node name="Heads" type="Node3D" parent="SpriteContainer/Sprites" unique_id=1484612677]
+
+[node name="Head1" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=912203516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("18_m6rpx")
+
+[node name="Head2" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=1477868328]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("19_gnwss")
+
+[node name="Head3" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=768677296]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("20_tugge")
+
+[node name="Head4" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=1172635503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("21_3r5sn")
+
+[node name="Faces" type="Node3D" parent="SpriteContainer/Sprites" unique_id=1300934049]
+
+[node name="ToFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=943397562]
+
+[node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=422340919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+billboard = 1
+texture = ExtResource("22_lv6ny")
+
+[node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=2109496439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+billboard = 1
+texture = ExtResource("23_qveom")
+
+[node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=623497584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+billboard = 1
+texture = ExtResource("24_geu30")
+
+[node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=1190557857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+billboard = 1
+texture = ExtResource("25_punyc")
+
+[node name="RightFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=2012484777]
+
+[node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=132501778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("12_ufrdb")
+
+[node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=1681120348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("13_lftb7")
+
+[node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=31460537]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("14_0lowt")
+
+[node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=754461933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("15_uvim0")
+
+[node name="LeftFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=1149622048]
+
+[node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=644064086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("16_2lq7j")
+
+[node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=1475033719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("17_cubc6")
+
+[node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=608195440]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("18_gnwss")
+
+[node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=1338149383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+billboard = 1
+texture = ExtResource("19_tugge")

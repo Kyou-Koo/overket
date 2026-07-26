@@ -25,23 +25,11 @@ var is_rebind_mode : bool = false;
 
 signal load_player_control(player : String);
 
-#func recursively_set_child_focus(pc : Control, mode : Control.FocusMode) -> void:
-    #for c : Control in pc.get_children():
-        #Statics.debug_log("{0} disabling focus".format([c.name]))
-        #c.focus_mode = mode;
-        #if (c.get_child_count() > 0):
-            #recursively_set_child_focus(c, mode);
-
 func public_set_activated_button(b : Button) -> void:
     if (is_rebind_mode): return;
     self.focus_mode = Control.FOCUS_NONE;
     self.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_ENABLED;
     Statics.recursively_set_child_focus(self, Control.FOCUS_NONE);
-    #player1.focus_mode = Control.FOCUS_NONE;
-    #player2.focus_mode = Control.FOCUS_NONE;
-    #player3.focus_mode = Control.FOCUS_NONE;
-    #player4.focus_mode = Control.FOCUS_NONE;
-    #back_button.focus_mode = Control.FOCUS_NONE;
     match b:
         player1:
             load_player_control.emit("p1");
@@ -54,6 +42,7 @@ func public_set_activated_button(b : Button) -> void:
         _:
             Statics.raise_warning("Non-keybind button activated this function.")
     keybind_holder.visible = true;
+    AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
     
 func public_set_curr_focus(c : Control) -> void:
     curr_focused_control = c;
@@ -67,12 +56,13 @@ func public_set_last_focused(c : Control) -> void:
 
 func _on_keybind_menu_closed(km : KeybindMenu) -> void:
     Statics.recursively_set_child_focus(self, Control.FOCUS_ALL);
+    AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
     curr_focused_control.grab_focus.call_deferred();
 
 func _on_player_controls_box_focused() -> void:
     if (!is_active or is_rebind_mode):
         return;
-    Statics.debug_log("box focused on");
+    #Statics.debug_log("box focused on");
     if (last_focused_player_control != null):
         curr_focused_control = last_focused_player_control;
     else:
@@ -125,17 +115,7 @@ func _instantiate() -> void:
 
 func _ready() -> void:
     # TESTING---------------------
-    #KeyCon.create_keymap();
-    #print(str(SaveDataMgr.load_savedata()))
-    
-    # test remapping:
-    #var new_eventkey : InputEventKey = InputEventKey.new();
-    #new_eventkey.keycode = KEY_Z;
-    #KeyCon.update_keymap("p1", KeyCon.ACTTYPE.FWRD, new_eventkey);
-    #Statics.debug_log(str(KeyCon.init_keymap));
-    #Statics.debug_log("below is modded keymap ----");
-    #Statics.debug_log(str(InputMap.action_get_events("p1fwd")));
-    Statics.debug_log("option parent: {0}".format([self.get_parent()]));
+    #Statics.debug_log("option parent: {0}".format([self.get_parent()]));
     if (self.get_parent() == get_tree().root):
         is_active = true;
         SaveDataMgr.create_sdm();

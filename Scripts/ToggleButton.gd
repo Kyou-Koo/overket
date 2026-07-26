@@ -84,6 +84,7 @@ func _on_slider_value_changed(new_val : float) -> void:
         SaveDataMgr.set_music(new_val as int);
     elif (self.name == "sound"):
         SaveDataMgr.set_sound(new_val as int);
+    AudioManager._instance.configure_audio_buses();
 
 func _on_toggled(new_state : bool) -> void:
     if (!button_flow_handler.is_active):

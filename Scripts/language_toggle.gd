@@ -10,6 +10,7 @@ var active_button : Button;
 signal child_set_active(b : Button);
 
 func public_set_active_button(b : Button) -> void:
+    AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
     active_button = b;
     child_set_active.emit(b);
     TranslationServer.set_locale(b.name.to_lower());

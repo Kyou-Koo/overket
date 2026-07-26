@@ -152,6 +152,7 @@ static func load_keymap() -> void:
         # I should probably remove the super-strict version checking for keybind data format
         if (validity == OK): #  and keybind_json.data["version"] == SAVE_VERSION
             KeyCon.active_keymap = keybind_json.data;
+            KeyCon.write_keymap_to_engine();
             return;
         else:
             Statics.raise_warning("Keybind file possibly corrupted.")

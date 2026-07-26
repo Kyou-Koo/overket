@@ -1,10 +1,6 @@
 class_name GameManager extends Node
 
 static var _instance : GameManager = null;
-#static func create_gm() -> GameManager:
-    #if _instance == null:
-        #_instance = GameManager.new();
-    #return _instance;
 
 enum MENU {
     MAIN,
@@ -44,6 +40,8 @@ var active_players : Dictionary = {
     
 }
 
+var in_menu : bool = true;
+var bgm_started : bool = false;
 var active_menu : MENU;
 var sprite_tween : Tween;
 var sprite_init_pos : Vector3;
@@ -66,6 +64,7 @@ func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transiti
         MENU.OPTIONS:
             next_menu = options;
     transition_to.emit(next_menu);
+    AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
 
 func set_lang_from_save() -> void:
     TranslationServer.set_locale(SaveDataMgr.get_lang());
@@ -135,9 +134,19 @@ func _input(ev: InputEvent) -> void:
             level_node_parent.push_input(ev);
         MENU.OPTIONS:
             options_node_parent.push_input(ev);
+    if (in_menu):
+        if (ev.is_pressed() and (ev.is_action(&"ui_left") or 
+        ev.is_action(&"ui_right") or ev.is_action(&"ui_up") or ev.is_action(&"ui_down"))):
+            AudioManager._instance.play_SFX(AudioFiles.MENU_MOVE);
+            
+func _process(delta: float) -> void:
+    if (Time.get_ticks_msec() > 100 and !bgm_started):
+        bgm_started = true;
+        AudioManager._instance.play_BGM(AudioFiles.MENU_KEY, AudioFiles.MENU_BGM, AudioFiles.MENU_BGM);
 
 func _init() -> void:
     SaveDataMgr.create_sdm();
+    AudioFiles.instantiate();
     
 func _ready() -> void:
     _instance = self;

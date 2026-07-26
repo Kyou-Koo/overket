@@ -95,7 +95,7 @@ func object_drop() -> void:
 # TODO: player handles assigning and reassigning of generated object parents when picked up
 func object_pick() -> void:
     if (interactable_objects.size() > 0):
-        # TODO: handle item on any surface first
+        
         if (closest_body is Table):
             object_hold((closest_body as Table).public_take_object());
             return;
@@ -234,7 +234,6 @@ func _on_body_exit(body: Node3D) -> void:
     var confirm : bool = remove_from_interact_list(body);
 
 func _physics_process(delta : float) -> void:
-    # TODO: player state processing
     var motion_direction : DirRot = handle_movement();
     self.set_velocity(motion_direction.direction * speed);
     if (is_zero_approx(motion_direction.length())):
@@ -252,23 +251,39 @@ func _physics_process(delta : float) -> void:
             if (motion_direction.direction.z < 0.0):
                 sprite_animation_leg.play(S_FROM);
                 sprite_animation_body.position = Vector3(0, 0, 0.01);
+                if (carried_object == null):
+                    sprite_animation_body.play(S_FROM);
+                else:
+                    sprite_animation_body.play(S_FROM + S_HOLD);
             else:
                 sprite_animation_leg.play(S_TO);
                 sprite_animation_body.position = Vector3(0, 0, -0.01);
+                if (carried_object == null):
+                    sprite_animation_body.play(S_TO);
+                else:
+                    sprite_animation_body.play(S_TO + S_HOLD);
         elif (motion_direction.direction.x > 0.0):
             disable_faces();
             sprite_right_faces[rand_face].visible = true;
             sprite_animation_leg.play(S_RIGHT);
+            if (carried_object == null):
+                sprite_animation_body.play(S_RIGHT);
+            else:
+                sprite_animation_body.play(S_RIGHT + S_HOLD);
         else:
             disable_faces();
             sprite_left_faces[rand_face].visible = true;
             sprite_animation_leg.play(S_LEFT);
+            if (carried_object == null):
+                sprite_animation_body.play(S_LEFT);
+            else:
+                sprite_animation_body.play(S_LEFT + S_HOLD);
     # TODO: why is this here lmao
     self.velocity.y += gravity * delta;
     if (new_fwd != curr_fwd and motion_direction.rotation.y != 0.0):
         self.rotate_y(motion_direction.rotation.y);
         curr_fwd = new_fwd;
-    #print("player rot: {0}".format([self.rotation]))
+    # TODO: remove?
     test_pushing(delta);
     # regular checks TODO: should this be only on interact instead?
     closest_body = check_closest_body();

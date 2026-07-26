@@ -41,6 +41,10 @@ func _input(ev: InputEvent) -> void:
             controller_stick_icon.visible = false;
             label.text = InputStatics.input_text_string_to_short_txt(ev, true);
         elif (ev is InputEventJoypadMotion):
+            if (ev.axis_value > 0.0):
+                ev.axis_value = 1.0;
+            else:
+                ev.axis_value = -1.0;
             keyboard_icon.visible = false;
             controller_button_icon.visible = false;
             controller_stick_icon.visible = true;

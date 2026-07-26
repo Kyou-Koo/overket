@@ -76,6 +76,17 @@ static func control_string_from_ACTTYPE(at : ACTTYPE) -> String:
         ACTTYPE.JUMP:
             con_str = "jump";
     return con_str;
+    
+static func write_keymap_to_engine() -> void:
+    var player_regex : RegEx = RegEx.create_from_string("p[1-4]");
+    for key : String in active_keymap:
+        if (!player_regex.search(key.to_lower())):
+            continue;
+        for p_control : String in active_keymap[key]:
+            for event : String in active_keymap[key][p_control]:
+                InputMap.action_erase_events(key + p_control);
+                InputMap.action_add_event(key + p_control, 
+                    InputStatics.create_input_event_from_dict(active_keymap[key][p_control][event]));
 
 static func create_keymap() -> void:
     var actions : Array[StringName] = InputMap.get_actions();
@@ -124,8 +135,8 @@ static func update_keymap(player: String, control: ACTTYPE, new_key : InputEvent
     update_player_inputmap(input_arr, player+con_str);
         
 static func update_player_inputmap(new_inputs : Array[InputEvent], action_name : String) -> void:
+    InputMap.action_erase_events(action_name);
     for ni : InputEvent in new_inputs:
-        InputMap.action_erase_events(action_name);
         InputMap.action_add_event(action_name, ni)
 
 class IndividualMap:

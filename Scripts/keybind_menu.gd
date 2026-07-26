@@ -77,6 +77,7 @@ func display_player_control(pkey : String) -> void:
             b.controller_button_icon.visible = false;
 
 func _on_rebind_pressed(btn_name : String) -> void:
+    AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
     waiting_for_input_container.visible = true;
     waiting_for_input_container.set_bind_name(btn_name);
     options.is_rebind_mode = true;
@@ -93,6 +94,12 @@ func _on_save_pressed() -> void:
     self.visible = false;
     keybind_menu_closed.emit(self);
     SaveDataMgr.write_savedata(KeyCon.active_keymap, SaveDataMgr.keybind_filepath, SaveDataMgr.SAVEDATA.Keybind);
+    
+func _input(ev: InputEvent) -> void:
+    if (!options.is_rebind_mode):
+        # reject going left/right
+        if (ev.is_action(&"ui_left") or ev.is_action(&"ui_right")):
+            get_viewport().set_input_as_handled();
 
 func _ready() -> void:
     assert(control_type != null, "assign controltype button");
@@ -110,7 +117,7 @@ func _ready() -> void:
                 btn.rebind_finished.connect(_on_rebind_finished);
                 
     # sanity check
-    Statics.debug_log(str(keybind_row_buttons));
+    # Statics.debug_log(str(keybind_row_buttons));
     waiting_for_input_container.visible = false;
     # waiting_for_input_container.input_captured.connect(_on_rebind_captured);
     options.load_player_control.connect(_on_player_bind_selected);

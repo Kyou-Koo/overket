@@ -41,6 +41,3 @@ func _ready() -> void:
     if obj_name == "":
         obj_name = self.name;
     assert(item_type != CarryableObjects.CarryObjEnum.NONE, "Must assign type for item");
-
-func _init() -> void:
-    pass

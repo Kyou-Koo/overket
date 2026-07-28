@@ -24,7 +24,9 @@ OPTIONS_REASSIGN,Rebinding  ,変更ボタン　,,,,
 OPTIONS_KEYBIND_WAIT,Waiting for\ninput...,入力を待つ・・・,,,,
 OPTIONS_KEYBIND_CANCEL,Press Start/Esc\nto cancel,スタートまたはEscを押すと\nキャンセルする,,,,
 LEVEL_SELECT,Level Select,レベル選考,,,,
-LEVEL_JOIN,Press Interact to Join,操るボタンを押すと参加する,,,,参加するため操るボタンを押す
-LEVEL_1,Just the Basics,基本的,,,,
-LEVEL_2,,,,,,
-LEVEL_3,,,,,,
+LEVEL_JOIN,Press Start to Join,スタートを押すと参加する,,,,参加するため操るボタンを押す
+LEVEL_1,Level 1,ステージ１,,,,
+LEVEL_2,Level 2,ステージ２,,,,
+LEVEL_3,Level 3,ステージ３,,,,
+LEVEL_4,Level 4,ステージ４,,,,
+LEVEL_PLAYERS,Participants,サークルメン,,,,

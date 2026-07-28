@@ -99,10 +99,12 @@ animation = &"left"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.002)
 
 [node name="Head1" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=912203516]
+visible = false
 billboard = 1
 texture = ExtResource("18_m6rpx")
 
 [node name="Head2" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=1477868328]
+visible = false
 billboard = 1
 texture = ExtResource("19_gnwss")
 
@@ -111,6 +113,7 @@ billboard = 1
 texture = ExtResource("20_tugge")
 
 [node name="Head4" type="Sprite3D" parent="SpriteContainer/Sprites/Heads" unique_id=1172635503]
+visible = false
 billboard = 1
 texture = ExtResource("21_3r5sn")
 
@@ -120,10 +123,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.003)
 [node name="ToFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=943397562]
 
 [node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=422340919]
+visible = false
 billboard = 1
 texture = ExtResource("22_lv6ny")
 
 [node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=2109496439]
+visible = false
 billboard = 1
 texture = ExtResource("23_qveom")
 
@@ -132,41 +137,50 @@ billboard = 1
 texture = ExtResource("24_geu30")
 
 [node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/ToFaces" unique_id=1190557857]
+visible = false
 billboard = 1
 texture = ExtResource("25_punyc")
 
 [node name="RightFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=2012484777]
 
 [node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=132501778]
+visible = false
 billboard = 1
 texture = ExtResource("12_ufrdb")
 
 [node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=1681120348]
+visible = false
 billboard = 1
 texture = ExtResource("13_lftb7")
 
 [node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=31460537]
+visible = false
 billboard = 1
 texture = ExtResource("14_0lowt")
 
 [node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/RightFaces" unique_id=754461933]
+visible = false
 billboard = 1
 texture = ExtResource("15_uvim0")
 
 [node name="LeftFaces" type="Node3D" parent="SpriteContainer/Sprites/Faces" unique_id=1149622048]
 
 [node name="Face1" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=644064086]
+visible = false
 billboard = 1
 texture = ExtResource("16_2lq7j")
 
 [node name="Face2" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=1475033719]
+visible = false
 billboard = 1
 texture = ExtResource("17_cubc6")
 
 [node name="Face3" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=608195440]
+visible = false
 billboard = 1
 texture = ExtResource("18_gnwss")
 
 [node name="Face4" type="Sprite3D" parent="SpriteContainer/Sprites/Faces/LeftFaces" unique_id=1338149383]
+visible = false
 billboard = 1
 texture = ExtResource("19_tugge")

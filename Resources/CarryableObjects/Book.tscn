@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b27awn7faokv3"]
+
+[ext_resource type="Script" uid="uid://b5isgnk04re10" path="res://Scripts/test_carryable_object.gd" id="1_vkiqx"]
+[ext_resource type="PackedScene" uid="uid://bsmnup43lvel5" path="res://Resources/Mesh/book.glb" id="2_vkiqx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bb0j"]
+size = Vector3(0.6, 0.1, 0.8)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oy37w"]
+height = 1.0
+radius = 0.3
+
+[node name="Book" type="RigidBody3D" unique_id=915638170]
+collision_mask = 7
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+freeze_mode = 1
+script = ExtResource("1_vkiqx")
+obj_name = "Book"
+item_type = 4
+obj_height = 0.1
+
+[node name="book" parent="." unique_id=1754402073 instance=ExtResource("2_vkiqx")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=597993760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_2bb0j")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1693360846]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=422194565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CylinderShape3D_oy37w")

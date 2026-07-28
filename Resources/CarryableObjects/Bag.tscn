@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cmc3p6hui1b22"]
+
+[ext_resource type="Script" uid="uid://cxbgsncbnwhj0" path="res://Scripts/Bag.gd" id="1_478p6"]
+[ext_resource type="PackedScene" uid="uid://b1svy6q5h3k4n" path="res://Resources/Mesh/bag.glb" id="2_478p6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2bb0j"]
+size = Vector3(0.65737796, 0.548, 0.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_oy37w"]
+height = 1.0
+radius = 0.3
+
+[node name="Bag" type="RigidBody3D" unique_id=915638170]
+collision_mask = 7
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 1.25
+freeze_mode = 1
+script = ExtResource("1_478p6")
+interaction_duration = 3.0
+interaction_gap = 0.25
+obj_name = "Bag"
+item_type = 128
+obj_height = 0.4
+
+[node name="bag" parent="." unique_id=214785341 instance=ExtResource("2_478p6")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=597993760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0013891459, 0.27407226, 0.0002888441)
+shape = SubResource("BoxShape3D_2bb0j")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1693360846]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=422194565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CylinderShape3D_oy37w")

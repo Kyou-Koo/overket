@@ -15,10 +15,11 @@ const keybind_defaults : String = "user://keybind_default.dat"
 const pwd : String = "whyyesthisisAP4$$W0rdfortheGaMeWhYArEYoUR3aD1nG!!!"
 
 # defaults
-const SAVE_VERSION : int = 10;
+const SAVE_VERSION : int = 13;
 const LANG : String = "ja";
 const MUSIC_VOLUME : int = 5;
 const SFX_VOLUME : int = 5;
+const HIGHSCORE : Array[int] = [0, 0, 0, 0];
 
 enum SAVEDATA {
     Keybind,
@@ -35,9 +36,9 @@ enum FIELD {
 static var blank : Dictionary = {
     "version": SAVE_VERSION,
     "lang": "",
-    "music": -1,
-    "sound": -1,
-    "highscore": [],
+    "music": MUSIC_VOLUME,
+    "sound": SFX_VOLUME,
+    "highscore": HIGHSCORE,
     "last_open_date": Time.get_datetime_string_from_system(true, false),
 }
 
@@ -58,6 +59,12 @@ static func get_sound() -> int:
 
 static func set_sound(v : int) -> void:
     _instance.savedata["sound"] = v;
+
+static func get_highscores() -> Array[int]:
+    var out_arr : Array[int];
+    for score : Variant in _instance.savedata["highscore"]:
+        out_arr.append(score as int);
+    return out_arr;
 
 # TODO: probably depreciated (minus hiscore)
 static func update_savefield(new_data : Variant, field : FIELD, curr_data : Dictionary) -> Dictionary:
@@ -87,14 +94,7 @@ static func create_new_savedata() -> Dictionary:
     Statics.debug_log("detected language: {0}".format([lang]));
     if not lang in ["en", "ja"]:
         lang = LANG;
-    return {
-        "version": SAVE_VERSION,
-        "lang": lang,
-        "music": MUSIC_VOLUME,
-        "sound": SFX_VOLUME,
-        "highscore": [],
-        "last_open_date": Time.get_datetime_string_from_system(true, false),
-    }
+    return blank;
 
 static func write_savedata(data : Variant, path : String, type : SAVEDATA) -> void:
     Statics.debug_log("writing savedata to {0}".format([path]));

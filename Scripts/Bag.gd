@@ -2,7 +2,7 @@ class_name Bag extends CarryableObjectBase
 # Object should create when bag is placed on table
 @export var interaction_duration : float;
 @export var interaction_gap : float;
-@export var consumed_objects : Array[CarryableObjects.CarryObjEnum];
+var consumed_objects : Array[CarryableObjects.CarryObjEnum];
 @export var consumed_object_objs : Array[CarryableObjectBase];
 @export var output_bags_str : Array[String];
 var is_on_table : bool = false;
@@ -70,7 +70,7 @@ func _on_body_enter(body : Node3D) -> void:
 
 func _on_body_exit(body: Node3D) -> void:
     if body is PlayerController and body == connected_body:
-        print("disconnecting from {0}".format([connected_body.name]))
+        Statics.debug_log("disconnecting from {0}".format([connected_body.name]))
         body.is_in_range = false;
         body.interactable_object = null;
         connected_body = null;
@@ -93,10 +93,6 @@ func _ready() -> void:
     # prepare bag base values
     consumed_objects.append(CarryableObjects.CarryObjEnum.BOOK);
     consumed_objects.append(CarryableObjects.CarryObjEnum.SHIKISHI);
-    consumed_objects.append(CarryableObjects.CarryObjEnum.POSTCARD);
     consumed_objects.append(CarryableObjects.CarryObjEnum.ACRYLIC);
     consumed_objects.append(CarryableObjects.CarryObjEnum.KEYHOLDER);
-    
-func _init() -> void:
-    super._init();
     

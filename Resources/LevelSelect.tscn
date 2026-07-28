@@ -4,8 +4,33 @@
 [ext_resource type="Texture2D" uid="uid://c4rn52pv0job7" path="res://Resources/Textures/ui_9slice.png" id="1_fec7f"]
 [ext_resource type="Texture2D" uid="uid://cf7pplb8yh2nd" path="res://Resources/Images/_TMP/16x9.png" id="2_tu0hw"]
 [ext_resource type="LabelSettings" uid="uid://okleyoqjf5tp" path="res://Resources/Themes/level_name_label.tres" id="3_u88yb"]
+[ext_resource type="LabelSettings" uid="uid://c12eh60e7ughh" path="res://Resources/Themes/level_hiscore_label.tres" id="5_ep0gy"]
+[ext_resource type="Texture2D" uid="uid://dtnarl2kwgdut" path="res://Resources/Images/level_sel_focus.png" id="6_42km5"]
+[ext_resource type="FontFile" uid="uid://bki5bbed866qt" path="res://Resources/Fonts/HMP-SThicker.otf" id="6_lgv56"]
+[ext_resource type="LabelSettings" uid="uid://cgl6wwmot7xg7" path="res://Resources/Themes/level_label.tres" id="6_ncvk4"]
+[ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="7_ncvk4"]
 
-[node name="LevelSelect" type="Control" unique_id=1374789003]
+[sub_resource type="LabelSettings" id="LabelSettings_2447u"]
+line_spacing = -5.0
+font = ExtResource("6_lgv56")
+font_size = 36
+outline_size = 8
+outline_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+shadow_size = 6
+shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_42km5"]
+line_spacing = -15.0
+font = ExtResource("6_lgv56")
+font_size = 54
+outline_size = 16
+outline_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+shadow_size = 8
+shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
+shadow_offset = Vector2(5, 5)
+
+[node name="LevelSelect" type="Control" unique_id=1374789003 node_paths=PackedStringArray("level1", "level2", "level3", "level4", "back_btn", "lvl_select", "explanation")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,9 +38,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6fb1f")
+level1 = NodePath("NinePatchRect/VBoxContainer/HBoxContainer/Level1")
+level2 = NodePath("NinePatchRect/VBoxContainer/HBoxContainer/Level2")
+level3 = NodePath("NinePatchRect/VBoxContainer/HBoxContainer2/Level3")
+level4 = NodePath("NinePatchRect/VBoxContainer/HBoxContainer2/Level4")
+back_btn = NodePath("NinePatchRect/BackToMenu")
+lvl_select = NodePath("NinePatchRect/Title")
+explanation = NodePath("NinePatchRect/Participants")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=226317169]
-custom_minimum_size = Vector2(1280, 720)
+custom_minimum_size = Vector2(1280, 690)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -25,67 +57,264 @@ patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=994724113]
-custom_minimum_size = Vector2(1120, 630)
+[node name="Title" type="Label" parent="NinePatchRect" unique_id=179129584]
+custom_minimum_size = Vector2(360, 180)
 layout_mode = 0
-offset_left = 80.0
-offset_top = 45.0
-offset_right = 1200.0
-offset_bottom = 675.0
-theme_override_constants/separation = 32
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 380.0
+offset_bottom = 196.0
+text = "LEVEL_SELECT"
+label_settings = ExtResource("6_ncvk4")
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="Participants" type="Label" parent="NinePatchRect" unique_id=2093163241]
+custom_minimum_size = Vector2(360, 320)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 196.0
+offset_right = 380.0
+offset_bottom = 516.0
+text = "LEVEL_PLAYERS"
+label_settings = SubResource("LabelSettings_2447u")
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="Join" type="Label" parent="NinePatchRect" unique_id=40406680]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 610.0
+offset_right = 678.0
+offset_bottom = 702.0
+text = "LEVEL_JOIN"
+label_settings = SubResource("LabelSettings_42km5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=994724113]
+custom_minimum_size = Vector2(866, 516)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -882.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 532.0
+grow_horizontal = 0
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer" unique_id=1845704003]
-custom_minimum_size = Vector2(1120, 270)
+custom_minimum_size = Vector2(866, 250)
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 16
 alignment = 1
 
-[node name="TextureRect" type="TextureButton" parent="NinePatchRect/VBoxContainer/HBoxContainer" unique_id=1411021185]
-custom_minimum_size = Vector2(480, 270)
+[node name="Level1" type="TextureButton" parent="NinePatchRect/VBoxContainer/HBoxContainer" unique_id=1411021185]
+custom_minimum_size = Vector2(425, 250)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Level2")
+focus_neighbor_top = NodePath("../../HBoxContainer2/Level3")
+focus_neighbor_right = NodePath("../Level2")
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/Level3")
+focus_next = NodePath("../Level2")
+focus_previous = NodePath("../../../BackToMenu")
 texture_normal = ExtResource("2_tu0hw")
+texture_focused = ExtResource("6_42km5")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Label" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/TextureRect" unique_id=1414033689]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -350.0
-offset_top = -132.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Level name fabulous words"
+[node name="name" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Level1" unique_id=1414033689]
+custom_minimum_size = Vector2(392, 60)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 150.0
+offset_right = 408.0
+offset_bottom = 212.0
+text = "LEVEL_1"
 label_settings = ExtResource("3_u88yb")
 horizontal_alignment = 2
 vertical_alignment = 2
 autowrap_mode = 2
 text_overrun_behavior = 1
 
-[node name="TextureRect2" type="TextureRect" parent="NinePatchRect/VBoxContainer/HBoxContainer" unique_id=841048512]
-custom_minimum_size = Vector2(480, 270)
-layout_mode = 2
-texture = ExtResource("2_tu0hw")
-expand_mode = 1
+[node name="hiscore" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Level1" unique_id=1754128168]
+custom_minimum_size = Vector2(392, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -409.0
+offset_top = -50.0
+offset_right = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "☆￥000000000"
+label_settings = ExtResource("5_ep0gy")
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+text_overrun_behavior = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="NinePatchRect/VBoxContainer" unique_id=1604654427]
-custom_minimum_size = Vector2(1120, 270)
+[node name="Level2" type="TextureButton" parent="NinePatchRect/VBoxContainer/HBoxContainer" unique_id=1202742296]
+custom_minimum_size = Vector2(425, 250)
 layout_mode = 2
-theme_override_constants/separation = 64
+focus_neighbor_left = NodePath("../Level1")
+focus_neighbor_top = NodePath("../../../BackToMenu")
+focus_neighbor_right = NodePath("../Level1")
+focus_neighbor_bottom = NodePath("../../HBoxContainer2/Level4")
+focus_next = NodePath("../../HBoxContainer2/Level3")
+focus_previous = NodePath("../Level1")
+texture_normal = ExtResource("2_tu0hw")
+texture_focused = ExtResource("6_42km5")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="name" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Level2" unique_id=1542210645]
+custom_minimum_size = Vector2(392, 60)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 150.0
+offset_right = 408.0
+offset_bottom = 212.0
+text = "LEVEL_2"
+label_settings = ExtResource("3_u88yb")
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="hiscore" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer/Level2" unique_id=356392095]
+custom_minimum_size = Vector2(392, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -409.0
+offset_top = -50.0
+offset_right = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "￥000000000"
+label_settings = ExtResource("5_ep0gy")
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NinePatchRect/VBoxContainer" unique_id=659863735]
+custom_minimum_size = Vector2(866, 250)
+layout_mode = 2
+theme_override_constants/separation = 16
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="NinePatchRect/VBoxContainer/HBoxContainer2" unique_id=765888517]
-custom_minimum_size = Vector2(480, 270)
+[node name="Level3" type="TextureButton" parent="NinePatchRect/VBoxContainer/HBoxContainer2" unique_id=553433677]
+custom_minimum_size = Vector2(425, 250)
 layout_mode = 2
-texture = ExtResource("2_tu0hw")
-expand_mode = 1
+focus_neighbor_left = NodePath("../../../BackToMenu")
+focus_neighbor_top = NodePath("../../HBoxContainer/Level1")
+focus_neighbor_right = NodePath("../Level4")
+focus_neighbor_bottom = NodePath("../../HBoxContainer/Level1")
+focus_next = NodePath("../Level4")
+focus_previous = NodePath("../../HBoxContainer/Level2")
+texture_normal = ExtResource("2_tu0hw")
+texture_focused = ExtResource("6_42km5")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="TextureRect2" type="TextureRect" parent="NinePatchRect/VBoxContainer/HBoxContainer2" unique_id=1038005068]
-custom_minimum_size = Vector2(480, 270)
+[node name="name" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2/Level3" unique_id=419582362]
+custom_minimum_size = Vector2(392, 60)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 150.0
+offset_right = 408.0
+offset_bottom = 212.0
+text = "LEVEL_3"
+label_settings = ExtResource("3_u88yb")
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="hiscore" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2/Level3" unique_id=544957089]
+custom_minimum_size = Vector2(392, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -409.0
+offset_top = -50.0
+offset_right = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "￥000000000"
+label_settings = ExtResource("5_ep0gy")
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="Level4" type="TextureButton" parent="NinePatchRect/VBoxContainer/HBoxContainer2" unique_id=305345026]
+custom_minimum_size = Vector2(425, 250)
 layout_mode = 2
-texture = ExtResource("2_tu0hw")
-expand_mode = 1
+focus_neighbor_left = NodePath("../../../BackToMenu")
+focus_neighbor_top = NodePath("../../HBoxContainer/Level2")
+focus_neighbor_right = NodePath("../../../BackToMenu")
+focus_neighbor_bottom = NodePath("../../../BackToMenu")
+focus_next = NodePath("../../../BackToMenu")
+focus_previous = NodePath("../Level3")
+texture_normal = ExtResource("2_tu0hw")
+texture_focused = ExtResource("6_42km5")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="name" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2/Level4" unique_id=1785906436]
+custom_minimum_size = Vector2(392, 60)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 150.0
+offset_right = 408.0
+offset_bottom = 212.0
+text = "LEVEL_4"
+label_settings = ExtResource("3_u88yb")
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="hiscore" type="Label" parent="NinePatchRect/VBoxContainer/HBoxContainer2/Level4" unique_id=810557649]
+custom_minimum_size = Vector2(392, 50)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -409.0
+offset_top = -50.0
+offset_right = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "￥000000000"
+label_settings = ExtResource("5_ep0gy")
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+text_overrun_behavior = 1
+
+[node name="BackToMenu" type="Button" parent="NinePatchRect" unique_id=257105649]
+custom_minimum_size = Vector2(200, 72)
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 586.0
+offset_right = 1248.0
+offset_bottom = 658.0
+theme = ExtResource("7_ncvk4")
+text = "OPTIONS_RETURN"
+text_overrun_behavior = 1

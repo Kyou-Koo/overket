@@ -210,9 +210,6 @@ func set_up_sprite_arrays(container : Node3D, array : Array) -> void:
 func pick_face_head(face : int, head : int) -> void:
     sprite_heads[head].visible = true;
     sprite_to_faces[face].visible = true;
-    Statics.debug_log("should show heads");
-    for h in sprite_heads:
-        Statics.debug_log(str(h.visible));
     
 func disable_faces() -> void:
     for f : Sprite3D in sprite_to_faces:

@@ -15,28 +15,21 @@ var ok_id : StringName = "";
 
 func create_output_object() -> CarryableObjectBase:
     # TODO: handle which output based on input
+    # This should be overriden by children
     var output_instance : CarryableObjectBase = output_object_ress[0].instantiate();
     return output_instance;
 
-#func _on_body_enter(body : Node3D) -> void:
-    #if body is PlayerController and connected_body == null:
-        #body.is_in_range = true;
-        #body.interactable_object = self;
-        #connected_body = body;
-#
-#func _on_body_exit(body: Node3D) -> void:
-    #if body is PlayerController and body == connected_body:
-        #print("disconnecting from {0}".format([connected_body.name]))
-        #body.is_in_range = false;
-        #body.interactable_object = null;
-        #connected_body = null;
-
 func _to_string() -> String:
-    # TODO: handle multiple outputs
+    var outputs : String;
+    if (output_obj_examples.size() > 0):
+        for out_obj in output_obj_examples:
+            outputs = outputs + out_obj.name + ","
+    else:
+        outputs = str(self.should_output_objects);
     return "InterBase: {0} n: {1} out: {2}".format([
         self.ok_id,
         self.name,
-        self.should_output_objects
+        outputs
     ])
 
 func _test_all_output_strs() -> bool:

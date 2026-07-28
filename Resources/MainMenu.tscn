@@ -39,6 +39,9 @@ theme_override_constants/separation = 32
 [node name="Play" type="Button" parent="NinePatchRect/CenterContainer/VBoxContainer" unique_id=1874444392]
 custom_minimum_size = Vector2(300, 70)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Options")
+focus_next = NodePath("../Quit")
 theme = ExtResource("2_jn3mg")
 theme_override_font_sizes/font_size = 52
 text = "MENU_PLAY"
@@ -46,6 +49,10 @@ text = "MENU_PLAY"
 [node name="Options" type="Button" parent="NinePatchRect/CenterContainer/VBoxContainer" unique_id=1649306576]
 custom_minimum_size = Vector2(300, 70)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Play")
 theme = ExtResource("2_jn3mg")
 theme_override_font_sizes/font_size = 52
 text = "MENU_OPTIONS"
@@ -53,6 +60,8 @@ text = "MENU_OPTIONS"
 [node name="Quit" type="Button" parent="NinePatchRect/CenterContainer/VBoxContainer" unique_id=1859479863]
 custom_minimum_size = Vector2(300, 70)
 layout_mode = 2
+focus_neighbor_top = NodePath("../Options")
+focus_previous = NodePath("../Options")
 theme = ExtResource("2_jn3mg")
 theme_override_font_sizes/font_size = 52
 text = "MENU_QUIT"

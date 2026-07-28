@@ -17,7 +17,9 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="OverKet"
 run/main_scene="uid://d0rkdo3elfnke"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/image="uid://dmh43dastxv35"
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=250
 
 [debug]
 

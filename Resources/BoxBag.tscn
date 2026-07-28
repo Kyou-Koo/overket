@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://diquu8waaalwi"]
+
+[ext_resource type="Script" uid="uid://btxjrwk6yhjtc" path="res://Scripts/ItemBox.gd" id="1_7vm88"]
+[ext_resource type="PackedScene" uid="uid://dlijg3whphlp0" path="res://Resources/Mesh/storage_box.glb" id="2_4k8uw"]
+[ext_resource type="PackedScene" uid="uid://usa1e3oymcgk" path="res://Resources/OutputIcons/OutputAcrylic.tscn" id="3_gse6i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_566v8"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yd25y"]
+viewport_path = NodePath("SubViewport")
+
+[node name="BoxAcrylic" type="StaticBody3D" unique_id=459736917]
+script = ExtResource("1_7vm88")
+output_object_strs = Array[String](["res://Resources/CarryableObjects/AcrylicStand.tscn"])
+should_output_objects = true
+
+[node name="storage_box" parent="." unique_id=84293636 instance=ExtResource("2_4k8uw")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=151712300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_566v8")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1594878738]
+transform = Transform3D(1, 0, 0, 0, 0.7660444, 0.6427875, 0, -0.6427875, 0.7660444, 0, 2, 0)
+texture = SubResource("ViewportTexture_yd25y")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=2051024209]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="OutputAcrylic" parent="SubViewport" unique_id=890551802 instance=ExtResource("3_gse6i")]
+offset_right = -128.0
+offset_bottom = -128.0

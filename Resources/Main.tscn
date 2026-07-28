@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://7qddkg4onoyt" path="res://Scripts/GameManager.gd" id="1_1xgcs"]
 [ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="1_paki0"]
 [ext_resource type="Script" uid="uid://dy45t2kk5ahj2" path="res://Scripts/AudioManager.gd" id="2_iafxj"]
-[ext_resource type="PackedScene" uid="uid://b23ck11osr3mg" path="res://Resources/player.tscn" id="2_rted0"]
+[ext_resource type="Texture2D" uid="uid://dmh43dastxv35" path="res://Resources/Images/logo_ja.png" id="3_d67mf"]
 [ext_resource type="BoxMesh" uid="uid://dgb5c8lu5gf52" path="res://Resources/Mesh/cube10m.tres" id="3_m7k6n"]
 [ext_resource type="BoxMesh" uid="uid://bwi4vnsw7m0cg" path="res://Resources/Mesh/cube15m.tres" id="4_054na"]
 [ext_resource type="BoxMesh" uid="uid://bftcxgff1it0i" path="res://Resources/Mesh/cube5m.tres" id="4_xcc3k"]
+[ext_resource type="Texture2D" uid="uid://cgk8ayjg3uent" path="res://Resources/Images/logo_en.png" id="4_xui4b"]
 [ext_resource type="Material" uid="uid://ddrr4rneggspf" path="res://Resources/Materials/purple.tres" id="5_scaty"]
 [ext_resource type="Material" uid="uid://dg8vhoy06eie" path="res://Resources/Materials/green.tres" id="5_t7kqs"]
 [ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="7_lgx5e"]
@@ -19,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://b1svy6q5h3k4n" path="res://Resources/Mesh/bag.glb" id="11_hl0am"]
 [ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="12_t7kqs"]
 [ext_resource type="PackedScene" uid="uid://bo4ctckxet7uu" path="res://Resources/Mesh/laptop.glb" id="13_m8n5y"]
+[ext_resource type="PackedScene" uid="uid://cvmps3i7irg8v" path="res://Resources/Mesh/acrylic_stand.glb" id="16_rted0"]
 [ext_resource type="Texture2D" uid="uid://dq420fh5rjl3o" path="res://Resources/Images/CharacterSprites/big_renna.png" id="18_hl0am"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ofkph"]
@@ -115,15 +117,18 @@ options_cam_pos = Vector3(0, 2.5, 0)
 options_cam_rot = Vector3(0, -130, 0)
 sprite = NodePath("MM/Renna")
 
-[node name="Player" parent="." unique_id=1861599428 instance=ExtResource("2_rted0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.9332404)
-skip_instancing = true
-player_prefix = "p1"
-
 [node name="AudioManager" type="Node3D" parent="." unique_id=1797945235]
 script = ExtResource("2_iafxj")
 
 [node name="CUBES" type="Node3D" parent="." unique_id=1931190868]
+
+[node name="logo_ja" type="Sprite3D" parent="CUBES" unique_id=552622630]
+transform = Transform3D(0.5, 0, 0, 0, 0.0043632807, 0.49998096, 0, -0.49998096, 0.0043632807, -0.228, 0.038, -5.4)
+texture = ExtResource("3_d67mf")
+
+[node name="logo_en" type="Sprite3D" parent="CUBES" unique_id=1193439507]
+transform = Transform3D(0.8910065, 0, -0.45399052, 0, 1, 0, 0.45399052, 0, 0.8910065, -2.6136053, 5.0371513, -30.438538)
+texture = ExtResource("4_xui4b")
 
 [node name="cube10m" type="MeshInstance3D" parent="CUBES" unique_id=30907633]
 transform = Transform3D(0.8909669, 0, -0.45406827, 0, 1, 0, 0.45406827, 0, 0.8909669, -0.317, 5, -34.95)
@@ -192,6 +197,9 @@ transform = Transform3D(1.8598869, 0, 0.73540515, 0, 2, 0, -0.73540515, 0, 1.859
 [node name="printer" parent="CUBES" unique_id=1958129218 instance=ExtResource("10_fekrv")]
 transform = Transform3D(-1.4091694, 0, -1.4192399, 0, 2, 0, 1.4192399, 0, -1.4091694, 2.0564947, 0, -13.568723)
 
+[node name="acrylic_stand" parent="CUBES" unique_id=1365726200 instance=ExtResource("16_rted0")]
+transform = Transform3D(-1.1194274, 0, -1.657372, 0, 2, 0, 1.657372, 0, -1.1194274, 0.36350465, 0, -11.832641)
+
 [node name="table" parent="CUBES" unique_id=183128433 instance=ExtResource("12_t7kqs")]
 transform = Transform3D(1.0477042, 0, -1.7036184, 0, 2, 0, 1.7036184, 0, 1.0477042, 5.4608507, 0, -11.032719)
 
@@ -229,7 +237,7 @@ alpha_cut = 2
 texture = ExtResource("18_hl0am")
 
 [node name="Main Menu" type="Sprite3D" parent="MM" unique_id=1647256920]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5553985, 2.5, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5553985, 3.6472278, -6)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_1xgcs")
 

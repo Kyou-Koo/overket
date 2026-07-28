@@ -15,11 +15,19 @@ const keybind_defaults : String = "user://keybind_default.dat"
 const pwd : String = "whyyesthisisAP4$$W0rdfortheGaMeWhYArEYoUR3aD1nG!!!"
 
 # defaults
-const SAVE_VERSION : int = 13;
+const SAVE_VERSION : int = 14;
 const LANG : String = "ja";
 const MUSIC_VOLUME : int = 5;
 const SFX_VOLUME : int = 5;
 const HIGHSCORE : Array[int] = [0, 0, 0, 0];
+const IS_FULLSCREEN : bool = false;
+const RESOLUTION : Resolution = Resolution.SMALL;
+const RES_SMALL : Vector2i = Vector2i(1280, 720);
+const RES_BIG : Vector2i = Vector2i(1920, 1080);
+enum Resolution {
+    SMALL,  # Vector2i(1280, 720)
+    BIG     # Vector2i(1920, 1080)
+}
 
 enum SAVEDATA {
     Keybind,
@@ -40,23 +48,22 @@ static var blank : Dictionary = {
     "sound": SFX_VOLUME,
     "highscore": HIGHSCORE,
     "last_open_date": Time.get_datetime_string_from_system(true, false),
+    "is_fs": IS_FULLSCREEN,
+    "resolution": Resolution.SMALL,
 }
 
 static func get_lang() -> String:
     return _instance.savedata["lang"];
-
 static func set_lang(lang : String) -> void:
     _instance.savedata["lang"] = lang;
-
+    
 static func get_music() -> int:
     return _instance.savedata["music"];
-
 static func set_music(v : int) -> void:
     _instance.savedata["music"] = v;
 
 static func get_sound() -> int:
     return _instance.savedata["sound"];
-
 static func set_sound(v : int) -> void:
     _instance.savedata["sound"] = v;
 
@@ -65,6 +72,32 @@ static func get_highscores() -> Array[int]:
     for score : Variant in _instance.savedata["highscore"]:
         out_arr.append(score as int);
     return out_arr;
+static func set_highscore(score : int, lvl : int) -> void:
+    if (lvl >= 0 and lvl < 4):
+        _instance.savedata["highscore"][lvl] = score;
+    else:
+        Statics.raise_warning("Attempting to set score for invalid level");
+    
+static func get_fs_mode_is_fs() -> bool:
+    return _instance.savedata["is_fs"];
+static func set_fs_mode(is_fs : bool) -> void:
+    _instance.savedata["is_fs"] = is_fs;
+    
+static func get_resolution() -> Vector2i:
+    if (_instance.savedata["resolution"] == Resolution.SMALL):
+        return Vector2i(1280, 720);
+    else:
+        return Vector2i(1920, 1080);
+static func set_resolution_vec2i(res : Vector2i) -> void:
+    if (res == Vector2i(1280, 720)):
+        _instance.savedata["resolution"] = Resolution.SMALL;
+    else:
+        _instance.savedata["resolution"] = Resolution.BIG;
+static func get_resolution_enum() -> Resolution:
+    return _instance.savedata["resolution"];
+static func set_resolution_enum(res : Resolution) -> void:
+    _instance.savedata["resolution"] = res;
+
 
 # TODO: probably depreciated (minus hiscore)
 static func update_savefield(new_data : Variant, field : FIELD, curr_data : Dictionary) -> Dictionary:

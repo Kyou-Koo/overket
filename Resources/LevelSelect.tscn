@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c4rn52pv0job7" path="res://Resources/Textures/ui_9slice.png" id="1_fec7f"]
 [ext_resource type="Texture2D" uid="uid://cf7pplb8yh2nd" path="res://Resources/Images/_TMP/16x9.png" id="2_tu0hw"]
 [ext_resource type="LabelSettings" uid="uid://okleyoqjf5tp" path="res://Resources/Themes/level_name_label.tres" id="3_u88yb"]
+[ext_resource type="PackedScene" uid="uid://b00ky8mg2fb40" path="res://Resources/LevelPlayerIcon.tscn" id="5_cyj8b"]
 [ext_resource type="LabelSettings" uid="uid://c12eh60e7ughh" path="res://Resources/Themes/level_hiscore_label.tres" id="5_ep0gy"]
 [ext_resource type="Texture2D" uid="uid://dtnarl2kwgdut" path="res://Resources/Images/level_sel_focus.png" id="6_42km5"]
 [ext_resource type="FontFile" uid="uid://bki5bbed866qt" path="res://Resources/Fonts/HMP-SThicker.otf" id="6_lgv56"]
@@ -30,7 +31,7 @@ shadow_size = 8
 shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
 shadow_offset = Vector2(5, 5)
 
-[node name="LevelSelect" type="Control" unique_id=1374789003 node_paths=PackedStringArray("level1", "level2", "level3", "level4", "back_btn", "lvl_select", "explanation")]
+[node name="LevelSelect" type="Control" unique_id=1374789003 node_paths=PackedStringArray("level1", "level2", "level3", "level4", "back_btn", "lvl_select", "explanation", "player1", "player2", "player3", "player4")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,6 +46,10 @@ level4 = NodePath("NinePatchRect/VBoxContainer/HBoxContainer2/Level4")
 back_btn = NodePath("NinePatchRect/BackToMenu")
 lvl_select = NodePath("NinePatchRect/Title")
 explanation = NodePath("NinePatchRect/Participants")
+player1 = NodePath("NinePatchRect/Participants/LevelPlayerIcon")
+player2 = NodePath("NinePatchRect/Participants/LevelPlayerIcon2")
+player3 = NodePath("NinePatchRect/Participants/LevelPlayerIcon3")
+player4 = NodePath("NinePatchRect/Participants/LevelPlayerIcon4")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=226317169]
 custom_minimum_size = Vector2(1280, 690)
@@ -60,9 +65,9 @@ patch_margin_bottom = 50
 [node name="Title" type="Label" parent="NinePatchRect" unique_id=179129584]
 custom_minimum_size = Vector2(360, 180)
 layout_mode = 0
-offset_left = 20.0
+offset_left = 32.0
 offset_top = 16.0
-offset_right = 380.0
+offset_right = 392.0
 offset_bottom = 196.0
 text = "LEVEL_SELECT"
 label_settings = ExtResource("6_ncvk4")
@@ -72,21 +77,45 @@ text_overrun_behavior = 1
 [node name="Participants" type="Label" parent="NinePatchRect" unique_id=2093163241]
 custom_minimum_size = Vector2(360, 320)
 layout_mode = 0
-offset_left = 20.0
+offset_left = 32.0
 offset_top = 196.0
-offset_right = 380.0
+offset_right = 392.0
 offset_bottom = 516.0
 text = "LEVEL_PLAYERS"
 label_settings = SubResource("LabelSettings_2447u")
 autowrap_mode = 2
 text_overrun_behavior = 1
 
+[node name="LevelPlayerIcon" parent="NinePatchRect/Participants" unique_id=571675159 instance=ExtResource("5_cyj8b")]
+layout_mode = 1
+offset_top = 52.0
+offset_bottom = 52.0
+
+[node name="LevelPlayerIcon2" parent="NinePatchRect/Participants" unique_id=1571859282 instance=ExtResource("5_cyj8b")]
+layout_mode = 1
+offset_left = 144.0
+offset_top = 52.0
+offset_right = 144.0
+offset_bottom = 52.0
+
+[node name="LevelPlayerIcon3" parent="NinePatchRect/Participants" unique_id=902753981 instance=ExtResource("5_cyj8b")]
+layout_mode = 1
+offset_top = 177.0
+offset_bottom = 177.0
+
+[node name="LevelPlayerIcon4" parent="NinePatchRect/Participants" unique_id=1470875164 instance=ExtResource("5_cyj8b")]
+layout_mode = 1
+offset_left = 144.0
+offset_top = 177.0
+offset_right = 144.0
+offset_bottom = 177.0
+
 [node name="Join" type="Label" parent="NinePatchRect" unique_id=40406680]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 610.0
-offset_right = 678.0
-offset_bottom = 702.0
+offset_left = 32.0
+offset_top = 606.0
+offset_right = 690.0
+offset_bottom = 698.0
 text = "LEVEL_JOIN"
 label_settings = SubResource("LabelSettings_42km5")
 

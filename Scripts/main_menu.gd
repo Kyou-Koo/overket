@@ -3,10 +3,17 @@ extends Control
 @export var play_button : Button;
 @export var options_button : Button;
 @export var quit_button : Button;
+@export var fullscreen_check : CheckButton;
+@export var fullscreen_focus : NinePatchRect;
+@export var resolution_label : Label;
+@export var resolution_focus : NinePatchRect;
+var resolution_focused : bool = false;
+var resolution : SaveDataMgr.Resolution;
+const RES_1280 : String = "1280x720 >";
+const RES_1920 : String = "< 1920x1080";
 # TODO: i dont think these are actually used
 var level_select : LevelSelect;
 var options_menu : Options;
-# should probably tri
 var is_active : bool = true;
 
 func _on_menu_transition(who : Node) -> void:
@@ -29,21 +36,69 @@ func _on_opt_pressed() -> void:
         GameManager._instance.public_rotate_camera(
             GameManager._instance.options_cam_rot, 
             GameManager.MENU.OPTIONS);
-        
 
 func _on_quit_pressed() -> void:
     get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST);
     get_tree().quit();
+    
+func _on_fs_focus_entered() -> void: fullscreen_focus.visible = true;
+func _on_fs_focus_exited() -> void: fullscreen_focus.visible = false;
+func _on_fs_toggled(state : bool) -> void:
+    if (state):
+        get_viewport().get_window().mode = Window.MODE_FULLSCREEN;
+    else:
+        get_viewport().get_window().mode = Window.MODE_WINDOWED;
+func _on_res_focus_entered() -> void:
+    resolution_focus.visible = true;
+    resolution_focused = true;
+func _on_res_focus_exited() -> void:
+    resolution_focus.visible = false;
+    resolution_focused = false;
+    
+func _input(ev: InputEvent) -> void:
+    if (resolution_focused and is_active):
+        if (ev.is_action_pressed(&"ui_left") and resolution == SaveDataMgr.Resolution.BIG):
+            get_viewport().set_input_as_handled();
+            resolution = SaveDataMgr.Resolution.SMALL;
+        elif (ev.is_action_pressed(&"ui_right") and resolution == SaveDataMgr.Resolution.SMALL):
+            get_viewport().set_input_as_handled();
+            resolution = SaveDataMgr.Resolution.BIG;
+        set_resolution_text_and_res();
+            
+func set_resolution_text_and_res() -> void:
+    if (!GameManager._instance): GameManager.create_gm();
+    if (resolution == SaveDataMgr.Resolution.SMALL):
+        resolution_label.text = RES_1280;
+        GameManager._instance.set_res_1280();
+    else:
+        resolution_label.text = RES_1920;
+        GameManager._instance.set_res_1920();
 
 func _ready() -> void:
     assert(play_button != null, "Play button not assigned");
     assert(options_button != null, "Options button not assigned");
     assert(quit_button != null, "Quit button not assigned");
+    assert(fullscreen_check != null, "FS button not assigned");
+    assert(fullscreen_focus != null, "FS focus not assigned");
+    assert(resolution_label != null, "Resolution label not assigned");
+    assert(resolution_focus != null, "Resolution focus not assigned");
+    
+    if (!SaveDataMgr._instance):
+        SaveDataMgr.create_sdm();
+    fullscreen_check.button_pressed = SaveDataMgr.get_fs_mode_is_fs();
+    resolution = SaveDataMgr.get_resolution_enum();
+    set_resolution_text_and_res();
     
     play_button.pressed.connect(_on_play_pressed);
     options_button.pressed.connect(_on_opt_pressed);
     quit_button.pressed.connect(_on_quit_pressed);
-
+    fullscreen_focus.visible = false;
+    resolution_focus.visible = false;
+    fullscreen_check.focus_entered.connect(_on_fs_focus_entered);
+    fullscreen_check.focus_exited.connect(_on_fs_focus_exited);
+    fullscreen_check.toggled.connect(_on_fs_toggled);
+    resolution_label.focus_entered.connect(_on_res_focus_entered);
+    resolution_label.focus_exited.connect(_on_res_focus_exited);
     GameManager._instance.transition_to.connect(_on_menu_transition);
     
     play_button.grab_focus.call_deferred();

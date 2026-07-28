@@ -96,7 +96,7 @@ func _on_save_pressed() -> void:
     SaveDataMgr.write_savedata(KeyCon.active_keymap, SaveDataMgr.keybind_filepath, SaveDataMgr.SAVEDATA.Keybind);
     
 func _input(ev: InputEvent) -> void:
-    if (!options.is_rebind_mode):
+    if (!options.is_rebind_mode and self.visible):
         # reject going left/right
         if (ev.is_action(&"ui_left") or ev.is_action(&"ui_right")):
             get_viewport().set_input_as_handled();

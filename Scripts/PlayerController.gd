@@ -14,6 +14,7 @@ class_name PlayerController extends CharacterBody3D
 @export var throw_vertical : float = 1.0;
 
 @export_group("Sprites", "sprite_")
+@export var sprite_color : Color;
 @export var sprite_container : Node3D
 @export var sprite_animation_body : AnimatedSprite3D;
 @export var sprite_animation_leg : AnimatedSprite3D;
@@ -208,6 +209,9 @@ func set_up_sprite_arrays(container : Node3D, array : Array) -> void:
         s3d.visible = false;
         
 func pick_face_head(face : int, head : int) -> void:
+    disable_faces();
+    for h : Sprite3D in sprite_heads:
+        h.visible = false;
     sprite_heads[head].visible = true;
     sprite_to_faces[face].visible = true;
     
@@ -218,6 +222,19 @@ func disable_faces() -> void:
         f.visible = false;
     for f : Sprite3D in sprite_left_faces:
         f.visible = false;
+        
+func color_sprite() -> void:
+    for h : Sprite3D in sprite_heads:
+        h.modulate = sprite_color;
+    sprite_animation_body.modulate = sprite_color;
+    sprite_animation_leg.modulate = sprite_color;
+
+func instance(face : int, head: int, color : Color) -> void:
+    skip_instancing = false;
+    disable_faces();
+    pick_face_head(face, head);
+    sprite_color = color;
+    color_sprite();
 
 func _on_body_enter(body : Node3D) -> void:
     # ignore non-script objects
@@ -344,6 +361,8 @@ func _ready() -> void:
     set_up_sprite_arrays(sprite_right_faces_container, sprite_right_faces);
     if (skip_instancing):
         pick_face_head(rand_face, rand_head);
+        sprite_color = Color(randf(), randf(), randf());
+        color_sprite();
 
 func _init() -> void:
     curr_fwd = Vector2.UP;

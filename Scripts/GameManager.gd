@@ -1,6 +1,9 @@
 class_name GameManager extends Node
 
 static var _instance : GameManager = null;
+static func create_gm() -> void:
+    if _instance == null:
+        _instance = GameManager.new();
 
 enum MENU {
     MAIN,
@@ -123,6 +126,16 @@ func sprite_actions() -> void:
             sprite_tween.tween_property(sprite, "rotation_degrees", sprite_init_rot, 0.5);
         _:
             pass;
+            
+func set_res_1280() -> void:
+    get_window().content_scale_factor = 0.67;
+    get_viewport().get_window().content_scale_size = SaveDataMgr.RES_SMALL;
+    get_viewport().get_window().size = SaveDataMgr.RES_SMALL;
+    
+func set_res_1920() -> void:
+    get_window().content_scale_factor = 1.0;
+    get_viewport().get_window().content_scale_size = SaveDataMgr.RES_BIG;
+    get_viewport().get_window().size = SaveDataMgr.RES_BIG;
 
 func _input(ev: InputEvent) -> void:
     match active_menu:
@@ -155,6 +168,13 @@ func _ready() -> void:
     SaveDataMgr.load_keymap();
     SaveDataMgr.load_savedata();
     set_lang_from_save();
+    
+    get_viewport().get_window().move_to_center();
+    var window_size_enum : SaveDataMgr.Resolution = SaveDataMgr.get_resolution_enum();
+    if (window_size_enum == SaveDataMgr.Resolution.SMALL):
+        set_res_1280();
+    else:
+        set_res_1920();
 
     if (main_camera == null):
         var children : Array[Node] = get_children();

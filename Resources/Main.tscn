@@ -19,7 +19,9 @@
 [ext_resource type="PackedScene" uid="uid://dlijg3whphlp0" path="res://Resources/Mesh/storage_box.glb" id="10_ofkph"]
 [ext_resource type="PackedScene" uid="uid://b1svy6q5h3k4n" path="res://Resources/Mesh/bag.glb" id="11_hl0am"]
 [ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="12_t7kqs"]
+[ext_resource type="PackedScene" uid="uid://cebdxu3wc034n" path="res://Resources/Mesh/shikishi.glb" id="13_h2f5l"]
 [ext_resource type="PackedScene" uid="uid://bo4ctckxet7uu" path="res://Resources/Mesh/laptop.glb" id="13_m8n5y"]
+[ext_resource type="PackedScene" uid="uid://dqth5w7qromd8" path="res://Resources/Mesh/keyholder.glb" id="13_ndlxv"]
 [ext_resource type="PackedScene" uid="uid://cvmps3i7irg8v" path="res://Resources/Mesh/acrylic_stand.glb" id="16_rted0"]
 [ext_resource type="Texture2D" uid="uid://dq420fh5rjl3o" path="res://Resources/Images/CharacterSprites/big_renna.png" id="18_hl0am"]
 
@@ -182,6 +184,12 @@ mesh = SubResource("BoxMesh_iafxj")
 transform = Transform3D(0.8957118, 0, 0.44463518, 0, 1, 0, -0.44463518, 0, 0.8957118, 31.955273, 2.5, -6.0841413)
 mesh = SubResource("BoxMesh_hl0am")
 
+[node name="keyholder" parent="CUBES" unique_id=1782739930 instance=ExtResource("13_ndlxv")]
+transform = Transform3D(-1.5326942, 0, -1.284853, 0, 2, 0, 1.284853, 0, -1.5326942, 0.7163821, 0, -10.94492)
+
+[node name="shikishi" parent="CUBES" unique_id=1229495200 instance=ExtResource("13_h2f5l")]
+transform = Transform3D(-0.50057536, -1.5274489, -1.1900945, -1.9005431, 0.6228457, 8.307537e-08, 0.37062258, 1.1309129, -1.6073815, 4.4354897, 0.96039677, -10.063087)
+
 [node name="book" parent="CUBES" unique_id=1754402073 instance=ExtResource("10_mgvxf")]
 transform = Transform3D(0.17027023, 0.38720682, -1.9547577, -1.8308055, 0.805078, 4.9426603e-08, 0.78686637, 1.7893908, 0.4229908, 1.5342015, 0.755442, -11.319722)
 
@@ -237,13 +245,13 @@ alpha_cut = 2
 texture = ExtResource("18_hl0am")
 
 [node name="Main Menu" type="Sprite3D" parent="MM" unique_id=1647256920]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5553985, 3.6472278, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5553985, 3.3532157, -6)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_1xgcs")
 
 [node name="MMSubViewport" type="SubViewport" parent="MM/Main Menu" unique_id=482492860]
 transparent_bg = true
-size = Vector2i(400, 500)
+size = Vector2i(400, 560)
 
 [node name="LevelSelect" type="Sprite3D" parent="." unique_id=1170803876]
 transform = Transform3D(-0.2331568, 0, 0.9724392, 0, 1, 0, -0.9724392, 0, -0.2331568, -8.596153, 3.583045, 3.9328203)

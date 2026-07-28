@@ -10,12 +10,17 @@ var level2_labels : Array[Label];
 var level3_labels : Array[Label];
 var level4_labels : Array[Label];
 @export var back_btn : Button;
-
 @export_category("Labels")
 @export var lvl_select : Label;
 @export var explanation : Label;
+@export_category("Customers")
+@export var player1 : Control;
+@export var player2 : Control;
+@export var player3 : Control;
+@export var player4 : Control;
 
 var hiscores : Array[int];
+var is_active : bool = false;
 
 func init_level_select() -> void:
     if (!SaveDataMgr._instance):
@@ -60,9 +65,21 @@ func display_hiscore(label : Label, level : int) -> void:
         label.text = txt_prefix + "----";
 
 func _on_back_pressed() -> void:
-    pass;
+    if (is_active):
+        GameManager._instance.public_rotate_camera(
+            GameManager._instance.main_cam_origin_rot, 
+            GameManager.MENU.MAIN);
+
+func _on_menu_transition(who : Node) -> void:
+    if (who == self):
+        init_level_select(); # just in case?
+        is_active = true;
+        level1.grab_focus.call_deferred();
+    else:
+        is_active = false;
 
 func _input(event: InputEvent) -> void:
+    if (!is_active): return;
     if (event.is_pressed()):
         if (event.is_action(&"start")):
             print(event.as_text());
@@ -80,6 +97,15 @@ func _ready() -> void:
     assign_labels(level3, level3_labels);
     assert(level4 != null, "level 4 button not assigned");
     assign_labels(level4, level4_labels);
+    assert(player1 != null, "p1 not assigned");
+    player1.visible = false;
+    assert(player2 != null, "p2 not assigned");
+    player2.visible = false;
+    assert(player3 != null, "p3 not assigned");
+    player3.visible = false;
+    assert(player4 != null, "p4 not assigned");
+    player4.visible = false;
     
+    GameManager._instance.transition_to.connect(_on_menu_transition);
     back_btn.pressed.connect(_on_back_pressed);
     init_level_select();

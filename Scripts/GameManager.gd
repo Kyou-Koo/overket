@@ -37,10 +37,12 @@ var options : Options;
 @export var sprite : Sprite3D;
 
 # TODO: how are we assigning this
-# suggestion: press Start to join   
 var num_players : int;
 var active_players : Dictionary = {
-    
+    "p1": -5,
+    "p2": -5,
+    "p3": -5,
+    "p4": -5,
 }
 
 var in_menu : bool = true;

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dwmlpkg1w776f"]
+
+[ext_resource type="Texture2D" uid="uid://dcvmqoswrfqtx" path="res://Resources/Images/output_bubble2.png" id="1_qo4ey"]
+[ext_resource type="Texture2D" uid="uid://b3j5nrfr743is" path="res://Resources/Images/paper_ream.png" id="2_qo4ey"]
+
+[node name="RequestPaper" type="Control" unique_id=890551802]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1820.0
+offset_bottom = -980.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=448033189]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("1_qo4ey")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="TextureRect" unique_id=842615137]
+layout_mode = 0
+offset_left = 15.0
+offset_top = -3.0
+offset_right = 85.0
+offset_bottom = 67.0
+texture = ExtResource("2_qo4ey")
+expand_mode = 1

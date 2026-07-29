@@ -16,7 +16,7 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 freeze_mode = 1
 script = ExtResource("1_s5r0f")
-obj_name = "Keyholder"
+obj_name = "Shikishi"
 item_type = 8
 obj_height = 0.1
 

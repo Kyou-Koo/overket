@@ -5,8 +5,9 @@
 [ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="2_jn3mg"]
 [ext_resource type="Texture2D" uid="uid://bjybmoy0rb1ef" path="res://Resources/Images/fs_icon_64px.png" id="4_jkaxq"]
 [ext_resource type="Texture2D" uid="uid://cdcq7qmb6jdho" path="res://Resources/Textures/bg_lilac_focused_9slice.png" id="4_s0pt1"]
+[ext_resource type="Texture2D" uid="uid://co4r1d00w4eth" path="res://Resources/Images/h_separator.png" id="6_s6cvh"]
 
-[node name="MainMenu" type="Control" unique_id=1583970412 node_paths=PackedStringArray("play_button", "options_button", "quit_button", "fullscreen_check", "fullscreen_focus", "resolution_label", "resolution_focus")]
+[node name="MainMenu" type="Control" unique_id=1583970412 node_paths=PackedStringArray("play_button", "options_button", "quit_button", "fullscreen_check", "fullscreen_focus", "resolution_label", "resolution_focus", "resolution_disabled")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +22,7 @@ fullscreen_check = NodePath("NinePatchRect2/VBoxContainer/Container/CenterContai
 fullscreen_focus = NodePath("NinePatchRect2/VBoxContainer/Container/FSFocus")
 resolution_label = NodePath("NinePatchRect2/VBoxContainer/ResolutionCenter/Label")
 resolution_focus = NodePath("NinePatchRect2/VBoxContainer/ResolutionCenter/ResolutionFocus")
+resolution_disabled = NodePath("NinePatchRect2/VBoxContainer/ResolutionCenter/NinePatchRect")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=705686268]
 layout_mode = 0
@@ -159,3 +161,12 @@ theme = ExtResource("2_jn3mg")
 text = "1280x720 >"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect2/VBoxContainer/ResolutionCenter" unique_id=1719569495]
+modulate = Color(0.36966354, 0.36088508, 0.573519, 1)
+custom_minimum_size = Vector2(300, 64)
+layout_mode = 2
+texture = ExtResource("6_s6cvh")
+region_rect = Rect2(0, 96, 256, 64)
+patch_margin_left = 30
+patch_margin_right = 30

@@ -20,6 +20,7 @@ const COUNTDOWN_FINISH : Resource = preload("res://Resources/Audio/スタータ�
 const ORDER_UP : Resource = preload("res://Resources/Audio/decide2.ogg");
 const ORDER_FAIL : Resource = preload("res://Resources/Audio/quiz2.ogg");
 const ORDER_COMPLETE : Resource = preload("res://Resources/Audio/freesound_community-money-collect-1-101476.ogg");
+const ACTION_FAIL : Resource = preload("res://Resources/Audio/Quiz-Buzzer05-2(Short).ogg");
 const TRASH : Resource = preload("res://Resources/Audio/paperbiri.ogg");
 const PC_USE : Resource = preload("res://Resources/Audio/freesound_community-mechanical-keyboard-44701.ogg");
 const PRINTER_USE : Resource = preload("res://Resources/Audio/freesound_community-printer-106935.ogg");

@@ -8,6 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://h37ytfmyhgns" path="res://Resources/InteractTestObject.tscn" id="4_nb1xp"]
 [ext_resource type="PackedScene" uid="uid://dvd0ms3usdbf6" path="res://Resources/TestAutoInteractObject.tscn" id="5_u4ltx"]
 [ext_resource type="PackedScene" uid="uid://dg1k6fy67qp1c" path="res://Resources/Table.tscn" id="7_5u52y"]
+[ext_resource type="PackedScene" uid="uid://c7k3w5vvk5xs0" path="res://Resources/ComputerBookData.tscn" id="9_lekbb"]
+[ext_resource type="PackedScene" uid="uid://cqt1klm4do6nq" path="res://Resources/BoxPaper.tscn" id="10_j7732"]
+[ext_resource type="PackedScene" uid="uid://dsb0myqc0nphl" path="res://Resources/Printer.tscn" id="11_uo8mg"]
+[ext_resource type="PackedScene" uid="uid://dircnlmhkpbh4" path="res://Resources/GarbageCan.tscn" id="12_j7732"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xr8yn"]
 size = Vector3(2, 2, 2)
@@ -51,10 +55,6 @@ shape = SubResource("BoxShape3D_xr8yn")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1154101049]
 mesh = SubResource("BoxMesh_xr8yn")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=2118578412]
-transform = Transform3D(1, 0, 0, 0, 0.39485595, 0.9187431, 0, -0.9187431, 0.39485598, 0, 11.337101, 5.3696804)
-fov = 90.0
-
 [node name="TestInfiniteBox" parent="." unique_id=1209479180 instance=ExtResource("4_1qua4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.917, 0.5, -1.613)
 output_object_strs = Array[String](["res://Resources/CarryableObjects/DataBook.tscn"])
@@ -78,6 +78,36 @@ scene_obj_holder = NodePath("../CarryableObjects")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1966671073]
 environment = SubResource("Environment_bkxbk")
 
-[node name="CharacterBody3D" parent="." unique_id=1345435719 instance=ExtResource("4_bkxbk")]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2118578412]
+transform = Transform3D(1, 0, 0, 0, 0.74089825, 0.67161727, 0, -0.67161727, 0.74089825, 0, 4.6452227, 2.280132)
+fov = 90.0
+
+[node name="CharacterBody3D" parent="." unique_id=1345435719 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("4_bkxbk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+skip_instancing = true
 player_prefix = "p1"
+speed = 10.0
+jump = 2.0
+ok_id = ""
+rand_head = 0
+rand_face = 0
+throw_scale = 5.0
+throw_vertical = 1.0
+sprite_color = Color(0, 0, 0, 1)
+scene_obj_holder = NodePath("../CarryableObjects")
+
+[node name="ComputerBookData" parent="." unique_id=538817423 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("9_lekbb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9632901, 0, -3.2176342)
+scene_obj_holder = NodePath("../CarryableObjects")
+
+[node name="BoxPaper" parent="." unique_id=459736917 instance=ExtResource("10_j7732")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6051145, 0, 0.83496284)
+
+[node name="Printer" parent="." unique_id=108833308 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("11_uo8mg")]
+transform = Transform3D(0.03746356, 0, 0.999298, 0, 1, 0, -0.999298, 0, 0.03746356, -6.50226, 0, -0.30279064)
+can_output_book = true
+scene_obj_holder = NodePath("../CarryableObjects")
+
+[node name="GarbageCan" parent="." unique_id=689229448 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("12_j7732")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5589232, 0, -0.151577)
+scene_obj_holder = NodePath("../CarryableObjects")

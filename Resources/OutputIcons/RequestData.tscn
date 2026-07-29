@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cqwae2k4s1yjm"]
+
+[ext_resource type="Texture2D" uid="uid://dgwy1e4qr1f4p" path="res://Resources/Images/output_bubble_wide2.png" id="1_llbrw"]
+[ext_resource type="Texture2D" uid="uid://by64rwfol7v5j" path="res://Resources/Images/data_book.png" id="2_pa5b2"]
+[ext_resource type="Texture2D" uid="uid://d02aijogc20hm" path="res://Resources/Images/v_separator.png" id="3_f17tf"]
+[ext_resource type="Texture2D" uid="uid://yvrec1vvjqid" path="res://Resources/Images/data_shikishi.png" id="3_ilf8x"]
+
+[node name="RequestData" type="Control" unique_id=890551802]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1820.0
+offset_bottom = -980.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=448033189]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 100.0
+texture = ExtResource("1_llbrw")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="TextureRect" unique_id=842615137]
+layout_mode = 0
+offset_left = 15.0
+offset_right = 95.0
+offset_bottom = 80.0
+texture = ExtResource("2_pa5b2")
+expand_mode = 1
+
+[node name="Icon3" type="TextureRect" parent="TextureRect" unique_id=1113239198]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 2.0
+offset_right = 135.0
+offset_bottom = 72.0
+texture = ExtResource("3_f17tf")
+expand_mode = 1
+
+[node name="Icon2" type="TextureRect" parent="TextureRect" unique_id=81814812]
+layout_mode = 0
+offset_left = 105.0
+offset_right = 185.0
+offset_bottom = 80.0
+texture = ExtResource("3_ilf8x")
+expand_mode = 1

@@ -1,29 +1,29 @@
 [gd_scene format=3 uid="uid://cls62ohsublbx"]
 
 [ext_resource type="Texture2D" uid="uid://dkxnyjuhlvixl" path="res://Resources/Images/output_bubble.png" id="1_qbui3"]
-[ext_resource type="Texture2D" uid="uid://bvt4yxids331u" path="res://Resources/Images/bag.png" id="2_q0bbo"]
+[ext_resource type="Texture2D" uid="uid://b7i78bk40gshw" path="res://Resources/Images/wrench.png" id="2_qbui3"]
 
-[node name="OutputBag" type="Control" unique_id=890551802]
+[node name="OutputKeyholder" type="Control" unique_id=890551802]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1792.0
-offset_bottom = -952.0
+offset_right = -1820.0
+offset_bottom = -980.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=448033189]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 100.0
+offset_bottom = 100.0
 texture = ExtResource("1_qbui3")
+expand_mode = 1
 
 [node name="Icon" type="TextureRect" parent="TextureRect" unique_id=842615137]
 layout_mode = 0
-offset_left = 19.0
-offset_top = 2.0
-offset_right = 109.0
-offset_bottom = 92.0
-texture = ExtResource("2_q0bbo")
+offset_left = 10.0
+offset_right = 90.0
+offset_bottom = 80.0
+texture = ExtResource("2_qbui3")
 expand_mode = 1

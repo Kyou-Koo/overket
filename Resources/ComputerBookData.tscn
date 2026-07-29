@@ -1,22 +1,28 @@
 [gd_scene format=3 uid="uid://c7k3w5vvk5xs0"]
 
-[ext_resource type="Script" uid="uid://cafdtgt6222mo" path="res://Scripts/interact_test_object.gd" id="1_177gw"]
+[ext_resource type="Script" uid="uid://dm05yclglyhne" path="res://Scripts/ComputerData.gd" id="1_xubhc"]
 [ext_resource type="Texture2D" uid="uid://c8hsbsrpfj8ei" path="res://Resources/Images/progress_circle_bg.png" id="2_03k8v"]
 [ext_resource type="PackedScene" uid="uid://bo4ctckxet7uu" path="res://Resources/Mesh/laptop.glb" id="2_xubhc"]
 [ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="3_v37g1"]
 [ext_resource type="Texture2D" uid="uid://1nsy5msabid" path="res://Resources/Images/progress_circle_fill.png" id="3_xubhc"]
+[ext_resource type="PackedScene" uid="uid://c40ytctgn1fqk" path="res://Resources/OutputIcons/OutputDataBook.tscn" id="6_v37g1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ped2f"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_dtfao"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_v37g1"]
 viewport_path = NodePath("SubViewport")
 
-[node name="ComputerBookData" type="StaticBody3D" unique_id=538817423]
+[sub_resource type="ViewportTexture" id="ViewportTexture_n0i30"]
+viewport_path = NodePath("OutputIcon/SubViewport")
+
+[node name="ComputerBookData" type="StaticBody3D" unique_id=538817423 node_paths=PackedStringArray("progress_bar_holder", "progress_bar")]
 collision_mask = 3
-script = ExtResource("1_177gw")
+script = ExtResource("1_xubhc")
 interaction_duration = 5.0
 interaction_gap = 0.5
 needs_all_objects = false
+progress_bar_holder = NodePath("ProgressBarHolder")
+progress_bar = NodePath("SubViewport/TextureProgressBar")
 output_object_strs = Array[String](["res://Resources/CarryableObjects/DataBook.tscn"])
 should_output_objects = true
 
@@ -27,24 +33,38 @@ transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=45790141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_ped2f")
 
 [node name="OutputSpot" type="Marker3D" parent="." unique_id=2122134040]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1703345906]
+[node name="ProgressBarHolder" type="Sprite3D" parent="." unique_id=1703345906]
 transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 1.8, 0)
 pixel_size = 0.002
-texture = SubResource("ViewportTexture_dtfao")
+texture = SubResource("ViewportTexture_v37g1")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=370725400]
 transparent_bg = true
 size = Vector2i(384, 384)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="SubViewport" unique_id=683641538]
+visible = false
 offset_right = 512.0
 offset_bottom = 512.0
 scale = Vector2(0.75, 0.75)
 fill_mode = 4
 texture_under = ExtResource("2_03k8v")
 texture_progress = ExtResource("3_xubhc")
+
+[node name="OutputIcon" type="Sprite3D" parent="." unique_id=1431102187]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 1.8, -0.05)
+texture = SubResource("ViewportTexture_n0i30")
+
+[node name="SubViewport" type="SubViewport" parent="OutputIcon" unique_id=1002007372]
+transparent_bg = true
+size = Vector2i(100, 100)
+
+[node name="OutputDataBook" parent="OutputIcon/SubViewport" unique_id=890551802 instance=ExtResource("6_v37g1")]
+offset_right = -100.0
+offset_bottom = -100.0

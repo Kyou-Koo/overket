@@ -25,7 +25,7 @@ func public_place_object(obj : CarryableObjectBase) -> bool:
     if (num_items_on_top == 0):
         objs_on_top.append(obj);
         if (obj.get_parent() != scene_obj_holder):
-            obj.get_parent().remove_child(obj);
+            obj.get_parent().remove_child.call_deferred(obj);
             scene_obj_holder.add_child(obj);
         obj.global_position = obj_top_global_position + Vector3(0, obj.obj_height/2.0, 0);
         obj.orientate_self();

@@ -9,11 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://dtnarl2kwgdut" path="res://Resources/Images/level_sel_focus.png" id="6_42km5"]
 [ext_resource type="FontFile" uid="uid://bki5bbed866qt" path="res://Resources/Fonts/HMP-SThicker.otf" id="6_lgv56"]
 [ext_resource type="LabelSettings" uid="uid://cgl6wwmot7xg7" path="res://Resources/Themes/level_label.tres" id="6_ncvk4"]
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="6_va710"]
 [ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="7_ncvk4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2447u"]
 line_spacing = -5.0
-font = ExtResource("6_lgv56")
+font = ExtResource("6_va710")
 font_size = 36
 outline_size = 8
 outline_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
@@ -25,6 +26,16 @@ shadow_offset = Vector2(3, 3)
 line_spacing = -15.0
 font = ExtResource("6_lgv56")
 font_size = 54
+outline_size = 16
+outline_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+shadow_size = 8
+shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cyj8b"]
+line_spacing = -15.0
+font = ExtResource("6_va710")
+font_size = 32
 outline_size = 16
 outline_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 shadow_size = 8
@@ -113,11 +124,19 @@ offset_bottom = 177.0
 [node name="Join" type="Label" parent="NinePatchRect" unique_id=40406680]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 606.0
+offset_top = 560.0
 offset_right = 690.0
-offset_bottom = 698.0
+offset_bottom = 652.0
 text = "LEVEL_JOIN"
 label_settings = SubResource("LabelSettings_42km5")
+
+[node name="Label" type="Label" parent="NinePatchRect/Join" unique_id=1598752139]
+layout_mode = 0
+offset_top = 65.0
+offset_right = 591.0
+offset_bottom = 112.0
+text = "LEVEL_KB_USERS"
+label_settings = SubResource("LabelSettings_cyj8b")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect" unique_id=994724113]
 custom_minimum_size = Vector2(866, 516)
@@ -143,7 +162,7 @@ alignment = 1
 custom_minimum_size = Vector2(425, 250)
 layout_mode = 2
 focus_neighbor_left = NodePath("../Level2")
-focus_neighbor_top = NodePath("../../HBoxContainer2/Level3")
+focus_neighbor_top = NodePath("../../../BackToMenu")
 focus_neighbor_right = NodePath("../Level2")
 focus_neighbor_bottom = NodePath("../../HBoxContainer2/Level3")
 focus_next = NodePath("../Level2")
@@ -247,7 +266,7 @@ layout_mode = 2
 focus_neighbor_left = NodePath("../../../BackToMenu")
 focus_neighbor_top = NodePath("../../HBoxContainer/Level1")
 focus_neighbor_right = NodePath("../Level4")
-focus_neighbor_bottom = NodePath("../../HBoxContainer/Level1")
+focus_neighbor_bottom = NodePath("../../../BackToMenu")
 focus_next = NodePath("../Level4")
 focus_previous = NodePath("../../HBoxContainer/Level2")
 texture_normal = ExtResource("2_tu0hw")

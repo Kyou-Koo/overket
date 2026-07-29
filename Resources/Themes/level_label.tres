@@ -1,6 +1,6 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://cgl6wwmot7xg7"]
 
-[ext_resource type="FontFile" uid="uid://bki5bbed866qt" path="res://Resources/Fonts/HMP-SThicker.otf" id="1_2cngw"]
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="1_2cngw"]
 
 [resource]
 line_spacing = -15.0

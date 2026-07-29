@@ -216,7 +216,7 @@ func display_request() -> void:
     var idx : int = randi_range(0, sprites_character.size() - 1);
     sprites_character[idx].visible = true;
     active_sprite = sprites_character[idx];
-
+    active_sprite.modulate = sprite_tint;
     sprite_request_bg.visible = true;
 
 func hide_request_bubble() -> void:

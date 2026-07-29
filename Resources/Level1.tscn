@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dircnlmhkpbh4" path="res://Resources/GarbageCan.tscn" id="5_kw3qw"]
 [ext_resource type="PackedScene" uid="uid://cqt1klm4do6nq" path="res://Resources/BoxPaper.tscn" id="5_ulwhe"]
 [ext_resource type="PackedScene" uid="uid://cgxygugksk0k4" path="res://Resources/DeliveryPoint.tscn" id="6_m76yx"]
+[ext_resource type="PackedScene" uid="uid://b0asn63n4gfb7" path="res://Resources/BoxKeyholder.tscn" id="9_8lhuy"]
+[ext_resource type="PackedScene" uid="uid://c7k3w5vvk5xs0" path="res://Resources/ComputerBookData.tscn" id="11_ulwhe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kw3qw"]
 line_spacing = -5.0
@@ -157,7 +159,70 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 1)
 
 [node name="1mCube4" parent="Surfaces/Boundary Walls" unique_id=1101986186 instance=ExtResource("5_e5ymc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="1mCube29" parent="Surfaces/Boundary Walls" unique_id=1749771647 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -6)
+
+[node name="1mCube30" parent="Surfaces/Boundary Walls" unique_id=1244281111 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -6)
+
+[node name="1mCube31" parent="Surfaces/Boundary Walls" unique_id=342485773 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -6)
+
+[node name="1mCube32" parent="Surfaces/Boundary Walls" unique_id=1348123460 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -6)
+
+[node name="1mCube33" parent="Surfaces/Boundary Walls" unique_id=1520704554 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -6)
+
+[node name="1mCube34" parent="Surfaces/Boundary Walls" unique_id=1744373142 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+
+[node name="1mCube35" parent="Surfaces/Boundary Walls" unique_id=358368624 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -6)
+
+[node name="1mCube15" parent="Surfaces/Boundary Walls" unique_id=603853898 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -6)
+
+[node name="1mCube16" parent="Surfaces/Boundary Walls" unique_id=704155592 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -6)
+
+[node name="1mCube17" parent="Surfaces/Boundary Walls" unique_id=1241514454 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, -6)
+
+[node name="1mCube18" parent="Surfaces/Boundary Walls" unique_id=1257603109 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -6)
+
+[node name="1mCube19" parent="Surfaces/Boundary Walls" unique_id=341362414 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -6)
+
+[node name="1mCube20" parent="Surfaces/Boundary Walls" unique_id=434018417 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+
+[node name="1mCube21" parent="Surfaces/Boundary Walls" unique_id=332215243 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -6)
+
+[node name="1mCube22" parent="Surfaces/Boundary Walls" unique_id=1462134284 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -6)
+
+[node name="1mCube23" parent="Surfaces/Boundary Walls" unique_id=153461261 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -5)
+
+[node name="1mCube24" parent="Surfaces/Boundary Walls" unique_id=1091275697 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -4)
+
+[node name="1mCube25" parent="Surfaces/Boundary Walls" unique_id=1862165692 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -3)
+
+[node name="1mCube26" parent="Surfaces/Boundary Walls" unique_id=936097800 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -2)
+
+[node name="1mCube27" parent="Surfaces/Boundary Walls" unique_id=1581817874 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1)
+
+[node name="1mCube28" parent="Surfaces/Boundary Walls" unique_id=612238349 instance=ExtResource("5_e5ymc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
 
 [node name="Tables" type="Node3D" parent="Surfaces" unique_id=1174863814]
 
@@ -168,8 +233,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table" parent="Surfaces/Tables" unique_id=1595576306 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("1_mhw25")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+[node name="GarbageCan2" parent="Surfaces/Tables" unique_id=241746880 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("5_kw3qw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
 [node name="Table2" parent="Surfaces/Tables" unique_id=1815160089 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("1_mhw25")]
@@ -226,6 +291,9 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0
 
 [node name="Table17" parent="Surfaces/Tables" unique_id=1757207121 instance=ExtResource("1_mhw25")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 7, 0, 3)
+
+[node name="BoxKeyholder" parent="Surfaces/Tables" unique_id=2115074320 instance=ExtResource("9_8lhuy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -4)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1031245975]
 
@@ -288,3 +356,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8331795, 0, 0.32270038)
 skip_instancing = true
 player_prefix = "p1"
+
+[node name="ComputerBookData" parent="." unique_id=538817423 instance=ExtResource("11_ulwhe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="ComputerBookData2" parent="." unique_id=697659777 instance=ExtResource("11_ulwhe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)

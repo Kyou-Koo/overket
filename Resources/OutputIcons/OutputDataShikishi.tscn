@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://ck1u5vr60k7r3"]
+
+[ext_resource type="Texture2D" uid="uid://dkxnyjuhlvixl" path="res://Resources/Images/output_bubble.png" id="1_mfnnc"]
+[ext_resource type="Texture2D" uid="uid://yvrec1vvjqid" path="res://Resources/Images/data_shikishi.png" id="2_mfnnc"]
+
+[node name="OutputDataShikishi" type="Control" unique_id=890551802]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1820.0
+offset_bottom = -980.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=448033189]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_mfnnc")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="TextureRect" unique_id=842615137]
+layout_mode = 0
+offset_left = 10.0
+offset_right = 90.0
+offset_bottom = 80.0
+texture = ExtResource("2_mfnnc")
+expand_mode = 1

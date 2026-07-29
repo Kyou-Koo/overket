@@ -7,11 +7,13 @@ func public_interact_object(delta : float = 0.0) -> void:
 # TODO: handle how player can take a stack if they are able
 # no, do this later later
 func public_take_object(p : PlayerController) -> CarryableObjectBase:
+    if (!AudioManager._instance): AudioManager.ins();
     connected_body = p;
     if (!check_output_can_be_created(output_obj_examples[0])):
         # TODO: warn/error message for debug
         return;
     var output_instance : CarryableObjectBase = create_output_object();
+    AudioManager._instance.play_SFX(AudioFiles.ITEM_BOX);
     return output_instance;
     
 # TODO is this necessary?

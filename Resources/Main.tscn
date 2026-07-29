@@ -254,7 +254,7 @@ transparent_bg = true
 size = Vector2i(400, 560)
 
 [node name="LevelSelect" type="Sprite3D" parent="." unique_id=1170803876]
-transform = Transform3D(-0.2331568, 0, 0.9724392, 0, 1, 0, -0.9724392, 0, -0.2331568, -8.596153, 3.583045, 3.9328203)
+transform = Transform3D(-0.2331568, 0, 0.9724392, 0, 1, 0, -0.9724392, 0, -0.2331568, -5.6345463, 3.5313697, 3.222731)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_66bfg")
 

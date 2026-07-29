@@ -72,17 +72,26 @@ func _on_back_pressed() -> void:
 
 func _on_menu_transition(who : Node) -> void:
     if (who == self):
-        init_level_select(); # just in case?
+        self.visible = true;
+        init_level_select();
         is_active = true;
         level1.grab_focus.call_deferred();
     else:
+        self.visible = true;
         is_active = false;
+        
+func player_assignment(ev : InputEvent) -> void:
+    if (ev is InputEventKey):
+        if (ev.get_physical_keycode_with_modifiers() == KEY_ESCAPE):
+            GameManager._instance.active_players["p1"] = ev.device;
 
 func _input(event: InputEvent) -> void:
     if (!is_active): return;
     if (event.is_pressed()):
         if (event.is_action(&"start")):
+            get_viewport().set_input_as_handled();
             print(event.as_text());
+            player_assignment(event);
 
 func assign_labels(parent : Node, array : Array) -> void:
     for c in parent.get_children():

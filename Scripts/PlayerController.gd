@@ -51,10 +51,10 @@ enum PSTATE {
     HOLD
 }
 
-var scene_obj_holder : Node3D;
+@export var scene_obj_holder : Node3D;
 
 func object_interact(delta : float) -> void:
-    Statics.debug_prolog("attempting to interact with {0}".format([closest_body.name]));
+    Statics.debug_prolog("attempting to interact with {0}".format([closest_body]));
     # check in range
     if (interactable_objects.size() > 0):
         # TODO: check for bag placed on table
@@ -66,19 +66,16 @@ func object_drop() -> void:
     if (interactable_objects.size() > 0):
         # attempt insert if carrying item
         if (closest_body is TimerMachineBase):
-            var success : bool = closest_body.public_insert_object(carried_object.item_type)
+            var success : bool = closest_body.public_insert_object(carried_object, self)
             if (!success):
-                pass
-                # TODO: some indication to player they can't insert
+                AudioManager._instance.play_SFX(AudioFiles.ACTION_FAIL);
         elif (closest_body is Table):
             if ((closest_body as Table).public_place_object(carried_object)):
                 _reset_carried_obj();
                 carried_object = null;
-                # TODO: some success state here
+                # TODO: maybe place on table sound
             else:
-                # TODO: handle failure state
-                pass;
-    # TODO: throw values
+                AudioManager._instance.play_SFX(AudioFiles.ACTION_FAIL);
     else:
         Statics.debug_log("throwing {0}".format([carried_object.name]));
         # throw before removing from self
@@ -92,12 +89,12 @@ func object_drop() -> void:
         carried_object.global_rotation = co_curr_globals.rotation;
         carried_object.is_being_carried = false;
         carried_object = null;
+        AudioManager._instance.play_SFX(AudioFiles.THROW);
         
 # TODO: player handles assigning and reassigning of generated object parents when picked up
 func object_pick() -> void:
     if (interactable_objects.size() > 0):
-        
-        if (closest_body is Table):
+        if (closest_body is Table and closest_body is not GarbageCan):
             object_hold((closest_body as Table).public_take_object());
             return;
         elif (closest_body is CarryableObjectBase):
@@ -107,8 +104,12 @@ func object_pick() -> void:
             var new_obj : CarryableObjectBase = (closest_body as ItemBox).public_take_object(self);
             object_hold(new_obj);
             return;
+        elif (closest_body is Printer):
+            var new_obj : CarryableObjectBase = (closest_body as Printer).public_take_object(self);
+            object_hold(new_obj);
 
 func object_hold(obj : CarryableObjectBase) -> void:
+    if (obj == null): return;
     if (obj.get_parent_node_3d() != null):
         scene_obj_holder.remove_child(obj);
     carried_object_parent.add_child(obj);
@@ -252,11 +253,14 @@ func _on_body_exit(body: Node3D) -> void:
     
 func _process(delta: float) -> void:
     # TODO: hacky idk
+    #if (skip_instancing): return;
     sprite_container.global_rotation = Vector3(-PI/4, 0, 0);
 
 func _physics_process(delta : float) -> void:
+    #if (skip_instancing): return;
     var motion_direction : DirRot = handle_movement();
     self.set_velocity(motion_direction.direction * speed);
+    Statics.debug_prolog("player spd: {0} height: {1}".format([speed, self.global_position.y]))
     # this is all sprite animation stuff-------------------------
     if (is_zero_approx(motion_direction.length())):
         disable_faces();
@@ -352,7 +356,8 @@ func _ready() -> void:
             interaction_area.body_entered.connect(_on_body_enter);
             interaction_area.body_exited.connect(_on_body_exit);
             
-    scene_obj_holder = self.get_owner().find_child("CarryableObjects");
+    if (!skip_instancing):
+        scene_obj_holder = self.get_owner().find_child("CarryableObjects");
     curr_state = PSTATE.NEUTRAL;
 
     set_up_sprite_arrays(sprite_head_container, sprite_heads);
@@ -361,7 +366,7 @@ func _ready() -> void:
     set_up_sprite_arrays(sprite_right_faces_container, sprite_right_faces);
     if (skip_instancing):
         pick_face_head(rand_face, rand_head);
-        sprite_color = Color(randf(), randf(), randf());
+        #sprite_color = Color(randf(), randf(), randf());
         color_sprite();
 
 func _init() -> void:

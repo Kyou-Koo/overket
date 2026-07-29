@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://dsb0myqc0nphl"]
+
+[ext_resource type="Script" uid="uid://c57w8qdd23lu6" path="res://Scripts/Printer.gd" id="1_ahmas"]
+[ext_resource type="Texture2D" uid="uid://c8hsbsrpfj8ei" path="res://Resources/Images/progress_circle_bg.png" id="2_ahmas"]
+[ext_resource type="PackedScene" uid="uid://cjkpvrswlrv2r" path="res://Resources/Mesh/printer.glb" id="2_wlvq2"]
+[ext_resource type="Texture2D" uid="uid://1nsy5msabid" path="res://Resources/Images/progress_circle_fill.png" id="3_wlvq2"]
+[ext_resource type="PackedScene" uid="uid://dwmlpkg1w776f" path="res://Resources/OutputIcons/RequestPaper.tscn" id="5_d4mlf"]
+[ext_resource type="PackedScene" uid="uid://b7iguyonoat1n" path="res://Resources/OutputIcons/OutputBook.tscn" id="5_d4qgb"]
+[ext_resource type="PackedScene" uid="uid://wylqmwvxr1cg" path="res://Resources/OutputIcons/OutputShikishi.tscn" id="6_n4ag6"]
+[ext_resource type="PackedScene" uid="uid://cqwae2k4s1yjm" path="res://Resources/OutputIcons/RequestData.tscn" id="8_lf5ck"]
+[ext_resource type="PackedScene" uid="uid://ylfv10hwixr0" path="res://Resources/OutputIcons/RequestDataBook.tscn" id="9_lp063"]
+[ext_resource type="PackedScene" uid="uid://bu0fmahwk4gdh" path="res://Resources/OutputIcons/RequestDataBookPaper.tscn" id="10_nsb7u"]
+[ext_resource type="PackedScene" uid="uid://t3ghw01sfa03" path="res://Resources/OutputIcons/RequestDataShikishi.tscn" id="11_344q2"]
+[ext_resource type="PackedScene" uid="uid://bk814o3yllfwe" path="res://Resources/OutputIcons/RequestDataShikishiPaper.tscn" id="12_5hsjb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2c7om"]
+size = Vector3(1.2529786, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cugxk"]
+viewport_path = NodePath("ProgressBar/SubViewProgress")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_d4qgb"]
+viewport_path = NodePath("OutputIcon/SubViewOutput")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_d4mlf"]
+viewport_path = NodePath("OutputIcon2/SubViewOutput")
+
+[node name="Printer" type="StaticBody3D" unique_id=108833308 node_paths=PackedStringArray("output_icon_holder", "output_wide_holder", "paper_req", "book_data_req", "shikishi_data_req", "data_req", "paper_book_data_req", "paper_shiki_data_req", "book_notif", "shikishi_notif", "progress_bar_holder", "progress_bar")]
+collision_mask = 3
+script = ExtResource("1_ahmas")
+output_icon_holder = NodePath("OutputIcon")
+output_wide_holder = NodePath("OutputIcon2")
+paper_req = NodePath("OutputIcon/SubViewOutput/RequestPaper")
+book_data_req = NodePath("OutputIcon/SubViewOutput/RequestDataBook")
+shikishi_data_req = NodePath("OutputIcon/SubViewOutput/RequestDataShikishi")
+data_req = NodePath("OutputIcon2/SubViewOutput/RequestData")
+paper_book_data_req = NodePath("OutputIcon2/SubViewOutput/RequestDataBookPaper")
+paper_shiki_data_req = NodePath("OutputIcon2/SubViewOutput/RequestDataShikishiPaper")
+book_notif = NodePath("OutputIcon/SubViewOutput/OutputBook")
+shikishi_notif = NodePath("OutputIcon/SubViewOutput/OutputShikishi")
+interaction_duration = 8.0
+interaction_gap = 0.5
+consumed_objects = Array[int]([1, 2])
+num_required_objects = 2
+is_automatic = true
+progress_bar_holder = NodePath("ProgressBar")
+progress_bar = NodePath("ProgressBar/SubViewProgress/TextureProgressBar")
+output_object_strs = Array[String](["res://Resources/CarryableObjects/Book.tscn", "res://Resources/CarryableObjects/Shikishi.tscn"])
+should_output_objects = true
+
+[node name="printer" parent="." unique_id=1958129218 instance=ExtResource("2_wlvq2")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=261979290]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12648931, 0.5, 0)
+shape = SubResource("BoxShape3D_2c7om")
+
+[node name="ProgressBar" type="Sprite3D" parent="." unique_id=1338893129]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 1.5, 0)
+pixel_size = 0.002
+texture = SubResource("ViewportTexture_cugxk")
+
+[node name="SubViewProgress" type="SubViewport" parent="ProgressBar" unique_id=120072712]
+transparent_bg = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="ProgressBar/SubViewProgress" unique_id=1580853749]
+offset_right = 512.0
+offset_bottom = 512.0
+fill_mode = 4
+texture_under = ExtResource("2_ahmas")
+texture_progress = ExtResource("3_wlvq2")
+
+[node name="OutputSpot" type="Marker3D" parent="." unique_id=1624172165]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4862664, 1, 0)
+
+[node name="OutputIcon" type="Sprite3D" parent="." unique_id=1201743477]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 2.192064, 0)
+texture = SubResource("ViewportTexture_d4qgb")
+
+[node name="SubViewOutput" type="SubViewport" parent="OutputIcon" unique_id=1628461733]
+transparent_bg = true
+size = Vector2i(100, 100)
+
+[node name="RequestPaper" parent="OutputIcon/SubViewOutput" unique_id=890551802 instance=ExtResource("5_d4mlf")]
+offset_right = -100.0
+offset_bottom = -100.0
+
+[node name="OutputBook" parent="OutputIcon/SubViewOutput" unique_id=1275228986 instance=ExtResource("5_d4qgb")]
+offset_right = -100.0
+offset_bottom = -100.0
+
+[node name="OutputShikishi" parent="OutputIcon/SubViewOutput" unique_id=1900280637 instance=ExtResource("6_n4ag6")]
+offset_right = -100.0
+offset_bottom = -100.0
+
+[node name="RequestDataBook" parent="OutputIcon/SubViewOutput" unique_id=1714509357 instance=ExtResource("9_lp063")]
+offset_right = -100.0
+offset_bottom = -100.0
+
+[node name="RequestDataShikishi" parent="OutputIcon/SubViewOutput" unique_id=348669153 instance=ExtResource("11_344q2")]
+offset_right = -100.0
+offset_bottom = -100.0
+
+[node name="OutputIcon2" type="Sprite3D" parent="." unique_id=1274643992]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 2.192064, 0)
+texture = SubResource("ViewportTexture_d4mlf")
+
+[node name="SubViewOutput" type="SubViewport" parent="OutputIcon2" unique_id=216980139]
+transparent_bg = true
+size = Vector2i(200, 100)
+
+[node name="RequestData" parent="OutputIcon2/SubViewOutput" unique_id=536565000 instance=ExtResource("8_lf5ck")]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="RequestDataBookPaper" parent="OutputIcon2/SubViewOutput" unique_id=283609648 instance=ExtResource("10_nsb7u")]
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="RequestDataShikishiPaper" parent="OutputIcon2/SubViewOutput" unique_id=954279671 instance=ExtResource("12_5hsjb")]
+offset_right = 0.0
+offset_bottom = 0.0

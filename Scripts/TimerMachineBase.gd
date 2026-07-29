@@ -8,23 +8,24 @@
 @export var is_automatic : bool;
 
 var completed_obj_global_loc : Vector3;
-var current_objects : Array[CarryableObjectBase];
+var current_objects : Array[CarryableObjects.CarryObjEnum];
 var has_necessary_objects : bool = false;
 var auto_can_start : bool = false;
-var progress_bar_holder : Sprite3D;
-var progress_bar : TextureProgressBar;
+@export var progress_bar_holder : Sprite3D;
+@export var progress_bar : TextureProgressBar;
 var time_since_interact : float = 0.0;
 var is_completed : bool = false;
 var time_since_completion : float = 0.0;
 
-var scene_obj_holder : Node3D;
+@export var scene_obj_holder : Node3D;
 
-func public_insert_object(obj : CarryableObjects.CarryObjEnum) -> bool:
+func public_insert_object(obj : CarryableObjectBase, p : PlayerController = null) -> bool:
     # reject undesired object
     if (obj in consumed_objects):
-        current_objects.append(connected_body.carried_object);
-        connected_body.carried_object = null;
+        current_objects.append(obj.item_type);
+        p.carried_object = null;
         has_necessary_objects = check_meets_requirements();
+        obj.queue_free();
         return true;
     return false;
 
@@ -93,9 +94,9 @@ func place_output_object() -> void:
     if (output_instance == null): return;
     # consume consumed_objects
     current_objects.clear();
-    output_instance.global_position = completed_obj_global_loc + Vector3(0, output_instance.obj_height/2.0, 0);
     # TODO is this the final location for it?
     scene_obj_holder.add_child(output_instance);
+    output_instance.global_position = completed_obj_global_loc + Vector3(0, output_instance.obj_height/2.0, 0);
 
 func _process(delta: float) -> void:
     if (is_automatic and has_necessary_objects and auto_can_start):
@@ -113,10 +114,10 @@ func _ready() -> void:
     for c : Node in children:
         if (c is Marker3D and  c.name.contains("Output")):
             completed_obj_global_loc = c.global_position;
-        if (c is SubViewport):
+        if (c is SubViewport and progress_bar == null):
             progress_bar = c.get_child(0);
-            
-    scene_obj_holder = self.get_owner().find_child("CarryableObjects") as Node3D;
+    if (scene_obj_holder == null):        
+        scene_obj_holder = self.get_owner().find_child("CarryableObjects") as Node3D;
     if (consumed_objects.size() == 0):
         num_required_objects = 0;
     if (needs_all_objects):

@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://bk814o3yllfwe"]
+
+[ext_resource type="Texture2D" uid="uid://dgwy1e4qr1f4p" path="res://Resources/Images/output_bubble_wide2.png" id="1_se265"]
+[ext_resource type="Texture2D" uid="uid://yvrec1vvjqid" path="res://Resources/Images/data_shikishi.png" id="2_vbw51"]
+[ext_resource type="Texture2D" uid="uid://b3j5nrfr743is" path="res://Resources/Images/paper_ream.png" id="4_0uot2"]
+
+[node name="RequestDataShikishiPaper" type="Control" unique_id=890551802]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1820.0
+offset_bottom = -980.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=750348892]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 100.0
+texture = ExtResource("1_se265")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="TextureRect" unique_id=1352050077]
+layout_mode = 0
+offset_left = 15.0
+offset_right = 95.0
+offset_bottom = 80.0
+texture = ExtResource("2_vbw51")
+expand_mode = 1
+
+[node name="Icon2" type="TextureRect" parent="TextureRect" unique_id=31324676]
+layout_mode = 0
+offset_left = 105.0
+offset_top = -5.0
+offset_right = 185.0
+offset_bottom = 75.0
+texture = ExtResource("4_0uot2")
+expand_mode = 1

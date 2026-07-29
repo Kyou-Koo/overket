@@ -1,14 +1,13 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://c12eh60e7ughh"]
 
-[ext_resource type="FontFile" uid="uid://bki5bbed866qt" path="res://Resources/Fonts/HMP-SThicker.otf" id="1_1s828"]
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="1_1s828"]
 
 [resource]
 line_spacing = 0.0
 font = ExtResource("1_1s828")
 font_size = 36
-outline_size = 3
-shadow_size = 6
+shadow_size = 5
 shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
-shadow_offset = Vector2(4, 4)
+shadow_offset = Vector2(3, 3)
 stacked_outline_count = 1
 stacked_outline_0/size = 6

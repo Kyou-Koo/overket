@@ -4,14 +4,14 @@ class_name PlayerController extends CharacterBody3D
 @export var player_prefix : String;
 # TODO: put in general scene controller
 @onready var gravity : float = -ProjectSettings.get_setting("physics/3d/default_gravity");
-@export var speed : float = 10.0;
-@export var jump : float = 2.0;
+@export var speed : float = 3.0;
+@export var jump : float = 20.0;
 @export var interaction_radius : float;
 @export var ok_id : String;
 @export_range(0, 3) var rand_head : int = 0;
 @export_range(0, 3) var rand_face : int = 0;
-@export var throw_scale : float = 5.0;
-@export var throw_vertical : float = 1.0;
+@export var throw_scale : float = 8.0;
+@export var throw_vertical : float = 0.2;
 
 @export_group("Sprites", "sprite_")
 @export var sprite_color : Color;
@@ -67,29 +67,28 @@ func object_drop() -> void:
         # attempt insert if carrying item
         if (closest_body is TimerMachineBase):
             var success : bool = closest_body.public_insert_object(carried_object, self)
-            if (!success):
-                AudioManager._instance.play_SFX(AudioFiles.ACTION_FAIL);
+            if (success): return;
         elif (closest_body is Table):
             if ((closest_body as Table).public_place_object(carried_object)):
                 _reset_carried_obj();
                 carried_object = null;
+                return;
                 # TODO: maybe place on table sound
             else:
                 AudioManager._instance.play_SFX(AudioFiles.ACTION_FAIL);
-    else:
-        Statics.debug_log("throwing {0}".format([carried_object.name]));
-        # throw before removing from self
-        _reset_carried_obj();
-        carried_object.apply_central_impulse(
-            Vector3(-curr_fwd.x, throw_vertical, curr_fwd.y) * throw_scale);
-        var co_curr_globals : DirRot = DirRot.new(carried_object.global_position, carried_object.global_rotation);
-        carried_object_parent.remove_child(carried_object);
-        scene_obj_holder.add_child(carried_object);
-        carried_object.global_position = co_curr_globals.direction;
-        carried_object.global_rotation = co_curr_globals.rotation;
-        carried_object.is_being_carried = false;
-        carried_object = null;
-        AudioManager._instance.play_SFX(AudioFiles.THROW);
+    Statics.debug_log("throwing {0}".format([carried_object.name]));
+    # throw before removing from self
+    _reset_carried_obj();
+    carried_object.apply_central_impulse(
+        Vector3(-curr_fwd.x, throw_vertical, curr_fwd.y) * throw_scale);
+    var co_curr_globals : DirRot = DirRot.new(carried_object.global_position, carried_object.global_rotation);
+    carried_object_parent.remove_child(carried_object);
+    scene_obj_holder.add_child(carried_object);
+    carried_object.global_position = co_curr_globals.direction;
+    carried_object.global_rotation = co_curr_globals.rotation;
+    carried_object.is_being_carried = false;
+    carried_object = null;
+    AudioManager._instance.play_SFX(AudioFiles.THROW);
         
 # TODO: player handles assigning and reassigning of generated object parents when picked up
 func object_pick() -> void:
@@ -118,7 +117,7 @@ func object_hold(obj : CarryableObjectBase) -> void:
     var confirm : bool = remove_from_interact_list(obj);
     carried_object = obj;
     obj.freeze = true;
-    obj.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC;
+    obj.freeze_mode = RigidBody3D.FREEZE_MODE_STATIC;
     obj.add_collision_exception_with(self);
     obj.position = Vector3.ZERO;
     obj.gravity_scale = 0.0;
@@ -259,8 +258,13 @@ func _process(delta: float) -> void:
 func _physics_process(delta : float) -> void:
     #if (skip_instancing): return;
     var motion_direction : DirRot = handle_movement();
-    self.set_velocity(motion_direction.direction * speed);
-    Statics.debug_prolog("player spd: {0} height: {1}".format([speed, self.global_position.y]))
+    motion_direction.direction *= speed;
+    if (Input.is_action_just_pressed(player_prefix + "jump") and is_on_floor()):
+        motion_direction.direction += Vector3(0, jump, 0);
+    if (!is_on_floor()):
+        motion_direction.direction -= Vector3(0, gravity * gravity * delta, 0);
+    self.set_velocity(motion_direction.direction);
+    move_and_slide();
     # this is all sprite animation stuff-------------------------
     if (is_zero_approx(motion_direction.length())):
         disable_faces();
@@ -304,7 +308,7 @@ func _physics_process(delta : float) -> void:
                 sprite_animation_body.play(S_LEFT + S_HOLD);
     # ------------------------------- sprite animation end
     # TODO: why is this here lmao
-    self.velocity.y += gravity * delta;
+    # self.velocity.y += gravity * delta;
     if (new_fwd != curr_fwd and motion_direction.rotation.y != 0.0):
         self.rotate_y(motion_direction.rotation.y);
         curr_fwd = new_fwd;
@@ -327,11 +331,13 @@ func _physics_process(delta : float) -> void:
             curr_state = PSTATE.DROP;
             object_drop();
             curr_state = PSTATE.NEUTRAL;
+    
             
 func _input(event: InputEvent) -> void:
-    pass
-    #if (event.is_pressed()):
+    return
+    if (event.is_pressed()):
         #Statics.debug_log(event.as_text());
+        Statics.debug_log("obj in scene: {0}".format([str(scene_obj_holder.get_children())]))
             
 func _ready() -> void:
     self.ok_id = Statics.create_ok_id(self);

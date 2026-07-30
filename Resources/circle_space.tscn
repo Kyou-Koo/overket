@@ -72,27 +72,26 @@ needs_all_objects = false
 should_output_objects = false
 
 [node name="Table" parent="." unique_id=1595576306 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("7_5u52y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3763456, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.376, 0, 0)
 scene_obj_holder = NodePath("../CarryableObjects")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1966671073]
 environment = SubResource("Environment_bkxbk")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2118578412]
-transform = Transform3D(1, 0, 0, 0, 0.74089825, 0.67161727, 0, -0.67161727, 0.74089825, 0, 4.6452227, 2.280132)
+transform = Transform3D(1, 0, 0, 0, 0.74089825, 0.67161727, 0, -0.67161727, 0.74089825, 0, 7.281247, 3.1595936)
 fov = 90.0
 
 [node name="CharacterBody3D" parent="." unique_id=1345435719 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("4_bkxbk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 skip_instancing = true
 player_prefix = "p1"
-speed = 10.0
-jump = 2.0
+speed = 3.0
+jump = 20.0
 ok_id = ""
 rand_head = 0
 rand_face = 0
-throw_scale = 5.0
-throw_vertical = 1.0
+throw_scale = 8.0
+throw_vertical = 0.2
 sprite_color = Color(0, 0, 0, 1)
 scene_obj_holder = NodePath("../CarryableObjects")
 

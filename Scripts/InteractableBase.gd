@@ -60,6 +60,7 @@ func _ready() -> void:
             output_object_ress.append(load(s));
         for oor : Resource in output_object_ress:
             output_obj_examples.append(oor.instantiate());
+            
     
 func _init() -> void:
     pass;

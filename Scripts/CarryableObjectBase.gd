@@ -26,6 +26,11 @@ func _on_body_entered(body : Node3D) -> void:
             is_being_carried = true;
         elif (body is Printer):
             body.public_insert_object(self);
+            
+func _process(delta: float) -> void:
+    return;
+    Statics.debug_prolog("{0} is at {1} frozen? {2} carried? {3} by {4}".format([
+        self.ok_id, self.global_position, self.freeze, self.is_being_carried, self.get_parent().name]));
 
 func _ready() -> void:
     ok_id = Statics.create_ok_id(self);

@@ -20,4 +20,5 @@ func public_place_object(obj : CarryableObjectBase) -> bool:
         deletion_tween.tween_property(obj, "scale", Vector3(0.1, 0.1, 0.1), tween_time);
         obj.queue_free();
         AudioManager._instance.play_SFX(AudioFiles.TRASH);
+        objs_on_top.clear();
     return placed;

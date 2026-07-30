@@ -44,6 +44,9 @@ var active_players : Dictionary = {
     "p3": -5,
     "p4": -5,
 }
+var player_colors : Array[Color];
+var player_head_face_base : Array[Array] = [[-1, -1],[-1, -1],[-1, -1],[-1, -1]]
+var player_head_face : Array[Array] = [[-1, -1],[-1, -1],[-1, -1],[-1, -1]]
 
 var in_menu : bool = true;
 var bgm_started : bool = false;
@@ -195,3 +198,6 @@ func _ready() -> void:
         sprite_init_rot = sprite.rotation_degrees;
 
     #TESTINGTESTINGETESTING
+    for d_idx in Input.get_connected_joypads():
+        print("ahhhh stop idiot")
+        Input.stop_joy_vibration(d_idx);

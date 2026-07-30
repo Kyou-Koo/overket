@@ -71,7 +71,7 @@ func public_insert_object(obj : CarryableObjectBase, p : PlayerController = null
         obj_array.append(obj.obj_name);
         current_objects.append(obj.item_type);
         obj.queue_free();
-        p.carried_object = null;
+        if (p != null): p.carried_object = null;
         has_necessary_objects = check_meets_requirements();
         update_notif_display();
         return true;

@@ -22,6 +22,11 @@ var level4_labels : Array[Label];
 var hiscores : Array[int];
 var is_active : bool = false;
 
+var head_array_base : Array[int] = [0, 1, 2, 3];
+var head_array_remain : Array[int] = [0, 1, 2, 3];
+var face_array_base : Array[int] = [0, 1, 2, 3];
+var face_array_remain : Array[int] = [0, 1, 2, 3];
+
 func init_level_select() -> void:
     if (!SaveDataMgr._instance):
         SaveDataMgr.create_sdm();
@@ -72,6 +77,8 @@ func _on_back_pressed() -> void:
 
 func _on_menu_transition(who : Node) -> void:
     if (who == self):
+        head_array_remain = head_array_base.duplicate();
+        face_array_remain = face_array_base.duplicate();
         self.visible = true;
         init_level_select();
         is_active = true;
@@ -80,10 +87,60 @@ func _on_menu_transition(who : Node) -> void:
         self.visible = true;
         is_active = false;
         
+func assign_player_color(p_idx : int) -> Color:
+    var color : Color;
+    return color
+    
+func assign_head_face(p_idx : int) -> void:
+    var r_head : int = Statics.rand_from_arr_v(head_array_remain);
+    head_array_remain.erase(r_head);
+    var r_face : int = Statics.rand_from_arr_v(face_array_remain);
+    face_array_remain.erase(r_face);
+    GameManager._instance.player_head_face[p_idx] = [r_head, r_face];
+    
+func unassign_head_face(p_idx : int) -> void:
+    pass
+        
 func player_assignment(ev : InputEvent) -> void:
     if (ev is InputEventKey):
         if (ev.get_physical_keycode_with_modifiers() == KEY_ESCAPE):
-            GameManager._instance.active_players["p1"] = ev.device;
+            player1.visible = !player1.visible;
+            if (player1.visible):
+                GameManager._instance.active_players["p1"] = ev.device;
+            else:
+                GameManager._instance.active_players["p1"] = -5;
+        elif (ev.get_physical_keycode_with_modifiers() == KEY_DELETE):
+            player2.visible = !player2.visible;
+            if (player2.visible):
+                GameManager._instance.active_players["p2"] = ev.device;
+            else:
+                GameManager._instance.active_players["p2"] = -5;
+    if (ev is InputEventJoypadButton):
+        Statics.debug_log("connected pads {0}".format([str(Input.get_connected_joypads())]))
+        if (ev.device == 0):
+            player1.visible = !player1.visible;
+            if (player1.visible):
+                GameManager._instance.active_players["p1"] = ev.device;
+            else:
+                GameManager._instance.active_players["p1"] = -5;
+        elif (ev.device == 1):
+            player2.visible = !player2.visible;
+            if (player2.visible):
+                GameManager._instance.active_players["p2"] = ev.device;
+            else:
+                GameManager._instance.active_players["p2"] = -5;
+        elif (ev.device == 2):
+            player3.visible = !player3.visible;
+            if (player1.visible):
+                GameManager._instance.active_players["p3"] = ev.device;
+            else:
+                GameManager._instance.active_players["p3"] = -5;
+        elif (ev.device == 3):
+            player4.visible = !player4.visible;
+            if (player1.visible):
+                GameManager._instance.active_players["p4"] = ev.device;
+            else:
+                GameManager._instance.active_players["p4"] = -5;
 
 func _input(event: InputEvent) -> void:
     if (!is_active): return;

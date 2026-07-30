@@ -121,6 +121,38 @@ script = ExtResource("2_iafxj")
 
 [node name="MainAreaContents" type="Node3D" parent="." unique_id=702712883]
 
+[node name="NotCubes" type="Node3D" parent="MainAreaContents" unique_id=757340625]
+
+[node name="keyholder" parent="MainAreaContents/NotCubes" unique_id=1782739930 instance=ExtResource("13_ndlxv")]
+transform = Transform3D(-1.5326942, 0, -1.284853, 0, 2, 0, 1.284853, 0, -1.5326942, 0.7163821, 0, -10.94492)
+
+[node name="shikishi" parent="MainAreaContents/NotCubes" unique_id=1229495200 instance=ExtResource("13_h2f5l")]
+transform = Transform3D(-0.50057536, -1.5274489, -1.1900945, -1.9005431, 0.6228457, 8.307537e-08, 0.37062258, 1.1309129, -1.6073815, 4.4354897, 0.96039677, -10.063087)
+
+[node name="book" parent="MainAreaContents/NotCubes" unique_id=1754402073 instance=ExtResource("10_mgvxf")]
+transform = Transform3D(0.17027023, 0.38720682, -1.9547577, -1.8308055, 0.805078, 4.9426603e-08, 0.78686637, 1.7893908, 0.4229908, 1.5342015, 0.755442, -11.319722)
+
+[node name="bag" parent="MainAreaContents/NotCubes" unique_id=214785341 instance=ExtResource("11_hl0am")]
+transform = Transform3D(-0.6324575, 0, 1.8973664, 0, 2, 0, -1.8973664, 0, -0.6324575, 2.7425773, 0, -6.122146)
+
+[node name="shikishi_data" parent="MainAreaContents/NotCubes" unique_id=1729298937 instance=ExtResource("10_b50f7")]
+transform = Transform3D(1.0807035, -1.6681036, 0.22250763, 1.5074304, 1.0770963, 0.75333744, -0.74815357, -0.23935981, 1.8392859, 3.4927974, 0.63506734, -11.212402)
+
+[node name="storage_box" parent="MainAreaContents/NotCubes" unique_id=84293636 instance=ExtResource("10_ofkph")]
+transform = Transform3D(1.8598869, 0, 0.73540515, 0, 2, 0, -0.73540515, 0, 1.8598869, 4.693255, 0, -14.143621)
+
+[node name="printer" parent="MainAreaContents/NotCubes" unique_id=1958129218 instance=ExtResource("10_fekrv")]
+transform = Transform3D(-1.4091694, 0, -1.4192399, 0, 2, 0, 1.4192399, 0, -1.4091694, 2.0564947, 0, -13.568723)
+
+[node name="acrylic_stand" parent="MainAreaContents/NotCubes" unique_id=1365726200 instance=ExtResource("16_rted0")]
+transform = Transform3D(-1.1194274, 0, -1.657372, 0, 2, 0, 1.657372, 0, -1.1194274, 0.36350465, 0, -11.832641)
+
+[node name="table" parent="MainAreaContents/NotCubes" unique_id=183128433 instance=ExtResource("12_t7kqs")]
+transform = Transform3D(1.0477042, 0, -1.7036184, 0, 2, 0, 1.7036184, 0, 1.0477042, 5.4608507, 0, -11.032719)
+
+[node name="laptop" parent="MainAreaContents/NotCubes/table" unique_id=919714571 instance=ExtResource("13_m8n5y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014070749, 1.0183694, 0.013730168)
+
 [node name="CUBES" type="Node3D" parent="MainAreaContents" unique_id=1931190868]
 
 [node name="logo_ja" type="Sprite3D" parent="MainAreaContents/CUBES" unique_id=552622630]
@@ -182,36 +214,6 @@ mesh = SubResource("BoxMesh_iafxj")
 [node name="cube5m2" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=38514955]
 transform = Transform3D(0.8957118, 0, 0.44463518, 0, 1, 0, -0.44463518, 0, 0.8957118, 31.955273, 2.5, -6.0841413)
 mesh = SubResource("BoxMesh_hl0am")
-
-[node name="keyholder" parent="MainAreaContents/CUBES" unique_id=1782739930 instance=ExtResource("13_ndlxv")]
-transform = Transform3D(-1.5326942, 0, -1.284853, 0, 2, 0, 1.284853, 0, -1.5326942, 0.7163821, 0, -10.94492)
-
-[node name="shikishi" parent="MainAreaContents/CUBES" unique_id=1229495200 instance=ExtResource("13_h2f5l")]
-transform = Transform3D(-0.50057536, -1.5274489, -1.1900945, -1.9005431, 0.6228457, 8.307537e-08, 0.37062258, 1.1309129, -1.6073815, 4.4354897, 0.96039677, -10.063087)
-
-[node name="book" parent="MainAreaContents/CUBES" unique_id=1754402073 instance=ExtResource("10_mgvxf")]
-transform = Transform3D(0.17027023, 0.38720682, -1.9547577, -1.8308055, 0.805078, 4.9426603e-08, 0.78686637, 1.7893908, 0.4229908, 1.5342015, 0.755442, -11.319722)
-
-[node name="bag" parent="MainAreaContents/CUBES" unique_id=214785341 instance=ExtResource("11_hl0am")]
-transform = Transform3D(-0.6324575, 0, 1.8973664, 0, 2, 0, -1.8973664, 0, -0.6324575, 2.7425773, 0, -6.122146)
-
-[node name="shikishi_data" parent="MainAreaContents/CUBES" unique_id=1729298937 instance=ExtResource("10_b50f7")]
-transform = Transform3D(1.0807035, -1.6681036, 0.22250763, 1.5074304, 1.0770963, 0.75333744, -0.74815357, -0.23935981, 1.8392859, 3.4927974, 0.63506734, -11.212402)
-
-[node name="storage_box" parent="MainAreaContents/CUBES" unique_id=84293636 instance=ExtResource("10_ofkph")]
-transform = Transform3D(1.8598869, 0, 0.73540515, 0, 2, 0, -0.73540515, 0, 1.8598869, 4.693255, 0, -14.143621)
-
-[node name="printer" parent="MainAreaContents/CUBES" unique_id=1958129218 instance=ExtResource("10_fekrv")]
-transform = Transform3D(-1.4091694, 0, -1.4192399, 0, 2, 0, 1.4192399, 0, -1.4091694, 2.0564947, 0, -13.568723)
-
-[node name="acrylic_stand" parent="MainAreaContents/CUBES" unique_id=1365726200 instance=ExtResource("16_rted0")]
-transform = Transform3D(-1.1194274, 0, -1.657372, 0, 2, 0, 1.657372, 0, -1.1194274, 0.36350465, 0, -11.832641)
-
-[node name="table" parent="MainAreaContents/CUBES" unique_id=183128433 instance=ExtResource("12_t7kqs")]
-transform = Transform3D(1.0477042, 0, -1.7036184, 0, 2, 0, 1.7036184, 0, 1.0477042, 5.4608507, 0, -11.032719)
-
-[node name="laptop" parent="MainAreaContents/CUBES/table" unique_id=919714571 instance=ExtResource("13_m8n5y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014070749, 1.0183694, 0.013730168)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MainAreaContents" unique_id=11185580]
 

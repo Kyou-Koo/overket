@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://ddrr4rneggspf" path="res://Resources/Materials/purple.tres" id="1_hbkc0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x16fl"]
-size = Vector3(1, 1, 10)
+size = Vector3(1, 5, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_x16fl"]
 material = ExtResource("1_hbkc0")

@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://bhlr37us84qy0" path="res://Resources/Materials/red.tres" id="6_ahoey"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_op7av"]
+size = Vector3(1, 5, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_75is7"]
 

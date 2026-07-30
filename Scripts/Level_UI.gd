@@ -5,7 +5,6 @@ class_name LevelUI extends Control
 var debug_money : int = 0;
 var debug_time_f : float = debug_time as float;
 @export var parent_3dlevel : Level;
-@export var request_scn_path : String;
 var request_scn_pack : PackedScene;
 var request_scns : Array[Request];
 var request_scns_max : int = 6;
@@ -124,29 +123,23 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
     if (!debug_mode):
         return;
-    if (event is InputEventKey and event.is_pressed()):
-        if (event.keycode == KEY_Z):
-            var r : int = Statics.rand_from_arr_v(CarryableObjects.customer_requests)
-            var c : Customer = Customer.new();
-            c.ok_id = Statics.create_ok_id(c);
-            add_request(r, c);
-        if (event.keycode == KEY_X):
-            if (request_scns.size() > 0):
-                var remove_req : Request = request_scns[randi_range(0, request_scns.size()-1)];
-                remove_req.completed = true;
+    # if (event is InputEventKey and event.is_pressed()):
+    #     if (event.keycode == KEY_Z):
+    #         var r : int = Statics.rand_from_arr_v(CarryableObjects.customer_requests)
+    #         var c : Customer = Customer.new();
+    #         c.ok_id = Statics.create_ok_id(c);
+    #         add_request(r, c);
+    #     if (event.keycode == KEY_X):
+    #         if (request_scns.size() > 0):
+    #             var remove_req : Request = request_scns[randi_range(0, request_scns.size()-1)];
+    #             remove_req.completed = true;
 
 func _ready() -> void:
-    # DEBUG:
-    if (debug_mode):
-        get_window().content_scale_factor = 0.67;
-        get_window().position = Vector2i(100, 100);
-        get_viewport().get_window().content_scale_size = Vector2i(1280,720);
-        get_viewport().get_window().size = Vector2i(1280, 720);
     # safety:
     #debug_mode = Statics.DEBUG_MODE;
     for i : int in range(request_scns_max):
         request_x_poses.push_front(i * request_gap_x);
-    request_scn_pack = load(request_scn_path);
+    request_scn_pack = preload("res://Resources/Request.tscn");
     timer_text = $TimeRemaining/Label;
     money_text = $Money/Label;
     if (!debug_mode):

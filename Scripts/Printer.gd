@@ -94,12 +94,9 @@ func check_output_can_be_created(obj : CarryableObjectBase) -> bool:
         return true;
         
 func matches_req_array(in_arr : Array[String]) -> bool:
-    print(str(in_arr));
-    print(str(obj_array))
     for obj : String in obj_array:
         if (obj in in_arr):
             in_arr.erase(obj);
-    print(str(in_arr));
             
     return in_arr.size() == 0;
         
@@ -155,7 +152,6 @@ func place_output_object() -> void:
         output_instance = output_object_ress[0].instantiate();
     elif (matches_req_array(shikishi_req_arr.duplicate())):
         output_instance = output_object_ress[1].instantiate();
-    print(output_instance);
     if (output_instance == null): return;
     # consume consumed_objects
     current_objects.clear();

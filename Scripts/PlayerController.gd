@@ -229,7 +229,7 @@ func color_sprite() -> void:
     sprite_animation_body.modulate = sprite_color;
     sprite_animation_leg.modulate = sprite_color;
 
-func instance(face : int, head: int, color : Color) -> void:
+func set_up(face : int, head: int, color : Color) -> void:
     skip_instancing = false;
     disable_faces();
     pick_face_head(face, head);
@@ -362,8 +362,6 @@ func _ready() -> void:
             interaction_area.body_entered.connect(_on_body_enter);
             interaction_area.body_exited.connect(_on_body_exit);
             
-    if (!skip_instancing):
-        scene_obj_holder = self.get_owner().find_child("CarryableObjects");
     curr_state = PSTATE.NEUTRAL;
 
     set_up_sprite_arrays(sprite_head_container, sprite_heads);

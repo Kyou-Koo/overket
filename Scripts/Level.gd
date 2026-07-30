@@ -1,18 +1,21 @@
 class_name Level extends Node3D
 
 @export_category("Level Objects")
+@export var camera : Camera3D;
 @export var spawn_points : Array[MeshInstance3D];
 @export var exit_area : MeshInstance3D;
 @export var exit_bounds : Vector2 = Vector2(5.0, 7.6);
 var goals : Dictionary[String, Vector3];
-@export var player_scene_path : String;
 var player_packed : PackedScene;
 var players : Array[PlayerController];
-@export var customer_scene_path : String;
+@export var player_spawn_parent : Node3D;
+var player_spawn_points : Array[Marker3D];
+@export var player_parent : Node3D;
 var customer_packed : PackedScene;
 var customers : Array[Customer];
 @export var customer_parent : Node3D;
 @export var delivery_points : Array[DeliveryPoint];
+@export var misc_object_parent : Node3D;
 @export_category("UI")
 @export var ui_parent : Control;
 @export var level_ui : LevelUI;
@@ -27,7 +30,7 @@ var customers : Array[Customer];
 @export var customer_max : int = 20;
 @export var countdown_length : float = 5.0;
 var countdown_finished : bool = false;
-var money : int;
+var money : int = 0;
 var options_packed : PackedScene;
 var options_scene : Options;
 var requests : Array[Request]; 
@@ -44,6 +47,21 @@ var next_spawn_gap : float = 0.5;
 # gameover + score screen
 # customer limit?
 signal reassign_saikoubi(customer : Customer, prev_goal : Vector3);
+
+func set_up() -> void:
+    camera.make_current();
+    for p_idx : int in range(4):
+        if (GameManager._instance.active_players[p_idx]):
+            var new_p : PlayerController = player_packed.instantiate();
+            new_p.player_prefix = "p{0}".format([p_idx+1]);
+            new_p.scene_obj_holder = misc_object_parent;
+            player_parent.add_child(new_p);
+            new_p.set_up(
+                GameManager._instance.player_head_face[p_idx][0],
+                GameManager._instance.player_head_face[p_idx][1],
+                GameManager._instance.player_colors[p_idx]);
+            new_p.global_position = player_spawn_points[p_idx].global_position;
+            
 
 # TODO: consider reassigning to customer linked list class
 func _on_customer_leaving(cus : Customer) -> void:
@@ -168,14 +186,17 @@ func _process(delta: float) -> void:
             countdown_finished = true;
     
 func _ready() -> void:
-    #get_window().content_scale_factor = 0.67;
-    #get_window().position = Vector2i(100, 100);
-    #get_viewport().get_window().content_scale_size = Vector2i(1280,720);
-    #get_viewport().get_window().size = Vector2i(1280, 720);
+    assert(player_spawn_parent != null, "assign spawn parent");
+    for psp : Marker3D in player_spawn_parent.get_children():
+        player_spawn_points.append(psp);
+    assert(player_parent != null, "player parent must be assigned");
     assert(customer_parent != null, "customer parent must be assigned");
-    player_packed = load(player_scene_path);
-    customer_packed = load(customer_scene_path);
-    options_packed = load(options_path);
+    player_packed = preload("res://Resources/player.tscn");
+    customer_packed = preload("res://Resources/customer.tscn");
+    # TODO: fix
+    options_packed = preload("res://Resources/Options.tscn");
     for dp : DeliveryPoint in delivery_points:
         goals[dp.ok_id] = dp.goal.global_position;
         dp.request_matched.connect(_on_dp_request_matched);
+    assert(misc_object_parent != null, "must assign parent for carryable objects");
+    set_up();

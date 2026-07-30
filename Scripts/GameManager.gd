@@ -12,7 +12,6 @@ enum MENU {
 }
 
 @export_group("Main Menu", "main_")
-@export var main_menu_scene_path : String;
 @export var main_menu_node_parent : SubViewport;
 @export var main_camera : Camera3D;
 @export var main_cam_origin_pos : Vector3;
@@ -20,14 +19,14 @@ enum MENU {
 var main_menu_scene : PackedScene;
 var main_menu : Control;
 @export_group("Level", "level")
-@export var level_scene_path : String;
 @export var level_node_parent : SubViewport;
 @export var level_cam_pos : Vector3;
 @export var level_cam_rot : Vector3;
 var level_scene : PackedScene;
 var level : LevelSelect;
+var level_level_res : Array[PackedScene];
+var level_level_active : Level;
 @export_group("Options", "options")
-@export var options_scene_path : String;
 @export var options_node_parent : SubViewport;
 @export var options_cam_pos : Vector3;
 @export var options_cam_rot : Vector3;
@@ -38,13 +37,8 @@ var options : Options;
 
 # TODO: how are we assigning this
 var num_players : int;
-var active_players : Dictionary = {
-    "p1": -5,
-    "p2": -5,
-    "p3": -5,
-    "p4": -5,
-}
-var player_colors : Array[Color];
+var active_players : Array[bool] = [false, false, false, false]
+var player_colors : Array[Color] = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK];
 var player_head_face_base : Array[Array] = [[-1, -1],[-1, -1],[-1, -1],[-1, -1]]
 var player_head_face : Array[Array] = [[-1, -1],[-1, -1],[-1, -1],[-1, -1]]
 
@@ -57,7 +51,7 @@ var sprite_init_rot : Vector3;
 
 signal transition_to(who : Node);
 
-func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transition_time) -> void:
+func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transition_time, ignore_audio : bool = false) -> void:
     active_menu = new_menu;
     var tween : Tween = get_tree().create_tween();
     tween.set_trans(Tween.TRANS_CUBIC);
@@ -72,7 +66,26 @@ func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transiti
         MENU.OPTIONS:
             next_menu = options;
     transition_to.emit(next_menu);
-    AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
+    if (ignore_audio): AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
+    
+func start_level(lv_idx : int) -> void:
+    if (is_instance_valid(level_level_active)):
+        Statics.raise_warning("attempting to load a level while in a level dont do this");
+        return;
+    main_camera.current = false;
+    # idk just hide everything lmao
+    $"MainAreaContents".visible = false;
+    level_level_active = level_level_res[lv_idx].instantiate();
+    self.add_child(level_level_active);
+    #level_level_active.set_up();
+    level_level_active.position = Vector3.ZERO;
+    
+func end_level() -> void:
+    main_camera.make_current();
+    level_level_active.camera.current = false;
+    $"MainAreaContents".visible = true;
+    public_rotate_camera(level_cam_pos, MENU.LEVEL, 0.01, true);
+    level_level_active.queue_free();
 
 func set_lang_from_save() -> void:
     TranslationServer.set_locale(SaveDataMgr.get_lang());
@@ -82,20 +95,17 @@ func _notification(what: int) -> void:
         SaveDataMgr.write_savedata(SaveDataMgr._instance.savedata, SaveDataMgr.savedata_filepath, SaveDataMgr.SAVEDATA.Save)
 
 func instantiate_menus() -> void:
-    if (level_scene_path != ""):
-        level_scene = load(level_scene_path);
-        level = level_scene.instantiate();
-        level_node_parent.add_child(level);
-    if (options_scene_path != ""):
-        options_scene = load(options_scene_path);
-        options = options_scene.instantiate();
-        options_node_parent.add_child(options);
-    if (main_menu_scene_path != ""):
-        main_menu_scene = load(main_menu_scene_path);
-        main_menu = main_menu_scene.instantiate();
-        main_menu.level_select = level;
-        main_menu.options_menu = options;
-        main_menu_node_parent.add_child(main_menu);
+    level_scene = preload("res://Resources/LevelSelect.tscn");
+    level = level_scene.instantiate();
+    level_node_parent.add_child(level);
+    options_scene = preload("res://Resources/Options.tscn");
+    options = options_scene.instantiate();
+    options_node_parent.add_child(options);
+    main_menu_scene = preload("res://Resources/MainMenu.tscn");
+    main_menu = main_menu_scene.instantiate();
+    main_menu.level_select = level;
+    main_menu.options_menu = options;
+    main_menu_node_parent.add_child(main_menu);
 
 func sprite_actions() -> void:
     var rand_int : int = randi_range(0, 5);
@@ -173,7 +183,6 @@ func _ready() -> void:
     SaveDataMgr.load_keymap();
     SaveDataMgr.load_savedata();
     set_lang_from_save();
-    
     get_viewport().get_window().move_to_center();
     var window_size_enum : SaveDataMgr.Resolution = SaveDataMgr.get_resolution_enum();
     if (window_size_enum == SaveDataMgr.Resolution.SMALL):
@@ -189,7 +198,6 @@ func _ready() -> void:
     assert(main_camera != null, "Camera must exist in scene");
     main_camera.position = main_cam_origin_pos;
     main_camera.rotation = main_cam_origin_rot;
-    
     instantiate_menus();
 
     active_menu = MENU.MAIN;
@@ -197,7 +205,10 @@ func _ready() -> void:
         sprite_init_pos = sprite.position;
         sprite_init_rot = sprite.rotation_degrees;
 
+    level_level_res.append(preload("res://Resources/Level1.tscn"));
+    # TODO: add lv2 and lv3
+    level_level_res.append(preload("res://Resources/Level4.tscn"));
     #TESTINGTESTINGETESTING
     for d_idx in Input.get_connected_joypads():
-        print("ahhhh stop idiot")
+        # print("ahhhh stop idiot")
         Input.stop_joy_vibration(d_idx);

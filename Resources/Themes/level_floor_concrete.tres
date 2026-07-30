@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dl3px1ofns1u5"]
+
+[ext_resource type="Texture2D" uid="uid://csoangee4wryh" path="res://Resources/Images/concrete2_seamless_diffuse_1k.png" id="1_vsc3a"]
+
+[resource]
+albedo_color = Color(0.8428164, 0.79382575, 0.77264667, 1)
+albedo_texture = ExtResource("1_vsc3a")
+roughness_texture = ExtResource("1_vsc3a")
+uv1_scale = Vector3(1000, 1000, 1000)

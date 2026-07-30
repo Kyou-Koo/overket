@@ -12,15 +12,16 @@ func set_up_sprite_arrays(container : Control, array : Array) -> void:
         array.append(s3d);
         s3d.visible = false;
 
-func instance(face : int, head: int, color : Color) -> void:
-    sprite_heads[head].visible = true;
-    sprite_to_faces[face].visible = true;
+func instance(head: int, face : int, color : Color) -> void:
     sprite_color = color;
     for f : TextureRect in sprite_to_faces:
         f.visible = false;
     for f : TextureRect in sprite_heads:
-        f.modulate = sprite_color;
-    sprite_body.modulate = sprite_color;
+        f.modulate = color;
+        f.visible = false;
+    sprite_heads[head].visible = true;
+    sprite_to_faces[face].visible = true;
+    sprite_body.modulate = color;
 
 func _ready() -> void:
     set_up_sprite_arrays(sprite_head_container, sprite_heads);

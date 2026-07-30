@@ -13,7 +13,7 @@ signal keybind_menu_closed(keybind_menu : KeybindMenu);
 
 func input_event_from_dict_wrapper(pkey : String, key : String, act_string : String) -> InputEvent:
     if (not KeyCon.active_keymap.has(pkey)):
-        print("running keymap generation")
+        Statics.debug_log("running keymap generation")
         KeyCon.create_keymap();
     return InputStatics.create_input_event_from_dict(KeyCon.active_keymap[pkey][key][act_string]);
 

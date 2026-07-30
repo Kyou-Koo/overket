@@ -42,7 +42,7 @@ shadow_size = 8
 shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
 shadow_offset = Vector2(5, 5)
 
-[node name="LevelSelect" type="Control" unique_id=1374789003 node_paths=PackedStringArray("level1", "level2", "level3", "level4", "back_btn", "lvl_select", "explanation", "player1", "player2", "player3", "player4")]
+[node name="LevelSelect" type="Control" unique_id=1374789003 node_paths=PackedStringArray("level1", "level2", "level3", "level4", "back_btn", "lvl_select", "explanation", "player_portraits")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,10 +57,7 @@ level4 = NodePath("NinePatchRect/VBoxContainer/HBoxContainer2/Level4")
 back_btn = NodePath("NinePatchRect/BackToMenu")
 lvl_select = NodePath("NinePatchRect/Title")
 explanation = NodePath("NinePatchRect/Participants")
-player1 = NodePath("NinePatchRect/Participants/LevelPlayerIcon")
-player2 = NodePath("NinePatchRect/Participants/LevelPlayerIcon2")
-player3 = NodePath("NinePatchRect/Participants/LevelPlayerIcon3")
-player4 = NodePath("NinePatchRect/Participants/LevelPlayerIcon4")
+player_portraits = [NodePath("NinePatchRect/Participants/LevelPlayerIcon"), NodePath("NinePatchRect/Participants/LevelPlayerIcon2"), NodePath("NinePatchRect/Participants/LevelPlayerIcon3"), NodePath("NinePatchRect/Participants/LevelPlayerIcon4")]
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=226317169]
 custom_minimum_size = Vector2(1280, 690)

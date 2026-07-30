@@ -69,13 +69,13 @@ size = Vector3(5, 5, 5)
 size = Vector2(2000, 2000)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1xgcs"]
-viewport_path = NodePath("MM/Main Menu/MMSubViewport")
+viewport_path = NodePath("MainAreaContents/MM/Main Menu/MMSubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_66bfg"]
-viewport_path = NodePath("LevelSelect/LSSubViewport")
+viewport_path = NodePath("MainAreaContents/LevelSelect/LSSubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_mstn6"]
-viewport_path = NodePath("Options/OSubViewport")
+viewport_path = NodePath("MainAreaContents/Options/OSubViewport")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_paki0"]
 frequency = 0.0177
@@ -105,177 +105,176 @@ ambient_light_sky_contribution = 0.76
 
 [node name="Main" type="Node3D" unique_id=951669777 node_paths=PackedStringArray("main_menu_node_parent", "main_camera", "level_node_parent", "options_node_parent", "sprite")]
 script = ExtResource("1_1xgcs")
-main_menu_scene_path = "res://Resources/MainMenu.tscn"
-main_menu_node_parent = NodePath("MM/Main Menu/MMSubViewport")
-main_camera = NodePath("Camera3D")
+main_menu_node_parent = NodePath("MainAreaContents/MM/Main Menu/MMSubViewport")
+main_camera = NodePath("MainAreaContents/Camera3D")
 main_cam_origin_pos = Vector3(0, 2.5, 0)
-level_scene_path = "res://Resources/LevelSelect.tscn"
-level_node_parent = NodePath("LevelSelect/LSSubViewport")
+level_node_parent = NodePath("MainAreaContents/LevelSelect/LSSubViewport")
 level_cam_pos = Vector3(0, 2.5, 0)
 level_cam_rot = Vector3(8.3, 105, 0)
-options_scene_path = "res://Resources/Options.tscn"
-options_node_parent = NodePath("Options/OSubViewport")
+options_node_parent = NodePath("MainAreaContents/Options/OSubViewport")
 options_cam_pos = Vector3(0, 2.5, 0)
 options_cam_rot = Vector3(0, -130, 0)
-sprite = NodePath("MM/Renna")
+sprite = NodePath("MainAreaContents/MM/Renna")
 
 [node name="AudioManager" type="Node3D" parent="." unique_id=1797945235]
 script = ExtResource("2_iafxj")
 
-[node name="CUBES" type="Node3D" parent="." unique_id=1931190868]
+[node name="MainAreaContents" type="Node3D" parent="." unique_id=702712883]
 
-[node name="logo_ja" type="Sprite3D" parent="CUBES" unique_id=552622630]
+[node name="CUBES" type="Node3D" parent="MainAreaContents" unique_id=1931190868]
+
+[node name="logo_ja" type="Sprite3D" parent="MainAreaContents/CUBES" unique_id=552622630]
 transform = Transform3D(0.5, 0, 0, 0, 0.0043632807, 0.49998096, 0, -0.49998096, 0.0043632807, -0.228, 0.038, -5.4)
 texture = ExtResource("3_d67mf")
 
-[node name="logo_en" type="Sprite3D" parent="CUBES" unique_id=1193439507]
+[node name="logo_en" type="Sprite3D" parent="MainAreaContents/CUBES" unique_id=1193439507]
 transform = Transform3D(0.8910065, 0, -0.45399052, 0, 1, 0, 0.45399052, 0, 0.8910065, -2.6136053, 5.0371513, -30.438538)
 texture = ExtResource("4_xui4b")
 
-[node name="cube10m" type="MeshInstance3D" parent="CUBES" unique_id=30907633]
+[node name="cube10m" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=30907633]
 transform = Transform3D(0.8909669, 0, -0.45406827, 0, 1, 0, 0.45406827, 0, 0.8909669, -0.317, 5, -34.95)
 mesh = ExtResource("3_m7k6n")
 
-[node name="cube10m3" type="MeshInstance3D" parent="CUBES" unique_id=514508000]
+[node name="cube10m3" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=514508000]
 transform = Transform3D(0.9629322, 0, -0.26974344, 0, 1, 0, 0.26974344, 0, 0.9629322, 34.10816, 4.999998, -15.467482)
 mesh = SubResource("BoxMesh_ofkph")
 
-[node name="cube10m5" type="MeshInstance3D" parent="CUBES" unique_id=993061223]
+[node name="cube10m5" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=993061223]
 transform = Transform3D(0.9629322, 0, -0.26974344, 0, 1, 0, 0.26974344, 0, 0.9629322, 32.328033, 4.999998, 20.076454)
 mesh = SubResource("BoxMesh_m8n5y")
 
-[node name="cube10m4" type="MeshInstance3D" parent="CUBES" unique_id=578233401]
+[node name="cube10m4" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=578233401]
 transform = Transform3D(0.902292, 0, -0.4311254, 0, 1, 0, 0.4311254, 0, 0.902292, -40.61313, 4.999996, 1.9639151)
 mesh = SubResource("BoxMesh_fekrv")
 
-[node name="cube10m2" type="MeshInstance3D" parent="CUBES" unique_id=1617338401]
+[node name="cube10m2" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=1617338401]
 transform = Transform3D(0.48280868, 0, -0.87572587, 0, 1, 0, 0.87572587, 0, 0.48280868, -30.742468, 5, -32.441845)
 mesh = SubResource("BoxMesh_b50f7")
 
-[node name="cube15m" type="MeshInstance3D" parent="CUBES" unique_id=1026481538]
+[node name="cube15m" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=1026481538]
 transform = Transform3D(0.990927, 0, 0.13440123, 0, 1, 0, -0.13440123, 0, 0.990927, 20.39416, 7.499998, -26.189972)
 mesh = ExtResource("4_054na")
 
-[node name="cube15m3" type="MeshInstance3D" parent="CUBES" unique_id=350142885]
+[node name="cube15m3" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=350142885]
 transform = Transform3D(0.757884, 0, 0.6523894, 0, 1, 0, -0.6523894, 0, 0.757884, 37.410355, 7.499998, 5.483547)
 mesh = SubResource("BoxMesh_mgvxf")
 
-[node name="cube15m4" type="MeshInstance3D" parent="CUBES" unique_id=1096989047]
+[node name="cube15m4" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=1096989047]
 transform = Transform3D(0.95469344, 0, 0.2975914, 0, 1, 0, -0.2975914, 0, 0.95469344, -39.292618, 7.5, -17.614796)
 mesh = SubResource("BoxMesh_t7kqs")
 
-[node name="cube15m2" type="MeshInstance3D" parent="CUBES" unique_id=1556139769]
+[node name="cube15m2" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=1556139769]
 transform = Transform3D(0.9663313, 0, -0.25730154, 0, 1, 0, 0.25730154, 0, 0.9663313, -15.134213, 7.499998, -34.0365)
 mesh = SubResource("BoxMesh_lgx5e")
 
-[node name="cube5m" type="MeshInstance3D" parent="CUBES" unique_id=1449086581]
+[node name="cube5m" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=1449086581]
 transform = Transform3D(0.8957118, 0, 0.44463518, 0, 1, 0, -0.44463518, 0, 0.8957118, 7.8158183, 2.5, -29.551453)
 mesh = ExtResource("4_xcc3k")
 
-[node name="cube5m3" type="MeshInstance3D" parent="CUBES" unique_id=736448659]
+[node name="cube5m3" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=736448659]
 transform = Transform3D(0.81337506, 0, 0.5817398, 0, 1, 0, -0.5817398, 0, 0.81337506, -35.788185, 2.5, -5.59254)
 mesh = SubResource("BoxMesh_scaty")
 
-[node name="cube5m4" type="MeshInstance3D" parent="CUBES" unique_id=807683150]
+[node name="cube5m4" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=807683150]
 transform = Transform3D(0.85399616, 0, -0.52027947, 0, 1, 0, 0.52027947, 0, 0.85399616, -35.18057, 2.5, 11.008347)
 mesh = SubResource("BoxMesh_iafxj")
 
-[node name="cube5m2" type="MeshInstance3D" parent="CUBES" unique_id=38514955]
+[node name="cube5m2" type="MeshInstance3D" parent="MainAreaContents/CUBES" unique_id=38514955]
 transform = Transform3D(0.8957118, 0, 0.44463518, 0, 1, 0, -0.44463518, 0, 0.8957118, 31.955273, 2.5, -6.0841413)
 mesh = SubResource("BoxMesh_hl0am")
 
-[node name="keyholder" parent="CUBES" unique_id=1782739930 instance=ExtResource("13_ndlxv")]
+[node name="keyholder" parent="MainAreaContents/CUBES" unique_id=1782739930 instance=ExtResource("13_ndlxv")]
 transform = Transform3D(-1.5326942, 0, -1.284853, 0, 2, 0, 1.284853, 0, -1.5326942, 0.7163821, 0, -10.94492)
 
-[node name="shikishi" parent="CUBES" unique_id=1229495200 instance=ExtResource("13_h2f5l")]
+[node name="shikishi" parent="MainAreaContents/CUBES" unique_id=1229495200 instance=ExtResource("13_h2f5l")]
 transform = Transform3D(-0.50057536, -1.5274489, -1.1900945, -1.9005431, 0.6228457, 8.307537e-08, 0.37062258, 1.1309129, -1.6073815, 4.4354897, 0.96039677, -10.063087)
 
-[node name="book" parent="CUBES" unique_id=1754402073 instance=ExtResource("10_mgvxf")]
+[node name="book" parent="MainAreaContents/CUBES" unique_id=1754402073 instance=ExtResource("10_mgvxf")]
 transform = Transform3D(0.17027023, 0.38720682, -1.9547577, -1.8308055, 0.805078, 4.9426603e-08, 0.78686637, 1.7893908, 0.4229908, 1.5342015, 0.755442, -11.319722)
 
-[node name="bag" parent="CUBES" unique_id=214785341 instance=ExtResource("11_hl0am")]
+[node name="bag" parent="MainAreaContents/CUBES" unique_id=214785341 instance=ExtResource("11_hl0am")]
 transform = Transform3D(-0.6324575, 0, 1.8973664, 0, 2, 0, -1.8973664, 0, -0.6324575, 2.7425773, 0, -6.122146)
 
-[node name="shikishi_data" parent="CUBES" unique_id=1729298937 instance=ExtResource("10_b50f7")]
+[node name="shikishi_data" parent="MainAreaContents/CUBES" unique_id=1729298937 instance=ExtResource("10_b50f7")]
 transform = Transform3D(1.0807035, -1.6681036, 0.22250763, 1.5074304, 1.0770963, 0.75333744, -0.74815357, -0.23935981, 1.8392859, 3.4927974, 0.63506734, -11.212402)
 
-[node name="storage_box" parent="CUBES" unique_id=84293636 instance=ExtResource("10_ofkph")]
+[node name="storage_box" parent="MainAreaContents/CUBES" unique_id=84293636 instance=ExtResource("10_ofkph")]
 transform = Transform3D(1.8598869, 0, 0.73540515, 0, 2, 0, -0.73540515, 0, 1.8598869, 4.693255, 0, -14.143621)
 
-[node name="printer" parent="CUBES" unique_id=1958129218 instance=ExtResource("10_fekrv")]
+[node name="printer" parent="MainAreaContents/CUBES" unique_id=1958129218 instance=ExtResource("10_fekrv")]
 transform = Transform3D(-1.4091694, 0, -1.4192399, 0, 2, 0, 1.4192399, 0, -1.4091694, 2.0564947, 0, -13.568723)
 
-[node name="acrylic_stand" parent="CUBES" unique_id=1365726200 instance=ExtResource("16_rted0")]
+[node name="acrylic_stand" parent="MainAreaContents/CUBES" unique_id=1365726200 instance=ExtResource("16_rted0")]
 transform = Transform3D(-1.1194274, 0, -1.657372, 0, 2, 0, 1.657372, 0, -1.1194274, 0.36350465, 0, -11.832641)
 
-[node name="table" parent="CUBES" unique_id=183128433 instance=ExtResource("12_t7kqs")]
+[node name="table" parent="MainAreaContents/CUBES" unique_id=183128433 instance=ExtResource("12_t7kqs")]
 transform = Transform3D(1.0477042, 0, -1.7036184, 0, 2, 0, 1.7036184, 0, 1.0477042, 5.4608507, 0, -11.032719)
 
-[node name="laptop" parent="CUBES/table" unique_id=919714571 instance=ExtResource("13_m8n5y")]
+[node name="laptop" parent="MainAreaContents/CUBES/table" unique_id=919714571 instance=ExtResource("13_m8n5y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014070749, 1.0183694, 0.013730168)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=11185580]
+[node name="StaticBody3D" type="StaticBody3D" parent="MainAreaContents" unique_id=11185580]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=274992953]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MainAreaContents/StaticBody3D" unique_id=274992953]
 shape = ExtResource("1_paki0")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1321988010]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainAreaContents/StaticBody3D" unique_id=1321988010]
 mesh = SubResource("PlaneMesh_pqqbi")
 
-[node name="CameraMarks" type="Node3D" parent="." unique_id=2135472040]
+[node name="CameraMarks" type="Node3D" parent="MainAreaContents" unique_id=2135472040]
 
-[node name="MainMenuCam" type="Marker3D" parent="CameraMarks" unique_id=693164952]
+[node name="MainMenuCam" type="Marker3D" parent="MainAreaContents/CameraMarks" unique_id=693164952]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 
-[node name="OptionsCam" type="Marker3D" parent="CameraMarks" unique_id=801141680]
+[node name="OptionsCam" type="Marker3D" parent="MainAreaContents/CameraMarks" unique_id=801141680]
 transform = Transform3D(-0.64278764, 0, -0.76604444, 0, 1, 0, 0.76604444, 0, -0.64278764, 0, 2.5, 0)
 
-[node name="LevelSelCam" type="Marker3D" parent="CameraMarks" unique_id=1507188224]
+[node name="LevelSelCam" type="Marker3D" parent="MainAreaContents/CameraMarks" unique_id=1507188224]
 transform = Transform3D(-0.060403883, 0.14381678, 0.98775905, -1.4034237e-09, 0.989566, -0.1440799, -0.9981741, -0.008702984, -0.059773628, 0, 2.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1418291471]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 2.5, 0)
+[node name="Camera3D" type="Camera3D" parent="MainAreaContents" unique_id=1418291471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 current = true
 
-[node name="MM" type="Node3D" parent="." unique_id=1173588068]
+[node name="MM" type="Node3D" parent="MainAreaContents" unique_id=1173588068]
 
-[node name="Renna" type="Sprite3D" parent="MM" unique_id=1705068177]
+[node name="Renna" type="Sprite3D" parent="MainAreaContents/MM" unique_id=1705068177]
 transform = Transform3D(0.18722296, 0, -0.07033893, 0, 0.2, 0, 0.07033893, 0, 0.18722296, 3.419, 2.55, -4.63)
 alpha_cut = 2
 texture = ExtResource("18_hl0am")
 
-[node name="Main Menu" type="Sprite3D" parent="MM" unique_id=1647256920]
+[node name="Main Menu" type="Sprite3D" parent="MainAreaContents/MM" unique_id=1647256920]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5553985, 3.3532157, -6)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_1xgcs")
 
-[node name="MMSubViewport" type="SubViewport" parent="MM/Main Menu" unique_id=482492860]
+[node name="MMSubViewport" type="SubViewport" parent="MainAreaContents/MM/Main Menu" unique_id=482492860]
 transparent_bg = true
 size = Vector2i(400, 560)
 
-[node name="LevelSelect" type="Sprite3D" parent="." unique_id=1170803876]
+[node name="LevelSelect" type="Sprite3D" parent="MainAreaContents" unique_id=1170803876]
 transform = Transform3D(-0.2331568, 0, 0.9724392, 0, 1, 0, -0.9724392, 0, -0.2331568, -5.6345463, 3.5313697, 3.222731)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_66bfg")
 
-[node name="LSSubViewport" type="SubViewport" parent="LevelSelect" unique_id=609414639]
+[node name="LSSubViewport" type="SubViewport" parent="MainAreaContents/LevelSelect" unique_id=609414639]
 transparent_bg = true
 size = Vector2i(1280, 720)
 
-[node name="Options" type="Sprite3D" parent="." unique_id=438719251]
+[node name="Options" type="Sprite3D" parent="MainAreaContents" unique_id=438719251]
 transform = Transform3D(-0.64278764, 0, -0.76604444, 0, 1, 0, 0.76604444, 0, -0.64278764, 4.542, 3.25, 3.812)
 alpha_cut = 2
 texture = SubResource("ViewportTexture_mstn6")
 
-[node name="OSubViewport" type="SubViewport" parent="Options" unique_id=442280413]
+[node name="OSubViewport" type="SubViewport" parent="MainAreaContents/Options" unique_id=442280413]
 transparent_bg = true
 size = Vector2i(1000, 650)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=706010984]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="MainAreaContents" unique_id=706010984]
 environment = SubResource("Environment_mstn6")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1619789540]
-transform = Transform3D(0.89847255, 0.16469806, -0.40696672, -1.6164087e-08, 0.9269682, 0.37514067, 0.43902984, -0.33705366, 0.8328553, 2.0461335, 4.229743, -2.039589)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="MainAreaContents" unique_id=1619789540]
+transform = Transform3D(0.89847255, 0.16469795, -0.40696657, -1.6164087e-08, 0.92696786, 0.3751407, 0.43902984, -0.33705357, 0.83285517, 2.0461335, 4.229743, -2.039589)
 light_energy = 0.097
 light_indirect_energy = 0.226
 light_volumetric_fog_energy = 0.226

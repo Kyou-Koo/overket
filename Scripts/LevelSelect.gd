@@ -14,10 +14,7 @@ var level4_labels : Array[Label];
 @export var lvl_select : Label;
 @export var explanation : Label;
 @export_category("Customers")
-@export var player1 : Control;
-@export var player2 : Control;
-@export var player3 : Control;
-@export var player4 : Control;
+@export var player_portraits : Array[PlayerIcon];
 
 var hiscores : Array[int];
 var is_active : bool = false;
@@ -26,12 +23,20 @@ var head_array_base : Array[int] = [0, 1, 2, 3];
 var head_array_remain : Array[int] = [0, 1, 2, 3];
 var face_array_base : Array[int] = [0, 1, 2, 3];
 var face_array_remain : Array[int] = [0, 1, 2, 3];
+var color_array_base : Array[Color] = [Color("b27ce6"), Color("8abceb"), Color("ddaa8e"), 
+Color("9acc8d"), Color("c86d80"), Color("7e8ab7")];
+var color_array_remain : Array[Color] = [Color("b27ce6"), Color("8abceb"), Color("ddaa8e"), 
+Color("9acc8d"), Color("c86d80"), Color("7e8ab7")];
 
 func init_level_select() -> void:
     if (!SaveDataMgr._instance):
         SaveDataMgr.create_sdm();
     hiscores = SaveDataMgr.get_highscores();
 
+    head_array_remain = head_array_base.duplicate();
+    face_array_remain = face_array_base.duplicate();
+    color_array_remain = color_array_base.duplicate();
+    
     display_hiscore(level1_labels[1], 0);
     display_hiscore(level2_labels[1], 1);
     display_hiscore(level3_labels[1], 2);
@@ -77,8 +82,6 @@ func _on_back_pressed() -> void:
 
 func _on_menu_transition(who : Node) -> void:
     if (who == self):
-        head_array_remain = head_array_base.duplicate();
-        face_array_remain = face_array_base.duplicate();
         self.visible = true;
         init_level_select();
         is_active = true;
@@ -87,72 +90,69 @@ func _on_menu_transition(who : Node) -> void:
         self.visible = true;
         is_active = false;
         
-func assign_player_color(p_idx : int) -> Color:
-    var color : Color;
-    return color
-    
-func assign_head_face(p_idx : int) -> void:
+func assign_head_face_color(p_idx : int) -> Color:
+    var color : Color = color_array_remain.pop_at(randi_range(0, color_array_remain.size()-1));
     var r_head : int = Statics.rand_from_arr_v(head_array_remain);
     head_array_remain.erase(r_head);
     var r_face : int = Statics.rand_from_arr_v(face_array_remain);
     face_array_remain.erase(r_face);
     GameManager._instance.player_head_face[p_idx] = [r_head, r_face];
+    player_portraits[p_idx].instance(r_head, r_face, color);
+    return color
     
-func unassign_head_face(p_idx : int) -> void:
-    pass
+func unassign_head_face_color(p_idx : int) -> void:
+    if (GameManager._instance.player_head_face[p_idx][0] != -1 and 
+    GameManager._instance.player_head_face[p_idx][1] != -1):
+        head_array_remain.append(GameManager._instance.player_head_face[p_idx][0]);
+        face_array_remain.append(GameManager._instance.player_head_face[p_idx][1]);
+    GameManager._instance.player_head_face[p_idx] = [-1, -1];
+    #Statics.debug_log("reverting p {0} and inserting color {1}".format([p_idx, GameManager._instance.player_colors[p_idx]]));
+    if (GameManager._instance.player_colors[p_idx] != Color.BLACK):
+        color_array_remain.append(GameManager._instance.player_colors[p_idx]);
+    GameManager._instance.player_colors[p_idx] = Color.BLACK;
         
 func player_assignment(ev : InputEvent) -> void:
     if (ev is InputEventKey):
         if (ev.get_physical_keycode_with_modifiers() == KEY_ESCAPE):
-            player1.visible = !player1.visible;
-            if (player1.visible):
-                GameManager._instance.active_players["p1"] = ev.device;
-            else:
-                GameManager._instance.active_players["p1"] = -5;
+            player_portraits[0].visible = !player_portraits[0].visible;
+            GameManager._instance.active_players[0] = player_portraits[0].visible;
+            if (player_portraits[0].visible):
+                GameManager._instance.player_colors[0] = assign_head_face_color(0);
+            else: 
+                unassign_head_face_color(0);
         elif (ev.get_physical_keycode_with_modifiers() == KEY_DELETE):
-            player2.visible = !player2.visible;
-            if (player2.visible):
-                GameManager._instance.active_players["p2"] = ev.device;
-            else:
-                GameManager._instance.active_players["p2"] = -5;
-    if (ev is InputEventJoypadButton):
+            player_portraits[1].visible = !player_portraits[1].visible;
+            GameManager._instance.active_players[1] = player_portraits[1].visible;
+            if (player_portraits[1].visible):
+                GameManager._instance.player_colors[1] = assign_head_face_color(1);
+            else: 
+                unassign_head_face_color(1);
+    if (ev is InputEventJoypadButton and ev.device < 4):
         Statics.debug_log("connected pads {0}".format([str(Input.get_connected_joypads())]))
-        if (ev.device == 0):
-            player1.visible = !player1.visible;
-            if (player1.visible):
-                GameManager._instance.active_players["p1"] = ev.device;
-            else:
-                GameManager._instance.active_players["p1"] = -5;
-        elif (ev.device == 1):
-            player2.visible = !player2.visible;
-            if (player2.visible):
-                GameManager._instance.active_players["p2"] = ev.device;
-            else:
-                GameManager._instance.active_players["p2"] = -5;
-        elif (ev.device == 2):
-            player3.visible = !player3.visible;
-            if (player1.visible):
-                GameManager._instance.active_players["p3"] = ev.device;
-            else:
-                GameManager._instance.active_players["p3"] = -5;
-        elif (ev.device == 3):
-            player4.visible = !player4.visible;
-            if (player1.visible):
-                GameManager._instance.active_players["p4"] = ev.device;
-            else:
-                GameManager._instance.active_players["p4"] = -5;
+        player_portraits[ev.device].visible = !player_portraits[ev.device].visible;
+        GameManager._instance.active_players[ev.device] = !GameManager._instance.active_players[ev.device];
+        if (GameManager._instance.active_players[ev.device]):
+            GameManager._instance.player_colors[ev.device] = assign_head_face_color(ev.device);
+        else:
+            unassign_head_face_color(ev.device);
 
 func _input(event: InputEvent) -> void:
     if (!is_active): return;
     if (event.is_pressed()):
         if (event.is_action(&"start")):
             get_viewport().set_input_as_handled();
-            print(event.as_text());
+            #print(event.as_text());
             player_assignment(event);
 
 func assign_labels(parent : Node, array : Array) -> void:
     for c in parent.get_children():
         array.append(c);
+        
+func _on_lvl_pressed(lv_idx : int) -> void:
+    if (GameManager._instance.active_players.count(true) == 0):
+        return;
+    GameManager._instance.start_level(lv_idx);
+    self.is_active = false;
 
 func _ready() -> void:
     assert(level1 != null, "level 1 button not assigned");
@@ -163,15 +163,14 @@ func _ready() -> void:
     assign_labels(level3, level3_labels);
     assert(level4 != null, "level 4 button not assigned");
     assign_labels(level4, level4_labels);
-    assert(player1 != null, "p1 not assigned");
-    player1.visible = false;
-    assert(player2 != null, "p2 not assigned");
-    player2.visible = false;
-    assert(player3 != null, "p3 not assigned");
-    player3.visible = false;
-    assert(player4 != null, "p4 not assigned");
-    player4.visible = false;
+    assert(player_portraits and player_portraits.size() ==4, "player portraits not assigned");
+    for pp : PlayerIcon in player_portraits:
+        pp.visible = false;
     
     GameManager._instance.transition_to.connect(_on_menu_transition);
     back_btn.pressed.connect(_on_back_pressed);
+    level1.pressed.connect(_on_lvl_pressed.bind(0));
+    level2.pressed.connect(_on_lvl_pressed.bind(1));
+    level3.pressed.connect(_on_lvl_pressed.bind(2));
+    level4.pressed.connect(_on_lvl_pressed.bind(3));
     init_level_select();

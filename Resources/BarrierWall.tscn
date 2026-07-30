@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bfbxq2lcnh88w"]
+
+[ext_resource type="Material" uid="uid://ddrr4rneggspf" path="res://Resources/Materials/purple.tres" id="1_hbkc0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x16fl"]
+size = Vector3(1, 1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x16fl"]
+material = ExtResource("1_hbkc0")
+size = Vector3(1, 1, 10)
+
+[node name="BarrierWall" type="Node3D" unique_id=531410043]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=211692198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=248638417]
+shape = SubResource("BoxShape3D_x16fl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=247417452]
+mesh = SubResource("BoxMesh_x16fl")

@@ -84,6 +84,20 @@ fov = 90.0
 
 [node name="CharacterBody3D" parent="." unique_id=1345435719 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("4_bkxbk")]
 skip_instancing = true
+player_prefix = "p2"
+speed = 3.0
+jump = 20.0
+ok_id = ""
+rand_head = 0
+rand_face = 0
+throw_scale = 8.0
+throw_vertical = 0.2
+sprite_color = Color(0, 0, 0, 1)
+scene_obj_holder = NodePath("../CarryableObjects")
+
+[node name="CharacterBody3D2" parent="." unique_id=1861599428 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("4_bkxbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7436237, 0, 2.2053118)
+skip_instancing = true
 player_prefix = "p1"
 speed = 3.0
 jump = 20.0

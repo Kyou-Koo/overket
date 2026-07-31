@@ -148,7 +148,6 @@ func handle_movement() -> DirRot:
         #Statics.debug_prolog("angle: {0} to new fwd: {1}".format([rad_to_deg(new_dirrot.rotation.y), new_fwd]));
     
     new_dirrot.normalize();
-    #Statics.debug_prolog("----- dirrot: {0}".format([new_dirrot.to_string()]))
     return new_dirrot;
     
 func test_pushing(delta : float) -> void:
@@ -334,6 +333,9 @@ func _physics_process(delta : float) -> void:
     
             
 func _input(event: InputEvent) -> void:
+    if (event.is_pressed() and event is InputEventKey):
+        print(event);
+        print((event as InputEventKey).is_action(player_prefix + "fwd"));
     return
     if (event.is_pressed()):
         #Statics.debug_log(event.as_text());
@@ -368,6 +370,10 @@ func _ready() -> void:
     set_up_sprite_arrays(sprite_to_faces_container, sprite_to_faces);
     set_up_sprite_arrays(sprite_left_faces_container, sprite_left_faces);
     set_up_sprite_arrays(sprite_right_faces_container, sprite_right_faces);
+    Statics.debug_log("iam {0}".format([
+        player_prefix, 
+    ]))
+    Statics.debug_log("curr bindings {0}".format([str(InputMap.action_get_events(player_prefix + "fwd"))]))
     if (skip_instancing):
         pick_face_head(rand_face, rand_head);
         #sprite_color = Color(randf(), randf(), randf());

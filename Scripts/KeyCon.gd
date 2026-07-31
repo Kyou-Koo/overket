@@ -85,8 +85,10 @@ static func write_keymap_to_engine() -> void:
         for p_control : String in active_keymap[key]:
             for event : String in active_keymap[key][p_control]:
                 InputMap.action_erase_events(key + p_control);
-                InputMap.action_add_event(key + p_control, 
-                    InputStatics.create_input_event_from_dict(active_keymap[key][p_control][event]));
+                InputMap.action_add_event(
+                    key + p_control, 
+                    InputStatics.create_input_event_from_dict(active_keymap[key][p_control][event])
+                );
 
 static func create_keymap() -> void:
     var actions : Array[StringName] = InputMap.get_actions();

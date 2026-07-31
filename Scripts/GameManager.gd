@@ -182,6 +182,13 @@ func _ready() -> void:
     # check for existing saved keymap
     SaveDataMgr.load_keymap();
     SaveDataMgr.load_savedata();
+    var player_regex : RegEx = RegEx.create_from_string("p[1-4]");
+    for inp in InputMap.get_actions():
+        if player_regex.search(inp):
+            Statics.debug_log("act: {0} event: {1}".format([
+                inp,
+                str(InputMap.action_get_events(inp))
+                ]));
     set_lang_from_save();
     get_viewport().get_window().move_to_center();
     var window_size_enum : SaveDataMgr.Resolution = SaveDataMgr.get_resolution_enum();
@@ -206,7 +213,8 @@ func _ready() -> void:
         sprite_init_rot = sprite.rotation_degrees;
 
     level_level_res.append(preload("res://Resources/Level1.tscn"));
-    # TODO: add lv2 and lv3
+    level_level_res.append(preload("res://Resources/Level2.tscn"));
+    level_level_res.append(preload("res://Resources/Level3.tscn"));
     level_level_res.append(preload("res://Resources/Level4.tscn"));
     #TESTINGTESTINGETESTING
     for d_idx in Input.get_connected_joypads():

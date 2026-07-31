@@ -76,8 +76,8 @@ func _on_customer_reached_goal(cus : Customer) -> void:
             dp.customers.append(cus);
             matched_dp = dp;
             break;
-    Statics.debug_log("customer {0} reached {2} w/ {1} request".format([cus.name, 
-        cus.request, matched_dp.ok_id]));
+    # Statics.debug_log("customer {0} reached {2} w/ {1} request".format([cus.name, 
+        # cus.request, matched_dp.ok_id]));
     var created_request : Request = level_ui.add_request(cus.request, cus);
     if (created_request != null):
         requests.append(created_request);

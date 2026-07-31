@@ -27,16 +27,16 @@ var money_text : Label;
 # request order (display max 5 requests at once);
 # 5 4 3 2 1
 func add_request(what : int, who : Customer) -> Request:
-    Statics.debug_log("num requests up: {0}".format([request_scns.size()]));
+    # Statics.debug_log("num requests up: {0}".format([request_scns.size()]));
     var new_request : Request = request_scn_pack.instantiate();
     new_request.visible = false;
     request_holder.add_child(new_request);
     new_request.position_request_items(what);
-    Statics.debug_log("what is request: {0}".format([what]));
+    # Statics.debug_log("what is request: {0}".format([what]));
     new_request.from_who = who;
     # queue request if too many
     if (x_move_in_queue or request_scns.size() >= request_scns_max):
-        Statics.debug_log("queueing because busy: {0}".format([x_move_in_queue]));
+        # Statics.debug_log("queueing because busy: {0}".format([x_move_in_queue]));
         request_queue.append(new_request);
         return new_request;
     # bump elders right

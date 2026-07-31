@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://ru6mrmrab3ql" path="res://Resources/BoxAcrylic.tscn" id="23_8m1sh"]
 [ext_resource type="PackedScene" uid="uid://diquu8waaalwi" path="res://Resources/BoxBag.tscn" id="24_i4bpd"]
 [ext_resource type="Material" uid="uid://dl3px1ofns1u5" path="res://Resources/Themes/level_floor_concrete.tres" id="24_or058"]
+[ext_resource type="PackedScene" uid="uid://dsb0myqc0nphl" path="res://Resources/Printer.tscn" id="25_i4bpd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kw3qw"]
 line_spacing = -5.0
@@ -91,8 +92,6 @@ size = Vector3(5, 5, 5)
 [sub_resource type="BoxMesh" id="BoxMesh_pp266"]
 material = ExtResource("15_ojchx")
 size = Vector3(5, 5, 5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ulwhe"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8lhuy"]
 material = ExtResource("24_or058")
@@ -254,9 +253,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1.5)
 [node name="BarrierWall3" parent="Surfaces/Boundary Walls" unique_id=1716051518 instance=ExtResource("6_8fp7h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 
-[node name="logo_ja" type="Sprite3D" parent="Surfaces/Boundary Walls" unique_id=657211265]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 3.0417376, 0.01, 0.42167056)
-modulate = Color(0.737193, 0.7371929, 0.7371929, 0.5176471)
+[node name="logo_ja" type="Sprite3D" parent="Surfaces/Boundary Walls" unique_id=1884545007]
+transform = Transform3D(0.20327519, 0, 0.14553075, 0, 0.25, 0, -0.14553075, 0, 0.20327519, -10.132071, 1.3431313, -7.4268208)
 texture = ExtResource("7_fbsv8")
 
 [node name="CUBES" type="Node3D" parent="Surfaces/Boundary Walls" unique_id=709344453]
@@ -321,10 +319,10 @@ mesh = SubResource("BoxMesh_pp266")
 [node name="Tables" type="Node3D" parent="Surfaces" unique_id=1174863814]
 
 [node name="BoxPaper" parent="Surfaces/Tables" unique_id=459736917 instance=ExtResource("17_14p1v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)
 
 [node name="BoxPaper2" parent="Surfaces/Tables" unique_id=396632152 instance=ExtResource("17_14p1v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
 
 [node name="GarbageCan" parent="Surfaces/Tables" unique_id=689229448 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("18_2s01x")]
 scene_obj_holder = NodePath("../../../CarryableObjects")
@@ -430,10 +428,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 3)
 [node name="BoxBag" parent="Surfaces/Tables" unique_id=1850296014 instance=ExtResource("24_i4bpd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Surfaces" unique_id=386028440]
+[node name="Printer" parent="Surfaces/Tables" unique_id=108833308 instance=ExtResource("25_i4bpd")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4, 0, -4)
+can_output_book = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Surfaces/StaticBody3D" unique_id=584805660]
-shape = SubResource("BoxShape3D_ulwhe")
+[node name="Printer2" parent="Surfaces/Tables" unique_id=934068964 instance=ExtResource("25_i4bpd")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 4, 0, -3.75)
+can_output_book = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2048541229]
 

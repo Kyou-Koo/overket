@@ -23,6 +23,7 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
+radius = 0.3
 
 [sub_resource type="BoxMesh" id="BoxMesh_jt0pw"]
 size = Vector3(0.2, 0.2, 1)
@@ -32,7 +33,7 @@ radius = 0.1
 height = 0.2
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_jt0pw"]
-radius = 2.5
+radius = 1.0
 
 [node name="Player" type="CharacterBody3D" unique_id=1861599428 node_paths=PackedStringArray("sprite_container", "sprite_animation_body", "sprite_animation_leg", "sprite_head_container", "sprite_to_faces_container", "sprite_right_faces_container", "sprite_left_faces_container")]
 collision_layer = 2
@@ -40,17 +41,7 @@ collision_mask = 7
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_4flbx")
-skip_instancing = null
-player_prefix = null
-speed = null
-jump = null
 interaction_radius = 1.5
-ok_id = null
-rand_head = null
-rand_face = null
-throw_scale = null
-throw_vertical = null
-sprite_color = null
 sprite_container = NodePath("SpriteContainer")
 sprite_animation_body = NodePath("SpriteContainer/Sprites/BodyContainer/BodyAnimation")
 sprite_animation_leg = NodePath("SpriteContainer/Sprites/LegAnimation")

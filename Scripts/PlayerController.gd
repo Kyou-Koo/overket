@@ -105,6 +105,7 @@ func object_pick() -> void:
             return;
         elif (closest_body is Printer):
             var new_obj : CarryableObjectBase = (closest_body as Printer).public_take_object(self);
+            closest_body.out_obj = null;
             object_hold(new_obj);
 
 func object_hold(obj : CarryableObjectBase) -> void:
@@ -168,13 +169,14 @@ func check_closest_body() -> Node3D:
         if (interactable_objects[io] == carried_object):
             # does not should not include carried object
             continue;
-        if (self.position.distance_to(interactable_objects[io].position) < shortest_dist):
+        var test_dist : float = self.global_position.distance_to(interactable_objects[io].global_position);
+        if (test_dist < shortest_dist):
             if (interactable_objects[io] is CarryableObjectBase):
                 var cob : CarryableObjectBase = interactable_objects[io] as CarryableObjectBase;
                 if (cob.is_being_carried):
                     continue;
+                shortest_dist = test_dist;
             curr_shortest = io;
-    
     if (curr_shortest != ""):
         return interactable_objects[curr_shortest];
     return null;

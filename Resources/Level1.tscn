@@ -24,6 +24,7 @@
 [ext_resource type="Material" uid="uid://dl3px1ofns1u5" path="res://Resources/Themes/level_floor_concrete.tres" id="12_8lhuy"]
 [ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="12_jd3xx"]
 [ext_resource type="BoxMesh" uid="uid://bftcxgff1it0i" path="res://Resources/Mesh/cube5m.tres" id="13_82d2v"]
+[ext_resource type="PackedScene" uid="uid://dsb0myqc0nphl" path="res://Resources/Printer.tscn" id="23_1mmgg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kw3qw"]
 line_spacing = -5.0
@@ -253,8 +254,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 
 [node name="logo_ja" type="Sprite3D" parent="Surfaces/Boundary Walls" unique_id=657211265]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 4.0417376, 0.01, -1.1919231)
-modulate = Color(0.7372549, 0.7372549, 0.7372549, 0.5176471)
+transform = Transform3D(0.20327519, 0, 0.14553075, 0, 0.25, 0, -0.14553075, 0, 0.20327519, -10.132071, 1.3431313, -7.4268208)
 texture = ExtResource("4_wcxwm")
 
 [node name="CUBES" type="Node3D" parent="Surfaces/Boundary Walls" unique_id=709344453]
@@ -398,6 +398,10 @@ scene_obj_holder = NodePath("../../../CarryableObjects")
 [node name="ComputerBookData2" parent="Surfaces/Tables" unique_id=697659777 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("11_ulwhe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 scene_obj_holder = NodePath("../../../CarryableObjects")
+
+[node name="Printer" parent="Surfaces/Tables" unique_id=108833308 instance=ExtResource("23_1mmgg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.75, 0, -3)
+can_output_book = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Surfaces" unique_id=386028440]
 

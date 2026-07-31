@@ -72,6 +72,7 @@ func start_level(lv_idx : int) -> void:
     if (is_instance_valid(level_level_active)):
         Statics.raise_warning("attempting to load a level while in a level dont do this");
         return;
+    in_menu = false;
     main_camera.current = false;
     # idk just hide everything lmao
     $"MainAreaContents".visible = false;
@@ -86,6 +87,7 @@ func end_level() -> void:
     $"MainAreaContents".visible = true;
     public_rotate_camera(level_cam_pos, MENU.LEVEL, 0.01, true);
     level_level_active.queue_free();
+    in_menu = true;
 
 func set_lang_from_save() -> void:
     TranslationServer.set_locale(SaveDataMgr.get_lang());

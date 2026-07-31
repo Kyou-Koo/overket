@@ -1,0 +1,320 @@
+[gd_scene format=3 uid="uid://d4hxkpw7lwjcv"]
+
+[ext_resource type="Script" uid="uid://dvi5kx6gy2qp2" path="res://Scripts/PauseMenu.gd" id="1_75i1l"]
+[ext_resource type="Texture2D" uid="uid://c4rn52pv0job7" path="res://Resources/Textures/ui_9slice.png" id="2_wjy5g"]
+[ext_resource type="Script" uid="uid://cgmv3r2pvwr23" path="res://Scripts/ToggleButton.gd" id="3_ly0mh"]
+[ext_resource type="Texture2D" uid="uid://cdcq7qmb6jdho" path="res://Resources/Textures/bg_lilac_focused_9slice.png" id="4_5g7mq"]
+[ext_resource type="Texture2D" uid="uid://b7p01a3egiyo5" path="res://Resources/Images/music_on_glow.png" id="5_kbdsn"]
+[ext_resource type="Texture2D" uid="uid://b7ac2knhv8yln" path="res://Resources/Images/music_on.png" id="6_upu6l"]
+[ext_resource type="Texture2D" uid="uid://ck2eghrgn6sdc" path="res://Resources/Images/music_off_glow.png" id="7_v5g6g"]
+[ext_resource type="Texture2D" uid="uid://db78rahvvttn8" path="res://Resources/Images/music_off.png" id="8_g5d33"]
+[ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="9_fxmfc"]
+[ext_resource type="Texture2D" uid="uid://d4dbduhsodudc" path="res://Resources/Images/sfx_on_glow.png" id="10_0ywlj"]
+[ext_resource type="Texture2D" uid="uid://bpnkfbf2utntj" path="res://Resources/Images/sfx_on.png" id="11_a440i"]
+[ext_resource type="Texture2D" uid="uid://bkvk3xf4mck7h" path="res://Resources/Images/sfx_off_glow.png" id="12_2jc0v"]
+[ext_resource type="Texture2D" uid="uid://du8f50g40jf84" path="res://Resources/Images/sfx_off.png" id="13_loucy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ly0mh"]
+bg_color = Color(0.9764706, 0.972549, 0.9490196, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5g7mq"]
+bg_color = Color(0.3137255, 0.30588236, 0.49803922, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PauseMenu" type="Control" unique_id=2035493808 node_paths=PackedStringArray("music_button", "sound_button", "close_button", "menu_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -920.0
+offset_bottom = -830.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_75i1l")
+music_button = NodePath("NinePatchRect/music/Button Music")
+sound_button = NodePath("NinePatchRect/sound/Button SE")
+close_button = NodePath("NinePatchRect/Resume")
+menu_button = NodePath("NinePatchRect/Quit")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=2146642221]
+custom_minimum_size = Vector2(1000, 250)
+layout_mode = 0
+offset_left = -2.0
+offset_right = 998.0
+offset_bottom = 200.0
+texture = ExtResource("2_wjy5g")
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="music" type="Control" parent="NinePatchRect" unique_id=1045829487 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "texture_node_on_hover", "texture_node_off_hover", "button_flow_handler", "button", "slider")]
+clip_contents = true
+custom_minimum_size = Vector2(800, 64)
+anchors_preset = 0
+offset_left = 100.0
+offset_top = 25.0
+offset_right = 900.0
+offset_bottom = 89.0
+focus_neighbor_top = NodePath("../Resume")
+focus_neighbor_bottom = NodePath("../sound")
+focus_next = NodePath("../sound")
+focus_previous = NodePath("../Quit")
+script = ExtResource("3_ly0mh")
+texture_node_on = NodePath("On")
+texture_node_off = NodePath("Off")
+texture_node_on_hover = NodePath("OnHover")
+texture_node_off_hover = NodePath("OffHover")
+button_flow_handler = NodePath("../..")
+button = NodePath("Button Music")
+slider = NodePath("HSlider")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/music" unique_id=185787835]
+custom_minimum_size = Vector2(800, 64)
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 64.0
+texture = ExtResource("4_5g7mq")
+patch_margin_left = 200
+patch_margin_right = 200
+
+[node name="OnHover" type="TextureRect" parent="NinePatchRect/music" unique_id=425420807]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("5_kbdsn")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="On" type="TextureRect" parent="NinePatchRect/music" unique_id=1835093781]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("6_upu6l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OffHover" type="TextureRect" parent="NinePatchRect/music" unique_id=1174270934]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("7_v5g6g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Off" type="TextureRect" parent="NinePatchRect/music" unique_id=517613872]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("8_g5d33")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSlider" type="HSlider" parent="NinePatchRect/music" unique_id=1895820406]
+custom_minimum_size = Vector2(500, 32)
+layout_mode = 0
+offset_left = 300.0
+offset_top = 16.0
+offset_right = 800.0
+offset_bottom = 48.0
+theme = ExtResource("9_fxmfc")
+max_value = 10.0
+value = 5.0
+rounded = true
+tick_count = 3
+ticks_position = 3
+
+[node name="Label" type="Label" parent="NinePatchRect/music" unique_id=1986478950]
+layout_mode = 0
+offset_top = 6.0
+offset_right = 63.0
+offset_bottom = 58.0
+theme = ExtResource("9_fxmfc")
+theme_override_colors/font_outline_color = Color(0.9764706, 0.972549, 0.9490196, 1)
+theme_override_constants/outline_size = 4
+text = "OPTIONS_MUSIC"
+
+[node name="Button Music" type="Button" parent="NinePatchRect/music" unique_id=2089562043]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+focus_neighbor_top = NodePath("../../Resume")
+focus_neighbor_bottom = NodePath("../../sound/Button SE")
+focus_next = NodePath("../../sound/Button SE")
+focus_previous = NodePath("../../Quit")
+theme = ExtResource("9_fxmfc")
+theme_type_variation = &"FlatButton"
+toggle_mode = true
+flat = true
+alignment = 0
+text_overrun_behavior = 1
+icon_alignment = 1
+
+[node name="sound" type="Control" parent="NinePatchRect" unique_id=492391671 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "texture_node_on_hover", "texture_node_off_hover", "button_flow_handler", "button", "slider")]
+clip_contents = true
+custom_minimum_size = Vector2(800, 64)
+anchors_preset = 0
+offset_left = 100.0
+offset_top = 95.0
+offset_right = 900.0
+offset_bottom = 159.0
+focus_neighbor_top = NodePath("../music")
+focus_neighbor_bottom = NodePath("../Resume")
+focus_next = NodePath("../Resume")
+focus_previous = NodePath("../music")
+script = ExtResource("3_ly0mh")
+texture_node_on = NodePath("On")
+texture_node_off = NodePath("Off")
+texture_node_on_hover = NodePath("OnHover")
+texture_node_off_hover = NodePath("OffHover")
+button_flow_handler = NodePath("../..")
+button = NodePath("Button SE")
+slider = NodePath("HSlider")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="NinePatchRect/sound" unique_id=1920378452]
+custom_minimum_size = Vector2(800, 64)
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 64.0
+texture = ExtResource("4_5g7mq")
+patch_margin_left = 200
+patch_margin_right = 200
+
+[node name="OnHover" type="TextureRect" parent="NinePatchRect/sound" unique_id=484348011]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("10_0ywlj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="On" type="TextureRect" parent="NinePatchRect/sound" unique_id=1800349525]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("11_a440i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="OffHover" type="TextureRect" parent="NinePatchRect/sound" unique_id=882509956]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("12_2jc0v")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Off" type="TextureRect" parent="NinePatchRect/sound" unique_id=779843481]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+texture = ExtResource("13_loucy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSlider" type="HSlider" parent="NinePatchRect/sound" unique_id=1333894188]
+custom_minimum_size = Vector2(500, 32)
+layout_mode = 0
+offset_left = 300.0
+offset_top = 16.0
+offset_right = 800.0
+offset_bottom = 48.0
+theme = ExtResource("9_fxmfc")
+max_value = 10.0
+value = 5.0
+rounded = true
+tick_count = 3
+ticks_position = 3
+
+[node name="Label" type="Label" parent="NinePatchRect/sound" unique_id=1741171602]
+layout_mode = 0
+offset_top = 6.0
+offset_right = 63.0
+offset_bottom = 58.0
+theme = ExtResource("9_fxmfc")
+theme_override_colors/font_outline_color = Color(0.9764706, 0.972549, 0.9490196, 1)
+theme_override_constants/outline_size = 4
+text = "OPTIONS_SFX"
+
+[node name="Button SE" type="Button" parent="NinePatchRect/sound" unique_id=1438909071]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 230.0
+offset_right = 294.0
+offset_bottom = 64.0
+focus_neighbor_top = NodePath("../../music/Button Music")
+focus_neighbor_bottom = NodePath("../../Resume")
+theme = ExtResource("9_fxmfc")
+theme_type_variation = &"FlatButton"
+toggle_mode = true
+flat = true
+alignment = 0
+text_overrun_behavior = 1
+icon_alignment = 1
+
+[node name="Resume" type="Button" parent="NinePatchRect" unique_id=1132142891]
+custom_minimum_size = Vector2(250, 64)
+layout_mode = 0
+offset_left = 550.0
+offset_top = 171.0
+offset_right = 800.0
+offset_bottom = 235.0
+focus_neighbor_left = NodePath("../Quit")
+focus_neighbor_top = NodePath("../sound/Button SE")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../music/Button Music")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../sound/Button SE")
+theme = ExtResource("9_fxmfc")
+text = "PAUSE_CLOSE"
+
+[node name="Quit" type="Button" parent="NinePatchRect" unique_id=1624134724]
+custom_minimum_size = Vector2(250, 64)
+layout_mode = 0
+offset_left = 200.0
+offset_top = 171.0
+offset_right = 450.0
+offset_bottom = 235.0
+focus_neighbor_left = NodePath("../Resume")
+focus_neighbor_top = NodePath("../sound/Button SE")
+focus_neighbor_right = NodePath("../Resume")
+focus_neighbor_bottom = NodePath("../music/Button Music")
+focus_next = NodePath("../music/Button Music")
+focus_previous = NodePath("../Resume")
+theme = ExtResource("9_fxmfc")
+theme_override_colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+theme_override_colors/font_focus_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+theme_override_colors/font_pressed_color = Color(0.9764706, 0.972549, 0.9490196, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ly0mh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5g7mq")
+text = "PAUSE_RETURN"

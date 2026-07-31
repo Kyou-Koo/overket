@@ -61,9 +61,9 @@ func update_notif_display() -> void:
 func public_insert_object(obj : CarryableObjectBase, p : PlayerController = null) -> bool:
     # reject undesired object
     if (obj.item_type in consumed_objects and (!has_data or !has_paper)):
-        if (obj.item_type == CarryableObjects.CarryObjEnum.DATA):
+        if (obj.item_type == CarryableObjects.CarryObjEnum.DATA and !has_data):
             has_data = true;
-        elif (obj.item_type == CarryableObjects.CarryObjEnum.PAPER):
+        elif (obj.item_type == CarryableObjects.CarryObjEnum.PAPER and !has_paper):
             has_paper = true;
         else:
             return false;
@@ -144,6 +144,8 @@ func update_panel(delta : float) -> void:
         is_completed = true;
         auto_can_start = true;
         has_necessary_objects = false;
+        has_paper = false;
+        has_data = false;
         if (should_output_objects): place_output_object();
     
 func place_output_object() -> void:

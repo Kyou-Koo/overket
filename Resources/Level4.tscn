@@ -255,9 +255,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1.5)
 [node name="BarrierWall3" parent="Surfaces/Boundary Walls" unique_id=21407190 instance=ExtResource("6_u7sdp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 
-[node name="logo_ja" type="Sprite3D" parent="Surfaces/Boundary Walls" unique_id=2145785954]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, 0.5, 0, -0.5, -2.1855694e-08, 0.07185002, 0.01, 4.280799)
-modulate = Color(0.7372549, 0.7372549, 0.7372549, 0.5176471)
+[node name="logo_ja" type="Sprite3D" parent="Surfaces/Boundary Walls" unique_id=417147314]
+transform = Transform3D(0.20327519, 0, 0.14553075, 0, 0.25, 0, -0.14553075, 0, 0.20327519, -10.132071, 1.3431313, -7.4268208)
 texture = ExtResource("7_36f4l")
 
 [node name="CUBES" type="Node3D" parent="Surfaces/Boundary Walls" unique_id=1540248819]

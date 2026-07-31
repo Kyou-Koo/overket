@@ -333,11 +333,8 @@ func _physics_process(delta : float) -> void:
     
             
 func _input(event: InputEvent) -> void:
-    if (event.is_pressed() and event is InputEventKey):
-        print(event);
-        print((event as InputEventKey).is_action(player_prefix + "fwd"));
     return
-    if (event.is_pressed()):
+    if (event.is_pressed()): 
         #Statics.debug_log(event.as_text());
         Statics.debug_log("obj in scene: {0}".format([str(scene_obj_holder.get_children())]))
             
@@ -370,10 +367,6 @@ func _ready() -> void:
     set_up_sprite_arrays(sprite_to_faces_container, sprite_to_faces);
     set_up_sprite_arrays(sprite_left_faces_container, sprite_left_faces);
     set_up_sprite_arrays(sprite_right_faces_container, sprite_right_faces);
-    Statics.debug_log("iam {0}".format([
-        player_prefix, 
-    ]))
-    Statics.debug_log("curr bindings {0}".format([str(InputMap.action_get_events(player_prefix + "fwd"))]))
     if (skip_instancing):
         pick_face_head(rand_face, rand_head);
         #sprite_color = Color(randf(), randf(), randf());

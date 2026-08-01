@@ -1,0 +1,19 @@
+class_name GameOver extends Control
+
+@export var score : Label;
+@export var end_button : Button;
+@export var level : Level
+
+func activate(money : int) -> void:
+    score.text = "￥{0}".format([money]);
+    self.visible = true;
+    end_button.grab_focus.call_deferred();
+
+func _on_end_pressed() -> void:
+    level.clean_up_and_return_to_menu();
+
+func _ready() -> void:
+    assert(score != null, "assign score label");
+    assert(end_button != null, "assign end button");
+    end_button.pressed.connect(_on_end_pressed);
+    assert(level != null, "assign level");

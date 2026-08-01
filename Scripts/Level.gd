@@ -19,8 +19,9 @@ var customers : Array[Customer];
 @export_category("UI")
 @export var ui_parent : Control;
 @export var level_ui : LevelUI;
-@export var options_path : String;
-@export var game_over : Control;
+@export var pause_parent : CanvasLayer;
+@export var pause_menu : PauseMenu;
+@export var game_over : GameOver;
 ## in seconds
 @export var level_duration : int = 300;
 @onready var level_remain_time : float = level_duration as float;
@@ -31,9 +32,9 @@ var customers : Array[Customer];
 @export var countdown_length : float = 5.0;
 var countdown_finished : bool = false;
 var money : int = 0;
-var options_packed : PackedScene;
-var options_scene : Options;
 var requests : Array[Request]; 
+var is_paused : bool = false;
+var should_spawn_customers : bool = true;
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
 @export_range(0, 10.0) var customer_spawn_gap : float = 1.0;
@@ -42,10 +43,8 @@ var requests : Array[Request];
 var next_spawn_gap : float = 0.5;
 
 # TODO: 
-# player spawning
 # test code lmao
 # gameover + score screen
-# customer limit?
 signal reassign_saikoubi(customer : Customer, prev_goal : Vector3);
 
 func set_up() -> void:
@@ -61,7 +60,16 @@ func set_up() -> void:
                 GameManager._instance.player_head_face[p_idx][1],
                 GameManager._instance.player_colors[p_idx]);
             new_p.global_position = player_spawn_points[p_idx].global_position;
-            
+
+func clean_up_and_return_to_menu() -> void:
+    should_spawn_customers = false;
+    for c : Customer in customer_parent.get_children():
+        c.queue_free();
+    for r in level_ui.request_holder.get_children():
+        r.queue_free();
+    for p in player_parent.get_children():
+        p.queue_free();
+    GameManager._instance.end_level();
 
 # TODO: consider reassigning to customer linked list class
 func _on_customer_leaving(cus : Customer) -> void:
@@ -124,6 +132,7 @@ func modify_customer_goal(in_vec : Vector3) -> Vector3:
     return mod + in_vec;
 
 func spawn_customer() -> void:
+    if (!should_spawn_customers): return;
     if (customers.size() >= customer_max): return;
     var spawn_mesh : MeshInstance3D = (Statics.rand_from_arr_o(spawn_points) as MeshInstance3D);
     var remaining_spawns : Array[MeshInstance3D] = spawn_points.duplicate();
@@ -158,12 +167,12 @@ func spawn_customer() -> void:
     new_customer.initiate();
 
 func _input(event: InputEvent) -> void:
-    if (event.is_action_pressed(&"start")):
-        # TODO: OK now what
-        var opt : Options = options_packed.instantiate();
-        # TODO: create a slightly different options scene
-        ui_parent.add_child(opt);
+    if (event.is_action_pressed(&"start") and !GameManager._instance.in_menu and !is_paused):
+        pause_menu.activate();
+        is_paused = true;
         get_tree().paused = true;
+    if (is_paused and pause_parent != null):
+        pause_parent.push_input(event);
     
 func _process(delta: float) -> void:
     if (countdown_finished):
@@ -173,6 +182,8 @@ func _process(delta: float) -> void:
             level_remain_time = 0.0;
             # TODO: hook up and spawn game over screen;
             get_tree().paused = true;
+            game_over.activate(money);
+            level_ui.visible = false;
         # customer spawn timing
         time_to_customer -= delta;
         if (time_to_customer <= 0.0):
@@ -189,12 +200,12 @@ func _ready() -> void:
     assert(player_spawn_parent != null, "assign spawn parent");
     for psp : Marker3D in player_spawn_parent.get_children():
         player_spawn_points.append(psp);
+    assert(pause_parent != null, "pause needs a unique canvaslayer");
+    assert(pause_menu != null, "assign pause menu");
     assert(player_parent != null, "player parent must be assigned");
     assert(customer_parent != null, "customer parent must be assigned");
     player_packed = preload("res://Resources/player.tscn");
     customer_packed = preload("res://Resources/customer.tscn");
-    # TODO: fix
-    options_packed = preload("res://Resources/Options.tscn");
     for dp : DeliveryPoint in delivery_points:
         goals[dp.ok_id] = dp.goal.global_position;
         dp.request_matched.connect(_on_dp_request_matched);

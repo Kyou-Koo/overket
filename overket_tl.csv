@@ -34,3 +34,7 @@ LEVEL_PLAYERS,Participants,サークルメン
 LEVEL_KB_USERS,Keyboard P1: Esc | Keyboard P2: Del,キーボードＰ１： Esc｜キーボードＰ２： Del
 PAUSE_CLOSE,Resume,つづける
 PAUSE_RETURN,Quit,トップへ
+PAUSE_TITLE_L,PAUSE,PAUSE
+PAUSE_TITLE_R,ポーズ,ポーズ
+GAME_OVER_TITLE,Finished!,イベント終了！！
+GAME_OVER_SCORE,Money Earned:,利益

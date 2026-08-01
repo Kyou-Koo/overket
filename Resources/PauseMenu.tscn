@@ -60,6 +60,31 @@ patch_margin_top = 50
 patch_margin_right = 50
 patch_margin_bottom = 50
 
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=894860249]
+custom_minimum_size = Vector2(150, 61)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 200.0
+offset_right = 166.0
+offset_bottom = 261.0
+rotation = -1.5707964
+theme = ExtResource("9_fxmfc")
+theme_override_font_sizes/font_size = 48
+text = "PAUSE_TITLE_L"
+
+[node name="Label2" type="Label" parent="NinePatchRect" unique_id=1190694005]
+custom_minimum_size = Vector2(150, 61)
+layout_mode = 0
+offset_left = 984.0
+offset_top = 50.0
+offset_right = 1134.0
+offset_bottom = 111.0
+rotation = 1.5707964
+theme = ExtResource("9_fxmfc")
+theme_override_font_sizes/font_size = 48
+text = "PAUSE_TITLE_R"
+horizontal_alignment = 1
+
 [node name="music" type="Control" parent="NinePatchRect" unique_id=1045829487 node_paths=PackedStringArray("texture_node_on", "texture_node_off", "texture_node_on_hover", "texture_node_off_hover", "button_flow_handler", "button", "slider")]
 clip_contents = true
 custom_minimum_size = Vector2(800, 64)

@@ -80,6 +80,11 @@ func start_level(lv_idx : int) -> void:
     self.add_child(level_level_active);
     #level_level_active.set_up();
     level_level_active.position = Vector3.ZERO;
+
+func reset_players() -> void:
+    active_players = [false, false, false, false];
+    player_colors = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK];
+    player_head_face = player_head_face_base.duplicate();
     
 func end_level() -> void:
     main_camera.make_current();
@@ -87,6 +92,7 @@ func end_level() -> void:
     $"MainAreaContents".visible = true;
     public_rotate_camera(level_cam_pos, MENU.LEVEL, 0.01, true);
     level_level_active.queue_free();
+    reset_players();
     in_menu = true;
 
 func set_lang_from_save() -> void:

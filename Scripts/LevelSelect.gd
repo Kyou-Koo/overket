@@ -79,6 +79,7 @@ func _on_back_pressed() -> void:
         GameManager._instance.public_rotate_camera(
             GameManager._instance.main_cam_origin_rot, 
             GameManager.MENU.MAIN);
+        GameManager._instance.reset_players();
 
 func _on_menu_transition(who : Node) -> void:
     if (who == self):

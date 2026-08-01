@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="2_b8hms"]
 [ext_resource type="PackedScene" uid="uid://cthfjlfpa3jet" path="res://Resources/LevelUI.tscn" id="3_8m1sh"]
 [ext_resource type="PackedScene" uid="uid://bsftdc2513i7d" path="res://Resources/1m_cube.tscn" id="4_i4bpd"]
+[ext_resource type="PackedScene" uid="uid://d4hxkpw7lwjcv" path="res://Resources/PauseMenu.tscn" id="4_w52wp"]
 [ext_resource type="PackedScene" uid="uid://bfbxq2lcnh88w" path="res://Resources/BarrierWall.tscn" id="5_w52wp"]
 [ext_resource type="PackedScene" uid="uid://cdgke1dvt5anu" path="res://Resources/BarrierWallBack.tscn" id="6_8fp7h"]
 [ext_resource type="Texture2D" uid="uid://dmh43dastxv35" path="res://Resources/Images/logo_ja.png" id="7_fbsv8"]
@@ -134,7 +135,7 @@ disable_receive_shadows = true
 [sub_resource type="BoxMesh" id="BoxMesh_05fnj"]
 size = Vector3(15, 0.5, 2)
 
-[node name="Level2" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("camera", "spawn_points", "exit_area", "player_spawn_parent", "player_parent", "customer_parent", "delivery_points", "misc_object_parent", "ui_parent", "level_ui", "countdown_timer")]
+[node name="Level2" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("camera", "spawn_points", "exit_area", "player_spawn_parent", "player_parent", "customer_parent", "delivery_points", "misc_object_parent", "ui_parent", "level_ui", "pause_parent", "pause_menu", "countdown_timer")]
 script = ExtResource("1_fpj0o")
 camera = NodePath("Camera3D")
 spawn_points = [NodePath("SpawnArea"), NodePath("SpawnArea2")]
@@ -146,9 +147,16 @@ delivery_points = [NodePath("Surfaces/Tables/DeliveryPoint"), NodePath("Surfaces
 misc_object_parent = NodePath("CarryableObjects")
 ui_parent = NodePath("CanvasLayer/Control")
 level_ui = NodePath("CanvasLayer/Control/LevelUi")
+pause_parent = NodePath("PauseCanvas")
+pause_menu = NodePath("PauseCanvas/PauseMenu")
 countdown_timer = NodePath("CanvasLayer/Control/CenterContainer/Label")
 countdown_length = 1.0
 passerby_chance = 0.1
+
+[node name="PauseCanvas" type="CanvasLayer" parent="." unique_id=1380203527]
+
+[node name="PauseMenu" parent="PauseCanvas" unique_id=2035493808 node_paths=PackedStringArray("level") instance=ExtResource("4_w52wp")]
+level = NodePath("../..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2006233483]
 
@@ -173,6 +181,9 @@ vertical_alignment = 1
 [node name="LevelUi" parent="CanvasLayer/Control" unique_id=792234887 node_paths=PackedStringArray("parent_3dlevel") instance=ExtResource("3_8m1sh")]
 layout_mode = 1
 parent_3dlevel = NodePath("../../..")
+
+[node name="PauseMenu" parent="CanvasLayer/Control" unique_id=1795209287 instance=ExtResource("4_w52wp")]
+layout_mode = 1
 
 [node name="CarryableObjects" type="Node3D" parent="." unique_id=1784441528]
 

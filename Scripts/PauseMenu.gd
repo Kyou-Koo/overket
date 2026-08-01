@@ -4,6 +4,7 @@ class_name PauseMenu extends Options
 @export var sound_button : Button;
 @export var close_button : Button;
 @export var menu_button : Button;
+@export var level : Level;
 
 func activate() -> void:
     self.visible = true;
@@ -22,12 +23,12 @@ func activate() -> void:
 func _on_menu_back_pressed() -> void:
     is_active = false;
     self.visible = false;
-    # TODO: more
+    level.clean_up_and_return_to_menu();
     
 func _on_close_pressed() -> void:
     is_active = false;
     self.visible = false;
-    # TODO: more
+    level.is_paused = false;
     
 func _input(ev : InputEvent) -> void:
     if (is_active): #and !GameManager._instance.in_menu):
@@ -37,9 +38,9 @@ func _input(ev : InputEvent) -> void:
 
 func _ready() -> void:
     assert(menu_button != null, "assign return to menu button");
+    assert(level != null, "assign level to pause menu");
     if (AudioManager._instance == null): AudioManager.ins();
     is_active = false;
-    
+    self.visible = false;
     close_button.pressed.connect(_on_close_pressed);
     menu_button.pressed.connect(_on_menu_back_pressed);
-    activate()

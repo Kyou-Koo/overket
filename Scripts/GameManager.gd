@@ -78,7 +78,7 @@ func start_level(lv_idx : int) -> void:
     $"MainAreaContents".visible = false;
     level_level_active = level_level_res[lv_idx].instantiate();
     self.add_child(level_level_active);
-    #level_level_active.set_up();
+    level_level_active.set_up();
     level_level_active.position = Vector3.ZERO;
 
 func reset_players() -> void:

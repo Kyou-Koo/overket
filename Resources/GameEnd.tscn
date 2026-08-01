@@ -5,7 +5,8 @@
 [ext_resource type="LabelSettings" uid="uid://cgl6wwmot7xg7" path="res://Resources/Themes/level_label.tres" id="2_2mryp"]
 [ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="3_cqhul"]
 
-[node name="GameEnd" type="Control" unique_id=235851241]
+[node name="GameEnd" type="Control" unique_id=235851241 node_paths=PackedStringArray("score", "end_button")]
+custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,12 +14,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fg6xd")
+score = NodePath("NinePatchRect/CenterContainer/VBoxContainer/HBoxContainer/score")
+end_button = NodePath("NinePatchRect/CenterContainer/VBoxContainer/CenterContainer/Button")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1348236870]
 custom_minimum_size = Vector2(800, 250)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 560.0
+offset_top = 250.0
+offset_right = 1360.0
+offset_bottom = 500.0
 texture = ExtResource("1_mde8u")
 patch_margin_left = 50
 patch_margin_top = 50
@@ -34,6 +39,7 @@ offset_bottom = 40.0
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/CenterContainer" unique_id=25002748]
 custom_minimum_size = Vector2(700, 225)
 layout_mode = 2
+theme_override_constants/separation = -2
 
 [node name="title" type="Label" parent="NinePatchRect/CenterContainer/VBoxContainer" unique_id=1402805133]
 layout_mode = 2

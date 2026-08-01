@@ -10,6 +10,7 @@ func activate(money : int) -> void:
     end_button.grab_focus.call_deferred();
 
 func _on_end_pressed() -> void:
+    self.visible = false;
     level.clean_up_and_return_to_menu();
 
 func _ready() -> void:

@@ -167,12 +167,15 @@ func spawn_customer() -> void:
     new_customer.initiate();
 
 func _input(event: InputEvent) -> void:
-    if (event.is_action_pressed(&"start") and !GameManager._instance.in_menu and !is_paused):
+    if (!GameManager._instance.in_menu and event.is_action_pressed(&"start") and !is_paused):
         pause_menu.activate();
         is_paused = true;
         get_tree().paused = true;
     if (is_paused and pause_parent != null):
         pause_parent.push_input(event);
+    # TODO: remove debug key
+    if (event.as_text() == "Z" and !event.is_echo()):
+        game_over.activate(money);
     
 func _process(delta: float) -> void:
     if (countdown_finished):
@@ -202,6 +205,9 @@ func _ready() -> void:
         player_spawn_points.append(psp);
     assert(pause_parent != null, "pause needs a unique canvaslayer");
     assert(pause_menu != null, "assign pause menu");
+    pause_menu.visible = false;
+    assert(game_over != null, "assign game over");
+    game_over.visible = false;
     assert(player_parent != null, "player parent must be assigned");
     assert(customer_parent != null, "customer parent must be assigned");
     player_packed = preload("res://Resources/player.tscn");
@@ -210,4 +216,4 @@ func _ready() -> void:
         goals[dp.ok_id] = dp.goal.global_position;
         dp.request_matched.connect(_on_dp_request_matched);
     assert(misc_object_parent != null, "must assign parent for carryable objects");
-    set_up();
+    #set_up();

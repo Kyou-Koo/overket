@@ -9,15 +9,6 @@ class_name PauseMenu extends Options
 func activate() -> void:
     self.visible = true;
     is_active = true;
-    # center
-    var screen_size : Vector2i;
-    if (SaveDataMgr.get_fs_mode_is_fs()):
-        screen_size = DisplayServer.screen_get_size();
-    else:
-        screen_size = SaveDataMgr.get_resolution();
-    var x_pos : int = (screen_size.x - self.size.x) / 2;
-    var y_pos : int = (screen_size.y - self.size.y) / 2; # maybe shove it down a bit
-    self.position = Vector2i(x_pos, y_pos);
     music_button.grab_focus.call_deferred();
 
 func _on_menu_back_pressed() -> void:

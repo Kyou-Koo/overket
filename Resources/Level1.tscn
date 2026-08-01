@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="2_m76yx"]
 [ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="2_mhw25"]
 [ext_resource type="PackedScene" uid="uid://cthfjlfpa3jet" path="res://Resources/LevelUI.tscn" id="2_pnl7u"]
+[ext_resource type="PackedScene" uid="uid://bigpwfpna82br" path="res://Resources/GameEnd.tscn" id="2_xndlm"]
 [ext_resource type="PackedScene" uid="uid://d4hxkpw7lwjcv" path="res://Resources/PauseMenu.tscn" id="4_6y6uj"]
 [ext_resource type="Texture2D" uid="uid://dmh43dastxv35" path="res://Resources/Images/logo_ja.png" id="4_wcxwm"]
 [ext_resource type="Texture2D" uid="uid://cgk8ayjg3uent" path="res://Resources/Images/logo_en.png" id="5_1mmgg"]
@@ -135,7 +136,7 @@ disable_receive_shadows = true
 [sub_resource type="BoxMesh" id="BoxMesh_05fnj"]
 size = Vector3(15, 0.5, 2)
 
-[node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("camera", "spawn_points", "exit_area", "player_spawn_parent", "player_parent", "customer_parent", "misc_object_parent", "ui_parent", "level_ui", "pause_parent", "pause_menu", "countdown_timer")]
+[node name="Level1" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("camera", "spawn_points", "exit_area", "player_spawn_parent", "player_parent", "customer_parent", "delivery_points", "misc_object_parent", "ui_parent", "level_ui", "pause_parent", "pause_menu", "game_over", "countdown_timer")]
 script = ExtResource("1_05fnj")
 camera = NodePath("Camera3D")
 spawn_points = [NodePath("SpawnArea"), NodePath("SpawnArea2")]
@@ -143,16 +144,21 @@ exit_area = NodePath("Exit")
 player_spawn_parent = NodePath("Spawns")
 player_parent = NodePath("Players")
 customer_parent = NodePath("Customers")
+delivery_points = [NodePath("Surfaces/Tables/DeliveryPoint"), NodePath("Surfaces/Tables/DeliveryPoint2")]
 misc_object_parent = NodePath("CarryableObjects")
 ui_parent = NodePath("CanvasLayer/Control")
 level_ui = NodePath("CanvasLayer/Control/LevelUi")
 pause_parent = NodePath("PauseCanvas")
 pause_menu = NodePath("PauseCanvas/PauseMenu")
+game_over = NodePath("PauseCanvas/GameEnd")
 countdown_timer = NodePath("CanvasLayer/Control/CenterContainer/Label")
 countdown_length = 1.0
 passerby_chance = 0.1
 
 [node name="PauseCanvas" type="CanvasLayer" parent="." unique_id=1255694262]
+
+[node name="GameEnd" parent="PauseCanvas" unique_id=235851241 node_paths=PackedStringArray("level") instance=ExtResource("2_xndlm")]
+level = NodePath("../..")
 
 [node name="PauseMenu" parent="PauseCanvas" unique_id=2035493808 node_paths=PackedStringArray("level") instance=ExtResource("4_6y6uj")]
 level = NodePath("../..")

@@ -8,6 +8,7 @@
 @export var is_automatic : bool;
 
 var completed_obj_global_loc : Vector3;
+var out_obj : CarryableObjectBase;
 var current_objects : Array[CarryableObjects.CarryObjEnum];
 var has_necessary_objects : bool = false;
 var auto_can_start : bool = false;
@@ -39,6 +40,11 @@ func public_interact_object(delta : float = 0.0) -> void:
         update_panel(delta);
     else:
         auto_can_start = true;
+        
+func public_take_object(pc : PlayerController) -> CarryableObjectBase:
+    if (out_obj != null and pc.carried_object == null):
+        return out_obj;
+    return;
         
 func check_output_can_be_created(obj : CarryableObjectBase) -> bool:
     if obj == null:
@@ -94,9 +100,9 @@ func place_output_object() -> void:
     if (output_instance == null): return;
     # consume consumed_objects
     current_objects.clear();
-    # TODO is this the final location for it?
     scene_obj_holder.add_child(output_instance);
     output_instance.global_position = completed_obj_global_loc + Vector3(0, output_instance.obj_height/2.0, 0);
+    out_obj = output_instance;
 
 func _process(delta: float) -> void:
     if (is_automatic and has_necessary_objects and auto_can_start):

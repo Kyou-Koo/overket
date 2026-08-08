@@ -68,15 +68,9 @@ func set_up() -> void:
 
 func clean_up_and_return_to_menu() -> void:
     should_spawn_customers = false;
-    for c : Customer in customer_parent.get_children():
-        c.queue_free();
-    for r in level_ui.request_holder.get_children():
-        r.queue_free();
-    for p in player_parent.get_children():
-        p.queue_free();
+    # queuefreeing everything pre-returning to menu does something funny
+    # don't do that!!
     get_viewport().get_tree().paused = false;
-    AudioManager._instance.fade_specific_BGM(AudioFiles.GAME_KEY, true);
-    AudioManager._instance.stop_specific_BGM(AudioFiles.GAME_KEY);
     #TODO: push score to save file
     GameManager._instance.end_level();
 

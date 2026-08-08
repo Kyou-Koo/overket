@@ -104,8 +104,8 @@ func object_pick() -> void:
             var new_obj : CarryableObjectBase = (closest_body as ItemBox).public_take_object(self);
             object_hold(new_obj);
             return;
-        elif (closest_body is Printer):
-            var new_obj : CarryableObjectBase = (closest_body as Printer).public_take_object(self);
+        elif (closest_body is TimerMachineBase):
+            var new_obj : CarryableObjectBase = (closest_body as TimerMachineBase).public_take_object(self);
             closest_body.out_obj = null;
             object_hold(new_obj);
 

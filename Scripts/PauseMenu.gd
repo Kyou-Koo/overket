@@ -14,6 +14,8 @@ func activate() -> void:
 func _on_menu_back_pressed() -> void:
     is_active = false;
     self.visible = false;
+    AudioManager._instance.fade_specific_BGM(AudioFiles.GAME_KEY, true);
+    AudioManager._instance.stop_specific_BGM(AudioFiles.GAME_KEY);
     level.clean_up_and_return_to_menu();
     
 func _on_close_pressed() -> void:

@@ -14,7 +14,6 @@ var ok_id : StringName = "";
 @abstract func check_output_can_be_created(obj : CarryableObjectBase) -> bool
 
 func create_output_object() -> CarryableObjectBase:
-    # TODO: handle which output based on input
     # This should be overriden by children
     var output_instance : CarryableObjectBase = output_object_ress[0].instantiate();
     return output_instance;

@@ -18,7 +18,6 @@ var book_req_arr : Array[String] = ["DataBook", "Paper"];
 var shikishi_req_arr : Array[String] = ["DataShikishi", "Paper"];
 var has_paper : bool = false;
 var has_data : bool = false;
-var out_obj : CarryableObjectBase;
 
 func curr_objects_contains_data(new_obj : CarryableObjectBase) -> bool:
     if (new_obj.item_type != CarryableObjects.CarryObjEnum.DATA): return false;
@@ -81,9 +80,7 @@ func public_interact_object(delta : float = 0.0) -> void:
     return;
 
 func public_take_object(pc : PlayerController) -> CarryableObjectBase:
-    if (out_obj != null and pc.carried_object == null):
-        return out_obj;
-    return;
+    return super.public_take_object(pc);
 
 func check_output_can_be_created(obj : CarryableObjectBase) -> bool:
     if obj == null:

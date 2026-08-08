@@ -11,7 +11,8 @@ const GAME_KEY : String = "game";
 const CLOSE_KEY : String = "game_close";
     
 const GAME_BGM : Resource = preload("res://Resources/Audio/gameBgm.ogg");
-const GAME_CLOSING : Resource = preload("res://Resources/Audio/home01.ogg");
+const GAME_END_SOON : Resource = preload("res://Resources/Audio/closingBgm_12s.ogg")
+const GAME_OVER_SCREEN : Resource = preload("res://Resources/Audio/home01.ogg");
 const MENU_BGM : Resource = preload("res://Resources/Audio/menuBgm.ogg");
 const MENU_ACTION : Resource = preload("res://Resources/Audio/ksl9.ogg");
 const MENU_CONFIRM : Resource = preload("res://Resources/Audio/opn3a.ogg");

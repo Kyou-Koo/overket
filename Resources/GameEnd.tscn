@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="3_cqhul"]
 
 [node name="GameEnd" type="Control" unique_id=235851241 node_paths=PackedStringArray("score", "end_button")]
+process_mode = 2
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
 anchors_preset = 15

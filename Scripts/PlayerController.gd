@@ -1,6 +1,7 @@
 class_name PlayerController extends CharacterBody3D
 
 @export var skip_instancing : bool = false;
+@export var debug_closest : MeshInstance3D;
 @export var player_prefix : String;
 # TODO: put in general scene controller
 @onready var gravity : float = -ProjectSettings.get_setting("physics/3d/default_gravity");
@@ -175,9 +176,10 @@ func check_closest_body() -> Node3D:
                 var cob : CarryableObjectBase = interactable_objects[io] as CarryableObjectBase;
                 if (cob.is_being_carried):
                     continue;
-                shortest_dist = test_dist;
+            shortest_dist = test_dist;
             curr_shortest = io;
     if (curr_shortest != ""):
+        debug_closest.global_position = interactable_objects[curr_shortest].global_position + Vector3.UP;
         return interactable_objects[curr_shortest];
     return null;
     

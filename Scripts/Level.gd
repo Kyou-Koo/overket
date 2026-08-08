@@ -35,6 +35,8 @@ var money : int = 0;
 var requests : Array[Request]; 
 var is_paused : bool = false;
 var should_spawn_customers : bool = true;
+var triggered_game_end_soon_music : bool = false;
+var game_ended : bool = false;
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
 @export_range(0, 10.0) var customer_spawn_gap : float = 1.0;
@@ -60,6 +62,9 @@ func set_up() -> void:
                 GameManager._instance.player_head_face[p_idx][1],
                 GameManager._instance.player_colors[p_idx]);
             new_p.global_position = player_spawn_points[p_idx].global_position;
+    AudioManager._instance.fade_specific_BGM(AudioFiles.MENU_KEY, true);
+    AudioManager._instance.stop_specific_BGM(AudioFiles.MENU_KEY);
+    AudioManager._instance.play_BGM(AudioFiles.GAME_KEY, AudioFiles.GAME_BGM, AudioFiles.GAME_BGM);
 
 func clean_up_and_return_to_menu() -> void:
     should_spawn_customers = false;
@@ -69,9 +74,14 @@ func clean_up_and_return_to_menu() -> void:
         r.queue_free();
     for p in player_parent.get_children():
         p.queue_free();
+    get_viewport().get_tree().paused = false;
+    AudioManager._instance.fade_specific_BGM(AudioFiles.GAME_KEY, true);
+    AudioManager._instance.stop_specific_BGM(AudioFiles.GAME_KEY);
+    #TODO: push score to save file
     GameManager._instance.end_level();
 
 # TODO: consider reassigning to customer linked list class
+# push this off to later
 func _on_customer_leaving(cus : Customer) -> void:
     return;
     # TODO: move respective goals up (using customer list)
@@ -171,8 +181,9 @@ func _input(event: InputEvent) -> void:
         pause_menu.activate();
         is_paused = true;
         get_tree().paused = true;
-    if (is_paused and pause_parent != null):
-        pause_parent.push_input(event);
+    #if ((is_paused and pause_parent != null) or
+    #(level_remain_time <= 0.0 and game_ended)):
+        #pause_parent.push_input(event);
     # TODO: remove debug key
     if (event.as_text() == "Z" and !event.is_echo()):
         game_over.activate(money);
@@ -181,11 +192,16 @@ func _process(delta: float) -> void:
     if (countdown_finished):
         # update timer
         level_remain_time -= delta;
-        if (level_remain_time < 0.0): 
+        if (level_remain_time <= 12.0 and !triggered_game_end_soon_music):
+            AudioManager._instance.fade_specific_BGM(AudioFiles.GAME_KEY, false);
+            AudioManager._instance.play_SFX(AudioFiles.GAME_END_SOON);
+            AudioManager._instance.stop_specific_BGM(AudioFiles.GAME_KEY);
+            triggered_game_end_soon_music = true;
+        if (level_remain_time <= 0.0 and !game_ended): 
             level_remain_time = 0.0;
-            # TODO: hook up and spawn game over screen;
             get_tree().paused = true;
             game_over.activate(money);
+            game_ended = true;
             level_ui.visible = false;
         # customer spawn timing
         time_to_customer -= delta;

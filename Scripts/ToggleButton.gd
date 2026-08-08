@@ -23,8 +23,9 @@ func toggle_on(on : bool) -> void:
 
 func _input(ev: InputEvent) -> void:
     if (!button_flow_handler.is_active):
-        return;
-    if (slider != null and (button.is_hovered() or is_curr_focused)):
+         return;
+    if (button_flow_handler.is_active and
+    slider != null and (button.is_hovered() or is_curr_focused)):
         var new_val : float = slider.value;
         if (ev.is_action_pressed(&"ui_left", false, true)):
             if (ev.get_action_strength(&"ui_left") > 0.5):

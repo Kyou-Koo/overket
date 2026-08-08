@@ -114,14 +114,10 @@ func _instantiate() -> void:
     SaveDataMgr.create_new_savedata();
 
 func _ready() -> void:
-    # TESTING---------------------
-    #Statics.debug_log("option parent: {0}".format([self.get_parent()]));
     if (self.get_parent() == get_tree().root):
         is_active = true;
         SaveDataMgr.create_sdm();
         get_node("NinePatchRect/Language Control/{0}".format([SaveDataMgr.get_lang().capitalize()])).grab_focus.call_deferred();
-        # Statics.debug_log("should be focusing {0}".format([SaveDataMgr.get_lang().capitalize()]));
-    # ---------------------
     var lang_str : String = OS.get_locale_language();
     if (GameManager._instance != null):
         if (SaveDataMgr.get_lang() != ""):

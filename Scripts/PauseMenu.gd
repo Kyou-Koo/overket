@@ -8,7 +8,7 @@ class_name PauseMenu extends Options
 
 func activate() -> void:
     self.visible = true;
-    is_active = true;
+    self.is_active = true;
     music_button.grab_focus.call_deferred();
 
 func _on_menu_back_pressed() -> void:
@@ -20,9 +20,10 @@ func _on_close_pressed() -> void:
     is_active = false;
     self.visible = false;
     level.is_paused = false;
+    get_viewport().get_tree().paused = false;
     
 func _input(ev : InputEvent) -> void:
-    if (is_active): #and !GameManager._instance.in_menu):
+    if (is_active and !GameManager._instance.in_menu):
         if (ev.is_action_pressed(&"start")):
             get_viewport().set_input_as_handled();
             _on_close_pressed();

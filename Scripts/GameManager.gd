@@ -90,9 +90,10 @@ func end_level() -> void:
     main_camera.make_current();
     level_level_active.camera.current = false;
     $"MainAreaContents".visible = true;
-    public_rotate_camera(level_cam_pos, MENU.LEVEL, 0.01, true);
+    public_rotate_camera(level_cam_rot, MENU.LEVEL, 0.01, true);
     level_level_active.queue_free();
     reset_players();
+    AudioManager._instance.play_BGM(AudioFiles.MENU_KEY, AudioFiles.MENU_BGM, AudioFiles.MENU_BGM);
     in_menu = true;
 
 func set_lang_from_save() -> void:

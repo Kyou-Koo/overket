@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d01rlm8c07c8q" path="res://Scripts/PlayerController.gd" id="1_4flbx"]
 [ext_resource type="SpriteFrames" uid="uid://tow7hfo8ej2w" path="res://Resources/Textures/player_legs.tres" id="2_0lowt"]
+[ext_resource type="Material" uid="uid://6qwphoj7akoh" path="res://Resources/Materials/dark_blue.tres" id="2_cubc6"]
+[ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="2_m6rpx"]
 [ext_resource type="SpriteFrames" uid="uid://d0tmrg4kw6as5" path="res://Resources/Textures/player_body.tres" id="3_5ru4v"]
 [ext_resource type="Texture2D" uid="uid://ch7ni8ttvwvwo" path="res://Resources/Images/Player/face1_right.png" id="12_ufrdb"]
 [ext_resource type="Texture2D" uid="uid://c6kym4pt1itxx" path="res://Resources/Images/Player/face2_right.png" id="13_lftb7"]
@@ -20,7 +22,18 @@
 [ext_resource type="Texture2D" uid="uid://nu757bsm86x2" path="res://Resources/Images/Player/face3.png" id="24_geu30"]
 [ext_resource type="Texture2D" uid="uid://bi0urt828gymn" path="res://Resources/Images/Player/face4.png" id="25_punyc"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_sh265"]
+[sub_resource type="SphereMesh" id="SphereMesh_gnwss"]
+material = ExtResource("2_m6rpx")
+radius = 0.1
+height = 0.2
+radial_segments = 16
+rings = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2lq7j"]
+material = ExtResource("2_cubc6")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 radius = 0.3
@@ -35,12 +48,13 @@ height = 0.2
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_jt0pw"]
 radius = 1.0
 
-[node name="Player" type="CharacterBody3D" unique_id=1861599428 node_paths=PackedStringArray("sprite_container", "sprite_animation_body", "sprite_animation_leg", "sprite_head_container", "sprite_to_faces_container", "sprite_right_faces_container", "sprite_left_faces_container")]
+[node name="Player" type="CharacterBody3D" unique_id=1861599428 node_paths=PackedStringArray("debug_closest", "sprite_container", "sprite_animation_body", "sprite_animation_leg", "sprite_head_container", "sprite_to_faces_container", "sprite_right_faces_container", "sprite_left_faces_container")]
 collision_layer = 2
 collision_mask = 7
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_4flbx")
+debug_closest = NodePath("ClosestObjMarker")
 interaction_radius = 1.5
 sprite_container = NodePath("SpriteContainer")
 sprite_animation_body = NodePath("SpriteContainer/Sprites/BodyContainer/BodyAnimation")
@@ -50,10 +64,12 @@ sprite_to_faces_container = NodePath("SpriteContainer/Sprites/Faces/ToFaces")
 sprite_right_faces_container = NodePath("SpriteContainer/Sprites/Faces/RightFaces")
 sprite_left_faces_container = NodePath("SpriteContainer/Sprites/Faces/LeftFaces")
 
+[node name="ClosestObjMarker" type="MeshInstance3D" parent="." unique_id=199472143]
+mesh = SubResource("SphereMesh_gnwss")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=943131327]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_sh265")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0)
+mesh = SubResource("CylinderMesh_2lq7j")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1388162449]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

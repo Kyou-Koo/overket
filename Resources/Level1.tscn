@@ -151,6 +151,7 @@ level_ui = NodePath("CanvasLayer/Control/LevelUi")
 pause_parent = NodePath("PauseCanvas")
 pause_menu = NodePath("PauseCanvas/PauseMenu")
 game_over = NodePath("PauseCanvas/GameEnd")
+level_duration = 20
 countdown_timer = NodePath("CanvasLayer/Control/CenterContainer/Label")
 countdown_length = 1.0
 passerby_chance = 0.1

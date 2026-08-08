@@ -8,6 +8,7 @@ func activate(money : int) -> void:
     score.text = "￥{0}".format([money]);
     self.visible = true;
     end_button.grab_focus.call_deferred();
+    AudioManager._instance.play_SFX(AudioFiles.GAME_OVER_SCREEN);
 
 func _on_end_pressed() -> void:
     self.visible = false;

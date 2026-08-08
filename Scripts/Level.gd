@@ -187,9 +187,9 @@ func _process(delta: float) -> void:
         # update timer
         level_remain_time -= delta;
         if (level_remain_time <= 12.0 and !triggered_game_end_soon_music):
-            AudioManager._instance.fade_specific_BGM(AudioFiles.GAME_KEY, false);
+            AudioManager._instance.fade_all_BGM();
             AudioManager._instance.play_SFX(AudioFiles.GAME_END_SOON);
-            AudioManager._instance.stop_specific_BGM(AudioFiles.GAME_KEY);
+            AudioManager._instance.stop_all_BGM();
             triggered_game_end_soon_music = true;
         if (level_remain_time <= 0.0 and !game_ended): 
             level_remain_time = 0.0;

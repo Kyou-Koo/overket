@@ -76,8 +76,8 @@ func public_insert_object(obj : CarryableObjectBase, p : PlayerController = null
         return true;
     return false;
 
-func public_interact_object(delta : float = 0.0) -> void:
-    return;
+func public_interact_object(delta : float = 0.0) -> bool:
+    return false;
 
 func public_take_object(pc : PlayerController) -> CarryableObjectBase:
     return super.public_take_object(pc);

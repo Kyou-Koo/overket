@@ -17,6 +17,8 @@ var auto_can_start : bool = false;
 var time_since_interact : float = 0.0;
 var is_completed : bool = false;
 var time_since_completion : float = 0.0;
+var last_interact_time : int = 0;
+const interact_interval : int = 100;
 
 @export var scene_obj_holder : Node3D;
 
@@ -31,15 +33,17 @@ func public_insert_object(obj : CarryableObjectBase, p : PlayerController = null
     return false;
 
 # TODO: should all interacts emit a message on fail?
-func public_interact_object(delta : float = 0.0) -> void:
+func public_interact_object(delta : float = 0.0) -> bool:
     # TODO: unfinished, handle automatic also
     has_necessary_objects = check_meets_requirements();
     if (!has_necessary_objects):
-        return;
+        return false;
     elif (!is_automatic):
         update_panel(delta);
+        return true;
     else:
         auto_can_start = true;
+        return false;
         
 func public_take_object(pc : PlayerController) -> CarryableObjectBase:
     if (out_obj != null and pc.carried_object == null):
@@ -72,6 +76,7 @@ func update_panel(delta : float) -> void:
     if is_completed:
         return;
     if progress_bar.value < progress_bar.max_value:
+        last_interact_time = Time.get_ticks_msec();
         time_since_interact += delta;
         var curr_progress : float = roundf((time_since_interact*progress_bar.max_value)/interaction_duration);
         Statics.debug_prolog("new update for {0} : {1}".format([self.name, curr_progress]));

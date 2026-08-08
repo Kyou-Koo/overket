@@ -9,7 +9,7 @@ var connected_body : PlayerController;
 
 var ok_id : StringName = "";
 
-@abstract func public_interact_object(delta : float = 0.0) -> void
+@abstract func public_interact_object(delta : float = 0.0) -> bool
 
 @abstract func check_output_can_be_created(obj : CarryableObjectBase) -> bool
 

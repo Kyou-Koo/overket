@@ -43,7 +43,7 @@ size = Vector3(50, 3, 0.25)
 size = Vector3(50, 3, 0.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8m1sh"]
-size = Vector3(0.25, 3, 10)
+size = Vector3(20, 3, 0.25)
 
 [sub_resource type="BoxMesh" id="BoxMesh_i4bpd"]
 size = Vector3(21, 3, 0.25)
@@ -194,11 +194,10 @@ layout_mode = 1
 [node name="StaticBody3D" type="StaticBody3D" parent="Surfaces/Boundary Walls" unique_id=1378164860]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 1, 3.6368709)
 collision_layer = 4
-collision_mask = 0
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surfaces/Boundary Walls/StaticBody3D" unique_id=145578852]
 shape = SubResource("BoxShape3D_eg3i3")
-disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surfaces/Boundary Walls/StaticBody3D" unique_id=656756423]
 visible = false
@@ -207,11 +206,10 @@ mesh = SubResource("BoxMesh_eg3i3")
 [node name="BackWall" type="StaticBody3D" parent="Surfaces/Boundary Walls" unique_id=1839231316]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 1, -6.3631287)
 collision_layer = 4
-collision_mask = 0
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surfaces/Boundary Walls/BackWall" unique_id=2100172598]
 shape = SubResource("BoxShape3D_8m1sh")
-disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surfaces/Boundary Walls/BackWall" unique_id=1873523658]
 visible = false
@@ -220,11 +218,10 @@ mesh = SubResource("BoxMesh_i4bpd")
 [node name="LeftWall" type="StaticBody3D" parent="Surfaces/Boundary Walls" unique_id=1730426854]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -8.5, 1, -1.5)
 collision_layer = 4
-collision_mask = 0
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surfaces/Boundary Walls/LeftWall" unique_id=2125419508]
 shape = SubResource("BoxShape3D_w52wp")
-disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surfaces/Boundary Walls/LeftWall" unique_id=1061904904]
 visible = false
@@ -233,11 +230,10 @@ mesh = SubResource("BoxMesh_8fp7h")
 [node name="RightWall" type="StaticBody3D" parent="Surfaces/Boundary Walls" unique_id=534489693]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 8.5, 1, -1.5)
 collision_layer = 4
-collision_mask = 0
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Surfaces/Boundary Walls/RightWall" unique_id=613167991]
 shape = SubResource("BoxShape3D_w52wp")
-disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Surfaces/Boundary Walls/RightWall" unique_id=1148331946]
 visible = false

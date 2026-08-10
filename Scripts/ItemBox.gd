@@ -1,8 +1,8 @@
 class_name ItemBox extends InteractableBase
 # NOTE: should only ever be 1 item that comes out here
 
-func public_interact_object(delta : float = 0.0) -> void:
-    pass;
+func public_interact_object(delta : float = 0.0) -> bool:
+    return false;
 
 # TODO: handle how player can take a stack if they are able
 # no, do this later later

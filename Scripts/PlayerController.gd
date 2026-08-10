@@ -5,14 +5,14 @@ class_name PlayerController extends CharacterBody3D
 @export var player_prefix : String;
 # TODO: put in general scene controller
 @onready var gravity : float = -ProjectSettings.get_setting("physics/3d/default_gravity");
-@export var speed : float = 3.0;
+@export var speed : float = 5.0;
 @export var jump : float = 20.0;
 @export var interaction_radius : float;
 @export var ok_id : String;
 @export_range(0, 3) var rand_head : int = 0;
 @export_range(0, 3) var rand_face : int = 0;
-@export var throw_scale : float = 8.0;
-@export var throw_vertical : float = 0.2;
+@export var throw_scale : float = 12.0;
+@export var throw_vertical : float = 0.1;
 
 @export_group("Sprites", "sprite_")
 @export var sprite_color : Color;
@@ -55,7 +55,7 @@ enum PSTATE {
 @export var scene_obj_holder : Node3D;
 
 func object_interact(delta : float) -> void:
-    Statics.debug_prolog("attempting to interact with {0}".format([closest_body]));
+    #Statics.debug_prolog("attempting to interact with {0}".format([closest_body]));
     # check in range
     if (interactable_objects.size() > 0):
         # TODO: check for bag placed on table
@@ -77,7 +77,7 @@ func object_drop() -> void:
                 # TODO: maybe place on table sound
             else:
                 AudioManager._instance.play_SFX(AudioFiles.ACTION_FAIL);
-    Statics.debug_log("throwing {0}".format([carried_object.name]));
+    #Statics.debug_log("throwing {0}".format([carried_object.name]));
     # throw before removing from self
     _reset_carried_obj();
     carried_object.apply_central_impulse(
@@ -114,7 +114,7 @@ func object_hold(obj : CarryableObjectBase) -> void:
     if (obj.get_parent_node_3d() != null):
         scene_obj_holder.remove_child(obj);
     carried_object_parent.add_child(obj);
-    Statics.debug_log("attempting to hold & remove: {0}".format([obj.name]));
+    #Statics.debug_log("attempting to hold & remove: {0}".format([obj.name]));
     # TODO: use bool to handle audio cues
     var confirm : bool = remove_from_interact_list(obj);
     carried_object = obj;
@@ -231,6 +231,13 @@ func color_sprite() -> void:
         h.modulate = sprite_color;
     sprite_animation_body.modulate = sprite_color;
     sprite_animation_leg.modulate = sprite_color;
+    # TODO: make materials unique
+    var new_mat : StandardMaterial3D = StandardMaterial3D.new();
+    new_mat.albedo_color = sprite_color;
+    $PositionCircle.material_override = new_mat;
+    debug_closest.material_override = new_mat;
+    # $PositionCircle.get_active_material(0).albedo_color = sprite_color;
+    # debug_closest.get_active_material(0).albedo_color = sprite_color;
 
 func set_up(face : int, head: int, color : Color) -> void:
     skip_instancing = false;
@@ -316,7 +323,7 @@ func _physics_process(delta : float) -> void:
         self.rotate_y(motion_direction.rotation.y);
         curr_fwd = new_fwd;
     # TODO: remove?
-    test_pushing(delta);
+    # test_pushing(delta);
     # regular checks TODO: should this be only on interact instead?
     closest_body = check_closest_body();
     # interaction

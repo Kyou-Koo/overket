@@ -36,7 +36,7 @@ vertex_color_use_as_albedo = true
 resource_local_to_scene = true
 
 [node name="Customer" type="AnimatableBody3D" unique_id=697441714 node_paths=PackedStringArray("goal_mesh_holder", "adj_mesh_holder", "comb_mesh_holder", "sprite_character_holder", "sprites_character", "sprite_request_holder", "sprites_requests", "sprite_request_bg", "self_collider", "navigation_boundary", "behind_me")]
-collision_layer = 2
+collision_layer = 4
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true

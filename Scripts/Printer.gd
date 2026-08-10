@@ -161,6 +161,8 @@ func place_output_object() -> void:
 
 func _process(delta: float) -> void:
     if (is_automatic and has_necessary_objects and auto_can_start):
+        if (progress_bar.value == 0.0):
+            AudioManager._instance.play_BGM(self.ok_id, AudioFiles.PRINTER_USE, AudioFiles.PRINTER_USE);
         update_panel(delta);
     if (is_completed):
         time_since_completion += delta;

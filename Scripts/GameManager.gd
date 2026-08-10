@@ -82,8 +82,9 @@ func start_level(lv_idx : int) -> void:
     level_level_active.position = Vector3.ZERO;
 
 func reset_players() -> void:
-    active_players = [false, false, false, false];
-    player_colors = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK];
+    for i in range(3):
+        level.unassign_head_face_color(i);
+        level.player_portraits[i].visible = false;
     player_head_face = player_head_face_base.duplicate();
     
 func end_level() -> void:
@@ -93,6 +94,7 @@ func end_level() -> void:
     public_rotate_camera(level_cam_rot, MENU.LEVEL, 0.01, true);
     level_level_active.queue_free();
     reset_players();
+    level.init_level_select();
     AudioManager._instance.play_BGM(AudioFiles.MENU_KEY, AudioFiles.MENU_BGM, AudioFiles.MENU_BGM);
     in_menu = true;
 

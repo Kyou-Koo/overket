@@ -35,7 +35,6 @@ var options : Options;
 @export var transition_time : float = 0.75;
 @export var sprite : Sprite3D;
 
-# TODO: how are we assigning this
 var num_players : int;
 var active_players : Array[bool] = [false, false, false, false]
 var player_colors : Array[Color] = [Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK];

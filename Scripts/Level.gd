@@ -44,9 +44,6 @@ var game_ended : bool = false;
 @onready var time_to_customer : float = randf_range(0, customer_spawn_variance);
 var next_spawn_gap : float = 0.5;
 
-# TODO: 
-# test code lmao
-# gameover + score screen
 signal reassign_saikoubi(customer : Customer, prev_goal : Vector3);
 
 func set_up() -> void:
@@ -76,11 +73,11 @@ func clean_up_and_return_to_menu() -> void:
     #TODO: push score to save file
     GameManager._instance.end_level();
 
-# TODO: consider reassigning to customer linked list class
+# TODO_LATER: consider reassigning to customer linked list class
 # push this off to later
 func _on_customer_leaving(cus : Customer) -> void:
     return;
-    # TODO: move respective goals up (using customer list)
+    # TODO_LATER: move respective goals up (using customer list)
 
 func _on_customer_reached_goal(cus : Customer) -> void:
     # for debugging
@@ -97,8 +94,9 @@ func _on_customer_reached_goal(cus : Customer) -> void:
         requests.append(created_request);
         created_request.failed.connect(_on_request_failed);
 
-    # TODO: this should apply to all new customers
-    # TODO: customer reaching goal should move the actual level goals
+    # TODO_LATER: this should apply to all new customers
+    # 
+    # TODO_LATER: customer reaching goal should move the actual level goals
 
 func _on_customer_reached_exit(cus : Customer) -> void:
     var i : int = customers.find(cus);

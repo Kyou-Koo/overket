@@ -3,7 +3,7 @@ class_name PlayerController extends CharacterBody3D
 @export var skip_instancing : bool = false;
 @export var debug_closest : MeshInstance3D;
 @export var player_prefix : String;
-# TODO: put in general scene controller
+# TODO_LATER: put in general scene controller
 @onready var gravity : float = -ProjectSettings.get_setting("physics/3d/default_gravity");
 @export var speed : float = 5.0;
 @export var jump : float = 20.0;
@@ -63,7 +63,6 @@ func object_interact(delta : float) -> void:
             closest_body.public_interact_object(delta);
 
 func object_drop() -> void:
-    # TODO: check for items on shelf first??
     if (interactable_objects.size() > 0):
         # attempt insert if carrying item
         if (closest_body is TimerMachineBase):
@@ -91,7 +90,6 @@ func object_drop() -> void:
     carried_object = null;
     AudioManager._instance.play_SFX(AudioFiles.THROW);
         
-# TODO: player handles assigning and reassigning of generated object parents when picked up
 func object_pick() -> void:
     if (interactable_objects.size() > 0):
         if (closest_body is Table and closest_body is not GarbageCan):
@@ -115,7 +113,7 @@ func object_hold(obj : CarryableObjectBase) -> void:
         scene_obj_holder.remove_child(obj);
     carried_object_parent.add_child(obj);
     #Statics.debug_log("attempting to hold & remove: {0}".format([obj.name]));
-    # TODO: use bool to handle audio cues
+    # TODO_LATER: use bool to handle audio cues
     var confirm : bool = remove_from_interact_list(obj);
     carried_object = obj;
     obj.freeze = true;
@@ -258,7 +256,7 @@ func _on_body_exit(body: Node3D) -> void:
     var confirm : bool = remove_from_interact_list(body);
     
 func _process(delta: float) -> void:
-    # TODO: hacky idk
+    # HACK: hacky idk (i dont care right now)
     #if (skip_instancing): return;
     sprite_container.global_rotation = Vector3(-PI/4, 0, 0);
 
@@ -314,14 +312,10 @@ func _physics_process(delta : float) -> void:
             else:
                 sprite_animation_body.play(S_LEFT + S_HOLD);
     # ------------------------------- sprite animation end
-    # TODO: why is this here lmao
-    # self.velocity.y += gravity * delta;
     if (new_fwd != curr_fwd and motion_direction.rotation.y != 0.0):
         self.rotate_y(motion_direction.rotation.y);
         curr_fwd = new_fwd;
-    # TODO: remove?
-    # test_pushing(delta);
-    # regular checks TODO: should this be only on interact instead?
+    # regular checks TODO_LATER: this could be done more efficiently probably
     closest_body = check_closest_body();
     # interaction
     if (Input.is_action_pressed(player_prefix + "interact") and

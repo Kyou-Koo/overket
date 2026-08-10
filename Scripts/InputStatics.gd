@@ -90,11 +90,11 @@ static func create_input_event_from_dict(dict : Dictionary) -> InputEvent:
         _:
             return null;
 
-# TODO: create input txt to short using dictionary as input
 static func input_text_string_to_short_txt(ev : InputEvent, is_pad : bool) -> String:
     var input : String = ev.as_text();
     if (!is_pad): return _kb_txt_short(input);
-    # TODO: determine joy index
+    # TODO: what did we want this for
+    var joy_idx : int = ev.device;
     var is_ps : bool = regex_match_ps(Input.get_joy_name(ev.device));
     var is_nin : bool = regex_match_nin(Input.get_joy_name(ev.device));
     # match buttons

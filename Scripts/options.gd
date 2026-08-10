@@ -77,7 +77,6 @@ func _on_back_pressed() -> void:
             GameManager._instance.main_cam_origin_rot,
             GameManager.MENU.MAIN);
     else:
-        # TODO: call some level functions
         self.visible = false;
 
 func _on_menu_transition(who : Node) -> void:

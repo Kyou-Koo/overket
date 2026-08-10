@@ -101,7 +101,6 @@ func check_meets_requirements() -> bool:
     var clear_current_objects : bool = false;
     for c_o in current_objects:
         # weird state where an undesired object has entered the machine
-        # TODO: what do here (probably clean up undesired)
         if !consumed_objects.has(c_o):
             Statics.debug_log("rejecting start")
             clear_current_objects = true;
@@ -124,7 +123,7 @@ func update_panel(delta : float) -> void:
         var curr_progress : float = roundf((time_since_interact*progress_bar.max_value)/interaction_duration);
         Statics.debug_prolog("new update for {0} : {1}".format([self.name, curr_progress]));
         if curr_progress >= progress_bar.max_value:
-            # TODO: handle arrays multiple
+            # TODO_LATER: handle arrays multiple
             if (should_output_objects):
                 for output_obj : CarryableObjectBase in output_obj_examples:
                     if (check_output_can_be_created(output_obj)):

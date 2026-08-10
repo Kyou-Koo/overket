@@ -7,8 +7,8 @@ var objs_on_top : Array[CarryableObjectBase];
 var ok_id : StringName = "";
 
 func public_take_object() -> CarryableObjectBase:
-    # TODO: stacking??
-    # TODO: handle taking a bag specifically -- a bag is 1 item with complex id
+    # TODO_LATER: stacking??
+    # a bag is 1 item with complex id
     var num_items_on_top : int = objs_on_top.size();
     if (num_items_on_top > 0):
         Statics.debug_log("tabletop: {0}".format([objs_on_top.size()]));
@@ -36,15 +36,14 @@ func public_place_object(obj : CarryableObjectBase) -> bool:
         Statics.debug_log("suc place {0} : at {1} goal: {2} parent {3}".format([
             obj.name, obj.global_position, placement_marker.global_position, str(obj.get_parent())]));
         return true;
-    # TODO: handle multiple items
-    # TODO: for now just ignore this and disallow stacking
+    # TODO_LATER: handle multiple items
     # elif (objs_on_top[0].item_type == obj.item_type):
     #     if (objs_on_top[0].can_stack and objs_on_top[0].max_stack < num_items_on_top):
     #         objs_on_top.append(obj);
     #         if (obj.get_parent() != scene_obj_holder):
     #             obj.get_parent().remove_child(obj);
     #             scene_obj_holder.add_child(obj);
-    #         # TODO: check height calculation
+    #         # TODO_LATER: check height calculation
     #         var new_height : float = (obj.obj_height/2.0) + (obj.obj_height * objs_on_top.size());
     #         obj.global_position = obj_top_global_position + Vector3(0, new_height, 0);
     #         obj.orientate_self();
@@ -63,6 +62,5 @@ func _ready() -> void:
     objs_on_top.clear();
     # assign refs
     ok_id = Statics.create_ok_id(self);
-    var children : Array[Node] = self.get_children();
-    # TODO: recalculate
+    # TODO_LATER: recalculate
     # scene_obj_holder = self.get_owner().find_child("CarryableObjects") as Node3D;

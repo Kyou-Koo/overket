@@ -103,11 +103,11 @@ func _process(delta: float) -> void:
         if (remaining_time < 0.0 and !killed):
             failed.emit(from_who);
             animate_out();
-            # TODO: call sfx manager for fail sfx
+            AudioManager._instance.play_SFX(AudioFiles.ORDER_FAIL);
             killed = true;
         if (completed and !killed):
             animate_out();
-            # TODO: call sfx manager for complete sfx
+            AudioManager._instance.play_SFX(AudioFiles.ORDER_COMPLETE);
             killed = true;
         elif (Time.get_ticks_msec() - initialized_time)/1000.0 > animate_duration:
             remaining_time -= delta;

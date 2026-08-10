@@ -14,7 +14,6 @@ var request_x_start : float = 0.0;
 var request_queue : Array[Request];
 @export var queue_delay : float = 0.25;
 var queue_last_used : float = 0;
-# TODO: move to level itself?
 var x_move_in_queue : bool = false;
 @export var request_gap_x : float = (256.0 * 0.9) + 8.0;
 var request_x_poses : Array[float];

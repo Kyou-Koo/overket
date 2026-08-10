@@ -12,9 +12,6 @@ var resolution_focused : bool = false;
 var resolution : SaveDataMgr.Resolution;
 const RES_1280 : String = "1280x720 >";
 const RES_1920 : String = "< 1920x1080";
-# TODO: i dont think these are actually used
-var level_select : LevelSelect;
-var options_menu : Options;
 var is_active : bool = true;
 
 func _on_menu_transition(who : Node) -> void:

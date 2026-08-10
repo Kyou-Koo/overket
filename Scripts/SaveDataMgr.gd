@@ -99,10 +99,10 @@ static func set_resolution_enum(res : Resolution) -> void:
     _instance.savedata["resolution"] = res;
 
 
-# TODO: probably depreciated (minus hiscore)
+# TODO_LATER: probably depreciated (minus hiscore)
 static func update_savefield(new_data : Variant, field : FIELD, curr_data : Dictionary) -> Dictionary:
     var new_data_dict : Dictionary;
-    # TODO: maybe typecheck new data
+    # TODO_LATER: maybe typecheck new data
     match field:
         FIELD.LANGUAGE:
             new_data_dict["lang"] = new_data;
@@ -111,7 +111,7 @@ static func update_savefield(new_data : Variant, field : FIELD, curr_data : Dict
         FIELD.SOUND:
             new_data_dict["sound"] = new_data;
         FIELD.HISCORE:
-            # TODO: some array merging?
+            # TODO_LATER: some array merging?
             new_data_dict["highscore"] = new_data;
     curr_data.merge(new_data_dict, true);
     Statics.debug_log("updated save from field: {0}".format([str(curr_data)]));
@@ -161,7 +161,7 @@ static func load_savedata() -> void:
             pwd);
         var savefile_content : String = savefile.get_as_text();
         Statics.debug_log("savesstring: {0}".format([savefile_content]));
-        # TODO: rather than close early, pass file to write and have func deal with if open already
+        # TODO_LATER: rather than close early, pass file to write and have func deal with if open already
         savefile.close();
         var savefile_json : JSON = JSON.new();
         var validity : Error = savefile_json.parse(savefile_content);

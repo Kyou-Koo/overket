@@ -73,8 +73,8 @@ func _ready() -> void:
     assert(texture_select_right != null, "{0} must have right texture".format([self.name]));
     texture_select_right.position = Vector2(self.size.x + horizonal_offset, vertical_icon_alignment);
     texture_select_right.visible = false;
-    assert(texture_hover != null, "{0} must have hover texture".format([self.name]));
-    #TODO: position texture -- i think this is deprecated
+    # at this point hover texture is not used due to nature of how the menu is added to the scene
+    # assert(texture_hover != null, "{0} must have hover texture".format([self.name]));
 
     texture_hover.visible = false;
 

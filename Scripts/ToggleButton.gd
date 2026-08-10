@@ -75,7 +75,8 @@ func _on_button_unhover() -> void:
 func _on_slider_value_changed(new_val : float) -> void:
     if (!button_flow_handler.is_active):
         return;
-    # TODO: consider not updating so often?
+    # consider not updating so often?
+    # it's fine i think
     if (is_equal_approx(new_val, 0.0)):
         toggle_on(false);
     else:

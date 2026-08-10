@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://7qddkg4onoyt" path="res://Scripts/GameManager.gd" id="1_1xgcs"]
 [ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="1_paki0"]
-[ext_resource type="Script" uid="uid://dy45t2kk5ahj2" path="res://Scripts/AudioManager.gd" id="2_iafxj"]
 [ext_resource type="Texture2D" uid="uid://dmh43dastxv35" path="res://Resources/Images/logo_ja.png" id="3_d67mf"]
 [ext_resource type="BoxMesh" uid="uid://dgb5c8lu5gf52" path="res://Resources/Mesh/cube10m.tres" id="3_m7k6n"]
 [ext_resource type="BoxMesh" uid="uid://bwi4vnsw7m0cg" path="res://Resources/Mesh/cube15m.tres" id="4_054na"]
@@ -115,9 +114,6 @@ options_node_parent = NodePath("MainAreaContents/Options/OSubViewport")
 options_cam_pos = Vector3(0, 2.5, 0)
 options_cam_rot = Vector3(0, -130, 0)
 sprite = NodePath("MainAreaContents/MM/Renna")
-
-[node name="AudioManager" type="Node3D" parent="." unique_id=1797945235]
-script = ExtResource("2_iafxj")
 
 [node name="MainAreaContents" type="Node3D" parent="." unique_id=702712883]
 

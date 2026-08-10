@@ -17,7 +17,7 @@ enum MENU {
 @export var main_cam_origin_pos : Vector3;
 @export var main_cam_origin_rot : Vector3;
 var main_menu_scene : PackedScene;
-var main_menu : Control;
+var main_menu : MainMenu;
 @export_group("Level", "level")
 @export var level_node_parent : SubViewport;
 @export var level_cam_pos : Vector3;
@@ -113,8 +113,6 @@ func instantiate_menus() -> void:
     options_node_parent.add_child(options);
     main_menu_scene = preload("res://Resources/MainMenu.tscn");
     main_menu = main_menu_scene.instantiate();
-    main_menu.level_select = level;
-    main_menu.options_menu = options;
     main_menu_node_parent.add_child(main_menu);
 
 func sprite_actions() -> void:

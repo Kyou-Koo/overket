@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://djd2so5rdd7gy" path="res://Resources/Images/CharacterSprites/1.png" id="4_yerly"]
 [ext_resource type="Texture2D" uid="uid://bq8f67nuw1o8n" path="res://Resources/Images/CharacterSprites/2.png" id="5_88xym"]
 [ext_resource type="Texture2D" uid="uid://bmbjn0xu4i75j" path="res://Resources/Images/CharacterSprites/6.png" id="6_aynqn"]
+[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="8_88xym"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ruxh5"]
 radius = 0.25
@@ -14,6 +15,19 @@ radius = 0.25
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_po804"]
 height = 1.0
 radius = 3.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_88xym"]
+viewport_path = NodePath("requests/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_88xym"]
+line_spacing = -15.0
+font = ExtResource("8_88xym")
+font_size = 48
+outline_size = 16
+outline_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
+shadow_size = 8
+shadow_color = Color(0.3112602, 0.18521467, 0.094433285, 0.5529412)
+shadow_offset = Vector2(5, 5)
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_po804"]
 vertex_color_use_as_albedo = true
@@ -35,7 +49,7 @@ vertex_color_use_as_albedo = true
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_fmkgi"]
 resource_local_to_scene = true
 
-[node name="Customer" type="AnimatableBody3D" unique_id=697441714 node_paths=PackedStringArray("goal_mesh_holder", "adj_mesh_holder", "comb_mesh_holder", "sprite_character_holder", "sprites_character", "sprite_request_holder", "sprites_requests", "sprite_request_bg", "self_collider", "navigation_boundary", "behind_me")]
+[node name="Customer" type="AnimatableBody3D" unique_id=697441714 node_paths=PackedStringArray("goal_mesh_holder", "adj_mesh_holder", "comb_mesh_holder", "sprite_character_holder", "sprites_character", "sprite_request_holder", "sprites_requests", "sprite_request_bg", "request_id_label", "self_collider", "navigation_boundary", "behind_me")]
 collision_layer = 4
 axis_lock_linear_y = true
 axis_lock_angular_x = true
@@ -52,6 +66,7 @@ sprites_character = [NodePath("sprites/03"), NodePath("sprites/04"), NodePath("s
 sprite_request_holder = NodePath("requests/icons")
 sprites_requests = [NodePath("requests/background")]
 sprite_request_bg = NodePath("requests/background")
+request_id_label = NodePath("requests/SubViewport/Label")
 self_collider = NodePath("CollisionShape3D")
 navigation_boundary = NodePath("CollisionAvoidance")
 behind_me = NodePath("Saikoubi")
@@ -100,11 +115,30 @@ debug_color = Color(0.36603513, 0.5970067, 0.39961985, 0.89411765)
 transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 2.4431024, -1.8121502)
 
 [node name="background" type="Sprite3D" parent="requests" unique_id=1714849378]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
-visible = false
-texture = ExtResource("3_60kmx")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.19688109, 1.7881394e-08)
+texture = SubResource("ViewportTexture_88xym")
 
 [node name="icons" type="Node3D" parent="requests" unique_id=757394550]
+
+[node name="SubViewport" type="SubViewport" parent="requests" unique_id=582149538]
+transparent_bg = true
+size = Vector2i(100, 100)
+
+[node name="TextureRect" type="TextureRect" parent="requests/SubViewport" unique_id=1353588416]
+custom_minimum_size = Vector2(100, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_60kmx")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="requests/SubViewport" unique_id=481325307]
+custom_minimum_size = Vector2(100, 80)
+offset_right = 40.0
+offset_bottom = 23.0
+text = "1"
+label_settings = SubResource("LabelSettings_88xym")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GOAL" type="MeshInstance3D" parent="." unique_id=216428448]
 visible = false

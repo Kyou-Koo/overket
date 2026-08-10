@@ -1,4 +1,4 @@
-extends Control
+class_name MainMenu extends Control
 
 @export var play_button : Button;
 @export var options_button : Button;
@@ -70,18 +70,20 @@ func _on_res_focus_exited() -> void:
     resolution_focused = false;
     
 func _input(ev: InputEvent) -> void:
-    if (resolution_focused and is_active and
-    !SaveDataMgr.get_fs_mode_is_fs()):
-        if (ev.is_action_pressed(&"ui_left") and resolution == SaveDataMgr.Resolution.BIG):
-            get_viewport().set_input_as_handled();
-            resolution = SaveDataMgr.Resolution.SMALL;
-            set_resolution_text_and_res();
-            SaveDataMgr.set_resolution_enum(SaveDataMgr.Resolution.SMALL);
-        elif (ev.is_action_pressed(&"ui_right") and resolution == SaveDataMgr.Resolution.SMALL):
-            get_viewport().set_input_as_handled();
-            resolution = SaveDataMgr.Resolution.BIG;
-            set_resolution_text_and_res();
-            SaveDataMgr.set_resolution_enum(SaveDataMgr.Resolution.BIG);
+    if (is_active):
+        if (ev.is_action_pressed(&"ui_cancel")):
+            quit_button.grab_focus.call_deferred();
+        if (resolution_focused and !SaveDataMgr.get_fs_mode_is_fs()):
+            if (ev.is_action_pressed(&"ui_left") and resolution == SaveDataMgr.Resolution.BIG):
+                get_viewport().set_input_as_handled();
+                resolution = SaveDataMgr.Resolution.SMALL;
+                set_resolution_text_and_res();
+                SaveDataMgr.set_resolution_enum(SaveDataMgr.Resolution.SMALL);
+            elif (ev.is_action_pressed(&"ui_right") and resolution == SaveDataMgr.Resolution.SMALL):
+                get_viewport().set_input_as_handled();
+                resolution = SaveDataMgr.Resolution.BIG;
+                set_resolution_text_and_res();
+                SaveDataMgr.set_resolution_enum(SaveDataMgr.Resolution.BIG);
             
 func set_resolution_text_and_res() -> void:
     if (!GameManager._instance): GameManager.create_gm();

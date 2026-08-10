@@ -34,6 +34,7 @@ var active_sprite : Sprite3D;
     set(value):
         sprite_tint = value;
         apply_tint(active_sprite);
+@export var request_id_label : Label;
 @export_range(0.0, 20.0) var move_speed : float = 5.0;
 @export var self_collider : CollisionShape3D;
 var self_coll_radius : float;
@@ -56,6 +57,8 @@ var request_failed : bool = false;
 var nearby_characters : Dictionary[String, AnimatableBody3D];
 var bounce_tween : Tween;
 var mid_bounce : bool = false;
+var should_display_request : bool = false;
+var request_displayed : bool = false;
 @export_range(0.0, 2.0) var movement_variance_max : float = 0.2;
 @onready var movement_variance : float = randf_range(0.0, movement_variance_max);
 @onready var desired_dist : float = randf_range(1.0, 3.0);
@@ -211,13 +214,20 @@ func assign_request() -> void:
     var request_arr : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(request);
     # TODO: select sprite based on request
 
-func display_request() -> void:
+func request_pose() -> void:
     active_sprite.visible = false;
     var idx : int = randi_range(0, sprites_character.size() - 1);
     sprites_character[idx].visible = true;
     active_sprite = sprites_character[idx];
     active_sprite.modulate = sprite_tint;
+
+func display_request() -> void:
     sprite_request_bg.visible = true;
+    Statics.debug_log("{0} should show {1} {2} {3}".format([
+        self.name,
+        request_id_label.text,
+        request_id_label.visible,
+    ]))
 
 func hide_request_bubble() -> void:
     sprite_request_bg.visible = false;
@@ -251,8 +261,11 @@ func _physics_process(delta: float) -> void:
     if (at_goal):
         if (!request_sent):
             request_sent = true;
-            display_request();
             goal_reached.emit(self);
+            request_pose();
+        if (should_display_request and !request_displayed):
+            display_request();
+            request_displayed = true;
     if ((request_sent and request_received) or is_passerby or request_failed):
         sprite_request_bg.visible = false;
         if (!is_passerby):
@@ -269,6 +282,7 @@ func initiate() -> void:
     behind_me.global_position = self.global_position + Vector3(randf_range(-1.0, 1.0), 0.0, 0.75);
 
 func _ready() -> void:
+    assert(request_id_label != null, "label must be assigned");
     if (sprite_character_holder):
         for c : Node in sprite_character_holder.get_children():
             if (c is Sprite3D):

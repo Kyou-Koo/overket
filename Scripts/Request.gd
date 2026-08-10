@@ -11,6 +11,7 @@ class_name Request extends NinePatchRect
     Vector2(0.0, 0.0), Vector2(130.0, 0.0),
     Vector2(0.0, 130.0), Vector2(130.0, 130.0)
 ]
+@export var order_num : Label;
 var full_request : int;
 var request_items : Array[RequestItem];
 var from_who : Customer;
@@ -23,7 +24,7 @@ var completed : bool = false;
 var worth : int;
 var pct_remain : float;
 # in seconds
-@export var start_duration : float = 20.0;
+@export var start_duration : float = 25.0;
 var can_start : bool = false;
 var start_called_but_not_ready : bool = false;
 @onready var remaining_time : float = start_duration;

@@ -22,6 +22,7 @@ var request_x_poses : Array[float];
 @export var money_holder : NinePatchRect;
 var timer_text : Label;
 var money_text : Label;
+var request_id : int = 1;
 
 # request order (display max 5 requests at once);
 # 5 4 3 2 1
@@ -33,6 +34,9 @@ func add_request(what : int, who : Customer) -> Request:
     new_request.position_request_items(what);
     # Statics.debug_log("what is request: {0}".format([what]));
     new_request.from_who = who;
+    new_request.order_num.text = str(request_id);
+    new_request.from_who.request_id_label.text = str(request_id);
+    request_id += 1;
     # queue request if too many
     if (x_move_in_queue or request_scns.size() >= request_scns_max):
         # Statics.debug_log("queueing because busy: {0}".format([x_move_in_queue]));
@@ -41,6 +45,7 @@ func add_request(what : int, who : Customer) -> Request:
     # bump elders right
     move_ancestor_requests_right();
     request_scns.append(new_request);
+    new_request.from_who.should_display_request = true;
     new_request.allow_start();
     new_request.visible = true;
     new_request.position = Vector2(request_x_start, 200.0);
@@ -54,6 +59,7 @@ func add_queued_request(r : Request) -> void:
     move_ancestor_requests_right();
     request_scns.append(r);
     r.visible = true;
+    r.from_who.should_display_request = true;
     r.allow_start();
     r.position = Vector2(request_x_start, 200.0);
     r.parent_level = self;

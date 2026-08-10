@@ -35,6 +35,8 @@ func _input(ev : InputEvent) -> void:
         if (ev.is_action_pressed(&"start")):
             get_viewport().set_input_as_handled();
             _on_close_pressed();
+        if (ev.is_action_pressed(&"ui_cancel")):
+            close_button.grab_focus.call_deferred();
 
 func _ready() -> void:
     assert(menu_button != null, "assign return to menu button");

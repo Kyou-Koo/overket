@@ -11,8 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://c5m2bmibut2qn" path="res://Resources/RequestIcons/RequestKeyholder.tscn" id="7_sc02u"]
 [ext_resource type="PackedScene" uid="uid://bcmb6ok2n3tn7" path="res://Resources/RequestIcons/RequestShikishi.tscn" id="8_i6n17"]
 [ext_resource type="Texture2D" uid="uid://bvt4yxids331u" path="res://Resources/Images/bag.png" id="9_pcw1a"]
+[ext_resource type="LabelSettings" uid="uid://cgl6wwmot7xg7" path="res://Resources/Themes/level_label.tres" id="12_i6n17"]
 
-[node name="Request" type="NinePatchRect" unique_id=28261208 node_paths=PackedStringArray("countdown_timer", "request_item_holder")]
+[node name="Request" type="NinePatchRect" unique_id=28261208 node_paths=PackedStringArray("countdown_timer", "request_item_holder", "order_num")]
 custom_minimum_size = Vector2(256, 300)
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,6 +32,7 @@ script = ExtResource("2_si5kx")
 countdown_timer = NodePath("Timer")
 request_item_holder = NodePath("PossibleItems")
 request_item_grid = Array[Vector2]([Vector2(0, 0), Vector2(98, 0), Vector2(0, 98), Vector2(98, 98)])
+order_num = NodePath("Label")
 
 [node name="PossibleItems" type="Control" parent="." unique_id=2031703649]
 anchors_preset = 0
@@ -90,3 +92,13 @@ stretch_margin_right = 55
 stretch_margin_bottom = 55
 texture_under = ExtResource("5_sc02u")
 texture_progress = ExtResource("5_sc02u")
+
+[node name="Label" type="Label" parent="." unique_id=1049084942]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 0
+offset_top = -20.0
+offset_right = 256.0
+offset_bottom = 72.0
+text = "1"
+label_settings = ExtResource("12_i6n17")
+horizontal_alignment = 1

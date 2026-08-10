@@ -459,12 +459,12 @@ light_volumetric_fog_energy = 0.226
 shadow_enabled = true
 
 [node name="SpawnArea" type="MeshInstance3D" parent="." unique_id=508129065]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.25, 5.0408144)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.75, 0.25, 5.041)
 mesh = SubResource("BoxMesh_mhw25")
 surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 
 [node name="SpawnArea2" type="MeshInstance3D" parent="." unique_id=762993544]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0.25, 5.041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.75, 0.25, 5.041)
 mesh = SubResource("BoxMesh_mhw25")
 surface_material_override/0 = SubResource("StandardMaterial3D_05fnj")
 

@@ -32,9 +32,9 @@ func public_insert_object(obj : CarryableObjectBase, p : PlayerController = null
         return true;
     return false;
 
-# TODO: should all interacts emit a message on fail?
+# TODO_LATER: should all interacts emit a message on fail?
 func public_interact_object(delta : float = 0.0) -> bool:
-    # TODO: unfinished, handle automatic also
+    # TODO_LATER: unfinished, handle automatic also
     has_necessary_objects = check_meets_requirements();
     if (!has_necessary_objects):
         return false;
@@ -63,12 +63,14 @@ func check_meets_requirements() -> bool:
         return false;
     for c_o in current_objects:
         # weird state where an undesired object has entered the machine
-        # TODO: what do here (probably clean up undesired)
+        # TODO_LATER: what do here (probably clean up undesired)
+        # a non-issue because only printer uses and overwrites this
         if !consumed_objects.has(c_o):
             return false;
     if (num_required_objects == 0):
         return true;
-    # TODO: handle only needing 1 object
+    # TODO_LATER: handle only needing 1 object
+    # as of now only thing that eats objects is printers
     return true;
 
 func update_panel(delta : float) -> void:
@@ -81,7 +83,7 @@ func update_panel(delta : float) -> void:
         var curr_progress : float = roundf((time_since_interact*progress_bar.max_value)/interaction_duration);
         Statics.debug_prolog("new update for {0} : {1}".format([self.name, curr_progress]));
         if curr_progress >= progress_bar.max_value:
-            # TODO: handle arrays multiple
+            # TODO_LATER: handle arrays multiple
             if (should_output_objects):
                 if (check_output_can_be_created(output_obj_examples[0])):
                     progress_bar.visible = true;

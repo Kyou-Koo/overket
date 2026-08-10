@@ -12,6 +12,7 @@ func _on_focus_exited() -> void:
     
 func _on_pressed() -> void:
     button_flow_handler.public_set_activated_button(self);
+    AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
 
 func _ready() -> void:
     if (button_flow_handler == null):

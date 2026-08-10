@@ -76,6 +76,11 @@ func stop_all_BGM() -> void:
     for key : String in allBgmPlayers.keys():
         stop_specific_BGM(key)
     # TODO: implement "autostop" for games with just one bgm track
+
+func stop_all_SFX() -> void:
+    for key : String in sfxPlayersForKey.keys():
+        var player : AudioStreamPlayer = sfxPlayersForKey[key];
+        player.stop();
     
 func stop_specific_BGM(bgmKey : String) -> void:
     if bgmKey in allBgmPlayers:
@@ -169,7 +174,7 @@ func bgm_finished(player : AudioStreamPlayer) -> void:
         player.play()
 
 # TODO: there is weird audio popping sometimes (only on mac?)
-func play_SFX(sfxKey : Resource) -> void:
+func play_SFX(sfxKey : Resource, offset_volume : float = 0.0) -> void:
     ensure_initialized()
     
     # note this will only play up to 1 SFX at once, intentionally
@@ -178,7 +183,7 @@ func play_SFX(sfxKey : Resource) -> void:
     (sfxPlayerThis.stream as AudioStreamOggVorbis).loop = false
     sfxPlayerThis.bus = "SFX"
     sfxPlayerThis.pitch_scale = 1
-    sfxPlayerThis.volume_db = 0
+    sfxPlayerThis.volume_db = offset_volume;
     sfxPlayerThis.play()
     
 func mute_SFX(sfxKey : Resource, doMute : bool) -> void:

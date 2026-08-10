@@ -48,6 +48,7 @@ func add_request(what : int, who : Customer) -> Request:
     new_request.parent_level = self;
     new_request.anim_x_done.connect(_on_anim_x_done);
     new_request.animate_in();
+    AudioManager._instance.play_SFX(AudioFiles.ORDER_UP);
     return new_request;
 
 func add_queued_request(r : Request) -> void:

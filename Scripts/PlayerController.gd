@@ -231,13 +231,10 @@ func color_sprite() -> void:
         h.modulate = sprite_color;
     sprite_animation_body.modulate = sprite_color;
     sprite_animation_leg.modulate = sprite_color;
-    # TODO: make materials unique
     var new_mat : StandardMaterial3D = StandardMaterial3D.new();
     new_mat.albedo_color = sprite_color;
     $PositionCircle.material_override = new_mat;
     debug_closest.material_override = new_mat;
-    # $PositionCircle.get_active_material(0).albedo_color = sprite_color;
-    # debug_closest.get_active_material(0).albedo_color = sprite_color;
 
 func set_up(face : int, head: int, color : Color) -> void:
     skip_instancing = false;

@@ -143,6 +143,7 @@ func update_panel(delta : float) -> void:
         has_necessary_objects = false;
         has_paper = false;
         has_data = false;
+        # AudioManager._instance.stop_specific_BGM(self.ok_id);
         if (should_output_objects): place_output_object();
     
 func place_output_object() -> void:
@@ -162,7 +163,7 @@ func place_output_object() -> void:
 func _process(delta: float) -> void:
     if (is_automatic and has_necessary_objects and auto_can_start):
         if (progress_bar.value == 0.0):
-            AudioManager._instance.play_BGM(self.ok_id, AudioFiles.PRINTER_USE, AudioFiles.PRINTER_USE);
+            AudioManager._instance.play_SFX(AudioFiles.PRINTER_USE, 2.0);
         update_panel(delta);
     if (is_completed):
         time_since_completion += delta;

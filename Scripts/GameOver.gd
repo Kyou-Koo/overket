@@ -9,10 +9,12 @@ func activate(money : int) -> void:
     self.visible = true;
     end_button.grab_focus.call_deferred();
     AudioManager._instance.stop_all_BGM();
+    AudioManager._instance.stop_all_SFX();
     AudioManager._instance.play_SFX(AudioFiles.GAME_OVER_SCREEN);
 
 func _on_end_pressed() -> void:
     self.visible = false;
+    AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
     level.clean_up_and_return_to_menu();
 
 func _ready() -> void:

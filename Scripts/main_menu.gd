@@ -45,6 +45,7 @@ func _on_quit_pressed() -> void:
 func _on_fs_focus_entered() -> void: fullscreen_focus.visible = true;
 func _on_fs_focus_exited() -> void: fullscreen_focus.visible = false;
 func _on_fs_toggled(state : bool) -> void:
+    AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
     if (state):
         GameManager._instance.set_res_1920();
         get_viewport().get_window().mode = Window.MODE_FULLSCREEN;

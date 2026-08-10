@@ -29,7 +29,6 @@ func _input(ev: InputEvent) -> void:
         waiting_for_input = false;
         rebind_finished.emit();
     elif (ev.is_pressed()):
-        # TODO: update control
         if (ev is InputEventKey):
             keyboard_icon.visible = true;
             controller_button_icon.visible = false;
@@ -49,6 +48,7 @@ func _input(ev: InputEvent) -> void:
             controller_button_icon.visible = false;
             controller_stick_icon.visible = true;
             label.text = InputStatics.input_text_string_to_short_txt(ev, true);
+        AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION)
         KeyCon.update_keymap(keybind_menu.active_player, action_type, ev);
         waiting_for_input = false;
         rebind_finished.emit();

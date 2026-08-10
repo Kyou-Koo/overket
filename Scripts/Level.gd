@@ -71,6 +71,8 @@ func clean_up_and_return_to_menu() -> void:
     # queuefreeing everything pre-returning to menu does something funny
     # don't do that!!
     get_viewport().get_tree().paused = false;
+    AudioManager._instance.stop_all_SFX();
+    AudioManager._instance.stop_all_BGM();
     #TODO: push score to save file
     GameManager._instance.end_level();
 

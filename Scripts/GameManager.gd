@@ -66,7 +66,7 @@ func public_rotate_camera(to : Vector3, new_menu : MENU, rate : float = transiti
         MENU.OPTIONS:
             next_menu = options;
     transition_to.emit(next_menu);
-    if (ignore_audio): AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
+    if (!ignore_audio): AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
     
 func start_level(lv_idx : int) -> void:
     if (is_instance_valid(level_level_active)):

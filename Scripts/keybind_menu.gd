@@ -93,6 +93,7 @@ func _on_player_bind_selected(player : String) -> void:
 func _on_save_pressed() -> void:
     self.visible = false;
     keybind_menu_closed.emit(self);
+    AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
     SaveDataMgr.write_savedata(KeyCon.active_keymap, SaveDataMgr.keybind_filepath, SaveDataMgr.SAVEDATA.Keybind);
     
 func _input(ev: InputEvent) -> void:

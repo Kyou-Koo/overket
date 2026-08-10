@@ -10,7 +10,6 @@ func public_interact_object(delta : float = 0.0) -> bool:
 
 func _process(delta: float) -> void:
     super._process(delta);
-    # TODO: confirm process doesn't kill the game
     if (Time.get_ticks_msec() - interact_interval > last_interact_time or
     GameManager._instance.level_level_active.game_ended):
         AudioManager._instance.stop_specific_BGM(ok_id);

@@ -14,6 +14,7 @@ func activate() -> void:
 func _on_menu_back_pressed() -> void:
     is_active = false;
     self.visible = false;
+    AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
     AudioManager._instance.fade_all_BGM();
     AudioManager._instance.stop_all_BGM();
     level.clean_up_and_return_to_menu();
@@ -22,10 +23,15 @@ func _on_close_pressed() -> void:
     is_active = false;
     self.visible = false;
     level.is_paused = false;
+    AudioManager._instance.play_SFX(AudioFiles.MENU_CONFIRM);
     get_viewport().get_tree().paused = false;
     
 func _input(ev : InputEvent) -> void:
     if (is_active and !GameManager._instance.in_menu):
+        if (ev.is_pressed()):
+            if (ev.is_action(&"ui_left") or ev.is_action(&"ui_right") or 
+            ev.is_action(&"ui_up") or ev.is_action(&"ui_down")):
+                AudioManager._instance.play_SFX(AudioFiles.MENU_MOVE);
         if (ev.is_action_pressed(&"start")):
             get_viewport().set_input_as_handled();
             _on_close_pressed();

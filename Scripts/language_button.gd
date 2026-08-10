@@ -46,6 +46,7 @@ func _on_mouse_exited() -> void:
     texture_underline.visible = false;
 
 func _on_toggle(is_active : bool) -> void:
+    AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
     if (!parent_control.button_flow_handler.is_active):
         return;
     texture_select_left.visible = is_active;

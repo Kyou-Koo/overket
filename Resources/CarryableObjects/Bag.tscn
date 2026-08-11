@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cxbgsncbnwhj0" path="res://Scripts/Bag.gd" id="1_478p6"]
 [ext_resource type="PackedScene" uid="uid://b1svy6q5h3k4n" path="res://Resources/Mesh/bag.glb" id="2_478p6"]
+[ext_resource type="PackedScene" uid="uid://cvmps3i7irg8v" path="res://Resources/Mesh/acrylic_stand.glb" id="3_v6x13"]
+[ext_resource type="PackedScene" uid="uid://bsmnup43lvel5" path="res://Resources/Mesh/book.glb" id="4_t80jr"]
+[ext_resource type="PackedScene" uid="uid://dqth5w7qromd8" path="res://Resources/Mesh/keyholder.glb" id="5_v04d2"]
+[ext_resource type="PackedScene" uid="uid://cebdxu3wc034n" path="res://Resources/Mesh/shikishi.glb" id="6_wg10t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2bb0j"]
 size = Vector3(0.65737796, 0.548, 0.5)
@@ -10,13 +14,14 @@ size = Vector3(0.65737796, 0.548, 0.5)
 height = 1.0
 radius = 0.3
 
-[node name="Bag" type="RigidBody3D" unique_id=915638170]
+[node name="Bag" type="RigidBody3D" unique_id=915638170 node_paths=PackedStringArray("inside_asset_holder")]
 collision_mask = 7
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 mass = 1.25
 freeze_mode = 1
 script = ExtResource("1_478p6")
+inside_asset_holder = NodePath("bag/InsideAssets")
 interaction_duration = 3.0
 interaction_gap = 0.25
 obj_name = "Bag"
@@ -24,7 +29,22 @@ item_type = 128
 obj_height = 0.4
 
 [node name="bag" parent="." unique_id=214785341 instance=ExtResource("2_478p6")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0.34192175, 0.93972844, -1.4945874e-08, 0.93972844, -0.34192175, -4.1076834e-08, 0, 0, 0.07442474)
+
+[node name="InsideAssets" type="Node3D" parent="bag" unique_id=1763672753]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="acrylic_stand" parent="bag/InsideAssets" unique_id=1365726200 instance=ExtResource("3_v6x13")]
+transform = Transform3D(-3.887631e-08, -0.13781144, -0.88938624, -6.02393e-09, 0.88938624, -0.13781144, 0.9, 0, -3.934025e-08, 0, 0.13705215, -0.046729922)
+
+[node name="book" parent="bag/InsideAssets" unique_id=1754402073 instance=ExtResource("4_t80jr")]
+transform = Transform3D(1.5285484e-15, -3.4969112e-08, -0.8, -0.8, -3.4969112e-08, 0, -3.4969112e-08, 0.8, -3.4969112e-08, 0, 0.4744494, -0.20821309)
+
+[node name="keyholder" parent="bag/InsideAssets" unique_id=1782739930 instance=ExtResource("5_v04d2")]
+transform = Transform3D(0.66151536, -0.4197759, -0.16181926, -0.14947714, 0.06632226, -0.78310776, 0.42432758, 0.6777827, -0.023592139, -0.03938842, 0.5015837, -0.14630112)
+
+[node name="shikishi" parent="bag/InsideAssets" unique_id=1229495200 instance=ExtResource("6_wg10t")]
+transform = Transform3D(1.1464113e-15, -2.6226834e-08, -0.6, -0.6, -2.6226834e-08, 0, -2.6226834e-08, 0.6, -2.6226834e-08, 0, 0.33453462, 0.1417261)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=597993760]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0013891459, 0.27407226, 0.0002888441)

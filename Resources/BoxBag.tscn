@@ -11,7 +11,7 @@ viewport_path = NodePath("SubViewport")
 
 [node name="BoxBag" type="StaticBody3D" unique_id=459736917]
 script = ExtResource("1_7vm88")
-output_object_strs = Array[String](["res://Resources/CarryableObjects/AcrylicStand.tscn"])
+output_object_strs = Array[String](["res://Resources/CarryableObjects/Bag.tscn"])
 should_output_objects = true
 
 [node name="storage_box" parent="." unique_id=84293636 instance=ExtResource("2_4k8uw")]

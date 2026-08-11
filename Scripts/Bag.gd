@@ -1,5 +1,6 @@
 class_name Bag extends CarryableObjectBase
 # Object should create when bag is placed on table
+@export var inside_asset_holder : Node3D;
 @export var interaction_duration : float;
 @export var interaction_gap : float;
 var consumed_objects : Array[CarryableObjects.CarryObjEnum];
@@ -96,3 +97,5 @@ func _ready() -> void:
     consumed_objects.append(CarryableObjects.CarryObjEnum.ACRYLIC);
     consumed_objects.append(CarryableObjects.CarryObjEnum.KEYHOLDER);
     
+    for c : Node3D in inside_asset_holder.get_children():
+        c.visible = false;

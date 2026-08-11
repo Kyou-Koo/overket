@@ -30,6 +30,8 @@ var customers : Array[Customer];
 @export var customer_z_line : float = 4.05;
 @export var customer_max : int = 20;
 @export var countdown_length : float = 5.0;
+## uses CarryableObjects.customer_requests
+@export var requests_possible : Array[int];
 var countdown_finished : bool = false;
 var money : int = 0;
 var requests : Array[Request]; 
@@ -39,10 +41,11 @@ var triggered_game_end_soon_music : bool = false;
 var game_ended : bool = false;
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
+@export_range(0.0, 60.0) var customer_initial_slow_duration : float = 20.0;
+@export_range(0, 10.0) var customer_spawn_gap_initial : float = 5.0;
 @export_range(0, 10.0) var customer_spawn_gap : float = 1.0;
 @export_range(0, 5.0) var customer_spawn_variance : float = 1.5;
 @onready var time_to_customer : float = randf_range(0, customer_spawn_variance);
-var next_spawn_gap : float = 0.5;
 
 signal reassign_saikoubi(customer : Customer, prev_goal : Vector3);
 
@@ -135,6 +138,11 @@ func modify_customer_goal(in_vec : Vector3) -> Vector3:
     var mod : Vector3 = Vector3(randf_range(0, 0.4), 0, randf_range(0, 0.4));
     return mod + in_vec;
 
+func get_order() -> int:
+    var new_request : int = 0;
+    new_request = Statics.rand_from_arr_v(requests_possible);
+    return new_request;
+
 func spawn_customer() -> void:
     if (!should_spawn_customers): return;
     if (customers.size() >= customer_max): return;
@@ -186,6 +194,7 @@ func _process(delta: float) -> void:
     if (countdown_finished):
         # update timer
         level_remain_time -= delta;
+        customer_initial_slow_duration -= delta;
         if (level_remain_time <= 12.0 and !triggered_game_end_soon_music):
             AudioManager._instance.fade_all_BGM();
             AudioManager._instance.play_SFX(AudioFiles.GAME_END_SOON);
@@ -201,7 +210,10 @@ func _process(delta: float) -> void:
         time_to_customer -= delta;
         if (time_to_customer <= 0.0):
             spawn_customer();
-            time_to_customer = customer_spawn_gap + randf_range(-customer_spawn_variance, customer_spawn_variance);
+            if (customer_initial_slow_duration >= 0.0):
+                time_to_customer = customer_spawn_gap_initial + randf_range(-customer_spawn_variance, customer_spawn_variance);
+            else:
+                time_to_customer = customer_spawn_gap + randf_range(-customer_spawn_variance, customer_spawn_variance);
     else:
         countdown_timer.text = str(ceili(countdown_length));
         countdown_length -= delta;
@@ -227,3 +239,5 @@ func _ready() -> void:
         dp.request_matched.connect(_on_dp_request_matched);
     assert(misc_object_parent != null, "must assign parent for carryable objects");
     #set_up();
+    if (self.name == "Level4"):
+        requests_possible = CarryableObjects.customer_requests.duplicate();

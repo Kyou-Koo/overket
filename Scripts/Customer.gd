@@ -210,7 +210,7 @@ var _on_bounce_done : Callable = func() -> void:
     
 func assign_request() -> void:
     if (!initialized): return;
-    request = Statics.rand_from_arr_v(CarryableObjects.customer_requests);
+    request = Statics.rand_from_arr_v(level3d_parent.requests_possible);
     var request_arr : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(request);
     # TODO: select sprite based on request
 

@@ -24,7 +24,7 @@ var completed : bool = false;
 var worth : int;
 var pct_remain : float;
 # in seconds
-@export var start_duration : float = 25.0;
+@export var start_duration : float = 20.0;
 var can_start : bool = false;
 var start_called_but_not_ready : bool = false;
 @onready var remaining_time : float = start_duration;
@@ -65,7 +65,7 @@ func animate_out() -> void:
     tween_position = get_tree().create_tween();
     tween_position.set_ease(Tween.EASE_IN);
     tween_position.set_trans(Tween.TRANS_BACK);
-    tween_position.tween_property(self, "position:y", 0.0, animate_duration);
+    tween_position.tween_property(self, "position:y", 20.0, animate_duration);
     tween_position.tween_callback(parent_level.remove_request.bind(self));
 
 func animate_x_to(amount_x : float) -> void:

@@ -84,6 +84,7 @@ func reset_players() -> void:
     for i in range(3):
         level.unassign_head_face_color(i);
         level.player_portraits[i].visible = false;
+        active_players[i] = false;
     player_head_face = player_head_face_base.duplicate();
     
 func end_level() -> void:

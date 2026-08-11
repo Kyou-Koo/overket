@@ -154,6 +154,7 @@ game_over = NodePath("PauseCanvas/GameEnd")
 level_duration = 20
 countdown_timer = NodePath("CanvasLayer/Control/CenterContainer/Label")
 countdown_length = 1.0
+requests_possible = Array[int]([4, 64])
 passerby_chance = 0.1
 
 [node name="PauseCanvas" type="CanvasLayer" parent="." unique_id=1255694262]

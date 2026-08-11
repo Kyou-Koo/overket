@@ -7,7 +7,7 @@ enum CarryObjEnum {
     DATA =      0b00000010,  # 2
     BOOK =      0b00000100,  # 4    1000
     SHIKISHI =  0b00001000,  # 8    800
-    POSTCARD =  0b00010000,  # 16   
+    POSTCARD =  0b00010000,  # 16   # this got removed
     ACRYLIC =   0b00100000,  # 32   600
     KEYHOLDER = 0b01000000,  # 64   500
     BAG =       0b10000000,  # 128  500

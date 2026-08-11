@@ -58,9 +58,12 @@ func object_interact(delta : float) -> void:
     #Statics.debug_prolog("attempting to interact with {0}".format([closest_body]));
     # check in range
     if (interactable_objects.size() > 0):
-        # TODO: check for bag placed on table
         if (closest_body is TimerMachineBase):
             closest_body.public_interact_object(delta);
+        elif (closest_body is Table):
+            if (closest_body.obj_on_top_is_bag):
+                # TODO: are we doing interact or insert
+                closest_body.objs_on_top[0].public_insert_object(carried_object);
 
 func object_drop() -> void:
     if (interactable_objects.size() > 0):

@@ -3,6 +3,7 @@ class_name Table extends StaticBody3D
 var objs_on_top : Array[CarryableObjectBase];
 @export var placement_marker : Marker3D;
 @export var scene_obj_holder : Node3D;
+var obj_on_top_is_bag : bool = false;
 
 var ok_id : StringName = "";
 
@@ -11,9 +12,10 @@ func public_take_object() -> CarryableObjectBase:
     # a bag is 1 item with complex id
     var num_items_on_top : int = objs_on_top.size();
     if (num_items_on_top > 0):
-        Statics.debug_log("tabletop: {0}".format([objs_on_top.size()]));
+        # Statics.debug_log("tabletop: {0}".format([objs_on_top.size()]));
         var table_obj : CarryableObjectBase = objs_on_top.pop_back()
-        Statics.debug_log("tabletop aftr: {0}".format([objs_on_top.size()]));
+        # Statics.debug_log("tabletop aftr: {0}".format([objs_on_top.size()]));
+        obj_on_top_is_bag = false;
         return table_obj;
     else:
         return;
@@ -23,6 +25,10 @@ func public_place_object(obj : CarryableObjectBase) -> bool:
     var num_items_on_top : int = objs_on_top.size();
     # placing
     if (num_items_on_top == 0):
+        if (obj is Bag):
+            if (obj.connect_table_area(self)):
+                obj.freeze = true;
+                obj_on_top_is_bag = true;
         objs_on_top.append(obj);
         #if (obj.get_parent() != scene_obj_holder):
         obj.get_parent().remove_child(obj);

@@ -42,7 +42,7 @@ func position_request_items(incoming_request : int) -> void:
     full_request = incoming_request;
     var request_list : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(incoming_request);
     worth = CarryableObjects.calc_value(request_list);
-    Statics.debug_log("{0} is worth {1}".format([self.name, worth]));
+    # Statics.debug_log("{0} is worth {1}".format([self.name, worth]));
     # display desired items
     # 1 2
     # 3 4

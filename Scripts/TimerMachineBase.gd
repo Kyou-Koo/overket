@@ -74,7 +74,7 @@ func check_meets_requirements() -> bool:
     return true;
 
 func update_panel(delta : float) -> void:
-    Statics.debug_prolog("updating panel for {0}".format([self.to_string()]));
+    # Statics.debug_prolog("updating panel for {0}".format([self.to_string()]));
     if is_completed:
         return;
     if progress_bar.value < progress_bar.max_value:

@@ -223,11 +223,11 @@ func request_pose() -> void:
 
 func display_request() -> void:
     sprite_request_bg.visible = true;
-    Statics.debug_log("{0} should show {1} {2} {3}".format([
-        self.name,
-        request_id_label.text,
-        request_id_label.visible,
-    ]))
+    # Statics.debug_log("{0} should show {1} {2}".format([
+    #     self.name,
+    #     request_id_label.text,
+    #     request_id_label.visible,
+    # ]))
 
 func hide_request_bubble() -> void:
     sprite_request_bg.visible = false;
@@ -258,7 +258,7 @@ func _physics_process(delta: float) -> void:
         move_and_collide(navigate(goal) * delta * move_speed);
         at_goal = reached_goal(goal);
     if (DEBUG_mode): return;
-    if (at_goal):
+    if (at_goal and !is_passerby):
         if (!request_sent):
             request_sent = true;
             goal_reached.emit(self);

@@ -34,14 +34,14 @@ var customers : Array[Customer];
 @export var requests_possible : Array[int];
 var countdown_finished : bool = false;
 var money : int = 0;
-var requests : Array[Request]; 
+#var requests : Array[Request];
 var is_paused : bool = false;
 var should_spawn_customers : bool = true;
 var triggered_game_end_soon_music : bool = false;
 var game_ended : bool = false;
 
 @export_range(0.0, 1.0) var passerby_chance : float = 0.3;
-@export_range(0.0, 60.0) var customer_initial_slow_duration : float = 20.0;
+@export_range(0.0, 60.0) var customer_initial_slow_duration : float = 10.0;
 @export_range(0, 10.0) var customer_spawn_gap_initial : float = 5.0;
 @export_range(0, 10.0) var customer_spawn_gap : float = 1.0;
 @export_range(0, 5.0) var customer_spawn_variance : float = 1.5;
@@ -77,8 +77,11 @@ func clean_up_and_return_to_menu() -> void:
     GameManager._instance.end_level();
 
 # TODO_LATER: consider reassigning to customer linked list class
-# push this off to later
 func _on_customer_leaving(cus : Customer) -> void:
+    for dp : DeliveryPoint in delivery_points:
+        if (cus in  dp.dp_customers):
+            dp.dp_customers.erase(cus);
+            customers.erase(cus);
     return;
     # TODO_LATER: move respective goals up (using customer list)
 
@@ -87,14 +90,13 @@ func _on_customer_reached_goal(cus : Customer) -> void:
     var matched_dp : DeliveryPoint;
     for dp : DeliveryPoint in delivery_points:
         if (dp.ok_id == cus.goal_ok_id):
-            dp.customers.append(cus);
+            dp.dp_customers.append(cus);
             matched_dp = dp;
             break;
     # Statics.debug_log("customer {0} reached {2} w/ {1} request".format([cus.name, 
         # cus.request, matched_dp.ok_id]));
     var created_request : Request = level_ui.add_request(cus.request, cus);
     if (created_request != null):
-        requests.append(created_request);
         created_request.failed.connect(_on_request_failed);
 
     # TODO_LATER: this should apply to all new customers
@@ -109,19 +111,17 @@ func _on_customer_reached_exit(cus : Customer) -> void:
     cus.queue_free();
 
 func _on_request_failed(cus : Customer) -> void:
-    var outgoing_request : Request;
-    for r : Request in requests:
+    for r : Request in level_ui.request_scns:
         if (r.from_who == cus):
-            outgoing_request = r;
-            break;
-    requests.erase(outgoing_request);
-    cus.request_failed = true;
+            cus.request_failed = true;
+            return;
 
 func _on_dp_request_matched(cus : Customer) -> void:
     cus.request_received = true;
-    for r : Request in requests:
+    for r : Request in level_ui.request_scns:
         if (r.from_who == cus):
             r.completed = true;
+            level_ui.remove_request(r);
             break;
     if (randf() > 0.5):
         # reassign exit
@@ -135,7 +135,7 @@ func get_point_in_mesh(mi : MeshInstance3D) -> Vector3:
         randf_range(min_bound.y, max_bound.y));
 
 func modify_customer_goal(in_vec : Vector3) -> Vector3:
-    var mod : Vector3 = Vector3(randf_range(0, 0.4), 0, randf_range(0, 0.4));
+    var mod : Vector3 = Vector3(randf_range(-1, 1), 0, randf_range(0, 2));
     return mod + in_vec;
 
 func get_order() -> int:
@@ -167,6 +167,7 @@ func spawn_customer() -> void:
     else: 
         # only have customers going to purchase show up in the customer array
         customers.append(new_customer);
+    # randomize placement
     new_customer.goal = modify_customer_goal(target_goal);
     new_customer.goal_ok_id = goal_ok_id;
     new_customer.exit = exit_goal;
@@ -218,6 +219,7 @@ func _process(delta: float) -> void:
         countdown_timer.text = str(ceili(countdown_length));
         countdown_length -= delta;
         if (countdown_length < 0.0):
+            AudioManager._instance.play_SFX(AudioFiles.COUNTDOWN_FINISH);
             countdown_timer.visible = false;
             countdown_finished = true;
     

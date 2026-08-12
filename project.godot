@@ -23,6 +23,24 @@ config/icon="res://icon.svg"
 [debug]
 
 gdscript/warnings/untyped_declaration=2
+shapes/navigation/3d/enable_edge_connections=false
+shapes/navigation/3d/enable_edge_connections_xray=false
+shapes/navigation/3d/enable_edge_lines=false
+shapes/navigation/3d/enable_edge_lines_xray=false
+shapes/navigation/3d/enable_geometry_face_random_color=false
+shapes/navigation/3d/enable_link_connections=false
+shapes/navigation/3d/enable_link_connections_xray=false
+shapes/navigation/3d/enable_agent_paths=false
+shapes/navigation/3d/enable_agent_paths_xray=false
+shapes/avoidance/3d/enable_agents_radius=false
+shapes/avoidance/3d/enable_obstacles_radius=false
+shapes/avoidance/3d/enable_obstacles_static=false
+shapes/navigation/2d/enable_edge_connections=false
+shapes/navigation/2d/enable_edge_lines=false
+shapes/navigation/2d/enable_geometry_face_random_color=false
+shapes/navigation/2d/enable_link_connections=false
+shapes/navigation/2d/enable_agent_paths=false
+shapes/collision/draw_2d_outlines=false
 
 [display]
 

@@ -5,6 +5,8 @@ class_name GameOver extends Control
 @export var level : Level
 
 func activate(money : int) -> void:
+    var level_num : String = level.name.substr(level.name.length() - 1, 1);
+    SaveDataMgr.set_highscore(money, level_num.to_int() - 1);
     score.text = "￥{0}".format([money]);
     self.visible = true;
     end_button.grab_focus.call_deferred();

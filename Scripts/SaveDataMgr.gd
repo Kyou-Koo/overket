@@ -73,6 +73,7 @@ static func get_highscores() -> Array[int]:
         out_arr.append(score as int);
     return out_arr;
 static func set_highscore(score : int, lvl : int) -> void:
+    Statics.debug_log("score {0} set for {1}".format([score, lvl]));
     if (lvl >= 0 and lvl < 4):
         _instance.savedata["highscore"][lvl] = score;
     else:

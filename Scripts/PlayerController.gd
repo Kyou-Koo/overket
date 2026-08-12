@@ -169,6 +169,7 @@ func test_pushing(delta : float) -> void:
 
 func check_closest_body() -> Node3D:
     if (interactable_objects.is_empty()):
+        debug_closest.visible = false;
         return null;
     var shortest_dist : float = INF;
     var curr_shortest : StringName = "";
@@ -186,6 +187,7 @@ func check_closest_body() -> Node3D:
             shortest_dist = test_dist;
             curr_shortest = io;
     if (curr_shortest != ""):
+        debug_closest.visible = true;
         debug_closest.global_position = interactable_objects[curr_shortest].global_position + Vector3.UP;
         return interactable_objects[curr_shortest];
     return null;

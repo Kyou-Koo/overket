@@ -70,7 +70,7 @@ func format_level_select_text(text : String, lefttoright : bool) -> String:
 func display_hiscore(label : Label, level : int) -> void:
     var txt_prefix : String = "☆￥";
     if (hiscores.size() > 0 and hiscores[level] != 0):
-        label.text = txt_prefix + SaveDataMgr._instance.savedata["highscore"][level];
+        label.text = txt_prefix + str(SaveDataMgr._instance.savedata["highscore"][level]);
     else:
         label.text = txt_prefix + "----";
 

@@ -271,13 +271,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 [node name="OptionsCam" type="Marker3D" parent="MainAreaContents/CameraMarks" unique_id=801141680]
 transform = Transform3D(-0.64278764, 0, -0.76604444, 0, 1, 0, 0.76604444, 0, -0.64278764, 0, 2.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="MainAreaContents/CameraMarks/OptionsCam" unique_id=1374584130]
-
 [node name="LevelSelCam" type="Marker3D" parent="MainAreaContents/CameraMarks" unique_id=1507188224]
 transform = Transform3D(-0.060403883, 0.14381678, 0.98775905, -1.4034237e-09, 0.989566, -0.1440799, -0.9981741, -0.008702984, -0.059773628, 0, 2.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="MainAreaContents" unique_id=1418291471]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6143432, 0)
 visible = false
 current = true
 

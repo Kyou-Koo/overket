@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b1ycehuxejw6s" path="res://Scripts/LevelSelect.gd" id="1_6fb1f"]
 [ext_resource type="Texture2D" uid="uid://c4rn52pv0job7" path="res://Resources/Textures/ui_9slice.png" id="1_fec7f"]
-[ext_resource type="Texture2D" uid="uid://cf7pplb8yh2nd" path="res://Resources/Images/_TMP/16x9.png" id="2_tu0hw"]
 [ext_resource type="LabelSettings" uid="uid://okleyoqjf5tp" path="res://Resources/Themes/level_name_label.tres" id="3_u88yb"]
 [ext_resource type="PackedScene" uid="uid://b00ky8mg2fb40" path="res://Resources/LevelPlayerIcon.tscn" id="5_cyj8b"]
 [ext_resource type="LabelSettings" uid="uid://c12eh60e7ughh" path="res://Resources/Themes/level_hiscore_label.tres" id="5_ep0gy"]
@@ -11,6 +10,10 @@
 [ext_resource type="LabelSettings" uid="uid://cgl6wwmot7xg7" path="res://Resources/Themes/level_label.tres" id="6_ncvk4"]
 [ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="6_va710"]
 [ext_resource type="Theme" uid="uid://dsqf2t4hesdg" path="res://Resources/Themes/overket_theme.tres" id="7_ncvk4"]
+[ext_resource type="Texture2D" uid="uid://drkmod8mnj3bi" path="res://Resources/Images/level1_screenshots.png" id="7_s3lde"]
+[ext_resource type="Texture2D" uid="uid://dnrb0jxtmh4mx" path="res://Resources/Images/level2_screenshots.png" id="11_moeo0"]
+[ext_resource type="Texture2D" uid="uid://b6it5yv5vgdpe" path="res://Resources/Images/level3_screenshots.png" id="12_3oyuo"]
+[ext_resource type="Texture2D" uid="uid://og1iciu3yny5" path="res://Resources/Images/level4_screenshots.png" id="13_d37m8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2447u"]
 line_spacing = -5.0
@@ -164,7 +167,7 @@ focus_neighbor_right = NodePath("../Level2")
 focus_neighbor_bottom = NodePath("../../HBoxContainer2/Level3")
 focus_next = NodePath("../Level2")
 focus_previous = NodePath("../../../BackToMenu")
-texture_normal = ExtResource("2_tu0hw")
+texture_normal = ExtResource("7_s3lde")
 texture_focused = ExtResource("6_42km5")
 ignore_texture_size = true
 stretch_mode = 0
@@ -212,7 +215,7 @@ focus_neighbor_right = NodePath("../Level1")
 focus_neighbor_bottom = NodePath("../../HBoxContainer2/Level4")
 focus_next = NodePath("../../HBoxContainer2/Level3")
 focus_previous = NodePath("../Level1")
-texture_normal = ExtResource("2_tu0hw")
+texture_normal = ExtResource("11_moeo0")
 texture_focused = ExtResource("6_42km5")
 ignore_texture_size = true
 stretch_mode = 0
@@ -266,7 +269,7 @@ focus_neighbor_right = NodePath("../Level4")
 focus_neighbor_bottom = NodePath("../../../BackToMenu")
 focus_next = NodePath("../Level4")
 focus_previous = NodePath("../../HBoxContainer/Level2")
-texture_normal = ExtResource("2_tu0hw")
+texture_normal = ExtResource("12_3oyuo")
 texture_focused = ExtResource("6_42km5")
 ignore_texture_size = true
 stretch_mode = 0
@@ -314,7 +317,7 @@ focus_neighbor_right = NodePath("../../../BackToMenu")
 focus_neighbor_bottom = NodePath("../../../BackToMenu")
 focus_next = NodePath("../../../BackToMenu")
 focus_previous = NodePath("../Level3")
-texture_normal = ExtResource("2_tu0hw")
+texture_normal = ExtResource("13_d37m8")
 texture_focused = ExtResource("6_42km5")
 ignore_texture_size = true
 stretch_mode = 0

@@ -1,41 +1,27 @@
-[gd_scene format=3 uid="uid://laxnc2uqeqvl"]
+[gd_scene format=3 uid="uid://dsc6o3w7pa8ok"]
 
-[ext_resource type="Script" uid="uid://bbp42cuvxwnay" path="res://Scripts/Level.gd" id="1_fpj0o"]
-[ext_resource type="FontFile" uid="uid://bqlbx3bxe808" path="res://Resources/Fonts/HayuFont.otf" id="2_b8hms"]
-[ext_resource type="PackedScene" uid="uid://bigpwfpna82br" path="res://Resources/GameEnd.tscn" id="3_8fp7h"]
-[ext_resource type="PackedScene" uid="uid://cthfjlfpa3jet" path="res://Resources/LevelUI.tscn" id="3_8m1sh"]
-[ext_resource type="PackedScene" uid="uid://bsftdc2513i7d" path="res://Resources/1m_cube.tscn" id="4_i4bpd"]
-[ext_resource type="PackedScene" uid="uid://d4hxkpw7lwjcv" path="res://Resources/PauseMenu.tscn" id="4_w52wp"]
-[ext_resource type="PackedScene" uid="uid://bfbxq2lcnh88w" path="res://Resources/BarrierWall.tscn" id="5_w52wp"]
-[ext_resource type="PackedScene" uid="uid://cdgke1dvt5anu" path="res://Resources/BarrierWallBack.tscn" id="6_8fp7h"]
-[ext_resource type="Texture2D" uid="uid://dmh43dastxv35" path="res://Resources/Images/logo_ja.png" id="7_fbsv8"]
-[ext_resource type="Texture2D" uid="uid://cgk8ayjg3uent" path="res://Resources/Images/logo_en.png" id="8_s0p05"]
-[ext_resource type="BoxMesh" uid="uid://dgb5c8lu5gf52" path="res://Resources/Mesh/cube10m.tres" id="9_cl3qk"]
-[ext_resource type="Material" uid="uid://ddrr4rneggspf" path="res://Resources/Materials/purple.tres" id="10_82hag"]
-[ext_resource type="Material" uid="uid://6qwphoj7akoh" path="res://Resources/Materials/dark_blue.tres" id="11_1bkcw"]
-[ext_resource type="Material" uid="uid://bhlr37us84qy0" path="res://Resources/Materials/red.tres" id="12_isg23"]
-[ext_resource type="Material" uid="uid://dg8vhoy06eie" path="res://Resources/Materials/green.tres" id="13_c8cm1"]
-[ext_resource type="BoxMesh" uid="uid://bwi4vnsw7m0cg" path="res://Resources/Mesh/cube15m.tres" id="14_fi4vn"]
-[ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="15_ojchx"]
-[ext_resource type="BoxMesh" uid="uid://bftcxgff1it0i" path="res://Resources/Mesh/cube5m.tres" id="16_m7euy"]
-[ext_resource type="PackedScene" uid="uid://cqt1klm4do6nq" path="res://Resources/BoxPaper.tscn" id="17_14p1v"]
-[ext_resource type="PackedScene" uid="uid://dircnlmhkpbh4" path="res://Resources/GarbageCan.tscn" id="18_2s01x"]
-[ext_resource type="PackedScene" uid="uid://dg1k6fy67qp1c" path="res://Resources/Table.tscn" id="19_q3n6g"]
-[ext_resource type="PackedScene" uid="uid://cgxygugksk0k4" path="res://Resources/DeliveryPoint.tscn" id="20_cfwo8"]
-[ext_resource type="PackedScene" uid="uid://b0asn63n4gfb7" path="res://Resources/BoxKeyholder.tscn" id="21_1m8hw"]
-[ext_resource type="PackedScene" uid="uid://c7k3w5vvk5xs0" path="res://Resources/ComputerBookData.tscn" id="22_gu2ye"]
-[ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="23_4d01a"]
-[ext_resource type="PackedScene" uid="uid://ru6mrmrab3ql" path="res://Resources/BoxAcrylic.tscn" id="23_8m1sh"]
-[ext_resource type="PackedScene" uid="uid://diquu8waaalwi" path="res://Resources/BoxBag.tscn" id="24_i4bpd"]
-[ext_resource type="Material" uid="uid://dl3px1ofns1u5" path="res://Resources/Themes/level_floor_concrete.tres" id="24_or058"]
-[ext_resource type="PackedScene" uid="uid://dsb0myqc0nphl" path="res://Resources/Printer.tscn" id="25_i4bpd"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_kw3qw"]
-line_spacing = -5.0
-font = ExtResource("2_b8hms")
-font_size = 256
-font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
-outline_size = 64
+[ext_resource type="PackedScene" uid="uid://bsftdc2513i7d" path="res://Resources/1m_cube.tscn" id="6_iacve"]
+[ext_resource type="PackedScene" uid="uid://bfbxq2lcnh88w" path="res://Resources/BarrierWall.tscn" id="7_q3bbs"]
+[ext_resource type="PackedScene" uid="uid://cdgke1dvt5anu" path="res://Resources/BarrierWallBack.tscn" id="8_6fx23"]
+[ext_resource type="Texture2D" uid="uid://dmh43dastxv35" path="res://Resources/Images/logo_ja.png" id="9_cactj"]
+[ext_resource type="Texture2D" uid="uid://cgk8ayjg3uent" path="res://Resources/Images/logo_en.png" id="10_hd2a7"]
+[ext_resource type="BoxMesh" uid="uid://dgb5c8lu5gf52" path="res://Resources/Mesh/cube10m.tres" id="11_61p23"]
+[ext_resource type="Material" uid="uid://ddrr4rneggspf" path="res://Resources/Materials/purple.tres" id="12_1yp4c"]
+[ext_resource type="Material" uid="uid://6qwphoj7akoh" path="res://Resources/Materials/dark_blue.tres" id="13_3erg1"]
+[ext_resource type="Material" uid="uid://bhlr37us84qy0" path="res://Resources/Materials/red.tres" id="14_1bomy"]
+[ext_resource type="PackedScene" uid="uid://dlijg3whphlp0" path="res://Resources/Mesh/storage_box.glb" id="14_tjhqg"]
+[ext_resource type="Material" uid="uid://dg8vhoy06eie" path="res://Resources/Materials/green.tres" id="15_86bcu"]
+[ext_resource type="BoxMesh" uid="uid://bwi4vnsw7m0cg" path="res://Resources/Mesh/cube15m.tres" id="16_hi0wt"]
+[ext_resource type="Material" uid="uid://cto4rjwqajxbe" path="res://Resources/Materials/orange.tres" id="17_25xc3"]
+[ext_resource type="PackedScene" uid="uid://drk1epbpcoyn3" path="res://Resources/Mesh/delivery_point.glb" id="17_c3fj3"]
+[ext_resource type="BoxMesh" uid="uid://bftcxgff1it0i" path="res://Resources/Mesh/cube5m.tres" id="18_2xbrg"]
+[ext_resource type="PackedScene" uid="uid://cjkpvrswlrv2r" path="res://Resources/Mesh/printer.glb" id="19_7jj8t"]
+[ext_resource type="PackedScene" uid="uid://5oy15gavvi64" path="res://Resources/Mesh/table.glb" id="19_c3fj3"]
+[ext_resource type="PackedScene" uid="uid://bo4ctckxet7uu" path="res://Resources/Mesh/laptop.glb" id="19_hp3ef"]
+[ext_resource type="PackedScene" uid="uid://dircnlmhkpbh4" path="res://Resources/GarbageCan.tscn" id="20_s3ldw"]
+[ext_resource type="PackedScene" uid="uid://dg1k6fy67qp1c" path="res://Resources/Table.tscn" id="21_n64a5"]
+[ext_resource type="Shape3D" uid="uid://bx8tmnxvlmk3w" path="res://Resources/circlespace_ground.tres" id="28_xhqpu"]
+[ext_resource type="Material" uid="uid://dl3px1ofns1u5" path="res://Resources/Themes/level_floor_concrete.tres" id="29_5ohwo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eg3i3"]
 size = Vector3(50, 3, 0.25)
@@ -56,47 +42,47 @@ size = Vector3(0.25, 3, 10)
 size = Vector3(0.25, 3, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4rm37"]
-material = ExtResource("10_82hag")
+material = ExtResource("12_1yp4c")
 size = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_y1bfb"]
-material = ExtResource("11_1bkcw")
+material = ExtResource("13_3erg1")
 size = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lbmns"]
-material = ExtResource("12_isg23")
+material = ExtResource("14_1bomy")
 size = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_4f551"]
-material = ExtResource("13_c8cm1")
+material = ExtResource("15_86bcu")
 size = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_jnjwt"]
-material = ExtResource("12_isg23")
+material = ExtResource("14_1bomy")
 size = Vector3(15, 15, 15)
 
 [sub_resource type="BoxMesh" id="BoxMesh_udcos"]
-material = ExtResource("15_ojchx")
+material = ExtResource("17_25xc3")
 size = Vector3(15, 15, 15)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3bfh0"]
-material = ExtResource("10_82hag")
+material = ExtResource("12_1yp4c")
 size = Vector3(15, 15, 15)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig4xa"]
-material = ExtResource("11_1bkcw")
+material = ExtResource("13_3erg1")
 size = Vector3(5, 5, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cllq4"]
-material = ExtResource("10_82hag")
+material = ExtResource("12_1yp4c")
 size = Vector3(5, 5, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pp266"]
-material = ExtResource("15_ojchx")
+material = ExtResource("17_25xc3")
 size = Vector3(5, 5, 5)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8lhuy"]
-material = ExtResource("24_or058")
+material = ExtResource("29_5ohwo")
 size = Vector2(2000, 2000)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eg3i3"]
@@ -136,58 +122,14 @@ disable_receive_shadows = true
 [sub_resource type="BoxMesh" id="BoxMesh_05fnj"]
 size = Vector3(15, 0.5, 2)
 
-[node name="Level2" type="Node3D" unique_id=2115189687 node_paths=PackedStringArray("camera", "spawn_points", "exit_area", "player_spawn_parent", "player_parent", "customer_parent", "delivery_points", "misc_object_parent", "ui_parent", "level_ui", "pause_parent", "pause_menu", "game_over", "countdown_timer")]
-script = ExtResource("1_fpj0o")
-camera = NodePath("Camera3D")
-spawn_points = [NodePath("SpawnArea"), NodePath("SpawnArea2")]
-exit_area = NodePath("Exit")
-player_spawn_parent = NodePath("Spawns")
-player_parent = NodePath("Players")
-customer_parent = NodePath("Customers")
-delivery_points = [NodePath("Surfaces/Tables/DeliveryPoint"), NodePath("Surfaces/Tables/DeliveryPoint2")]
-misc_object_parent = NodePath("CarryableObjects")
-ui_parent = NodePath("CanvasLayer/Control")
-level_ui = NodePath("CanvasLayer/Control/LevelUi")
-pause_parent = NodePath("PauseCanvas")
-pause_menu = NodePath("PauseCanvas/PauseMenu")
-game_over = NodePath("PauseCanvas/GameEnd")
-countdown_timer = NodePath("CanvasLayer/Control/CenterContainer/Label")
-requests_possible = Array[int]([4, 32, 64, 132, 164, 196, 228])
-passerby_chance = 0.1
-
-[node name="PauseCanvas" type="CanvasLayer" parent="." unique_id=1380203527]
-
-[node name="PauseMenu" parent="PauseCanvas" unique_id=2035493808 node_paths=PackedStringArray("level") instance=ExtResource("4_w52wp")]
-level = NodePath("../..")
-
-[node name="GameEnd" parent="PauseCanvas" unique_id=235851241 node_paths=PackedStringArray("level") instance=ExtResource("3_8fp7h")]
-level = NodePath("../..")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2006233483]
-
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=2041827198]
-custom_minimum_size = Vector2(1920, 1080)
-layout_mode = 3
-anchors_preset = 0
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" unique_id=2110326427]
-custom_minimum_size = Vector2(1920, 1080)
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer" unique_id=1028052327]
-layout_mode = 2
-text = "5"
-label_settings = SubResource("LabelSettings_kw3qw")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LevelUi" parent="CanvasLayer/Control" unique_id=792234887 node_paths=PackedStringArray("parent_3dlevel") instance=ExtResource("3_8m1sh")]
-layout_mode = 1
-parent_3dlevel = NodePath("../../..")
+[node name="Level2" type="Node3D" unique_id=2115189687]
 
 [node name="CarryableObjects" type="Node3D" parent="." unique_id=1784441528]
+
+[node name="Camera3D2" type="Camera3D" parent="." unique_id=1460051326]
+transform = Transform3D(1, 0, 0, 0, 0.7674786, 0.64107466, 0, -0.64107466, 0.7674786, 0, 7.6229086, 5.975269)
+current = true
+size = 12.0
 
 [node name="Surfaces" type="Node3D" parent="." unique_id=614195467]
 
@@ -241,41 +183,41 @@ shape = SubResource("BoxShape3D_w52wp")
 visible = false
 mesh = SubResource("BoxMesh_8fp7h")
 
-[node name="1mCube" parent="Surfaces/Boundary Walls" unique_id=941216042 instance=ExtResource("4_i4bpd")]
+[node name="1mCube" parent="Surfaces/Boundary Walls" unique_id=941216042 instance=ExtResource("6_iacve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
 
-[node name="1mCube2" parent="Surfaces/Boundary Walls" unique_id=2144030698 instance=ExtResource("4_i4bpd")]
+[node name="1mCube2" parent="Surfaces/Boundary Walls" unique_id=2144030698 instance=ExtResource("6_iacve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -6)
 
-[node name="1mCube3" parent="Surfaces/Boundary Walls" unique_id=1164350645 instance=ExtResource("4_i4bpd")]
+[node name="1mCube3" parent="Surfaces/Boundary Walls" unique_id=1164350645 instance=ExtResource("6_iacve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -6)
 
-[node name="1mCube4" parent="Surfaces/Boundary Walls" unique_id=2046347447 instance=ExtResource("4_i4bpd")]
+[node name="1mCube4" parent="Surfaces/Boundary Walls" unique_id=2046347447 instance=ExtResource("6_iacve")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
 
-[node name="BarrierWall" parent="Surfaces/Boundary Walls" unique_id=531410043 instance=ExtResource("5_w52wp")]
+[node name="BarrierWall" parent="Surfaces/Boundary Walls" unique_id=531410043 instance=ExtResource("7_q3bbs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -1.5)
 
-[node name="BarrierWall2" parent="Surfaces/Boundary Walls" unique_id=1465664849 instance=ExtResource("5_w52wp")]
+[node name="BarrierWall2" parent="Surfaces/Boundary Walls" unique_id=1465664849 instance=ExtResource("7_q3bbs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -1.5)
 
-[node name="BarrierWall3" parent="Surfaces/Boundary Walls" unique_id=1716051518 instance=ExtResource("6_8fp7h")]
+[node name="BarrierWall3" parent="Surfaces/Boundary Walls" unique_id=1716051518 instance=ExtResource("8_6fx23")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 
 [node name="logo_ja" type="Sprite3D" parent="Surfaces/Boundary Walls" unique_id=1884545007]
 transform = Transform3D(0.20327519, 0, 0.14553075, 0, 0.25, 0, -0.14553075, 0, 0.20327519, -10.132071, 1.3431313, -7.4268208)
-texture = ExtResource("7_fbsv8")
+texture = ExtResource("9_cactj")
 
 [node name="CUBES" type="Node3D" parent="Surfaces/Boundary Walls" unique_id=709344453]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.5859766)
 
 [node name="logo_en" type="Sprite3D" parent="Surfaces/Boundary Walls/CUBES" unique_id=943320263]
 transform = Transform3D(0.8910065, 0, -0.45399052, 0, 1, 0, 0.45399052, 0, 0.8910065, -2.3163526, 5.0371513, -19.87843)
-texture = ExtResource("8_s0p05")
+texture = ExtResource("10_hd2a7")
 
 [node name="cube10m" type="MeshInstance3D" parent="Surfaces/Boundary Walls/CUBES" unique_id=854841446]
 transform = Transform3D(0.8909669, 0, -0.45406827, 0, 1, 0, 0.45406827, 0, 0.8909669, -0.019747347, 5, -24.557602)
-mesh = ExtResource("9_cl3qk")
+mesh = ExtResource("11_61p23")
 
 [node name="cube10m3" type="MeshInstance3D" parent="Surfaces/Boundary Walls/CUBES" unique_id=1552097590]
 transform = Transform3D(0.9629322, 0, -0.26974344, 0, 1, 0, 0.26974344, 0, 0.9629322, 27.144775, 4.999998, -12.073313)
@@ -295,7 +237,7 @@ mesh = SubResource("BoxMesh_4f551")
 
 [node name="cube15m" type="MeshInstance3D" parent="Surfaces/Boundary Walls/CUBES" unique_id=1727857375]
 transform = Transform3D(0.990927, 0, 0.13440123, 0, 1, 0, -0.13440123, 0, 0.990927, 19.531284, 7.499998, -27.01499)
-mesh = ExtResource("14_fi4vn")
+mesh = ExtResource("16_hi0wt")
 
 [node name="cube15m3" type="MeshInstance3D" parent="Surfaces/Boundary Walls/CUBES" unique_id=1052688890]
 transform = Transform3D(0.757884, 0, 0.6523894, 0, 1, 0, -0.6523894, 0, 0.757884, 32.585346, 7.499998, 5.1006846)
@@ -311,7 +253,7 @@ mesh = SubResource("BoxMesh_3bfh0")
 
 [node name="cube5m" type="MeshInstance3D" parent="Surfaces/Boundary Walls/CUBES" unique_id=2073875192]
 transform = Transform3D(0.8957118, 0, 0.44463518, 0, 1, 0, -0.44463518, 0, 0.8957118, 8.113071, 2.5, -18.991344)
-mesh = ExtResource("16_m7euy")
+mesh = ExtResource("18_2xbrg")
 
 [node name="cube5m3" type="MeshInstance3D" parent="Surfaces/Boundary Walls/CUBES" unique_id=2047292517]
 transform = Transform3D(0.81337506, 0, 0.5817398, 0, 1, 0, -0.5817398, 0, 0.81337506, -21.72201, 2.5, -15.733725)
@@ -327,128 +269,128 @@ mesh = SubResource("BoxMesh_pp266")
 
 [node name="Tables" type="Node3D" parent="Surfaces" unique_id=1174863814]
 
-[node name="BoxPaper" parent="Surfaces/Tables" unique_id=459736917 instance=ExtResource("17_14p1v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)
+[node name="storage_box2" parent="Surfaces/Tables" unique_id=84293636 instance=ExtResource("14_tjhqg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5, 0, -4)
 
-[node name="BoxPaper2" parent="Surfaces/Tables" unique_id=396632152 instance=ExtResource("17_14p1v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
+[node name="storage_box3" parent="Surfaces/Tables" unique_id=1741285878 instance=ExtResource("14_tjhqg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5, 0, -4)
 
-[node name="GarbageCan" parent="Surfaces/Tables" unique_id=689229448 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("18_2s01x")]
+[node name="GarbageCan" parent="Surfaces/Tables" unique_id=689229448 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("20_s3ldw")]
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="GarbageCan2" parent="Surfaces/Tables" unique_id=241746880 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("18_2s01x")]
+[node name="GarbageCan2" parent="Surfaces/Tables" unique_id=241746880 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("20_s3ldw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="GarbageCan3" parent="Surfaces/Tables" unique_id=1819337225 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("18_2s01x")]
+[node name="GarbageCan3" parent="Surfaces/Tables" unique_id=1819337225 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("20_s3ldw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table2" parent="Surfaces/Tables" unique_id=1815160089 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table2" parent="Surfaces/Tables" unique_id=1815160089 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table5" parent="Surfaces/Tables" unique_id=1595576306 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table5" parent="Surfaces/Tables" unique_id=1595576306 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table6" parent="Surfaces/Tables" unique_id=1394464095 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table6" parent="Surfaces/Tables" unique_id=1394464095 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table3" parent="Surfaces/Tables" unique_id=1204452018 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table3" parent="Surfaces/Tables" unique_id=1204452018 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table4" parent="Surfaces/Tables" unique_id=1429708090 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table4" parent="Surfaces/Tables" unique_id=1429708090 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table7" parent="Surfaces/Tables" unique_id=971235380 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table7" parent="Surfaces/Tables" unique_id=971235380 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table8" parent="Surfaces/Tables" unique_id=62662113 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table8" parent="Surfaces/Tables" unique_id=62662113 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, -3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table9" parent="Surfaces/Tables" unique_id=1812953007 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table9" parent="Surfaces/Tables" unique_id=1812953007 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2, 0, 3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table14" parent="Surfaces/Tables" unique_id=1878690590 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table14" parent="Surfaces/Tables" unique_id=1878690590 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3, 0, 3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table15" parent="Surfaces/Tables" unique_id=532709665 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table15" parent="Surfaces/Tables" unique_id=532709665 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1, 0, -3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table18" parent="Surfaces/Tables" unique_id=1771410032 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table18" parent="Surfaces/Tables" unique_id=1771410032 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 2)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table19" parent="Surfaces/Tables" unique_id=239455394 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table19" parent="Surfaces/Tables" unique_id=239455394 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table20" parent="Surfaces/Tables" unique_id=1692581422 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table20" parent="Surfaces/Tables" unique_id=1692581422 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 2)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table21" parent="Surfaces/Tables" unique_id=501174990 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table21" parent="Surfaces/Tables" unique_id=501174990 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table22" parent="Surfaces/Tables" unique_id=1075917121 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table22" parent="Surfaces/Tables" unique_id=1075917121 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="DeliveryPoint" parent="Surfaces/Tables" unique_id=1224867300 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("20_cfwo8")]
+[node name="delivery_point3" parent="Surfaces/Tables" unique_id=964695258 instance=ExtResource("17_c3fj3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 3)
-scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="DeliveryPoint2" parent="Surfaces/Tables" unique_id=316648140 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("20_cfwo8")]
+[node name="delivery_point2" parent="Surfaces/Tables" unique_id=1395691800 instance=ExtResource("17_c3fj3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 3)
-scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table16" parent="Surfaces/Tables" unique_id=1665861496 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table16" parent="Surfaces/Tables" unique_id=1665861496 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2, 0, 3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="Table17" parent="Surfaces/Tables" unique_id=1757207121 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("19_q3n6g")]
+[node name="Table17" parent="Surfaces/Tables" unique_id=1757207121 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("21_n64a5")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -3, 0, 3)
 scene_obj_holder = NodePath("../../../CarryableObjects")
 
-[node name="BoxKeyholder" parent="Surfaces/Tables" unique_id=2115074320 instance=ExtResource("21_1m8hw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 3)
+[node name="storage_box4" parent="Surfaces/Tables" unique_id=1835546273 instance=ExtResource("14_tjhqg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, 3)
 
-[node name="ComputerBookData" parent="Surfaces/Tables" unique_id=538817423 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("22_gu2ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -4)
-scene_obj_holder = NodePath("../../../CarryableObjects")
+[node name="laptoptable" parent="Surfaces/Tables" unique_id=183128433 instance=ExtResource("19_c3fj3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6, 0, -4)
 
-[node name="ComputerBookData3" parent="Surfaces/Tables" unique_id=698606245 node_paths=PackedStringArray("scene_obj_holder") instance=ExtResource("22_gu2ye")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -4)
-scene_obj_holder = NodePath("../../../CarryableObjects")
+[node name="laptop" parent="Surfaces/Tables/laptoptable" unique_id=919714571 instance=ExtResource("19_hp3ef")]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, 0, 1, 0)
 
-[node name="BoxAcrylic" parent="Surfaces/Tables" unique_id=54456494 instance=ExtResource("23_8m1sh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 3)
+[node name="laptoptable2" parent="Surfaces/Tables" unique_id=1112783264 instance=ExtResource("19_c3fj3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0, -4)
 
-[node name="BoxBag" parent="Surfaces/Tables" unique_id=1850296014 instance=ExtResource("24_i4bpd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+[node name="laptop" parent="Surfaces/Tables/laptoptable2" unique_id=1917468071 instance=ExtResource("19_hp3ef")]
+transform = Transform3D(-0.7071068, 0, -0.7071067, 0, 1, 0, 0.7071067, 0, -0.7071068, 0, 1, 0)
 
-[node name="Printer" parent="Surfaces/Tables" unique_id=108833308 instance=ExtResource("25_i4bpd")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4, 0, -4)
-can_output_book = true
+[node name="storage_box5" parent="Surfaces/Tables" unique_id=1180294406 instance=ExtResource("14_tjhqg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0, 3)
 
-[node name="Printer2" parent="Surfaces/Tables" unique_id=934068964 instance=ExtResource("25_i4bpd")]
-transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 4, 0, -3.75)
-can_output_book = true
+[node name="storage_box6" parent="Surfaces/Tables" unique_id=904440688 instance=ExtResource("14_tjhqg")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -3)
+
+[node name="printer2" parent="Surfaces/Tables" unique_id=1958129218 instance=ExtResource("19_7jj8t")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, -4, 0, -4)
+
+[node name="printer3" parent="Surfaces/Tables" unique_id=1216382667 instance=ExtResource("19_7jj8t")]
+transform = Transform3D(-2.1855693e-07, 0, 1, 0, 1, 0, -1, 0, -2.1855693e-07, 4, 0, -3.75)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2048541229]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=758594649]
-shape = ExtResource("23_4d01a")
+shape = ExtResource("28_xhqpu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1725504820]
 mesh = SubResource("PlaneMesh_8lhuy")
@@ -470,14 +412,6 @@ gizmo_extents = 0.5
 [node name="Spawn4" type="Marker3D" parent="Spawns" unique_id=73437935]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0187335, 0, -2.3345242)
 gizmo_extents = 0.5
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1429241088]
-transform = Transform3D(1, 0, 0, 0, 0.5325218, 0.8464163, 0, -0.8464163, 0.5325218, 0, 7.6229086, 4.0561085)
-projection = 1
-current = true
-size = 12.0
-
-[node name="CamPos" type="Marker3D" parent="Camera3D" unique_id=1768885855]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=747801119]
 environment = SubResource("Environment_pnl7u")

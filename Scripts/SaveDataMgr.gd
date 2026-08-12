@@ -15,7 +15,7 @@ const keybind_defaults : String = "user://keybind_default.dat"
 const pwd : String = "whyyesthisisAP4$$W0rdfortheGaMeWhYArEYoUR3aD1nG!!!"
 
 # defaults
-const SAVE_VERSION : int = 14;
+const SAVE_VERSION : int = 15;
 const LANG : String = "ja";
 const MUSIC_VOLUME : int = 5;
 const SFX_VOLUME : int = 5;

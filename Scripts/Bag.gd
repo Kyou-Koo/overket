@@ -23,18 +23,14 @@ var b_objects_serialized : int  = CarryableObjects.CarryObjEnum.BAG;
 var b_curr_serialized : int = CarryableObjects.CarryObjEnum.BAG;
 
 func public_insert_object(obj : CarryableObjectBase) -> bool:
-    print("step1")
     if (!is_on_table):
         return false;
-    print("steop2")
     if (items_in_bag >= MAX_OBJECTS):
         return false;
     # already in bag
-    print("step3")
     if (obj.item_type & b_curr_serialized):
         return false;
     # serialize, add to objects
-    print("step4")
     if (obj.item_type in consumed_objects):
         b_objects_serialized = CarryableObjects.join_carried_objects([
             b_objects_serialized as CarryableObjects.CarryObjEnum, obj.item_type]);

@@ -12,7 +12,7 @@ class_name PlayerController extends CharacterBody3D
 @export_range(0, 3) var rand_head : int = 0;
 @export_range(0, 3) var rand_face : int = 0;
 @export var throw_scale : float = 12.0;
-@export var throw_vertical : float = 0.1;
+@export var throw_vertical : float = 0.05;
 
 @export_group("Sprites", "sprite_")
 @export var sprite_color : Color;

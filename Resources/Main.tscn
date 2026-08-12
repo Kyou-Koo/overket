@@ -107,7 +107,7 @@ ambient_light_source = 3
 ambient_light_color = Color(0.80075866, 0.72406346, 0.68819916, 1)
 ambient_light_sky_contribution = 0.76
 
-[node name="Main" type="Node3D" unique_id=951669777 node_paths=PackedStringArray("main_menu_node_parent", "main_camera", "level_node_parent", "options_node_parent", "sprite")]
+[node name="Main" type="Node3D" unique_id=951669777 node_paths=PackedStringArray("main_menu_node_parent", "main_camera", "level_node_parent", "options_node_parent", "sprite", "load_in_screen")]
 script = ExtResource("1_1xgcs")
 main_menu_node_parent = NodePath("MainAreaContents/MM/Main Menu/MMSubViewport")
 main_camera = NodePath("MainAreaContents/Camera3D")
@@ -119,6 +119,25 @@ options_node_parent = NodePath("MainAreaContents/Options/OSubViewport")
 options_cam_pos = Vector3(0, 2.5, 0)
 options_cam_rot = Vector3(0, -130, 0)
 sprite = NodePath("MainAreaContents/MM/Renna")
+load_in_screen = NodePath("LoadingMenu/ColorRect")
+
+[node name="LoadingMenu" type="CanvasLayer" parent="." unique_id=1018535386]
+
+[node name="ColorRect" type="ColorRect" parent="LoadingMenu" unique_id=1195474740]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.23790354, 0.21901953, 0.24693885, 1)
+
+[node name="TextureRect" type="TextureRect" parent="LoadingMenu/ColorRect" unique_id=1622013880]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 0
+offset_left = 704.0
+offset_top = 284.0
+offset_right = 1216.0
+offset_bottom = 796.0
+texture = ExtResource("3_d67mf")
+expand_mode = 1
 
 [node name="MainAreaContents" type="Node3D" parent="." unique_id=702712883]
 

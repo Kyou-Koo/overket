@@ -14,11 +14,16 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="OverKet"
+config/name="100Renna"
+config/name_localized={
+"ja": "百人レンナ"
+}
 run/main_scene="uid://d0rkdo3elfnke"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0.23921569, 0.21960784, 0.24705882, 1)
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="uid://bfn1o4qpwq73i"
+config/windows_native_icon="res://icon.ico"
 
 [debug]
 

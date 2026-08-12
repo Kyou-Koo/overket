@@ -8,7 +8,7 @@ enum ENUM_DEBUG_PRN_PROC {
 static var cycle : int = 1000;
 static var last_printed_cycle : int = 0;
 
-static var DEBUG_MODE : bool = true;
+static var DEBUG_MODE : bool = false;
 static var DEBUG_PRINT_WARN : bool = true;
 static var DEBUG_PRINT_PROCESS : ENUM_DEBUG_PRN_PROC = ENUM_DEBUG_PRN_PROC.CYCLE;
 

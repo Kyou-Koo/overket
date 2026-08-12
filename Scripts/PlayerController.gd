@@ -62,7 +62,6 @@ func object_interact(delta : float) -> void:
             closest_body.public_interact_object(delta);
         elif (closest_body is Table):
             if (closest_body.obj_on_top_is_bag):
-                # TODO: are we doing interact or insert
                 closest_body.objs_on_top[0].public_insert_object(carried_object);
 
 func object_drop() -> void:

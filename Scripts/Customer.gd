@@ -212,7 +212,7 @@ func assign_request() -> void:
     if (!initialized): return;
     request = Statics.rand_from_arr_v(level3d_parent.requests_possible);
     var request_arr : Array[CarryableObjects.CarryObjEnum] = CarryableObjects.deserialize_objects(request);
-    # TODO: select sprite based on request
+    # TODO: select sprite based on request no we're numbers
 
 func request_pose() -> void:
     active_sprite.visible = false;

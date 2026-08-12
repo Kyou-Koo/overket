@@ -142,7 +142,7 @@ func _input(event: InputEvent) -> void:
     if (event.is_pressed()):
         if (event.is_action(&"start")):
             get_viewport().set_input_as_handled();
-            #print(event.as_text());
+            AudioManager._instance.play_SFX(AudioFiles.MENU_ACTION);
             player_assignment(event);
 
 func assign_labels(parent : Node, array : Array) -> void:

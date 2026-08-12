@@ -102,13 +102,6 @@ func _input(ev: InputEvent) -> void:
     if (ev.is_action(&"ui_cancel")):
         back_button.grab_focus.call_deferred();
         
-    # TODO: delete laters
-    #if (ev.get_class() != "InputEventJoypadMotion"):
-        #print(ev.as_text());
-        #print(ev.to_string());
-    #if (ev.is_pressed()):
-        #print(InputStatics.input_text_string_to_short_txt(ev, is_gamepad_last_used)) # pass as text to mapping
-        
 func _instantiate() -> void:
     SaveDataMgr.create_new_savedata();
 

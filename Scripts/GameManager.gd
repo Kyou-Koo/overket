@@ -34,6 +34,9 @@ var options_scene : PackedScene;
 var options : Options;
 @export var transition_time : float = 0.75;
 @export var sprite : Sprite3D;
+@export var load_in_screen : Control;
+@export_custom(PROPERTY_HINT_NONE, "suffix:ms") var load_in_screen_duration : int = 2500;
+var load_in_screen_played : bool = false;
 
 var num_players : int;
 var active_players : Array[bool] = [false, false, false, false]
@@ -162,6 +165,9 @@ func set_res_1920() -> void:
     get_viewport().get_window().size = SaveDataMgr.RES_BIG;
 
 func _input(ev: InputEvent) -> void:
+    if (!load_in_screen_played):
+        get_viewport().set_input_as_handled();
+        return;
     match active_menu:
         MENU.MAIN:
             if (ev.is_pressed()):
@@ -173,10 +179,19 @@ func _input(ev: InputEvent) -> void:
             options_node_parent.push_input(ev);
     if (in_menu):
         if (ev.is_pressed() and (ev.is_action(&"ui_left") or 
-        ev.is_action(&"ui_right") or ev.is_action(&"ui_up") or ev.is_action(&"ui_down"))):
+        ev.is_action(&"ui_right") or ev.is_action(&"ui_up") or 
+        ev.is_action(&"ui_down") or ev.is_action(&"ui_focus_next") or 
+        ev.is_action(&"ui_focus_prev") or 
+        (ev.is_action(&"ui_cancel") and active_menu != MENU.LEVEL))):
             AudioManager._instance.play_SFX(AudioFiles.MENU_MOVE);
             
 func _process(delta: float) -> void:
+    if (!load_in_screen_played and Time.get_ticks_msec() > load_in_screen_duration):
+        load_in_screen_played = true;
+        var tween : Tween = get_tree().create_tween();
+        tween.set_trans(Tween.TRANS_EXPO);
+        tween.set_ease(Tween.EASE_IN);
+        tween.tween_property(load_in_screen, "modulate:a", 0.0, transition_time / 2.0);
     if (Time.get_ticks_msec() > 100 and !bgm_started):
         bgm_started = true;
         AudioManager._instance.play_BGM(AudioFiles.MENU_KEY, AudioFiles.MENU_BGM, AudioFiles.MENU_BGM);

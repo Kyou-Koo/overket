@@ -8,7 +8,6 @@ func public_take_object() -> CarryableObjectBase:
 
 func public_place_object(obj : CarryableObjectBase) -> bool:
     var placed : bool = super.public_place_object(obj);
-    # TODO: check for any refs to this object
     if (placed):
         for c : Node3D in obj.get_children():
             if (c is CollisionShape3D):

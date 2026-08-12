@@ -73,7 +73,6 @@ func clean_up_and_return_to_menu() -> void:
     get_viewport().get_tree().paused = false;
     AudioManager._instance.stop_all_SFX();
     AudioManager._instance.stop_all_BGM();
-    #TODO: push score to save file
     GameManager._instance.end_level();
 
 # TODO_LATER: consider reassigning to customer linked list class
@@ -187,9 +186,8 @@ func _input(event: InputEvent) -> void:
     #if ((is_paused and pause_parent != null) or
     #(level_remain_time <= 0.0 and game_ended)):
         #pause_parent.push_input(event);
-    # TODO: remove debug key
-    if (event.as_text() == "Z" and !event.is_echo()):
-        game_over.activate(money);
+    # if (event.as_text() == "Z" and !event.is_echo()):
+    #     game_over.activate(money);
     
 func _process(delta: float) -> void:
     if (countdown_finished):

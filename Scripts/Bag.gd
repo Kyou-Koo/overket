@@ -4,10 +4,10 @@ class_name Bag extends CarryableObjectBase
 var inside_assets : Array[BagInsides];
 @export var interaction_duration : float;
 @export var interaction_gap : float;
-var interaction_area_original : Area3D;
+@export var collider : CollisionShape3D;
 var consumed_objects : Array[CarryableObjects.CarryObjEnum];
-@export var consumed_object_objs : Array[CarryableObjectBase];
-@export var output_bags_str : Array[String];
+# @export var consumed_object_objs : Array[CarryableObjectBase];
+# @export var output_bags_str : Array[String];
 var is_on_table : bool = false;
 
 var connected_body : PlayerController;
@@ -23,20 +23,25 @@ var b_objects_serialized : int  = CarryableObjects.CarryObjEnum.BAG;
 var b_curr_serialized : int = CarryableObjects.CarryObjEnum.BAG;
 
 func public_insert_object(obj : CarryableObjectBase) -> bool:
-    if (is_on_table):
+    print("step1")
+    if (!is_on_table):
         return false;
+    print("steop2")
     if (items_in_bag >= MAX_OBJECTS):
         return false;
     # already in bag
+    print("step3")
     if (obj.item_type & b_curr_serialized):
         return false;
     # serialize, add to objects
-    if (obj in consumed_objects):
+    print("step4")
+    if (obj.item_type in consumed_objects):
         b_objects_serialized = CarryableObjects.join_carried_objects([
             b_objects_serialized as CarryableObjects.CarryObjEnum, obj.item_type]);
         item_id = b_objects_serialized;
         items_in_bag += 1;
         display_inserted_objects();
+        obj.queue_free.call_deferred();
         return true;
     else:
         return false;
@@ -63,39 +68,41 @@ func display_inserted_objects() -> void:
 func update_panel(delta : float) -> void:
     pass;
     
-func _on_body_enter(body : Node3D) -> void:
-    if body is PlayerController and connected_body == null:
-        body.is_in_range = true;
-        body.interactable_object = self;
-        connected_body = body;
+# func _on_body_enter(body : Node3D) -> void:
+#     if body is PlayerController and connected_body == null:
+#         body.is_in_range = true;
+#         body.interactable_object = self;
+#         connected_body = body;
 
-func _on_body_exit(body: Node3D) -> void:
-    if body is PlayerController and body == connected_body:
-        Statics.debug_log("disconnecting from {0}".format([connected_body.name]))
-        body.is_in_range = false;
-        body.interactable_object = null;
-        connected_body = null;
+# func _on_body_exit(body: Node3D) -> void:
+#     if body is PlayerController and body == connected_body:
+#         # Statics.debug_log("disconnecting from {0}".format([connected_body.name]))
+#         body.is_in_range = false;
+#         body.interactable_object = null;
+#         connected_body = null;
+
+func lock_position(lock : bool) -> void:
+    collider.disabled = lock;
+    self.lock_rotation = lock;
+    self.axis_lock_linear_x = lock;
+    self.axis_lock_linear_y = lock;
+    self.axis_lock_linear_z = lock;
 
 func connect_table_area(t : Table) -> bool:
     if (t.objs_on_top.size() != 0):
         return false;
     # connect to table's area to assign
+    Statics.debug_log("connecting to table {0}".format([t.name]));
     is_on_table = true;
-    interaction_area_original = interaction_area;
-    interaction_area = t.interaction_area;
-    if (interaction_area != null):
-        interaction_area.body_entered.connect(_on_body_enter);
-        interaction_area.body_exited.connect(_on_body_exit);
+    lock_position(true);
     return true;
 
 func disconnect_table_area(t : Table) -> bool:
     if (t == null):
         return false;
+    Statics.debug_log("{0} goodbye {1}".format([self.name, t.name]));
     is_on_table = false;
-    self.freeze = false;
-    interaction_area.body_entered.disconnect(_on_body_enter);
-    interaction_area.body_exited.disconnect(_on_body_exit);
-    interaction_area = interaction_area_original;
+    lock_position(false);
     return true;
 
 func _process(delta: float) -> void:
@@ -109,7 +116,6 @@ func _ready() -> void:
     consumed_objects.append(CarryableObjects.CarryObjEnum.ACRYLIC);
     consumed_objects.append(CarryableObjects.CarryObjEnum.KEYHOLDER);
     
- 
     for c : Node3D in inside_asset_holder.get_children():
         if (c is BagInsides):
             inside_assets.append(c);

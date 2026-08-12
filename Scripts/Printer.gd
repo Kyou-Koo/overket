@@ -66,7 +66,7 @@ func public_insert_object(obj : CarryableObjectBase, p : PlayerController = null
             has_paper = true;
         else:
             return false;
-        Statics.debug_log("inserted {0} into {1}".format([obj.obj_name, self.name]));
+        # Statics.debug_log("inserted {0} into {1}".format([obj.obj_name, self.name]));
         obj_array.append(obj.obj_name);
         current_objects.append(obj.item_type);
         obj.queue_free();
@@ -121,7 +121,7 @@ func update_panel(delta : float) -> void:
         progress_bar.visible = true;
         time_since_interact += delta;
         var curr_progress : float = roundf((time_since_interact*progress_bar.max_value)/interaction_duration);
-        Statics.debug_prolog("new update for {0} : {1}".format([self.name, curr_progress]));
+        # Statics.debug_prolog("new update for {0} : {1}".format([self.name, curr_progress]));
         if curr_progress >= progress_bar.max_value:
             # TODO_LATER: handle arrays multiple
             if (should_output_objects):
@@ -155,8 +155,8 @@ func place_output_object() -> void:
     # consume consumed_objects
     current_objects.clear();
     obj_array.clear();
-    output_instance.global_position = completed_obj_global_loc + Vector3(0, output_instance.obj_height/2.0, 0);
     scene_obj_holder.add_child(output_instance);
+    output_instance.global_position = completed_obj_global_loc + Vector3(0, output_instance.obj_height/2.0, 0);
     out_obj = output_instance;
 
 func _process(delta: float) -> void:

@@ -15,15 +15,18 @@ size = Vector3(0.65737796, 0.548, 0.5)
 height = 1.0
 radius = 0.3
 
-[node name="Bag" type="RigidBody3D" unique_id=915638170 node_paths=PackedStringArray("inside_asset_holder")]
+[node name="Bag" type="RigidBody3D" unique_id=915638170 node_paths=PackedStringArray("inside_asset_holder", "collider")]
+disable_mode = 1
 collision_mask = 7
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 mass = 1.25
+can_sleep = false
 script = ExtResource("1_478p6")
 inside_asset_holder = NodePath("bag/InsideAssets")
 interaction_duration = 3.0
 interaction_gap = 0.25
+collider = NodePath("CollisionShape3D")
 obj_name = "Bag"
 item_type = 128
 obj_height = 0.4

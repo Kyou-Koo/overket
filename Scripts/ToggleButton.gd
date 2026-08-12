@@ -30,11 +30,11 @@ func _input(ev: InputEvent) -> void:
         if (ev.is_action_pressed(&"ui_left", false, true)):
             if (ev.get_action_strength(&"ui_left") > 0.5):
                 new_val = maxf(slider.min_value, new_val - 1.0);
-                Statics.debug_log("is left, new val {0}".format([new_val]))
+                # Statics.debug_log("is left, new val {0}".format([new_val]))
         elif (ev.is_action_pressed(&"ui_right", false, true)):
             if (ev.get_action_strength(&"ui_right") > 0.5):
                 new_val = minf(new_val + 1.0, slider.max_value);
-                Statics.debug_log("is right, new val {0}".format([new_val]))
+                # Statics.debug_log("is right, new val {0}".format([new_val]))
         else:
             return;
         slider.value = new_val;

@@ -15,33 +15,38 @@ func public_take_object() -> CarryableObjectBase:
         # Statics.debug_log("tabletop: {0}".format([objs_on_top.size()]));
         var table_obj : CarryableObjectBase = objs_on_top.pop_back()
         # Statics.debug_log("tabletop aftr: {0}".format([objs_on_top.size()]));
-        obj_on_top_is_bag = false;
+        if (table_obj is Bag):
+            table_obj.disconnect_table_area(self);
+            obj_on_top_is_bag = false;
         return table_obj;
     else:
         return;
 
 func public_place_object(obj : CarryableObjectBase) -> bool:
-    Statics.debug_log("atmpt place {0}".format([obj.name]))
+    # Statics.debug_log("atmpt place {0}".format([obj.name]))
     var num_items_on_top : int = objs_on_top.size();
+    if (num_items_on_top == 1 and obj_on_top_is_bag):
+        var placed_bag : Bag = objs_on_top[0];
+        return placed_bag.public_insert_object(obj);
     # placing
     if (num_items_on_top == 0):
         if (obj is Bag):
             if (obj.connect_table_area(self)):
-                obj.freeze = true;
                 obj_on_top_is_bag = true;
         objs_on_top.append(obj);
         #if (obj.get_parent() != scene_obj_holder):
         obj.get_parent().remove_child(obj);
         scene_obj_holder.add_child(obj);
-        obj.freeze = true;
-        obj.freeze_mode = RigidBody3D.FREEZE_MODE_STATIC;
         obj.global_position = placement_marker.global_position;
         obj.orientate_self();
         obj.linear_velocity = Vector3.ZERO;
         obj.angular_velocity= Vector3.ZERO;
+        obj.freeze = true;
+        obj.freeze_mode = RigidBody3D.FREEZE_MODE_STATIC;
         Statics.debug_log("suc place {0} : at {1} goal: {2} parent {3}".format([
             obj.name, obj.global_position, placement_marker.global_position, str(obj.get_parent())]));
         return true;
+    #region really_do_this_later
     # TODO_LATER: handle multiple items
     # elif (objs_on_top[0].item_type == obj.item_type):
     #     if (objs_on_top[0].can_stack and objs_on_top[0].max_stack < num_items_on_top):
@@ -55,6 +60,7 @@ func public_place_object(obj : CarryableObjectBase) -> bool:
     #         obj.orientate_self();
     #         obj.linear_velocity = Vector3.ZERO;
     #         obj.angular_velocity= Vector3.ZERO;
+    #endregion
             
     var failure_state : String;
     if (num_items_on_top > 0 and !obj.can_stack):

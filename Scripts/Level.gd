@@ -135,7 +135,7 @@ func get_point_in_mesh(mi : MeshInstance3D) -> Vector3:
         randf_range(min_bound.y, max_bound.y));
 
 func modify_customer_goal(in_vec : Vector3) -> Vector3:
-    var mod : Vector3 = Vector3(randf_range(-1, 1), 0, randf_range(0, 2));
+    var mod : Vector3 = Vector3(randf_range(-0.2, 0.2), 0, randf_range(0, 3));
     return mod + in_vec;
 
 func get_order() -> int:
@@ -161,7 +161,7 @@ func spawn_customer() -> void:
     var new_customer : Customer = customer_packed.instantiate();
     # calc chance of being passerby
     if (randf() < passerby_chance):
-        Statics.debug_log("passerby generated");
+        # Statics.debug_log("passerby generated");
         target_goal = exit_goal;
         new_customer.is_passerby = true;
     else: 

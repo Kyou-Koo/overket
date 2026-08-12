@@ -63,7 +63,7 @@ func format_level_select_text(text : String, lefttoright : bool) -> String:
                     new_letter = text_split[j][i];
                 output_str = output_str + gap + new_letter;
                 incoming_str = incoming_str + gap + new_letter;
-            Statics.debug_log("test output: " + incoming_str)
+            # Statics.debug_log("test output: " + incoming_str)
             output_str = output_str + "\n";
     return output_str;
 

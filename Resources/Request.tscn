@@ -14,6 +14,7 @@
 [ext_resource type="LabelSettings" uid="uid://cgl6wwmot7xg7" path="res://Resources/Themes/level_label.tres" id="12_i6n17"]
 
 [node name="Request" type="NinePatchRect" unique_id=28261208 node_paths=PackedStringArray("countdown_timer", "request_item_holder", "order_num")]
+self_modulate = Color(1, 1, 1, 0.5686275)
 custom_minimum_size = Vector2(256, 300)
 anchors_preset = 15
 anchor_right = 1.0

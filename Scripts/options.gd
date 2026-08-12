@@ -126,7 +126,7 @@ func _ready() -> void:
             SaveDataMgr.set_lang(lang_str);
         if (in_main_menu):
             GameManager._instance.transition_to.connect(_on_menu_transition);
-    Statics.debug_log("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()]));
+    # Statics.debug_log("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()]));
     get_node("NinePatchRect/Language Control/{0}".format([lang_str.capitalize()])).grab_focus.call_deferred();
     player_controls_all = $NinePatchRect/Box;
     player_controls_all.focus_entered.connect(_on_player_controls_box_focused);

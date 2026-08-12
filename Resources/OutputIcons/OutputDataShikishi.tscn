@@ -15,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=448033189]
+self_modulate = Color(1, 1, 1, 0.5686275)
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 0
 offset_right = 40.0

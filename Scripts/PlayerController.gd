@@ -7,7 +7,7 @@ class_name PlayerController extends CharacterBody3D
 @onready var gravity : float = -ProjectSettings.get_setting("physics/3d/default_gravity");
 @export var speed : float = 5.0;
 @export var jump : float = 20.0;
-@export var interaction_radius : float;
+# @export var interaction_radius : float;
 @export var ok_id : String;
 @export_range(0, 3) var rand_head : int = 0;
 @export_range(0, 3) var rand_face : int = 0;
@@ -95,7 +95,13 @@ func object_drop() -> void:
         
 func object_pick() -> void:
     if (interactable_objects.size() > 0):
-        if (closest_body is Table and closest_body is not GarbageCan):
+        if (closest_body is DeliveryPoint):
+            # search for next closest body
+            for key : StringName in interactable_objects:
+                if (interactable_objects[key] is CarryableObjectBase):
+                    object_hold(interactable_objects[key]);
+                    return;
+        elif (closest_body is Table and closest_body is not GarbageCan):
             object_hold((closest_body as Table).public_take_object());
             return;
         elif (closest_body is CarryableObjectBase):
@@ -337,11 +343,11 @@ func _physics_process(delta : float) -> void:
             curr_state = PSTATE.NEUTRAL;
     
             
-func _input(event: InputEvent) -> void:
-    return
-    if (event.is_pressed()): 
-        #Statics.debug_log(event.as_text());
-        Statics.debug_log("obj in scene: {0}".format([str(scene_obj_holder.get_children())]))
+# func _input(event: InputEvent) -> void:
+#     return
+#     if (event.is_pressed()): 
+#         #Statics.debug_log(event.as_text());
+#         Statics.debug_log("obj in scene: {0}".format([str(scene_obj_holder.get_children())]))
             
 func _ready() -> void:
     self.ok_id = Statics.create_ok_id(self);
@@ -353,15 +359,15 @@ func _ready() -> void:
     for c in children:
         if c is Marker3D:
             carried_object_parent = c;
-            Statics.debug_log("Carry position for {0} assigned at {1}".format([
-                self.name,
-                carried_object_parent.position,
-            ]))
+            # Statics.debug_log("Carry position for {0} assigned at {1}".format([
+            #     self.name,
+            #     carried_object_parent.position,
+            # ]))
         if c is Area3D:
             interaction_area = c;
-            var interaction_collider : CollisionShape3D = interaction_area.get_child(0) as CollisionShape3D;
-            assert(interaction_collider.shape is CylinderShape3D, "Must set player interaction shape to Cylinder3D");
-            (interaction_collider.shape as CylinderShape3D).radius = interaction_radius;
+            # var interaction_collider : CollisionShape3D = interaction_area.get_child(0) as CollisionShape3D;
+            # assert(interaction_collider.shape is CylinderShape3D, "Must set player interaction shape to Cylinder3D");
+            # (interaction_collider.shape as CylinderShape3D).radius = interaction_radius;
             # set signals
             interaction_area.body_entered.connect(_on_body_enter);
             interaction_area.body_exited.connect(_on_body_exit);

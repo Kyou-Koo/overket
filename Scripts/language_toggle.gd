@@ -70,4 +70,4 @@ func _ready() -> void:
     self.focus_entered.connect(_on_focus_entered);
 
     focus_background.visible = false;
-    Statics.debug_log("where is focus bg: {0}, visible? {1}".format([focus_background.name, focus_background.visible]));
+    # Statics.debug_log("where is focus bg: {0}, visible? {1}".format([focus_background.name, focus_background.visible]));

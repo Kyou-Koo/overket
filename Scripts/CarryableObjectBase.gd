@@ -22,8 +22,8 @@ func _on_body_entered(body : Node3D) -> void:
     # should auto-place self on table when thrown in range
     if (!is_being_carried):
         if (body is Table):
-            body.public_place_object(self);
-            is_being_carried = true;
+            if (body.public_place_object(self)):
+                is_being_carried = true;
         elif (body is Printer):
             body.public_insert_object(self);
             

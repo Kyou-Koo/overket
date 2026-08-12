@@ -191,13 +191,13 @@ func _ready() -> void:
     # check for existing saved keymap
     SaveDataMgr.load_keymap();
     SaveDataMgr.load_savedata();
-    var player_regex : RegEx = RegEx.create_from_string("p[1-4]");
-    for inp in InputMap.get_actions():
-        if player_regex.search(inp):
-            Statics.debug_log("act: {0} event: {1}".format([
-                inp,
-                str(InputMap.action_get_events(inp))
-                ]));
+    # var player_regex : RegEx = RegEx.create_from_string("p[1-4]");
+    # for inp in InputMap.get_actions():
+    #     if player_regex.search(inp):
+    #         Statics.debug_log("act: {0} event: {1}".format([
+    #             inp,
+    #             str(InputMap.action_get_events(inp))
+    #             ]));
     set_lang_from_save();
     get_viewport().get_window().move_to_center();
     var window_size_enum : SaveDataMgr.Resolution = SaveDataMgr.get_resolution_enum();

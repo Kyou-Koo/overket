@@ -129,7 +129,7 @@ static func update_keymap(player: String, control: ACTTYPE, new_key : InputEvent
     else:
         active_keymap[player][con_str] = input_dict;
         if (player == "p1" or player == "p2"):
-            Statics.debug_log(str(active_keymap[player][con_str]))
+            # Statics.debug_log(str(active_keymap[player][con_str]))
             pair_input = InputStatics.create_input_event_from_dict(active_keymap[player][con_str]["key"]);
     
     var input_arr : Array[InputEvent] = [new_key];

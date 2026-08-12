@@ -7,7 +7,7 @@ var debug_time_f : float = debug_time as float;
 @export var parent_3dlevel : Level;
 var request_scn_pack : PackedScene;
 var request_scns : Array[Request];
-var request_scns_max : int = 6;
+var request_scns_max : int = 5;
 var request_x_start : float = 0.0;
 # stores requests that need to be inserted
 # !! please pop them off
@@ -73,6 +73,7 @@ func remove_request(r : Request) -> void:
     var rm_x : float = request_scns[order].position.x;
     request_scns.remove_at(order);
     if (r.remaining_time > 0.0):
+        AudioManager._instance.play_SFX(AudioFiles.ORDER_COMPLETE);
         var gain : int = r.worth;
         if (r.pct_remain < r.bound_good):
             gain = roundi(r.worth * r.pct_remain);

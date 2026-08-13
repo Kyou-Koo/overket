@@ -1,0 +1,21 @@
+遊び方／How To Play
+操作／Use：			ノートパソコン操作／Operate the laptop
+取る・放す／Pick・Drop：	取る・投げるアイテム・コピー機に入れる・箱から取る／Pick up and throw items, put items into printer, take items from boxes
+
+メニュー／Menu:	　キーボード／Keyboard		ゲームパッド／Gamepad
+移動／Move：	 矢印キー／Arrow Keys	方向キー／D-Pad
+セレクト／Select：	 Enter			×（下のアクションボタン／Bottom Action Button）
+キャンセル／Cancel:	 Esc			△（上のアクションボタン／Top Action Button）
+
+					ソニー・ニンテンドー・Xbox／Sony・Nintendo・Xbox
+P1　キーボード／Keyboard：	P2　キーボード	ゲームパッド／Gamepad
+ポーズ／Pause：	 Esc	Esc		スタートボタン／Start Button
+以降のコントロールは変更できる／The following controls can be re-bound：
+上移動／Up：	 W	O		左スティック／L Stick
+下移動／Down：	 S	L		左スティック／L Stick
+右移動／Right：	 D	;		左スティック／L Stick
+左移動／Left：	 A	K		左スティック／L Stick
+操作／Use：		 E	P		△・X・Y
+取る・放す／Pick・Drop:Q	I		〇・A・B
+ジャンプ／Jump：	 F	'		×・B・A
+

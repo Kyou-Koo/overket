@@ -1098,7 +1098,6 @@ text = "OPTIONS_APPLY"
 text_overrun_behavior = 1
 
 [node name="WaitingContainer" type="Control" parent="NinePatchRect/KeybindingRect" unique_id=177602923 node_paths=PackedStringArray("line_one", "line_two", "line_three")]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

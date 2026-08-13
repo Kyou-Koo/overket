@@ -270,7 +270,7 @@ func _physics_process(delta: float) -> void:
         sprite_request_bg.visible = false;
         if (!is_passerby):
             leaving_goal.emit(self);
-        if (!is_offscreen()):
+        if (!reached_goal(exit)):
             move_and_collide(navigate(exit) * delta * move_speed);
         else:
             exit_reached.emit(self);

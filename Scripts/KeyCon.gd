@@ -83,8 +83,8 @@ static func write_keymap_to_engine() -> void:
         if (!player_regex.search(key.to_lower())):
             continue;
         for p_control : String in active_keymap[key]:
+            InputMap.action_erase_events(key + p_control);
             for event : String in active_keymap[key][p_control]:
-                InputMap.action_erase_events(key + p_control);
                 InputMap.action_add_event(
                     key + p_control, 
                     InputStatics.create_input_event_from_dict(active_keymap[key][p_control][event])

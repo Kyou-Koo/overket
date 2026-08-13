@@ -57,6 +57,8 @@ corner_radius_bottom_left = 4
 expand_margin_top = 8.0
 expand_margin_bottom = 8.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ctfe6"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vtr05"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yg2uy"]
@@ -126,6 +128,7 @@ Label/colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 Label/constants/line_spacing = -5
 Label/font_sizes/font_size = 40
 Label/fonts/font = ExtResource("1_11lvq")
+Label/styles/focus = SubResource("StyleBoxEmpty_ctfe6")
 LanguageButton/base_type = &"Button"
 LanguageButton/colors/font_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
 LanguageButton/colors/font_focus_color = Color(0.42745098, 0.41960785, 0.6431373, 1)
